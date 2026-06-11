@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La mesa de trabajo</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.controles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.add{min-height:50px;padding:8px 10px;border:1.5px solid var(--tinta);border-radius:10px;background:var(--tarjeta);font-size:13px;font-weight:600;cursor:pointer;color:var(--tinta);text-align:left}
+.add small{display:block;font-weight:400;color:#6b7280;font-size:11px}
+.fila{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.vaciar{min-height:44px;padding:8px 14px;border:1.5px solid var(--sello);border-radius:10px;background:transparent;color:var(--sello);font-size:13px;font-weight:700;cursor:pointer}
+.medidor{margin-left:auto;background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:20px;padding:8px 14px;font-weight:700;font-size:14px;color:var(--laton);font-variant-numeric:tabular-nums}
+.medidor.lleno{border-color:var(--sello);color:var(--sello)}
+.mesa{position:relative;border:3px dashed var(--laton);border-radius:14px;padding:18px 12px 14px;min-height:240px;background:repeating-linear-gradient(45deg,rgba(138,109,47,.04) 0 10px,transparent 10px 20px),#faf8f2;display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;align-content:start;margin-bottom:14px}
+.mesa::before{content:"MESA DE TRABAJO · contexto";position:absolute;top:-11px;left:14px;background:var(--papel);padding:1px 8px;font-size:10px;font-weight:800;letter-spacing:.1em;color:var(--laton)}
+.ficha{background:var(--tarjeta);border:1px solid var(--linea);border-left:4px solid var(--verde);border-radius:8px;padding:8px 9px;font-size:12.5px;line-height:1.35;animation:entra .25s ease;box-shadow:0 2px 5px rgba(31,42,55,.07)}
+.ficha.sistema{border-left-color:var(--laton);background:#fdf8ec}
+.ficha .emoji{font-size:17px;display:block;margin-bottom:2px}
+.ficha .nom{font-weight:600}
+.ficha .edad{display:block;font-size:10px;color:#9aa1ab;margin-top:3px}
+.ficha .edad.alerta{color:var(--sello);font-weight:700}
+.ficha.cae{animation:cae .5s ease-in forwards}
+@keyframes entra{from{opacity:0;transform:translateY(-10px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes cae{to{opacity:0;transform:translateY(70px) rotate(12deg) scale(.7)}}
+.aviso{font-size:13.5px;color:#7a2224;font-weight:600;background:#f7eceb;border:1.5px solid var(--sello);border-radius:10px;padding:12px;margin-bottom:12px;display:none}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px}
+.moraleja strong{color:#e8c87a}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (prefers-reduced-motion:reduce){.ficha,.ficha.cae{animation:none}.ficha.cae{opacity:0}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 4 · Bloque 2 · Ventana de contexto</div>
+  <h1>La mesa de trabajo del modelo</h1>
+  <p class="instr">El modelo solo "ve" lo que está sobre la mesa, y la mesa aguanta <strong>12 fichas</strong>. Cargá piezas del caso y observá qué pasa cuando se llena: <strong>lo más viejo se cae, en silencio.</strong></p>
+
+  <div class="controles">
+    <button class="add" data-e="📜" data-t="norma">+ Normativa<small>Ley, acordada, decreto</small></button>
+    <button class="add" data-e="📄" data-t="escrito">+ Pieza del expediente<small>Demanda, contestación, pericia</small></button>
+    <button class="add" data-e="❓" data-t="pregunta">+ Pregunta tuya<small>Una consulta más al modelo</small></button>
+    <button class="add" data-e="💬" data-t="aclaracion">+ Aclaración<small>"Tono formal", "máx. 2 carillas"…</small></button>
+  </div>
+  <div class="fila">
+    <button class="vaciar" id="vaciar">🗑 Vaciar mesa</button>
+    <div class="medidor" id="medidor">1 / 12</div>
+  </div>
+
+  <div class="mesa" id="mesa"></div>
+  <div class="aviso" id="aviso">⚠️ <strong>La mesa se llenó.</strong> Cada ficha nueva tira la más antigua — incluida, quizás, la consigna que diste al principio del chat. El modelo no avisa: simplemente deja de verla.</div>
+
+  <div class="moraleja">
+    <strong>Lo que hay que llevarse:</strong> en un chat largo, lo que dijiste al principio puede haberse caído de la mesa — por eso el modelo "se olvida" de la consigna inicial. Si la instrucción importa, <strong>repetila o abrí un chat nuevo</strong> y volvé a fijar el contexto. Y recordá: lo que ponés acá no entrena al modelo; es información temporal de esta conversación.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const CAP=12;
+const NOMBRES={
+ norma:["Ley 24.240","Acordada 22/25 STJRN","CPCC Río Negro","Ley 27.551","Decreto reglamentario","CCyCN arts. 1090/91"],
+ escrito:["Escrito de demanda","Contestación","Pericia mecánica","Cédula de notificación","Fallo de Cámara","Alegato"],
+ pregunta:["¿Procede el daño punitivo?","¿Qué plazo corre?","¿Hay precedente local?","¿Cómo computar intereses?","¿Es competente el fuero?"],
+ aclaracion:["Tono formal","Máx. 2 carillas","Citar solo fuentes verificadas","Sin latinismos","Formato de sumario"]
+};
+let fichas=[],contador=0;
+const $=id=>document.getElementById(id);
+const mesa=$('mesa');
+
+function fijarSistema(){
+  contador++;
+  const d=document.createElement('div');
+  d.className='ficha sistema';
+  d.innerHTML='<span class="emoji">⚙️</span><span class="nom">Instrucciones del sistema</span><span class="edad">fija · no se cae</span>';
+  mesa.appendChild(d);
+}
+
+function actualizar(){
+  $('medidor').textContent=(fichas.length+1)+' / '+CAP;
+  $('medidor').classList.toggle('lleno',fichas.length+1>=CAP);
+  fichas.forEach((f,i)=>{
+    const e=f.el.querySelector('.edad');
+    if(i===fichas.length-1){e.textContent='↑ más reciente';e.className='edad';}
+    else if(i===0){e.textContent='↓ a punto de caer';e.className='edad alerta';}
+    else{e.textContent='ficha #'+f.id;e.className='edad';}
+  });
+}
+
+document.querySelectorAll('.add').forEach(b=>{
+  b.addEventListener('click',()=>{
+    const t=b.dataset.t,e=b.dataset.e;
+    const pool=NOMBRES[t];
+    const nom=pool[Math.floor(Math.random()*pool.length)];
+    contador++;
+    if(fichas.length+1>=CAP){
+      const vieja=fichas.shift();
+      vieja.el.classList.add('cae');
+      setTimeout(()=>vieja.el.remove(),480);
+      $('aviso').style.display='block';
+    }
+    const d=document.createElement('div');
+    d.className='ficha';
+    d.innerHTML='<span class="emoji">'+e+'</span><span class="nom">'+nom+'</span><span class="edad"></span>';
+    mesa.appendChild(d);
+    fichas.push({el:d,id:contador});
+    actualizar();
+  });
+});
+
+$('vaciar').addEventListener('click',()=>{
+  mesa.innerHTML='';fichas=[];contador=0;
+  $('aviso').style.display='none';
+  fijarSistema();actualizar();
+});
+
+fijarSistema();actualizar();
+</script>
+</body>
+</html>

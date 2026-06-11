@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chatbot vs Agente</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,29px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.tareas{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.tareas button{min-height:44px;padding:8px 14px;border:1.5px solid var(--linea);border-radius:22px;background:var(--tarjeta);font-size:13px;font-weight:600;cursor:pointer;color:var(--tinta)}
+.tareas button.activa{border-color:var(--tinta);background:#eef2f7}
+.meta{background:#1f2a37;color:#e7e9ee;border-radius:10px;padding:12px 14px;font-size:13.5px;margin-bottom:14px;display:none}
+.meta strong{color:#e8c87a;font-size:10.5px;letter-spacing:.12em;display:block;margin-bottom:4px}
+.panel{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:14px;margin-bottom:12px}
+.panel.chat{border-top:5px solid #8a93a3}
+.panel.agente{border-top:5px solid var(--laton)}
+.panel h2{font-family:Georgia,serif;font-size:16.5px;margin-bottom:2px}
+.panel .sub{font-size:12px;color:#6b7280;margin-bottom:10px}
+.btn{min-height:48px;padding:10px 16px;border:none;border-radius:10px;color:#fff;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-bottom:10px}
+.btn.gris{background:#8a93a3}
+.btn.oro{background:var(--laton)}
+.btn:disabled{opacity:.45}
+.turnos{font-size:11px;color:#9aa1ab;text-align:right;margin-bottom:8px;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.pasos{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:10px}
+.paso{background:#faf9f5;border-left:4px solid var(--linea);border-radius:8px;padding:9px 11px;font-size:13px;line-height:1.4;opacity:.3;transform:translateX(-6px);transition:all .25s ease}
+.paso.activo{opacity:1;transform:none;border-left-color:var(--laton);background:#fdf8ec}
+.paso.hecho{opacity:1;transform:none;border-left-color:var(--verde)}
+.paso .et{font-weight:700}
+.paso .det{display:block;color:#6b7280;font-size:12px;margin-top:3px}
+.paso.hecho .det{color:#3d6b53}
+.salida{border-radius:8px;padding:11px 12px;font-size:13px;line-height:1.5;white-space:pre-wrap;display:none}
+.salida .h{font-size:10px;font-weight:800;letter-spacing:.1em;margin-bottom:5px}
+.chat .salida{background:#f1f2f4;border-left:4px solid #8a93a3}
+.chat .salida .h{color:#6b7280}
+.chat .alerta{color:var(--sello);font-size:12px;margin-top:8px;font-weight:600}
+.agente .salida{background:#f1f6f3;border-left:4px solid var(--verde)}
+.agente .salida .h{color:var(--verde)}
+.sello{display:inline-block;border:3px solid var(--verde);color:var(--verde);padding:5px 12px;border-radius:6px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px;transform:rotate(-3deg);animation:est .35s ease-out;margin-bottom:8px}
+@keyframes est{0%{transform:rotate(-3deg) scale(1.7);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;display:none}
+.moraleja strong{color:#e8c87a}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (prefers-reduced-motion:reduce){.sello{animation:none}.paso{transition:none}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 10 · Bloque 2 · La era agéntica</div>
+  <h1>De responder a actuar</h1>
+  <p class="instr">Un chatbot responde lo que le suena, en un turno. Un agente <strong>planifica, usa herramientas, observa y se corrige</strong> en un bucle. Elegí una tarea y corré los dos con el mismo pedido.</p>
+
+  <div class="tareas" id="tareas"></div>
+  <div class="meta" id="meta"><strong>TAREA DELEGADA</strong><span id="metaTxt"></span></div>
+
+  <div class="panel chat">
+    <h2>💬 Chatbot</h2>
+    <div class="sub">Una entrada, una salida. Confiado, sin verificar.</div>
+    <button class="btn gris" id="runChat" disabled>▶ Responder</button>
+    <div class="turnos" id="tChat">0 turnos internos</div>
+    <div class="salida" id="outChat"></div>
+  </div>
+
+  <div class="panel agente">
+    <h2>⚙️ Agente</h2>
+    <div class="sub">Bucle: pensar → actuar con herramientas → observar → decidir → autoevaluar.</div>
+    <button class="btn oro" id="runAg" disabled>▶ Ejecutar agente</button>
+    <div class="turnos" id="tAg">0 turnos internos</div>
+    <ul class="pasos" id="pasos"></ul>
+    <div class="salida" id="outAg"></div>
+  </div>
+
+  <div class="moraleja" id="moraleja">
+    <strong>Lo que hay que llevarse:</strong> el chatbot tomó el atajo — un turno, tono seguro, cero verificación. El agente gastó más turnos pero <strong>recorrió el bucle</strong>: planificó, usó herramientas, observó resultados, se autoevaluó contra criterios e iteró. Y fijate el detalle final: lo irreversible quedó esperando <strong>tu aprobación</strong>. La diferencia no está en el modelo — está en cómo lo orquestás y en qué controles le exigís. Por eso un agente es más potente y, a la vez, menos predecible: dos corridas pueden tomar caminos distintos.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const TAREAS=[
+ {label:"Verificar las citas de un escrito",
+  meta:"Antes de presentar este escrito, verificá que las 6 citas de jurisprudencia y normativa existan y digan lo que el escrito afirma.",
+  chat:{out:"He revisado el escrito y las citas se ven correctas. La jurisprudencia mencionada es pertinente y la normativa citada respalda adecuadamente los argumentos. El escrito está listo para presentar.",
+   warn:"⚠ No abrió ningún fallo · No consultó ninguna base · 'Se ven correctas' no es verificación"},
+  pasos:[
+   {et:"🎯 Planifica",det:"Lista las 6 citas. Para cada una: ubicar el texto original, cotejar carátula, fecha y contenido afirmado."},
+   {et:"🔍 Actúa: busca en base oficial",det:"Consulta fallos.jusrionegro y SAIJ por cada carátula citada."},
+   {et:"👁 Observa",det:"5 citas localizadas. 1 no aparece: \"Suárez c/ Andina Motors, CNCom 2021\" — sin resultados en ninguna base."},
+   {et:"🔍 Actúa: coteja contenido",det:"Compara lo que el escrito afirma contra el texto real de las 5 encontradas."},
+   {et:"👁 Observa",det:"4 coinciden. 1 dice lo CONTRARIO de lo afirmado: el escrito invierte el criterio del fallo sobre intereses."},
+   {et:"🧪 Autoevalúa",det:"Checklist: ¿todas verificadas? Sí. ¿Hallazgos documentados con fuente? Sí. ¿Toqué el escrito original? No — correcto."},
+   {et:"✅ Entrega y espera",det:"Informe de verificación listo. No modifica el escrito: las correcciones las decide el humano."}],
+  out:"INFORME DE VERIFICACIÓN DE CITAS\n✔ 4 citas verificadas: existen y coinciden con lo afirmado (links a fuente).\n✖ 1 cita INEXISTENTE: \"Suárez c/ Andina Motors\" — no aparece en CNCom ni en bases oficiales. Recomiendo eliminarla.\n⚠ 1 cita INVERTIDA: el fallo real sostiene lo contrario sobre el cómputo de intereses (transcribo el párrafo textual).\n\nNo modifiqué el escrito. Espero tus instrucciones."},
+ {label:"Resumen ejecutivo de un expediente de 300 fojas",
+  meta:"Resumir el expediente completo para el/la magistrado/a: hitos con cita de foja, sin interpretaciones, máximo 8 viñetas.",
+  chat:{out:"El expediente trata sobre un reclamo de daños por incumplimiento de garantía de un vehículo. La documentación está completa y los argumentos de la actora se encuentran debidamente fundados. Se sugiere hacer lugar a la demanda.",
+   warn:"⚠ Sin fojas · Sin cronología · 'Se sugiere hacer lugar' opina sin que nadie se lo pida"},
+  pasos:[
+   {et:"🎯 Planifica",det:"Sub-tareas: recorrer foliatura → extraer hitos con fecha y foja → detectar faltantes → sintetizar sin opinar."},
+   {et:"🔍 Actúa: lee el expediente",det:"Recorre las 300 fojas. Marca: demanda (fs. 1), contestación (fs. 48), pericia mecánica (fs. 112), alegatos (fs. 270)."},
+   {et:"👁 Observa",det:"7 hitos identificados. Detecta faltante: la pericia contable ordenada a fs. 130 no obra agregada."},
+   {et:"✍️ Actúa: redacta",det:"8 viñetas cronológicas, cada una con su foja. Sección final: 'pendientes detectados'."},
+   {et:"🧪 Autoevalúa",det:"Checklist: ¿≤8 viñetas? Sí. ¿Todas con foja? Una sin foja → corrige. ¿Opiniones? Detecta un 'parece fundado' → lo elimina."},
+   {et:"🔁 Itera",det:"Versión 2: foja agregada, opinión eliminada. Re-chequea: 5/5 criterios cumplidos."},
+   {et:"✅ Entrega",det:"Resumen verificado contra los criterios. El mérito lo evalúa el humano."}],
+  out:"RESUMEN EJECUTIVO\n• fs. 1 — Demanda: daños por fallas reiteradas de vehículo 0km.\n• fs. 48 — Contestación: niega nexo causal, ofrece pericia.\n• fs. 112 — Pericia mecánica: constata 19 ingresos a taller.\n• fs. 130 — Se ordena pericia contable. ⚠ NO OBRA AGREGADA.\n• fs. 270 — Alegatos de ambas partes.\nPENDIENTE: pericia contable sin producir. Sin opiniones sobre el mérito."}];
+
+let sel=null,corriendo=false;
+const $=id=>document.getElementById(id);
+
+const tb=$('tareas');
+TAREAS.forEach((t,i)=>{
+  const b=document.createElement('button');
+  b.textContent=t.label;
+  b.addEventListener('click',()=>{
+    if(corriendo)return;
+    sel=i;
+    document.querySelectorAll('.tareas button').forEach((x,j)=>x.classList.toggle('activa',j===i));
+    $('meta').style.display='block';
+    $('metaTxt').textContent=t.meta;
+    $('outChat').style.display='none';$('outAg').style.display='none';
+    $('pasos').innerHTML='';
+    $('tChat').textContent='0 turnos internos';$('tAg').textContent='0 turnos internos';
+    $('moraleja').style.display='none';
+    $('runChat').disabled=false;$('runAg').disabled=false;
+  });
+  tb.appendChild(b);
+});
+
+function revelar(){
+  const c=$('outChat').style.display==='block';
+  const a=$('outAg').style.display==='block';
+  if(c&&a)$('moraleja').style.display='block';
+}
+
+$('runChat').addEventListener('click',()=>{
+  if(sel===null)return;
+  const t=TAREAS[sel];
+  $('tChat').textContent='1 turno · respuesta directa';
+  const o=$('outChat');
+  o.style.display='block';
+  o.innerHTML='<div class="h">RESPUESTA</div>'+t.chat.out+'<div class="alerta">'+t.chat.warn+'</div>';
+  revelar();
+});
+
+$('runAg').addEventListener('click',async()=>{
+  if(sel===null||corriendo)return;
+  corriendo=true;$('runAg').disabled=true;
+  const t=TAREAS[sel];
+  const ul=$('pasos');ul.innerHTML='';
+  $('outAg').style.display='none';
+  t.pasos.forEach(p=>{
+    const li=document.createElement('li');
+    li.className='paso';
+    li.innerHTML='<span class="et">'+p.et+'</span><span class="det">'+p.det+'</span>';
+    ul.appendChild(li);
+  });
+  const lis=[...ul.children];
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  for(let i=0;i<lis.length;i++){
+    if(i>0){lis[i-1].classList.remove('activo');lis[i-1].classList.add('hecho');}
+    lis[i].classList.add('activo');
+    $('tAg').textContent=(i+1)+' turnos internos';
+    await new Promise(r=>setTimeout(r,reduce?60:900));
+  }
+  lis[lis.length-1].classList.remove('activo');
+  lis[lis.length-1].classList.add('hecho');
+  const o=$('outAg');
+  o.style.display='block';
+  o.innerHTML='<span class="sello">Esperando aprobación humana</span><div class="h">ENTREGA</div>'+t.out;
+  corriendo=false;$('runAg').disabled=false;
+  revelar();
+});
+</script>
+</body>
+</html>

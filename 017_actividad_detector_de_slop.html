@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Respuesta útil o slop?</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,29px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.barra-wrap{height:8px;background:#e7e4da;border-radius:4px;overflow:hidden;margin-bottom:14px}
+.barra{height:100%;width:0;background:var(--laton);transition:width .3s}
+.tarjeta{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:16px}
+.prompt-box{background:#22293a;color:#cbd2dd;border-radius:10px;padding:10px 12px;font-size:13px;margin-bottom:10px}
+.prompt-box .h{font-size:10px;font-weight:800;letter-spacing:.1em;color:#8fb5d9;margin-bottom:4px}
+.respuesta{background:#faf9f5;border:1px solid var(--linea);border-left:4px solid var(--laton);border-radius:8px;padding:12px;font-size:14px;line-height:1.5;margin-bottom:14px;white-space:pre-wrap}
+.respuesta .h{font-size:10px;font-weight:800;letter-spacing:.1em;color:#6b7280;margin-bottom:6px}
+.veredictos{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.ver{min-height:60px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;padding:10px}
+.ver.buena{border:2px solid var(--verde);background:#eef5f0;color:var(--verde)}
+.ver.slop{border:2px solid var(--sello);background:#f8efee;color:var(--sello)}
+.ver:disabled{opacity:.45;cursor:default}
+.ver.correcta{opacity:1;box-shadow:0 0 0 3px rgba(46,107,79,.25)}
+.sello{display:inline-block;border:3px solid;padding:5px 12px;border-radius:6px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px;transform:rotate(-3deg);animation:est .35s ease-out;margin-bottom:8px}
+.s-verde{border-color:var(--verde);color:var(--verde)}
+.s-rojo{border-color:var(--sello);color:var(--sello)}
+@keyframes est{0%{transform:rotate(-3deg) scale(1.7);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+.fb{margin-top:14px}
+.fb .txt{font-size:14px;color:#374151;margin-bottom:8px}
+.marcas{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.marca{font-size:11px;font-weight:700;padding:3px 9px;border-radius:5px;border:1.5px solid}
+.m-mal{color:var(--sello);border-color:#e3c3c4;background:#faf2f1}
+.m-bien{color:var(--verde);border-color:#c2d6ca;background:#f1f6f3}
+.btn-sig{display:block;width:100%;min-height:48px;border:none;border-radius:10px;background:var(--tinta);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.final{text-align:center}
+.final .nota{font-family:Georgia,serif;font-size:42px;margin:8px 0;color:var(--laton)}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;text-align:left;margin-top:12px}
+.moraleja strong{color:#e8c87a}
+.oculto{display:none}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (max-width:420px){.veredictos{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.sello{animation:none}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 9 · Bloque 2 · Cierre — el ojo crítico</div>
+  <h1>¿Respuesta útil o "slop"?</h1>
+  <p class="instr">El <em>slop</em> es la salida que <strong>parece</strong> profesional pero está vacía, es genérica o está confiadamente errada. Tu trabajo es olfatearlo antes de que llegue a un escrito. Seis casos: vos decidís.</p>
+
+  <div class="barra-wrap"><div class="barra" id="barra"></div></div>
+  <div id="zona"></div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const CASOS=[
+ {p:"Resumime los puntos clave del expediente sobre el incumplimiento de garantía.",
+  r:"Para resumir los puntos clave del expediente sobre el incumplimiento de garantía, es importante considerar varios aspectos relevantes. En primer lugar, el expediente trata sobre un incumplimiento de garantía. En segundo lugar, este incumplimiento es relevante porque afecta los derechos de las partes. En tercer lugar, se recomienda analizar la cuestión en detalle. Espero que este resumen haya sido de utilidad.",
+  slop:true,
+  fbT:"Slop clásico: forma sin contenido.",
+  fbX:"Repite la pregunta simulando estructura ('en primer lugar…') pero no aporta un solo dato: ni una foja, ni una fecha, ni una parte, ni una norma. Si pegás esto en un informe, queda en evidencia al instante.",
+  m:[["m-mal","Tautológico"],["m-mal","Cero datos"],["m-mal","Sin fojas ni fechas"],["m-mal","Cierre de relleno"]]},
+ {p:"¿Qué dice textualmente el art. 1091 del CCyCN?",
+  r:"No puedo garantizarte el texto exacto, así que no te lo voy a transcribir. Lo que sí puedo decirte: el art. 1091 del CCyCN regula la imprevisión — permite a la parte perjudicada pedir la resolución o adecuación del contrato ante una alteración extraordinaria de las circunstancias, ajena a su riesgo. Para citarlo textualmente en tu dictamen, copialo de Infoleg o SAIJ.",
+  slop:false,
+  fbT:"Buena respuesta: parafrasea, no inventa, deriva a la fuente.",
+  fbX:"Evita la trampa de 'completar' el texto exacto, ofrece una paráfrasis honesta y deriva explícitamente a la fuente oficial. Esto es exactamente lo que querés cuando trabajás con normativa.",
+  m:[["m-bien","No inventa el texto"],["m-bien","Paráfrasis honesta"],["m-bien","Deriva a Infoleg/SAIJ"]]},
+ {p:"Analizame la procedencia del daño punitivo en este caso.",
+  r:"Tras un exhaustivo análisis de la documentación aportada, concluyo que el daño punitivo es plenamente procedente conforme el art. 52 bis LDC, con un tope actualizado de $ 215.000.000 según la Resolución SCI 41/2025, y siguiendo el criterio unánime de la CSJN en \"Territorio c/ Plan Óvalo\" (Fallos 346:1112). Se recomienda solicitar el máximo legal sin reservas.",
+  slop:true,
+  fbT:"Slop peligroso: confianza absoluta con datos sin verificar.",
+  fbX:"Tres banderas rojas: dice 'exhaustivo análisis' sin haber recibido documento alguno; da una cifra y una resolución que no podés verificar desde la respuesta; y cita un fallo de CSJN con tomo y foja que puede ser inventado. La tranquilidad del tono es lo que más debe alarmarte: 'sin reservas' no existe en derecho.",
+  m:[["m-mal","'Exhaustivo' sin documentos"],["m-mal","Cifra no verificada"],["m-mal","Cita con formato perfecto"],["m-mal","Falsa certeza"]]},
+ {p:"Redactá un borrador de carta documento por incumplimiento contractual.",
+  r:"CARTA DOCUMENTO\n\nAl Sr./Sra.: [nombre — completar]\nDomicilio: [completar]\n\nIntimo a Ud. en el plazo de [X] días a cumplir la obligación asumida en el contrato de fecha [completar], consistente en [detallar prestación], bajo apercibimiento de accionar judicialmente por cumplimiento o resolución, con más daños y perjuicios.\n\nQueda Ud. debidamente notificado/a.\n[Firma — completar]",
+  slop:false,
+  fbT:"Buena respuesta: estructura sólida, campos pendientes marcados.",
+  fbX:"Estructura correcta de intimación, lenguaje apropiado, y —clave— marca explícitamente con [corchetes] todo lo que el humano debe completar, en vez de inventar nombres, plazos o fechas. Es un borrador honesto, listo para tu revisión.",
+  m:[["m-bien","Estructura correcta"],["m-bien","No inventa datos"],["m-bien","Campos [a completar]"],["m-bien","Listo para revisión"]]},
+ {p:"Haceme un análisis de riesgos procesales de mi caso.",
+  r:"RIESGOS PROCESALES IDENTIFICADOS:\n• Riesgo probatorio: la prueba podría resultar insuficiente.\n• Riesgo de plazos: existe la posibilidad de que algún plazo venza.\n• Riesgo de costas: en caso de rechazo, podrían imponerse costas.\n• Riesgo recursivo: la contraria podría apelar.\nSe recomienda un seguimiento cuidadoso del expediente.",
+  slop:true,
+  fbT:"Slop genérico: vale para cualquier expediente del país.",
+  fbX:"Ni un solo dato del caso concreto: 'la prueba podría ser insuficiente' y 'algún plazo podría vencer' aplican a todo juicio que haya existido. El modelo no recibió información del caso y rellenó con vaguedades de aspecto profesional. El test infalible: ¿esta respuesta cambiaría si el caso fuera otro? Si no, es slop.",
+  m:[["m-mal","Genérico total"],["m-mal","Sin datos del caso"],["m-mal","Aplica a cualquier juicio"]]},
+ {p:"¿Qué plazo tengo para apelar la sentencia definitiva en el proceso ordinario civil de Río Negro?",
+  r:"En el proceso ordinario civil, el plazo general de apelación contra la sentencia definitiva surge del CPCC de Río Negro. Antes de computarlo, verificá dos cosas en tu caso: (1) el tipo de proceso — los sumarísimos y regímenes especiales tienen plazos distintos —, y (2) la fecha y validez de la notificación, porque desde ahí corre el cómputo en días hábiles. El número exacto confirmalo en el texto vigente del código: te indico el capítulo de recursos para que lo verifiques directo en la fuente.",
+  slop:false,
+  fbT:"Buena respuesta: orienta, advierte salvedades y exige verificación.",
+  fbX:"En vez de arriesgar un número que puede estar mal, señala el camino: dónde está la respuesta, qué condiciones pueden cambiarla (tipo de proceso, notificación) y qué verificar antes de actuar. Información útil + advertencia explícita = lo contrario del slop.",
+  m:[["m-bien","Salvedades pertinentes"],["m-bien","Exige fuente vigente"],["m-bien","No arriesga el dato crítico"]]}
+];
+let cur=0,pts=0;
+const $=id=>document.getElementById(id);
+
+function render(){
+  $('barra').style.width=(cur/CASOS.length*100)+'%';
+  if(cur>=CASOS.length)return final();
+  const c=CASOS[cur];
+  $('zona').innerHTML='<div class="tarjeta">'+
+    '<div class="prompt-box"><div class="h">PROMPT DEL USUARIO</div>'+c.p+'</div>'+
+    '<div class="respuesta"><div class="h">RESPUESTA DEL MODELO</div>'+c.r+'</div>'+
+    '<div class="veredictos">'+
+      '<button class="ver buena" data-v="buena">✅ Respuesta útil</button>'+
+      '<button class="ver slop" data-v="slop">⚠️ Es slop</button>'+
+    '</div><div class="fb oculto" id="fb"></div></div>';
+  document.querySelectorAll('.ver').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const dijoSlop=b.dataset.v==='slop';
+      const acerto=dijoSlop===c.slop;
+      if(acerto)pts++;
+      document.querySelectorAll('.ver').forEach(x=>{
+        x.disabled=true;
+        if((c.slop&&x.dataset.v==='slop')||(!c.slop&&x.dataset.v==='buena'))x.classList.add('correcta');
+      });
+      const fb=$('fb');fb.classList.remove('oculto');
+      fb.innerHTML='<span class="sello '+(c.slop?'s-rojo':'s-verde')+'">'+(c.slop?'Slop detectado':'Respuesta útil')+'</span>'+
+        '<div class="txt"><strong style="color:'+(acerto?'var(--verde)':'var(--sello)')+'">'+(acerto?'✓ Acertaste. ':'✗ Mirá esto: ')+'</strong>'+c.fbT+'</div>'+
+        '<div class="txt">'+c.fbX+'</div>'+
+        '<div class="marcas">'+c.m.map(([cl,t])=>'<span class="marca '+cl+'">'+t+'</span>').join('')+'</div>'+
+        '<button class="btn-sig" id="sig">'+(cur===CASOS.length-1?'Ver resultado':'Siguiente caso')+'</button>';
+      $('sig').addEventListener('click',()=>{cur++;render();});
+    });
+  });
+}
+
+function final(){
+  $('barra').style.width='100%';
+  $('zona').innerHTML='<div class="tarjeta final">'+
+    '<div style="font-size:13px;color:#6b7280">Tu ojo crítico</div>'+
+    '<div class="nota">'+pts+' / '+CASOS.length+'</div>'+
+    '<div class="moraleja"><strong>La regla práctica del olfato:</strong> si una respuesta no cita foja ni norma verificable, si suena igual de bien para cualquier caso, o si transmite certeza absoluta donde el derecho tiene matices — es slop. Y el slop más peligroso no es el vacío: es el que viene con cifras y citas de formato perfecto. Esos son los que se verifican siempre, sin excepción.</div>'+
+    '<button class="btn-sig" id="re" style="margin-top:12px">↻ Entrenar de nuevo</button></div>';
+  $('re').addEventListener('click',()=>{cur=0;pts=0;render();});
+}
+render();
+</script>
+</body>
+</html>

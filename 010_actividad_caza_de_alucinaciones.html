@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Caza de alucinaciones</title>
+<style>
+:root{
+  --papel:#f2f1ec; --tinta:#1f2a37; --sello:#9c2b2e; --laton:#8a6d2f;
+  --verde:#2e6b4f; --linea:#d9d6cc; --tarjeta:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);
+  font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:16px}
+.progreso{display:flex;gap:6px;margin-bottom:14px}
+.punto{width:10px;height:10px;border-radius:50%;background:#d9d6cc}
+.punto.hecho{background:var(--tinta)}
+.punto.actual{background:var(--laton)}
+.tarjeta{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:18px;margin-bottom:14px}
+.cita{font-family:Georgia,serif;font-size:16px;font-style:italic;border-left:4px solid var(--laton);
+  padding-left:12px;margin-bottom:14px}
+.botones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{min-height:52px;padding:10px;border-radius:10px;font-size:14.5px;font-weight:700;cursor:pointer}
+.btn-ok{border:2px solid var(--verde);background:#eef5f0;color:var(--verde)}
+.btn-no{border:2px solid var(--sello);background:#f8efee;color:var(--sello)}
+.btn:disabled{opacity:.4;cursor:default}
+.sello{display:inline-block;border:3px solid;padding:5px 12px;border-radius:6px;font-weight:800;
+  letter-spacing:.08em;text-transform:uppercase;font-size:13px;transform:rotate(-3deg);
+  animation:estampar .35s ease-out;margin-bottom:10px}
+.s-rojo{border-color:var(--sello);color:var(--sello)}
+.s-verde{border-color:var(--verde);color:var(--verde)}
+.s-ambar{border-color:#b07a23;color:#b07a23}
+@keyframes estampar{0%{transform:rotate(-3deg) scale(1.7);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+.explica{font-size:14px;color:#374151;margin-bottom:12px}
+.resultado-tu{font-size:13px;font-weight:700;margin-bottom:8px}
+.btn-sig{display:block;width:100%;min-height:48px;border:none;border-radius:10px;
+  background:var(--tinta);color:#fff;font-size:15px;font-weight:600;cursor:pointer}
+.final{text-align:center}
+.final .nota{font-family:Georgia,serif;font-size:42px;margin:8px 0}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;text-align:left;margin-top:12px}
+.moraleja strong{color:#e8c87a}
+.oculto{display:none}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (prefers-reduced-motion: reduce){.sello{animation:none}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 5 · Bloque 2 · Alucinaciones</div>
+  <h1>Caza de alucinaciones</h1>
+  <p class="instr">Un asistente de IA produjo estas cinco afirmaciones jurídicas, todas con el mismo tono profesional. <strong>¿Confiarías en cada una sin verificarla?</strong></p>
+
+  <div class="progreso" id="progreso"></div>
+  <div id="zona"></div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const items = [
+  {
+    cita:"«El art. 17 de la Ley 24.240 de Defensa del Consumidor habilita al consumidor, ante reparación no satisfactoria, a pedir la sustitución de la cosa, devolver la cosa con restitución del precio, o una quita proporcional.»",
+    veredicto:"verde", selloTxt:"Verificable",
+    exp:"La norma existe y el contenido es correcto en lo sustancial. Pero atención: aunque sea verificable, igual corresponde chequear el texto vigente en una fuente oficial antes de citarla en un escrito. 'Suena bien' nunca reemplaza la verificación."
+  },
+  {
+    cita:"«La CSJN, en \"Domínguez c/ Aseguradora Federal S.A.\", Fallos 342:1881 (2019), estableció que la mora del asegurador se computa desde la denuncia del siniestro.»",
+    veredicto:"rojo", selloTxt:"Inventada",
+    exp:"Caso inexistente. El formato es impecable —carátula, tomo, año— y eso es exactamente lo peligroso: el modelo aprendió cómo LUCE una cita de Fallos, no qué fallos existen. El formato perfecto no prueba existencia."
+  },
+  {
+    cita:"«La Cámara Nacional en lo Comercial, en \"Rages c/ FCA Automobiles\", sostuvo que cuando se ordena el reintegro del precio por el art. 17 LDC, los intereses se computan desde la fecha de adquisición del bien.»",
+    veredicto:"rojo", selloTxt:"Alterada",
+    exp:"El fallo existe… pero dice lo CONTRARIO. Esta es la cita alterada del caso real \"M.J.L. c/ Peugeot Citroen\" resuelto por la Cámara de Apelaciones de General Roca en 2025: ambas partes citaron el mismo precedente con conclusiones opuestas, y el tribunal lo detectó. Pasó acá, en Río Negro."
+  },
+  {
+    cita:"«El art. 1198 del Código Civil consagra la teoría de la imprevisión, que permite la revisión del contrato ante una excesiva onerosidad sobreviniente.»",
+    veredicto:"ambar", selloTxt:"Desactualizada",
+    exp:"Era cierto… hasta 2015. El Código Civil de Vélez fue derogado; hoy la imprevisión está en los arts. 1090/1091 del CCyCN. Alucinación de actualidad: el modelo mezcla épocas porque su conocimiento tiene fecha de corte y no distingue vigencia por sí solo."
+  },
+  {
+    cita:"«La Acordada 22/25 del STJ de Río Negro extiende el Protocolo de Buenas Prácticas sobre IAGen a los auxiliares externos del Poder Judicial, incluyendo abogados/as y peritos.»",
+    veredicto:"verde", selloTxt:"Verificable",
+    exp:"Correcto: es el marco que vimos en el Bloque 1, con su régimen sancionatorio (prevención, apercibimiento, multa de 2 a 20 Jus, y remisión al Colegio Profesional). Verificable en la fuente oficial del STJRN."
+  }
+];
+
+let idx = 0, aciertos = 0;
+const $ = id => document.getElementById(id);
+
+function pintarProgreso(){
+  const p = $('progreso'); p.innerHTML = '';
+  items.forEach((_,i)=>{
+    const d = document.createElement('div');
+    d.className = 'punto' + (i < idx ? ' hecho' : i === idx ? ' actual' : '');
+    p.appendChild(d);
+  });
+}
+
+function mostrar(){
+  pintarProgreso();
+  const z = $('zona');
+  if (idx >= items.length){ return mostrarFinal(); }
+  const it = items[idx];
+  z.innerHTML =
+    '<div class="tarjeta">' +
+      '<div class="cita">'+it.cita+'</div>' +
+      '<div class="botones">' +
+        '<button class="btn btn-ok" id="bOk">Parece confiable</button>' +
+        '<button class="btn btn-no" id="bNo">Sospechosa</button>' +
+      '</div>' +
+      '<div id="rev" class="oculto" style="margin-top:14px"></div>' +
+    '</div>';
+  const responder = (eligioConfiable)=>{
+    $('bOk').disabled = true; $('bNo').disabled = true;
+    const esConfiable = it.veredicto === 'verde';
+    const acerto = eligioConfiable === esConfiable;
+    if (acerto) aciertos++;
+    const claseSello = it.veredicto === 'verde' ? 's-verde' : it.veredicto === 'rojo' ? 's-rojo' : 's-ambar';
+    $('rev').classList.remove('oculto');
+    $('rev').innerHTML =
+      '<span class="sello '+claseSello+'">'+it.selloTxt+'</span>' +
+      '<div class="resultado-tu" style="color:'+(acerto?'var(--verde)':'var(--sello)')+'">' +
+        (acerto ? '✓ Coincidiste con el veredicto.' : '✗ El tono te jugó en contra.') + '</div>' +
+      '<div class="explica">'+it.exp+'</div>' +
+      '<button class="btn-sig" id="bSig">'+(idx === items.length-1 ? 'Ver resultado' : 'Siguiente cita')+'</button>';
+    $('bSig').addEventListener('click', ()=>{ idx++; mostrar(); });
+  };
+  $('bOk').addEventListener('click', ()=>responder(true));
+  $('bNo').addEventListener('click', ()=>responder(false));
+}
+
+function mostrarFinal(){
+  $('zona').innerHTML =
+    '<div class="tarjeta final">' +
+      '<div style="font-size:13px;color:#6b7280">Tu puntaje detectando alucinaciones</div>' +
+      '<div class="nota">'+aciertos+' / '+items.length+'</div>' +
+      '<div class="moraleja"><strong>Lo que hay que llevarse:</strong> aunque hayas acertado todas, lo hiciste <strong>adivinando</strong>: nada en el texto distinguía lo verdadero de lo inventado. El tono seguro, el formato impecable y la fluidez no son señales de verdad. Por eso la verificación manual contra fuentes oficiales no es opcional: tu firma = tu validación = tu responsabilidad.</div>' +
+      '<button class="btn-sig" style="margin-top:12px" onclick="idx=0;aciertos=0;mostrar()">Jugar de nuevo</button>' +
+    '</div>';
+  pintarProgreso();
+}
+
+mostrar();
+</script>
+</body>
+</html>

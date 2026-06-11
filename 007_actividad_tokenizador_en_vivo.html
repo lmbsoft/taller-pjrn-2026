@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokenizador en vivo</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.presets button{min-height:40px;padding:6px 12px;border:1.5px solid var(--linea);border-radius:20px;background:var(--tarjeta);font-size:12.5px;cursor:pointer;color:var(--tinta)}
+textarea{width:100%;min-height:72px;border:1.5px solid var(--linea);border-radius:10px;padding:12px;font-size:16px;font-family:inherit;resize:vertical;color:var(--tinta);background:var(--tarjeta)}
+textarea:focus{outline:none;border-color:var(--laton)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}
+.stat{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:10px;padding:8px;text-align:center}
+.stat .n{font-family:Georgia,serif;font-size:clamp(18px,4vw,26px);font-weight:700;color:var(--laton);font-variant-numeric:tabular-nums}
+.stat .l{font-size:10px;color:#6b7280;text-transform:uppercase;letter-spacing:.05em}
+.tokens{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:14px;min-height:80px;margin-bottom:14px}
+.tk{display:inline-block;padding:3px 7px;margin:3px;border-radius:6px;font-family:ui-monospace,"Courier New",monospace;font-size:14px;white-space:pre;border:1px solid}
+.ws{background:#eef0ee;color:#9aa1ab;border-color:#e0e2de}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px}
+.moraleja strong{color:#e8c87a}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 3 · Bloque 2 · Tokens</div>
+  <h1>¿Qué ve realmente el modelo?</h1>
+  <p class="instr">El modelo no lee palabras: las parte en <strong>tokens</strong>. Escribí lo que quieras —probá con tu apellido— y mirá cómo se fragmenta en vivo. (Aproximación didáctica del proceso real.)</p>
+
+  <div class="presets" id="presets"></div>
+  <textarea id="input">La Constitución Nacional, en su artículo 14 bis, garantiza el trabajo en sus diversas formas.</textarea>
+
+  <div class="stats">
+    <div class="stat"><div class="n" id="sc">0</div><div class="l">caracteres</div></div>
+    <div class="stat"><div class="n" id="sw">0</div><div class="l">palabras</div></div>
+    <div class="stat"><div class="n" id="st">0</div><div class="l">tokens</div></div>
+    <div class="stat"><div class="n" id="sr">0</div><div class="l">chars/token</div></div>
+  </div>
+
+  <div class="tokens" id="tokens"></div>
+
+  <div class="moraleja">
+    <strong>Por qué importa:</strong> todo se mide (y se cobra) en tokens — el costo de cada consulta y el tamaño de la mesa de trabajo. Las palabras técnicas o infrecuentes se rompen en pedazos: "Constitución" suele ser <strong>Constitu + ción</strong>. En castellano, un token ronda los 3–4 caracteres, y una carilla A4 son unos <strong>600 tokens</strong>. Un expediente de 300 fojas… hacé la cuenta: por eso la mesa de trabajo se llena.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const PRESETS=[
+ "Escribí acá tu apellido y mirá en cuántos pedazos se rompe",
+ "La Constitución Nacional, en su artículo 14 bis, garantiza el trabajo.",
+ "Expte. RO-12819-C-0000 · M.J.L. c/ Peugeot Citroen Argentina S.A.",
+ "inconstitucionalidad sobreviniente",
+ "Hola 👋 ¿cómo va? ⚖️🤖",
+ "Acordada 22/25 — multa de 2 a 20 Jus (arts. 29 a 32, Ley 5731)"
+];
+const COL=["#8a6d2f","#5b6ba8","#2e6b4f","#9c2b2e","#b07a23","#6d5a8f","#3a7a8a"];
+const COMUNES=new Set(["la","el","los","las","un","una","de","del","en","y","o","a","que","es","con","por","para","su","sus","al","se","no","lo","si","ya","ha","fue","ser","sin","sobre","más","como","este","esta","bis","c/","s/"]);
+
+function tokenizar(t){
+  const toks=[];const parts=t.split(/(\s+)/);
+  for(const p of parts){
+    if(!p)continue;
+    if(/^\s+$/.test(p)){toks.push({t:p,ws:true});continue;}
+    const m=p.match(/^([^.,;:()¿?¡!«»"']*)([.,;:()¿?¡!«»"']+)?$/u);
+    let core=p,tail='';
+    if(m&&m[2]!==undefined){core=m[1];tail=m[2];}
+    if(!core){toks.push({t:tail});continue;}
+    const low=core.toLowerCase();
+    if(COMUNES.has(low)||core.length<=4){toks.push({t:core});}
+    else if(/^[\d./-]+$/.test(core)){
+      for(let i=0;i<core.length;i+=3)toks.push({t:core.slice(i,i+3)});
+    } else {
+      const suf=["ación","ición","ución","alidad","amente","emente","iente","encia","ancia","mente","ando","iendo","ado","ido","ción","dad"];
+      let pieces=null;
+      for(const s of suf){
+        if(core.length>s.length+3&&low.endsWith(s)){
+          pieces=[core.slice(0,core.length-s.length),core.slice(core.length-s.length)];break;
+        }
+      }
+      if(!pieces){
+        if(core.length>9){
+          const a=Math.ceil(core.length/3);
+          pieces=[core.slice(0,a),core.slice(a,a*2),core.slice(a*2)].filter(Boolean);
+        } else if(core.length>6){
+          const h=Math.ceil(core.length/2);
+          pieces=[core.slice(0,h),core.slice(h)];
+        } else pieces=[core];
+      }
+      pieces.forEach(x=>toks.push({t:x}));
+    }
+    if(tail)toks.push({t:tail});
+  }
+  return toks;
+}
+
+const $=id=>document.getElementById(id);
+const inp=$('input');
+
+function render(){
+  const t=inp.value;
+  const toks=tokenizar(t);
+  const cont=$('tokens');cont.innerHTML='';
+  let ci=0;
+  toks.forEach(tk=>{
+    const s=document.createElement('span');
+    if(tk.ws){
+      s.className='tk ws';
+      s.textContent=tk.t.replace(/ /g,'·').replace(/\n/g,'↵');
+    } else {
+      s.className='tk';
+      const c=COL[ci%COL.length];
+      s.style.background=c+'1f';s.style.color=c;s.style.borderColor=c+'66';
+      s.textContent=tk.t;ci++;
+    }
+    cont.appendChild(s);
+  });
+  const real=toks.filter(x=>!x.ws).length;
+  $('sc').textContent=t.length;
+  $('sw').textContent=t.trim()?t.trim().split(/\s+/).length:0;
+  $('st').textContent=real;
+  $('sr').textContent=real?(t.length/real).toFixed(1):'0';
+}
+inp.addEventListener('input',render);
+
+const pb=$('presets');
+PRESETS.forEach(p=>{
+  const b=document.createElement('button');
+  b.textContent=p.length>42?p.slice(0,40)+'…':p;
+  b.title=p;
+  b.addEventListener('click',()=>{inp.value=p;render();inp.focus();});
+  pb.appendChild(b);
+});
+render();
+</script>
+</body>
+</html>

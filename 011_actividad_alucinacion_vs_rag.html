@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alucinación vs RAG</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(20px,4.6vw,27px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.modos{display:inline-flex;background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:24px;padding:4px;margin-bottom:12px}
+.modos button{min-height:42px;padding:8px 16px;border:none;border-radius:20px;background:transparent;font-size:13.5px;font-weight:700;cursor:pointer;color:#6b7280}
+.modos button.activo{background:var(--tinta);color:#fff}
+.pregs{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.pregs button{min-height:48px;padding:11px 14px;border:1.5px solid var(--linea);border-radius:10px;background:var(--tarjeta);font-size:14px;text-align:left;cursor:pointer;color:var(--tinta)}
+.pregs button.activa{border-color:var(--tinta);background:#eef2f7;font-weight:600}
+.resp{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:16px;font-size:14.5px;line-height:1.55}
+.resp.aluc{border-left:5px solid var(--sello)}
+.resp.rag{border-left:5px solid var(--verde)}
+.resp .head{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.resp.aluc .head{color:var(--sello)}
+.resp.rag .head{color:var(--verde)}
+.cita-dudosa{background:#fdf0d8;border-bottom:2px dotted var(--laton);padding:0 3px;border-radius:3px}
+.btn-ver{margin-top:14px;min-height:48px;padding:10px 16px;border:none;border-radius:10px;background:var(--sello);color:#fff;font-weight:700;font-size:14px;cursor:pointer;width:100%}
+.veredicto{margin-top:12px}
+.sello{display:inline-block;border:3px solid var(--sello);color:var(--sello);padding:5px 12px;border-radius:6px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px;transform:rotate(-3deg);animation:est .35s ease-out;margin-bottom:8px}
+@keyframes est{0%{transform:rotate(-3deg) scale(1.7);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+.problema{font-size:13.5px;background:#f7eceb;border-radius:8px;padding:10px 12px;margin-bottom:8px}
+.impacto{font-size:13px;background:#1f2a37;color:#f2f1ec;border-radius:8px;padding:10px 12px}
+.impacto strong{color:#f0a8a8}
+.docs{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.doc{background:#e8f0ea;color:#27513e;padding:4px 10px;border-radius:6px;font-size:12px;font-weight:600}
+.doc.vacio{background:#fdf0d8;color:#7a5c14}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;margin-top:14px}
+.moraleja strong{color:#e8c87a}
+.oculto{display:none}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (prefers-reduced-motion:reduce){.sello{animation:none}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 6 · Bloque 2 · Alucinaciones y RAG</div>
+  <h1>No es que se equivoque: es que se equivoca con tono de experto</h1>
+  <p class="instr">Elegí una consulta y comparala en los dos modos: el modelo "puro" (responde siempre, sepa o no) y el modelo con <strong>RAG</strong> (limitado a documentos verificados).</p>
+
+  <div class="modos">
+    <button id="mAluc" class="activo">🤖 Sin verificación</button>
+    <button id="mRag">📚 Con RAG</button>
+  </div>
+
+  <div class="pregs" id="pregs"></div>
+  <div id="salida"></div>
+
+  <div class="moraleja oculto" id="moraleja">
+    <strong>Lo que hay que llevarse:</strong> el modelo sin verificación respondió <strong>todo</strong>, con el mismo tono profesional cuando acertaba y cuando inventaba. El modelo con RAG respondió solo desde el corpus, citó qué documento usó, y cuando no tenía nada, <strong>lo dijo</strong>. Esa es la lógica de herramientas como NotebookLM: subís tus documentos y el modelo responde únicamente desde ahí, citando la fuente. Para trabajo jurídico serio, esta arquitectura no es un lujo.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const CASOS=[
+ {q:"¿Qué plazo fija la Acordada 31/23 del STJRN para contestar vistas digitales?",
+  aluc:{txt:'La <strong>Acordada 31/23 del Superior Tribunal de Justicia de Río Negro</strong> establece un plazo de <span class="cita-dudosa">tres días hábiles</span> para contestar vistas digitales en el sistema de gestión, prorrogable por igual término mediante solicitud fundada presentada antes de su vencimiento (<span class="cita-dudosa">art. 4°</span>).',
+   prob:"Esa acordada, con ese contenido, <strong>no existe</strong>. Número, materia y articulado fueron fabricados con un formato impecable. Si fundás un escrito en esto, el error es tuyo y de nadie más.",
+   imp:"Fundar una presentación en normativa inexistente: pérdida de credibilidad, posible sanción correctiva (Acordada 22/25) y remisión al Colegio Profesional."},
+  rag:{txt:'<strong>No encuentro la Acordada 31/23 en el corpus cargado</strong> (normativa STJRN 2023–2025). Para responder con precisión necesito que verifiques el número en la fuente oficial del STJ o cargues el texto de la acordada.',docs:[]}},
+ {q:"¿Desde cuándo corren los intereses si se ordena reintegrar el precio por el art. 17 LDC?",
+  aluc:{txt:'Conforme jurisprudencia consolidada, en particular <span class="cita-dudosa">"Rages c/ FCA Automobiles"</span> de la Cámara Nacional en lo Comercial, los intereses se computan <span class="cita-dudosa">desde la fecha de adquisición del bien</span>, pues desde ese momento el consumidor se ve privado del uso pleno del producto.',
+   prob:"El fallo existe, pero sostiene <strong>lo contrario</strong>. Es exactamente la cita alterada que detectó la Cámara de Apelaciones de General Roca en \"M.J.L. c/ Peugeot Citroen\" (2025): ambas partes citaron el mismo precedente con conclusiones opuestas.",
+   imp:"Citar un fallo real con contenido invertido es aún peor que inventarlo: el tribunal lo verifica en minutos. Pasó acá, en Río Negro, y la sentencia lo destaca 'por la gravedad que implica'."},
+  rag:{txt:'Encontré el fallo en el corpus. Según el texto verificado de <strong>"Rages c/ FCA Automobiles"</strong> (Cám. Nac. Com.), el criterio sobre el cómputo de intereses es el que cita la parte demandada en el precedente local "M.J.L. c/ Peugeot Citroen". Te muestro el párrafo exacto del fallo para que lo verifiques antes de citarlo.',docs:["Rages c/ FCA Automobiles (texto completo)","M.J.L. c/ Peugeot Citroen — Cám. Apel. Gral. Roca 2025"]}},
+ {q:"¿Cuál es el monto actual del Jus en Río Negro para calcular una multa procesal?",
+  aluc:{txt:'El valor del Jus en la provincia de Río Negro asciende actualmente a <span class="cita-dudosa">$ 48.350</span>, conforme la última actualización dispuesta por el STJ. Una multa de 2 a 20 Jus (art. 30, Ley 5731) equivale entonces a entre $ 96.700 y $ 967.000.',
+   prob:"El número es <strong>plausible pero inventado o desactualizado</strong>: el valor del Jus se actualiza periódicamente y el modelo no tiene forma de conocer la cifra vigente. Es una alucinación de actualidad: el conocimiento del modelo tiene fecha de corte.",
+   imp:"Usar un valor desactualizado en una liquidación o un cálculo de sanción produce montos erróneos que cualquier contraparte detecta."},
+  rag:{txt:'El corpus no incluye la resolución de actualización del Jus vigente a hoy. <strong>Este dato cambia con frecuencia</strong>: consultalo en la fuente oficial del STJRN y, si querés, cargá la resolución para que pueda usarla en cálculos verificables.',docs:[]}},
+ {q:"Redactame un borrador de cédula de notificación de una audiencia.",
+  aluc:{txt:'<strong>CÉDULA DE NOTIFICACIÓN</strong><br><br>Sr./Sra.: [nombre] — Domicilio: [constituido]<br>Carátula: [autos] — Expte.: [número]<br><br>Se le hace saber que se ha fijado audiencia para el día [fecha] a las [hora], a la que deberá comparecer en los términos del CPCC. Queda Ud. debidamente notificado/a.',
+   prob:"Esta tarea <strong>sí es apropiada</strong> para el modelo: un borrador estándar con campos para completar, sin datos inventados. Igual corresponde verificar el formato exigido por el juzgado y la normativa local antes de usarlo.",
+   imp:"Riesgo bajo. La regla no cambia: revisión humana antes de que cualquier pieza salga con tu firma."},
+  rag:{txt:'Encontré en el corpus el modelo de cédula del fuero y los requisitos del CPCC local. Genero el borrador siguiendo ese formato, con los campos [a completar] marcados y la referencia normativa verificada del corpus.',docs:["Modelo de cédula — fuero civil","CPCC Río Negro — notificaciones"]}}
+];
+
+let modo='aluc',sel=null;
+const $=id=>document.getElementById(id);
+
+const pb=$('pregs');
+CASOS.forEach((c,i)=>{
+  const b=document.createElement('button');
+  b.textContent=c.q;
+  b.addEventListener('click',()=>{
+    sel=i;
+    document.querySelectorAll('.pregs button').forEach((x,j)=>x.classList.toggle('activa',j===i));
+    render();
+  });
+  pb.appendChild(b);
+});
+
+$('mAluc').addEventListener('click',()=>{modo='aluc';$('mAluc').classList.add('activo');$('mRag').classList.remove('activo');render();});
+$('mRag').addEventListener('click',()=>{modo='rag';$('mRag').classList.add('activo');$('mAluc').classList.remove('activo');render();});
+
+function render(){
+  const out=$('salida');
+  if(sel===null){out.innerHTML='';return;}
+  const c=CASOS[sel];
+  if(modo==='aluc'){
+    out.innerHTML='<div class="resp aluc"><div class="head">🤖 Respuesta del modelo · sin verificación</div>'+
+      '<div>'+c.aluc.txt+'</div>'+
+      '<button class="btn-ver" id="btnVer">🔍 Verificar contra fuentes oficiales</button>'+
+      '<div class="veredicto oculto" id="ver">'+
+        '<span class="sello">Sin respaldo verificado</span>'+
+        '<div class="problema">'+c.aluc.prob+'</div>'+
+        '<div class="impacto"><strong>⚠ Impacto profesional:</strong> '+c.aluc.imp+'</div>'+
+      '</div></div>';
+    $('btnVer').addEventListener('click',()=>{
+      $('ver').classList.remove('oculto');
+      $('btnVer').style.display='none';
+      $('moraleja').classList.remove('oculto');
+    });
+  } else {
+    const docs=c.rag.docs.length
+      ? '<div class="docs">'+c.rag.docs.map(d=>'<span class="doc">📄 '+d+'</span>').join('')+'</div>'
+      : '<div class="docs"><span class="doc vacio">📂 corpus sin documentos para este tema — y lo dice</span></div>';
+    out.innerHTML='<div class="resp rag"><div class="head">📚 Respuesta con RAG · solo desde documentos verificados</div>'+
+      '<div>'+c.rag.txt+'</div>'+docs+'</div>';
+    $('moraleja').classList.remove('oculto');
+  }
+}
+</script>
+</body>
+</html>
