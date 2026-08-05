@@ -3555,6 +3555,128 @@ Cantidad por categoría y porcentaje del texto que requiere verificación antes 
 ];
 
 // ═══════════════════════════════════════════════════════════════
+// DATA: LIBRERÍA DE PROMPTS
+// ═══════════════════════════════════════════════════════════════
+
+const libDespliegue = [
+  {
+    t: 'Usá el modelo más capaz al que tengas acceso',
+    d: 'Estas fichas no son consultas rápidas: son tareas de análisis largo. Un modelo liviano las contesta igual, pero peor, y el error es difícil de detectar porque el formato de salida sale bien igual. Si tu cuenta te da a elegir, elegí el modelo superior aunque tarde más.'
+  },
+  {
+    t: 'Activá el máximo esfuerzo de razonamiento disponible',
+    d: 'Donde haya modo de razonamiento, pensamiento extendido o similar, activalo. Donde no lo haya, pedilo en el texto: «pensá mucho antes de responder». Una ficha de auditoría bien corrida puede tardar minutos, y eso es señal de que está trabajando, no de que se colgó.'
+  },
+  {
+    t: 'Una conversación por documento',
+    d: 'Son prompts de un solo uso. Se abre una conversación, se pega la ficha, se adjunta el documento, se recibe el informe y se cierra. Reutilizar la misma conversación para el segundo documento arrastra el primero y contamina el resultado, con la particularidad de que el informe va a salir igual de prolijo.'
+  },
+  {
+    t: 'Adjuntá el documento entero, no lo trocees',
+    d: 'Si la herramienta admite adjuntar el archivo, adjuntalo. Pegar el texto por partes rompe la numeración, las referencias internas y el orden, que es justo lo que varias fichas necesitan controlar.'
+  },
+  {
+    t: 'Completá el bloque de material antes de enviar',
+    d: 'Cada ficha termina con un espacio para el texto a procesar. Verificá que quedó completo y que no quedó ninguna instrucción de ejemplo sin reemplazar. Un envío a medias produce un informe sobre nada.'
+  },
+  {
+    t: 'El informe es un insumo, no un resultado',
+    d: 'Sale un dictamen técnico con hallazgos y un veredicto. Eso no reemplaza tu lectura: la ordena. Las observaciones se verifican en el documento antes de trasladarlas a ningún lado, y el veredicto es una opinión de la herramienta sobre la estructura, no sobre el fondo.'
+  }
+];
+
+const libPilares = [
+  { n: 1, t: 'Claridad en la tarea', d: 'Qué se espera que haga, sin ambigüedad: el verbo de acción y el producto esperado.', ej: 'Analizar el escrito, identificar las defensas, clasificarlas por tipo y presentarlas en una tabla de tres columnas.' },
+  { n: 2, t: 'Contexto suficiente', d: 'Fuero, instancia, tipo de proceso, normativa aplicable y para qué se va a usar el resultado.', ej: 'Sos asistente en la Secretaría Civil de un juzgado de primera instancia de Río Negro; necesito preparar el despacho de traslado.' },
+  { n: 3, t: 'Asignación de rol', d: 'No una profesión genérica: especialización, experiencia y perspectiva desde la que debe mirar.', ej: 'Actuá como relator de cámara con quince años de experiencia en derecho procesal civil.' },
+  { n: 4, t: 'Formato de salida', d: 'Cómo se entrega el resultado. Sin esto, el modelo devuelve un bloque de texto corrido.', ej: 'Presentá el resultado como ficha con secciones numeradas, en tono formal.' },
+  { n: 5, t: 'Restricciones y reglas', d: 'Qué no debe hacer. En materia judicial son tan importantes como las instrucciones positivas.', ej: 'Basate únicamente en el texto provisto; si un dato no surge, indicá «No consta»; no inventes ni supongas.' }
+];
+
+const libCampos = [
+  { n: 1, t: 'Nombre del prompt', d: 'Un título que permita identificar la tarea de un vistazo.', pregs: ['¿Qué hace este prompt, en una línea?'], ejs: ['Resumen estructurado de escrito de demanda', 'Clasificador de presentaciones por tipo procesal', 'Extractor de datos de actas de audiencia'] },
+  { n: 2, t: 'Tarea y contexto', d: 'El campo más importante. Qué necesitás, para qué, en qué contexto y con qué información de entrada.', pregs: ['¿Qué acción concreta necesitás: resumir, redactar, analizar, comparar, clasificar, extraer, verificar?', '¿En qué tipo de proceso o situación se enmarca?', '¿Qué normativa o reglas aplican?', '¿Quién va a leer o usar el resultado?', '¿Qué información de entrada le vas a dar?', '¿Hay algún documento de referencia que deba usar como marco?'], ejs: [] },
+  { n: 3, t: 'Descripción paso a paso', d: 'La tarea desglosada en acciones ordenadas, como se la explicarías a alguien que nunca la hizo.', pregs: ['¿Qué es lo primero que necesitás saber o hacer?', '¿Qué criterios usás para evaluar o procesar la información?', '¿Hay algún paso de verificación que debería incluirse?', '¿Cómo sabés que la tarea está bien hecha?'], ejs: [] },
+  { n: 4, t: 'Restricciones y reglas', d: 'Qué no debe hacer. De fidelidad, de extensión, de tono, de contenido, de normativa y de formato.', pregs: ['¿Sobre qué material puede basarse y sobre cuál no?', '¿Hay un límite de extensión?', '¿Qué tono corresponde?', '¿Qué no debe inventar ni suponer?'], ejs: ['Si la información solicitada no surge del material proporcionado, indicalo expresamente en lugar de inventar o suponer.'] },
+  { n: 5, t: 'Formato de salida', d: 'Cómo se entrega el resultado, para que sea directamente utilizable.', pregs: ['¿Tabla, lista, informe con secciones, formato de despacho, ficha ejecutiva?'], ejs: ['Tabla con columnas específicas', 'Documento con secciones tituladas', 'Texto original con sugerencias entre corchetes'] }
+];
+
+const libEvolucion = [
+  {
+    n: 1, estado: 'Vago e incompleto', icono: '✖', tono: 'rose',
+    prompt: 'Resumíme esta demanda.',
+    diag: 'No dice qué incluir en el resumen, ni cuánto debe medir, ni para qué se va a usar.',
+    regla: 'Ser específico en el pedido. Un prompt sin detalles produce un resultado genérico.',
+    pilares: [],
+    resultado: 'Un párrafo suelto, sin estructura y sin los datos clave: fechas, domicilios, normativa, prueba. No sirve como insumo para un despacho.'
+  },
+  {
+    n: 2, estado: 'Más específico', icono: '○', tono: 'amber',
+    prompt: 'Resumí los hechos del escrito de demanda adjunto. Incluí las partes, el objeto y los montos reclamados. Máximo 300 palabras.',
+    diag: 'Ahora hay una acción clara, elementos específicos a incluir y un límite de extensión.',
+    regla: 'La tarea y el formato de salida ya están definidos.',
+    pilares: [1, 4],
+    resultado: 'Identifica partes, separa hechos de montos y detalla los rubros. Todavía sin tono judicial, sin normativa invocada y sin estado procesal.'
+  },
+  {
+    n: 3, estado: 'Con contexto y rol', icono: '◔', tono: 'sky',
+    prompt: 'Actuá como secretario de un juzgado civil de primera instancia de Río Negro. Resumí los hechos relevantes de la demanda adjunta en no más de 300 palabras. Incluí: partes intervinientes, objeto, pretensiones con montos y estado procesal. Tono formal y objetivo.',
+    diag: 'Se asigna un rol profesional específico y se sitúa en una jurisdicción. El rol condiciona el vocabulario y el enfoque.',
+    regla: 'El rol no es decoración: cambia qué considera relevante.',
+    pilares: [1, 2, 3, 4],
+    resultado: 'Aparecen los datos de patrocinio y el lenguaje procesal, y cierra con una observación útil sobre el estado del expediente. Ya sirve para un despacho.'
+  },
+  {
+    n: 4, estado: 'Completo y robusto', icono: '✔', tono: 'emerald',
+    prompt: `Actuá como secretario de un juzgado civil de primera instancia de Río Negro.
+
+A partir de la demanda adjunta, realizá las siguientes tareas en orden:
+1. Identificá a las partes (actora, demandada, terceros).
+2. Resumí los hechos en orden cronológico (máximo 150 palabras).
+3. Listá las pretensiones con montos reclamados.
+4. Indicá el derecho invocado (normas y jurisprudencia citada por la parte).
+
+Presentá el resultado como una ficha con secciones numeradas. Tono formal.
+
+Restricciones:
+- Basate únicamente en el texto proporcionado.
+- Si un dato no surge del escrito, indicá "No consta".
+- No inventes ni supongas información.`,
+    diag: 'Pasos secuenciales numerados, formato de salida definido y restricciones explícitas.',
+    regla: 'Cadena de tareas, prompt negativo y la regla de «no consta» que previene la invención.',
+    pilares: [1, 2, 3, 4, 5],
+    resultado: 'Ficha estructurada, con cada sección respondida por separado y los vacíos declarados en lugar de rellenados.'
+  }
+];
+
+const libFichas = [
+  {
+    id: 'resoluciones', area: 'Resoluciones', title: 'Auditoría estructural de resoluciones',
+    que: 'Verifica que un proyecto cumpla los requisitos del artículo aplicable según el tipo de resolución y la instancia, y controla la coherencia lógica entre hechos, prueba, derecho y decisión.',
+    entrada: 'Un proyecto de resolución.', salida: 'Informe en siete secciones con veredicto APTA, APTA CON OBSERVACIONES o NO APTA.',
+    dinamica: true, prompt: null
+  },
+  {
+    id: 'genero', area: 'Enfoque diferencial', title: 'Control de juzgamiento con perspectiva de género',
+    que: 'Controla si el razonamiento incorporó la perspectiva de género de manera real y no declarativa, en cualquier materia. Combina un método obligatorio con un repertorio de estándares de la Corte IDH que solo se usa cuando hay analogía genuina.',
+    entrada: 'Sentencia, resolución, proyecto, dictamen o cualquier actuación judicial.', salida: 'Informe en diez secciones con calificación del grado de incorporación y versión breve ejecutiva.',
+    dinamica: false, prompt: null
+  },
+  {
+    id: 'lenguaje-claro', area: 'Redacción', title: 'Verificación de lenguaje claro',
+    que: 'Revisa un texto contra criterios de lenguaje claro sin alterar su contenido jurídico, y separa las observaciones que no conviene aplicar por riesgo de pérdida de precisión.',
+    entrada: 'Cualquier texto judicial.', salida: 'Tabla de observaciones con propuesta de reemplazo, más las que no se aplicaron y por qué.',
+    dinamica: false, prompt: null
+  },
+  {
+    id: 'verificacion', area: 'Control', title: 'Auditoría de una respuesta de IA',
+    que: 'Clasifica las afirmaciones de un texto generado según su verificabilidad y produce el plan de comprobación, sin corregir el texto.',
+    entrada: 'Una respuesta producida por otro asistente.', salida: 'Clasificación en cinco categorías y prioridad de verificación por consecuencia.',
+    dinamica: false, prompt: null
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════
 // DATA: IMÁGENES
 // ═══════════════════════════════════════════════════════════════
 
@@ -5647,11 +5769,24 @@ const NotebookSection = () => {
   );
 };
 
-const AuditSection = () => {
+const LibrarySection = () => {
+  const [sub, setSub] = useState('fichas');
+  const [abierta, setAbierta] = useState(null);
+  const [area, setArea] = useState('todas');
   const [inst, setInst] = useState(auditInstancias[1].id);
-  const [ficha, setFicha] = useState(null);
-  const I = auditInstancias.find(x => x.id === inst);
+  const [paso, setPaso] = useState(1);
 
+  const subs = [
+    { id: 'fichas', label: 'Fichas', icon: <Gavel className="w-4 h-4" /> },
+    { id: 'usar', label: 'Cómo se usa', icon: <Target className="w-4 h-4" /> },
+    { id: 'construir', label: 'Cómo se construye', icon: <Layers className="w-4 h-4" /> },
+    { id: 'evolucion', label: 'Evolución de un prompt', icon: <RefreshCw className="w-4 h-4" /> }
+  ];
+
+  const areas = ['todas', ...Array.from(new Set(libFichas.map(f => f.area)))];
+  const visibles = area === 'todas' ? libFichas : libFichas.filter(f => f.area === area);
+
+  const I = auditInstancias.find(x => x.id === inst);
   const auditPrompt = `<rol>
 Sos Relator Senior del Superior Tribunal de Justicia de Río Negro, especialista en auditoría de gestión judicial. Dominás el Código Procesal Civil y Comercial de Río Negro (Ley 5777), la doctrina sobre arbitrariedad y las normas de protección de datos sensibles.
 </rol>
@@ -5709,66 +5844,241 @@ Cinco líneas para quien solo necesita el resultado.
 </formato_salida>
 
 <texto_a_procesar>
-[Pegar acá el proyecto de resolución]
+[ pegar acá el proyecto de resolución ]
 </texto_a_procesar>`;
 
-  if (ficha) {
-    const f = auditFichas.find(x => x.id === ficha);
+  const textoDe = (f) => f.dinamica ? auditPrompt : (auditFichas.find(x => x.id === f.id) || {}).prompt || '';
+
+  const Esfuerzo = () => (
+    <p className="text-sm text-violet-900 bg-violet-50 border border-violet-200 rounded-lg p-3 flex items-start gap-2">
+      <Zap className="w-4 h-4 mt-0.5 flex-shrink-0" />
+      <span><strong>Antes de correrla:</strong> elegí el modelo más capaz que te habilite tu cuenta y activá el máximo
+        esfuerzo de razonamiento disponible. Conversación nueva, un solo documento. Puede tardar varios minutos.</span></p>
+  );
+
+  // ── Detalle de una ficha ──
+  if (abierta) {
+    const f = libFichas.find(x => x.id === abierta);
+    const texto = textoDe(f);
     return (
       <div className="max-w-3xl mx-auto">
-        <button onClick={() => setFicha(null)} className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900">
-          <ChevronLeft className="w-4 h-4" /> Volver a las fichas
+        <button onClick={() => setAbierta(null)} className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 py-2">
+          <ChevronLeft className="w-4 h-4" /> Volver al catálogo
         </button>
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
-          <span className="text-xs font-bold text-amber-700 uppercase">{f.tag}</span>
-          <h3 className="text-xl font-extrabold text-slate-800 mb-1">{f.title}</h3>
-          <p className="text-slate-600 mb-4">{f.what}</p>
-          <div className="mb-3"><CopyBtn text={f.prompt} label="Copiar ficha completa" /></div>
-          <div className="rounded-xl bg-slate-900 text-slate-100 p-4 text-[0.78em] leading-relaxed font-mono whitespace-pre-wrap overflow-x-auto">{f.prompt}</div>
+        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+          <span className="text-xs font-bold text-violet-600 uppercase">{f.area}</span>
+          <h3 className="text-xl font-extrabold text-slate-800 mb-2">{f.title}</h3>
+          <p className="text-slate-700 mb-4">{f.que}</p>
+
+          <div className="grid sm:grid-cols-2 gap-2 mb-4">
+            <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Qué necesita</p>
+              <p className="text-sm text-slate-700">{f.entrada}</p>
+            </div>
+            <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Qué devuelve</p>
+              <p className="text-sm text-slate-700">{f.salida}</p>
+            </div>
+          </div>
+
+          <Esfuerzo />
+
+          {f.dinamica && (
+            <div className="mt-4">
+              <p className="text-sm font-bold text-slate-700 mb-2">Elegí el tipo de resolución: la ficha se arma con la normativa de esa instancia.</p>
+              <div className="flex flex-wrap gap-2 mb-3">
+                {auditInstancias.map(x => (
+                  <button key={x.id} onClick={() => setInst(x.id)}
+                    className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-sm font-medium transition-all ${inst === x.id ? 'bg-violet-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                    {x.label}
+                  </button>
+                ))}
+              </div>
+              {I.extra && (
+                <Callout tone="emerald" icon={ShieldCheck} title="Por qué esta ficha declara lo que no puede hacer">
+                  En las instancias colegiadas no intenta verificar firmas ni habilitaciones funcionales: no puede,
+                  porque son constancias externas al texto. En lugar de simularlo, imprime un checklist de control
+                  manual para que lo complete una persona. Es supervisión humana escrita dentro del prompt, y es el
+                  modelo a seguir cada vez que armes una instrucción de control.
+                </Callout>
+              )}
+            </div>
+          )}
+
+          <div className="mt-4 mb-3"><CopyBtn text={texto} label="Copiar la ficha completa" /></div>
+          <div className="rounded-xl bg-slate-900 text-slate-100 p-4 text-[0.78em] leading-relaxed font-mono whitespace-pre-wrap max-h-[28rem] overflow-y-auto break-words">{texto}</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <SectionHead icon={Gavel} title="Auditoría" tone="violet">
-        Fichas de trabajo con estructura completa: rol, contexto, normativa de referencia, instrucciones paso a paso,
-        restricciones y formato de salida. Son instrucciones de producción, no ejemplos de taller. Usalas siempre sobre
-        material cargado en el entorno de trabajo sobre fuentes propias, no en un asistente de chat público.
+    <div className="max-w-4xl mx-auto">
+      <SectionHead icon={Gavel} title="Librería de prompts" tone="violet">
+        Fichas de producción del proyecto Librería de Prompts del PJRN: rol, contexto, normativa de referencia,
+        instrucciones paso a paso, restricciones y formato de salida. No son ejemplos de taller, son herramientas de
+        trabajo. Acá están las que ya se pueden usar, cómo desplegarlas y cómo se construye una nueva.
       </SectionHead>
 
-      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-        <h4 className="font-bold text-slate-800 mb-1 flex items-center gap-2"><Scale className="w-4 h-4 text-violet-500" /> Auditoría estructural de resoluciones</h4>
-        <p className="text-sm text-slate-600 mb-4">Elegí el tipo de resolución y la ficha se arma con la normativa que corresponde a esa instancia.</p>
-        <div className="flex flex-wrap gap-2 mb-4">
-          {auditInstancias.map(x => (
-            <button key={x.id} onClick={() => setInst(x.id)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${inst === x.id ? 'bg-violet-600 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
-              {x.label}
-            </button>
-          ))}
-        </div>
-        <Callout tone="emerald" icon={ShieldCheck} title="Por qué esta ficha declara lo que no puede hacer">
-          En las instancias colegiadas, la ficha no intenta verificar firmas ni habilitaciones funcionales: no puede,
-          porque son constancias externas al texto. En lugar de simularlo, imprime un checklist de control manual para
-          que lo complete una persona. Eso es supervisión humana escrita dentro del prompt, y es el modelo a seguir
-          cada vez que armes una instrucción de control.
-        </Callout>
-        <div className="mt-4 mb-3"><CopyBtn text={auditPrompt} label="Copiar ficha de auditoría" /></div>
-        <div className="rounded-xl bg-slate-900 text-slate-100 p-4 text-[0.78em] leading-relaxed font-mono whitespace-pre-wrap max-h-96 overflow-y-auto">{auditPrompt}</div>
-      </div>
-
-      <div className="grid md:grid-cols-3 gap-4">
-        {auditFichas.map(f => (
-          <button key={f.id} onClick={() => setFicha(f.id)}
-            className="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-violet-400 hover:shadow-md transition-all">
-            <span className="text-xs font-bold text-violet-600 uppercase">{f.tag}</span>
-            <h4 className="font-bold text-slate-800 mb-1">{f.title}</h4>
-            <p className="text-sm text-slate-600">{f.what}</p>
+      <div className="flex flex-wrap gap-2 mb-6">
+        {subs.map(s => (
+          <button key={s.id} onClick={() => setSub(s.id)}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-violet-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
+            {s.icon} {s.label}
           </button>
         ))}
       </div>
+
+      {sub === 'fichas' && (
+        <div className="space-y-4">
+          <div className="flex flex-wrap gap-2">
+            {areas.map(a => (
+              <button key={a} onClick={() => setArea(a)}
+                className={`px-3 py-2 min-h-[2.5rem] rounded-full text-xs font-medium transition-all ${area === a ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                {a === 'todas' ? `Todas (${libFichas.length})` : `${a} (${libFichas.filter(f => f.area === a).length})`}
+              </button>
+            ))}
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            {visibles.map(f => (
+              <button key={f.id} onClick={() => setAbierta(f.id)}
+                className="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-violet-400 hover:shadow-md transition-all flex flex-col">
+                <span className="text-xs font-bold text-violet-600 uppercase">{f.area}</span>
+                <h4 className="font-bold text-slate-800 mb-1">{f.title}</h4>
+                <p className="text-sm text-slate-600 flex-1">{f.que}</p>
+                <span className="mt-3 text-sm font-bold text-violet-700 inline-flex items-center gap-1">Ver la ficha <ArrowRight className="w-4 h-4" /></span>
+              </button>
+            ))}
+          </div>
+          <Callout tone="slate" icon={Lightbulb} title="Falta la tuya">
+            El catálogo crece con las tareas que describe cada oficina. Si hacés seguido una tarea que podría
+            estandarizarse, la pestaña «Cómo se construye» tiene el formulario y las preguntas para describirla.
+          </Callout>
+        </div>
+      )}
+
+      {sub === 'usar' && (
+        <div className="space-y-3">
+          <Callout tone="violet" icon={Zap} title="Estas fichas piden el máximo esfuerzo disponible">
+            Son prompts de un solo uso y de análisis largo. Corridas en un modelo liviano o sin razonamiento extendido
+            devuelven un informe con el formato correcto y el contenido flojo, que es la peor combinación posible:
+            parece bien hecho. Vale la pena esperar los minutos que tarde.
+          </Callout>
+          {libDespliegue.map((d, i) => (
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-start gap-3">
+              <span className="w-7 h-7 rounded-full bg-violet-600 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
+              <div><p className="font-bold text-slate-800 text-sm">{d.t}</p><p className="text-slate-600 text-sm">{d.d}</p></div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {sub === 'construir' && (
+        <div className="space-y-4">
+          <Callout tone="slate" icon={Layers} title="Dos capas">
+            Los <strong>cinco pilares</strong> son lo que hace bueno a cualquier prompt. La <strong>ficha</strong> es el
+            formulario con el que se describe una tarea para que el equipo técnico construya el prompt institucional.
+            Se completa la ficha, no se escribe el prompt.
+          </Callout>
+
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-3">Los cinco pilares</h4>
+            <div className="space-y-3">
+              {libPilares.map(p => (
+                <div key={p.n} className="border-l-4 border-violet-300 pl-3">
+                  <p className="font-bold text-slate-800 text-sm">{p.n}. {p.t}</p>
+                  <p className="text-slate-600 text-sm">{p.d}</p>
+                  <p className="text-slate-500 text-sm italic mt-1">«{p.ej}»</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-1">La ficha: cinco campos</h4>
+            <p className="text-sm text-slate-600 mb-3">Con las preguntas que ayudan a completar cada uno.</p>
+            <div className="space-y-4">
+              {libCampos.map(c => (
+                <div key={c.n} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="font-bold text-slate-800 text-sm">Campo {c.n}: {c.t}</p>
+                  <p className="text-slate-600 text-sm mb-2">{c.d}</p>
+                  {c.pregs.length > 0 && (
+                    <ul className="space-y-1 mb-2">
+                      {c.pregs.map((q, j) => <li key={j} className="text-slate-700 text-sm flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-violet-400 mt-2 flex-shrink-0"></span><span>{q}</span></li>)}
+                    </ul>
+                  )}
+                  {c.ejs.length > 0 && <p className="text-slate-500 text-sm italic">{c.ejs.map(e => '«' + e + '»').join(' · ')}</p>}
+                </div>
+              ))}
+            </div>
+            <Callout tone="amber" icon={FileText} title="Además de la ficha: los ejemplos">
+              Para construir el prompt hacen falta casos reales del tipo de documento sobre el que va a trabajar. Al
+              menos diez, y cuanto más diversos mejor, junto con los documentos de referencia que la IA deba usar como
+              marco: reglamentos, guías, protocolos.
+            </Callout>
+          </div>
+        </div>
+      )}
+
+      {sub === 'evolucion' && (
+        <div className="space-y-4">
+          <Callout tone="slate" icon={RefreshCw} title="El mismo pedido, cuatro veces">
+            Un caso real: resumir un escrito de demanda para preparar el despacho de traslado. Cada intento agrega un
+            pilar y el resultado cambia de categoría. Es el ejercicio que mejor muestra por qué la ficha tiene los
+            campos que tiene.
+          </Callout>
+          <div className="flex flex-wrap gap-2">
+            {libEvolucion.map(e => (
+              <button key={e.n} onClick={() => setPaso(e.n)}
+                className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-sm font-bold transition-all ${paso === e.n ? 'bg-violet-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                {e.icono} Intento {e.n}
+              </button>
+            ))}
+          </div>
+          {libEvolucion.filter(e => e.n === paso).map(e => (
+            <div key={e.n} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="text-2xl">{e.icono}</span>
+                <h4 className="font-bold text-slate-800">Intento {e.n} — {e.estado}</h4>
+              </div>
+              <PromptBlock text={e.prompt} label={'Intento ' + e.n} />
+              <div className="grid sm:grid-cols-2 gap-2 my-3">
+                <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Qué pasa</p>
+                  <p className="text-sm text-slate-700">{e.diag}</p>
+                </div>
+                <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Resultado</p>
+                  <p className="text-sm text-slate-700">{e.resultado}</p>
+                </div>
+              </div>
+              <p className="text-sm text-emerald-900 bg-emerald-50 border border-emerald-200 rounded-lg p-3 mb-3 flex items-start gap-2">
+                <Lightbulb className="w-4 h-4 mt-0.5 flex-shrink-0" /><span>{e.regla}</span></p>
+              <p className="text-xs font-bold text-slate-500 uppercase mb-2">Pilares aplicados</p>
+              <div className="flex flex-wrap gap-1.5">
+                {libPilares.map(p => (
+                  <span key={p.n}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${e.pilares.includes(p.n) ? 'bg-violet-100 border-violet-300 text-violet-900' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
+                    {p.n}. {p.t}
+                  </span>
+                ))}
+              </div>
+              {e.n < libEvolucion.length && (
+                <button onClick={() => setPaso(e.n + 1)}
+                  className="mt-4 px-4 py-2.5 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
+                  Intento {e.n + 1} <ArrowRight className="w-4 h-4" />
+                </button>
+              )}
+              {e.n === libEvolucion.length && (
+                <p className="mt-4 text-center font-bold text-slate-700 bg-slate-100 rounded-xl p-3 text-sm">
+                  Rol + Contexto + Tarea clara + Formato + Restricciones
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
@@ -5969,7 +6279,7 @@ const App = () => {
     { id: 'stories', label: 'Historias', icon: <MessageCircle className="w-4 h-4" /> },
     { id: 'search', label: 'Investigador', icon: <Search className="w-4 h-4" /> },
     { id: 'notebook', label: 'NotebookLM', icon: <Library className="w-4 h-4" /> },
-    { id: 'audit', label: 'Auditoría', icon: <Gavel className="w-4 h-4" /> },
+    { id: 'library', label: 'Librería', icon: <Gavel className="w-4 h-4" /> },
     { id: 'images', label: 'Imágenes', icon: <ImageIcon className="w-4 h-4" /> }
   ];
 
@@ -6005,7 +6315,7 @@ const App = () => {
         {view === 'stories' && <StoriesSection />}
         {view === 'search' && <SearchSection />}
         {view === 'notebook' && <NotebookSection />}
-        {view === 'audit' && <AuditSection />}
+        {view === 'library' && <LibrarySection />}
         {view === 'images' && <ImagesSection />}
       </main>
 
