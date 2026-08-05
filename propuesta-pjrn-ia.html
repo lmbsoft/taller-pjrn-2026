@@ -4459,7 +4459,7 @@ const TheorySection = ({ index, setIndex, onGo }) => {
           {(moduleActivities[mod.id] || []).length > 0 && (
             <div className="mb-8 space-y-3">
               <p className="text-xs font-bold text-slate-400 uppercase">Probalo acá mismo</p>
-              {moduleActivities[mod.id].map(a => <ActivityCard key={mod.id + (a.file || a.comp || a.to)} act={a} onGo={onGo} />)}
+              {moduleActivities[mod.id].map(a => <ActivityCard key={mod.id + '-' + (a.key || a.comp || a.to)} act={a} onGo={onGo} />)}
             </div>
           )}
 
