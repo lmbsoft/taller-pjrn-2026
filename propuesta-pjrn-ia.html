@@ -142,6 +142,26 @@ const theoryModules = [
     practice: "Abrí una conversación, dale una instrucción de formato estricta y sostenela durante quince o veinte intercambios sobre temas variados. Anotá en qué momento deja de respetarse. Ese número aproximado es tu referencia práctica para saber cuándo conviene reiniciar."
   },
   {
+    id: "t3b",
+    title: "¿De dónde salió esta respuesta?",
+    subtitle: "Razonamiento largo y los tres orígenes posibles de una afirmación",
+    reading: [
+      "Los modelos actuales pueden pensar antes de responder. No es una metáfora: destinan tiempo de cómputo a razonar, descomponer el problema, explorar alternativas y revisar su propia salida antes de escribir la primera palabra. Eso cambió qué se les puede pedir. Hace unos años el consejo era decirles «pensá paso a paso», y hoy eso quedó viejo: alcanza con pedirles que piensen mucho, o con activar el modo de razonamiento donde exista. Algunos sistemas reconocen incluso la palabra clave «ultrathink». Con eso pueden trabajar decenas de segundos, o minutos, en una sola respuesta.",
+      "Mientras razonan, además, pueden decidir que necesitan algo que no tienen y salir a buscarlo: hacer una búsqueda web, leer un archivo, ejecutar código. Después vuelven a razonar con eso nuevo. Ese bucle —pensar, ver qué falta, ir a buscarlo, seguir pensando— es lo que les permite resolver tareas que antes no podían. Y es también lo que hace que una misma respuesta pueda estar armada con materiales de origen muy distinto.",
+      "Porque cuando el modelo te afirma algo, esa afirmación puede venir de tres lugares, y no son equivalentes. Del **conocimiento de entrenamiento**: lo que aprendió leyendo, congelado a una fecha, sin fuente identificable y con confiabilidad proporcional a qué tan frecuente sea el tema. De una **búsqueda hecha en el momento**: hay una fuente concreta, pero recordá que el modelo que te habla no leyó esa página entera, leyó un resumen que le pasó otro modelo. O del **contexto que vos aportaste**: el documento que adjuntaste, el texto que pegaste. Este último es el único origen que controlás por completo.",
+      "La distinción no es teórica: cambia cómo verificás. Lo que viene del entrenamiento se verifica en una fuente externa, siempre. Lo que viene de una búsqueda se verifica abriendo la página citada y comprobando que dice lo que se le atribuye. Lo que viene del contexto se verifica volviendo al documento que vos diste. Tres orígenes, tres formas de control, y ninguna reemplaza a la otra.",
+      "Y acá está la técnica que casi nadie usa: **se lo podés preguntar**. Pedile que, para cada afirmación de su respuesta, declare de dónde la sacó. No es infalible —también puede equivocarse al declararlo— pero cambia la conversación por completo, porque la respuesta deja de ser un bloque homogéneo y se convierte en una lista donde vos ves qué está apoyado en tu documento, qué en una página que puede abrirse y qué está flotando en el aire. Esa última categoría suele ser más grande de lo que uno esperaba."
+    ],
+    checklist: [
+      "Pedir explícitamente que piense antes de responder en las tareas complejas.",
+      "Dejar de usar «pensá paso a paso»: hoy alcanza con pedir razonamiento largo.",
+      "Preguntar, para cada afirmación, si viene del entrenamiento, de una búsqueda o del material aportado.",
+      "Verificar cada origen con su método: fuente externa, página citada o documento propio.",
+      "Desconfiar especialmente de lo que el propio modelo no puede atribuir a ningún origen."
+    ],
+    practice: "Hacé una consulta cualquiera de tu materia y después pedile que clasifique cada afirmación de su respuesta según su origen: conocimiento general, búsqueda hecha ahora, o material que le diste. Contá cuántas quedan en la primera categoría. Ese número es el tamaño de tu tarea de verificación."
+  },
+  {
     id: "t4",
     title: "Por qué inventa citas",
     subtitle: "Alucinaciones, el caso que llegó a una cámara de Río Negro y cómo se previene",
@@ -182,6 +202,27 @@ const theoryModules = [
       "Verificar que el material despersonalizado no sea reidentificable por combinación de datos."
     ],
     practice: "Entrá a la pestaña Anonimización y probá los cuatro textos de ejemplo, empezando por el difícil. Fijate cuántas cosas marca que vos no habrías visto, cuántas marca de más y cuántas se le escapan. Etiquetá a mano lo que falte. Ese ejercicio es el que entrena el ojo; la herramienta es solo la pista de práctica."
+  },
+  {
+    id: "t5b",
+    title: "Qué pasa con lo que escribís en un chat público",
+    subtitle: "Entrenamiento con tus datos, revisión humana y cómo desactivarlo",
+    reading: [
+      "Cuando usás la versión gratuita o personal de un asistente de chat, lo que escribís no desaparece al cerrar la ventana. Se guarda. Puede ser revisado por personas del proveedor para controlar calidad y seguridad. Y, según el servicio y la configuración de tu cuenta, puede usarse para entrenar las próximas versiones del modelo. En las cuentas personales esa opción suele venir **activada de fábrica**, y hubo casos en que se activó sola al cambiar los términos.",
+      "«Entrenar» no significa que el modelo vaya a repetir tu escrito a otra persona: significa que tu texto pasa a formar parte del material del que aprende. Es un riesgo distinto y más difuso que una filtración, pero es real, y sobre todo es innecesario: no hay ninguna razón para que un párrafo de un expediente termine ahí.",
+      "La buena noticia es que se apaga, y lleva dos minutos. Cada plataforma tiene su interruptor en un lugar distinto y con un nombre distinto, y la tabla de esta pestaña los reúne. Conviene saber tres cosas sobre ese interruptor. Primero: apagarlo corta hacia adelante, no borra lo que ya se usó. Segundo: suele reducir también el tiempo que guardan las conversaciones. Tercero: hay que revisarlo cada tanto, porque los cambios de términos a veces lo reactivan.",
+      "Hay dos atajos adicionales que vale la pena conocer. El **chat temporal** —o como se llame en cada servicio— no se guarda en el historial ni se usa para entrenar, y es la forma más rápida de hacer una consulta sin dejar rastro. Y el **pulgar arriba o abajo**: al calificar una respuesta, muchos servicios envían el último tramo de la conversación al equipo del proveedor. Es útil para mejorar la herramienta y es un mal lugar para escribir detalles del caso.",
+      "Y hay una razón práctica que ordena todo lo anterior: **las cuentas institucionales y de empresa habitualmente excluyen el entrenamiento por defecto**. Esa es una ventaja concreta de usar la cuenta del organismo en lugar de la personal, y se suma a las otras. La conclusión operativa no cambia: chat público para material despersonalizado o público, entorno de cuadernos sobre fuentes propias para la documentación de trabajo. Pero ahora ya sabés por qué, y sabés dónde está el interruptor."
+    ],
+    checklist: [
+      "Revisar y desactivar el uso de conversaciones para entrenamiento en cada asistente que uses.",
+      "Volver a chequearlo cada tanto: los cambios de términos pueden reactivarlo.",
+      "Usar el chat temporal para consultas que no querés que queden en el historial.",
+      "No escribir datos del caso en los comentarios de retroalimentación.",
+      "Preferir la cuenta institucional, que suele excluir el entrenamiento por defecto.",
+      "Recordar que desactivar corta hacia adelante: no borra lo ya utilizado."
+    ],
+    practice: "Abrí la configuración de privacidad del asistente que más usás y buscá el interruptor de entrenamiento. Anotá si estaba activado. Después hacé lo mismo con tu cuenta institucional y compará. La diferencia entre las dos suele ser la mejor explicación de por qué conviene usar la institucional."
   },
   {
     id: "t6",
@@ -272,7 +313,7 @@ const theoryModules2 = [
     title: "Búsqueda oficial primero",
     subtitle: "El circuito de dos etapas que hace verificable todo lo demás",
     reading: [
-      "Este es el procedimiento que resuelve en la práctica el problema del módulo 4. Tiene dos etapas y el orden no es negociable: primero la IA te ayuda a construir la búsqueda, después vos la ejecutás en la fuente oficial.",
+      "Este es el procedimiento que resuelve en la práctica el problema de las citas inventadas. Tiene dos etapas y el orden no es negociable: primero la IA te ayuda a construir la búsqueda, después vos la ejecutás en la fuente oficial.",
       "En la primera etapa le describís el problema jurídico y le pedís lo que hace bien: términos alternativos, sinónimos del vocabulario técnico, operadores de búsqueda, acotamiento por dominio, por tipo de archivo y por período. La IA es muy buena diseñando estrategias de búsqueda porque eso es un problema de lenguaje, que es exactamente su terreno.",
       "En la segunda etapa salís del chat. Pegás la consulta en el portal del Poder Judicial de Río Negro, en InfoLEG, en SAIJ o en el Boletín Oficial provincial. Lo que descargás de ahí es un documento real, con su texto auténtico y su estado de vigencia. Registrás la URL y la fecha de consulta, porque eso es lo que después vuelve auditable tu trabajo.",
       "El paso que la mayoría se saltea es el control de vigencia. Un modelo puede citar con total naturalidad un artículo derogado o el texto anterior a una reforma, porque en su material de entrenamiento ese texto existió durante años y el nuevo apenas aparece. La vigencia se verifica en la fuente, nunca se pregunta.",
@@ -2215,11 +2256,13 @@ const moduleActivities = {
     { kind: 'file', key: '03_tokenizador_en_vivo', title: 'Tokenizador en vivo', mins: '4 min', what: 'Escribí tu apellido y mirá cómo se parte. Estadísticas de caracteres, palabras y tokens.' },
     { kind: 'file', key: '04_la_mesa_de_trabajo', title: 'La mesa de trabajo', mins: '5 min', what: 'Llená la mesa de doce fichas y mirá caer las más viejas, con la ficha de sistema fija.' }
   ],
+  t3b: [{ kind: 'native', comp: 'origen', title: '¿De dónde vendría la respuesta?', mins: '6 min', what: 'Seis situaciones para clasificar el origen de una afirmación, y el pedido que obliga al modelo a declararlo.' }],
   t4: [
     { kind: 'file', key: '05_caza_de_alucinaciones', title: 'Caza de alucinaciones', mins: '7 min', what: 'Cinco citas con el mismo tono: ¿confiable o sospechosa? Incluye el caso real Peugeot.' },
     { kind: 'file', key: '06_alucinacion_vs_rag', title: 'Alucinación frente a RAG', mins: '9 min', what: 'La misma consulta sin verificación y con corpus de fuentes cargadas.' }
   ],
   t5: [{ kind: 'link', to: 'anon', title: 'Pista de práctica de anonimización', mins: '10 min', what: 'Cuatro textos de ejemplo, un detector de patrones y etiquetado manual. Es para entrenar el criterio, no para dejar un documento listo.' }],
+  t5b: [{ kind: 'native', comp: 'optout', title: 'Revisá tu configuración de privacidad', mins: '5 min', what: 'Las rutas concretas para desactivar el uso de tus conversaciones en las cuatro plataformas más usadas.' }],
   t6: [{ kind: 'file', key: '08_constructor_tcrei_pro', title: 'Constructor de prompts', mins: '12 min', what: 'Armá tu instrucción en cinco bloques editables, con presets legales y comparación contra la versión vaga.' }],
   t7: [{ kind: 'native', comp: 'bias', title: 'Detector de sesgo en tu pedido', mins: '5 min', what: 'Escribí un pedido y mirá qué expresiones le están adelantando la respuesta al modelo.' }],
   t8: [{ kind: 'native', comp: 'rubric', title: 'Armador de rúbricas', mins: '8 min', what: 'Definí criterios binarios con puntaje y llevate la instrucción de evaluación ya ordenada.' }],
@@ -3726,7 +3769,7 @@ const CopyBtn = ({ text, label = 'Copiar', small = false }) => {
   };
   return (
     <button onClick={go}
-      className={`inline-flex items-center gap-2 rounded-lg font-medium transition-all ${small ? 'px-3 py-1.5 text-xs' : 'px-4 py-2 text-sm'} ${done ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-white hover:bg-slate-700'}`}>
+      className={`inline-flex items-center gap-2 rounded-lg font-medium transition-all ${small ? 'px-3 py-2 min-h-[2.5rem] text-xs' : 'px-4 py-2.5 min-h-[2.75rem] text-sm'} ${done ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-white hover:bg-slate-700'}`}>
       {done ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
       {done ? 'Copiado' : label}
     </button>
@@ -3867,6 +3910,15 @@ const AnonDetector = () => {
   const [ultima, setUltima] = useState(null);
   const areaRef = React.useRef(null);
 
+  // En un celular la selección no dispara mouseup: la marca el gesto táctil y el
+  // navegador avisa por selectionchange. Sin esto, etiquetar a mano no funciona.
+  useEffect(() => {
+    let t = null;
+    const onSel = () => { clearTimeout(t); t = setTimeout(() => leerSeleccion(), 180); };
+    document.addEventListener('selectionchange', onSel);
+    return () => { clearTimeout(t); document.removeEventListener('selectionchange', onSel); };
+  }, []);
+
   const analysis = useMemo(() => {
     if (!ran || !text.trim()) return null;
     const hits = detectPII(text, manual);
@@ -3919,9 +3971,10 @@ const AnonDetector = () => {
   const leerSeleccion = () => {
     const a = areaRef.current;
     let s = '';
-    if (a && document.activeElement === a) s = a.value.slice(a.selectionStart, a.selectionEnd);
+    if (a && a.selectionStart !== a.selectionEnd) s = a.value.slice(a.selectionStart, a.selectionEnd);
     if (!s) { const w = window.getSelection(); s = w ? w.toString() : ''; }
-    s = s.replace(/\s+/g, ' ').trim();
+    // En táctil las manijas de selección suelen llevarse la puntuación de al lado.
+    s = s.replace(/\s+/g, ' ').replace(/^[\s.,;:()«»"'¿?¡!-]+|[\s.,;:()«»"'¿?¡!-]+$/g, '');
     setSel(s.length >= 2 && s.length <= 120 ? s : '');
   };
 
@@ -3941,13 +3994,13 @@ const AnonDetector = () => {
 
   const chip = (t, extra = '') => (
     <button key={t} onClick={() => etiquetar(t)}
-      className={`px-2.5 py-1.5 rounded-lg text-xs font-mono font-bold border transition-all ${extra || 'bg-white border-indigo-300 text-indigo-800 hover:bg-indigo-600 hover:text-white hover:border-indigo-600'}`}>
+      className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-xs font-mono font-bold border transition-all ${extra || 'bg-white border-indigo-300 text-indigo-800 hover:bg-indigo-600 hover:text-white hover:border-indigo-600'}`}>
       {t}
     </button>
   );
 
   return (
-    <div className="space-y-6" onMouseUp={leerSeleccion} onKeyUp={leerSeleccion}>
+    <div className="space-y-6" onMouseUp={leerSeleccion} onKeyUp={leerSeleccion} onTouchEnd={() => setTimeout(leerSeleccion, 120)}>
       <Callout tone="amber" icon={AlertTriangle} title="Esto es una herramienta de ejercitación">
         Sirve para entrenar el ojo y practicar el criterio, no para dejar un documento listo para usar. Para trabajar con
         documentación propia está el entorno de cuadernos sobre fuentes, que sí admite cargar los archivos directamente.
@@ -4393,8 +4446,8 @@ const ChallengesSection = () => {
             <h4 className="font-bold text-slate-800 text-lg">{ch.title}</h4>
             <p className="text-slate-600 text-sm">{ch.description}</p>
           </div>
-          <button onClick={() => setNonce(n => n + 1)} title="Reiniciar"
-            className="p-2 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 flex-shrink-0"><RotateCcw className="w-4 h-4" /></button>
+          <button onClick={() => setNonce(n => n + 1)} title="Reiniciar" aria-label="Reiniciar el desafío"
+            className="p-3 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 flex-shrink-0"><RotateCcw className="w-4 h-4" /></button>
         </div>
         <Game key={ch.id + '-' + nonce} data={ch} />
       </div>
@@ -4530,7 +4583,109 @@ No adelantes el puntaje total antes de la evaluación criterio por criterio.`;
   );
 };
 
-const NATIVE_ACTS = { bias: BiasDetector, rubric: RubricBuilder };
+// ── Actividad: de dónde vendría cada respuesta ──────────────────
+const origenCasos = [
+  { q: 'Le preguntás qué dice el artículo 145 del código procesal de Río Negro, sin adjuntar nada.', a: 0, why: 'Sale del entrenamiento. Es normativa provincial poco frecuente en el material de origen: alta probabilidad de que el articulado esté mal o desactualizado. Se verifica en la fuente oficial, siempre.' },
+  { q: 'Le adjuntás el PDF de una acordada y le preguntás qué exige en su artículo 3.', a: 2, why: 'Sale del contexto que aportaste. Es el origen más confiable de los tres, y se verifica volviendo al documento que vos diste.' },
+  { q: 'Le preguntás qué resolvió la Corte esta semana en un caso determinado.', a: 1, why: 'Debería salir de una búsqueda hecha en el momento. Ojo: el modelo que te habla no leyó la página entera, leyó un resumen. Hay que abrir la fuente citada.' },
+  { q: 'Le preguntás qué es la prescripción liberatoria.', a: 0, why: 'Sale del entrenamiento, y acá está bien: es un concepto general muy presente en la literatura. La regla de la frecuencia juega a favor.' },
+  { q: 'Le pegás una transcripción de audiencia y le pedís los plazos que se fijaron.', a: 2, why: 'Sale del contexto. Pero cuidado: si la transcripción está mal, la respuesta va a estar mal con total seguridad en el tono.' },
+  { q: 'Le preguntás si un fallo que te citó antes existe realmente.', a: 3, why: 'Ninguno de los tres sirve. Preguntarle al modelo si tiene razón activa la complacencia. La existencia de un fallo se comprueba en el portal oficial, fuera del chat.' }
+];
+const origenOpciones = ['Conocimiento de entrenamiento', 'Búsqueda hecha en el momento', 'El contexto que aportaste', 'No se resuelve preguntándole a él'];
+
+const OriginQuiz = () => {
+  const [i, setI] = useState(0);
+  const [pick, setPick] = useState(null);
+  const [aciertos, setAciertos] = useState(0);
+  const c = origenCasos[i];
+  const elegir = (k) => { if (pick !== null) return; setPick(k); if (k === c.a) setAciertos(a => a + 1); };
+  return (
+    <div className="space-y-3">
+      <p className="text-xs font-bold text-slate-400 uppercase">Situación {i + 1} de {origenCasos.length} · {aciertos} correctas</p>
+      <p className="text-slate-800 font-medium">{c.q}</p>
+      <div className="space-y-2">
+        {origenOpciones.map((o, k) => {
+          const show = pick !== null;
+          const ok = k === c.a;
+          return (
+            <button key={k} onClick={() => elegir(k)} disabled={show}
+              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${!show ? 'bg-white border-slate-200 hover:border-slate-400 text-slate-700' :
+                ok ? 'bg-emerald-50 border-emerald-400 text-emerald-900' : (k === pick ? 'bg-rose-50 border-rose-300 text-rose-900' : 'bg-white border-slate-200 text-slate-400')}`}>
+              {o}
+            </button>
+          );
+        })}
+      </div>
+      {pick !== null && (
+        <>
+          <Callout tone={pick === c.a ? 'emerald' : 'amber'} icon={pick === c.a ? CheckCircle2 : Lightbulb}
+            title={pick === c.a ? 'Correcto' : 'Revisá el criterio'}>{c.why}</Callout>
+          {i < origenCasos.length - 1
+            ? <button onClick={() => { setPick(null); setI(x => x + 1); }}
+              className="px-4 py-2.5 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
+              Siguiente <ArrowRight className="w-4 h-4" /></button>
+            : <p className="font-bold text-emerald-700 text-sm">Terminaste: {aciertos} de {origenCasos.length}.</p>}
+        </>
+      )}
+      <div className="rounded-xl bg-slate-900 p-4 mt-2">
+        <div className="flex items-center justify-between gap-3 mb-2">
+          <span className="text-xs font-bold text-slate-400 uppercase">Pedido para usar siempre</span>
+          <CopyBtn text={'Para cada afirmación de tu respuesta, indicá de dónde sale: de tu conocimiento general de entrenamiento, de una búsqueda que hiciste ahora (con el enlace), o del material que te di (con la cita). Si no podés atribuir una afirmación a ninguno de los tres, marcala como SIN ORIGEN IDENTIFICABLE y explicá por qué la sostenés igual.'} small />
+        </div>
+        <p className="text-slate-100 font-mono text-[0.78em] leading-relaxed">Para cada afirmación de tu respuesta, indicá de dónde sale: de tu conocimiento general de entrenamiento, de una búsqueda que hiciste ahora (con el enlace), o del material que te di (con la cita). Si no podés atribuir una afirmación a ninguno de los tres, marcala como SIN ORIGEN IDENTIFICABLE y explicá por qué la sostenés igual.</p>
+      </div>
+    </div>
+  );
+};
+
+// ── Actividad: revisión de la configuración de privacidad ───────
+const optOutPlataformas = [
+  { p: 'ChatGPT', ruta: 'Perfil → Configuración → Controles de datos → desactivar «Mejorar el modelo para todos»', extra: 'El chat temporal no se guarda en el historial ni se usa para entrenar.' },
+  { p: 'Claude', ruta: 'Perfil → Configuración → Privacidad → desactivar la opción de ayudar a mejorar el modelo', extra: 'Las conversaciones habilitadas pueden conservarse por períodos largos.' },
+  { p: 'Gemini', ruta: 'myaccount.google.com → Datos y privacidad → Configuración del historial → «Actividad de las apps de Gemini» → desactivar', extra: 'Es la misma pantalla donde se controla el historial de otras apps de la cuenta.' },
+  { p: 'Copilot', ruta: 'account.microsoft.com → Privacidad → Panel de privacidad → configuración de IA y Copilot → desactivar la mejora del modelo', extra: 'El valor por defecto cambió en los últimos años: conviene revisarlo aunque lo hayas mirado antes.' }
+];
+
+const OptOutCheck = () => {
+  const [hechos, setHechos] = useState({});
+  const marcar = (p) => setHechos(h => ({ ...h, [p]: !h[p] }));
+  const n = Object.values(hechos).filter(Boolean).length;
+  return (
+    <div className="space-y-3">
+      <p className="text-sm text-slate-600">
+        Rutas relevadas en agosto de 2026. Los menús cambian de nombre seguido: si no encontrás la opción con este
+        camino, buscá en la configuración las palabras «datos», «privacidad» o «mejorar el modelo». Tildá a medida que
+        vayas revisando cada cuenta.
+      </p>
+      <div className="space-y-2">
+        {optOutPlataformas.map(o => (
+          <button key={o.p} onClick={() => marcar(o.p)}
+            className={`w-full text-left p-3 rounded-xl border-2 transition-all flex items-start gap-3 ${hechos[o.p] ? 'bg-emerald-50 border-emerald-300' : 'bg-white border-slate-200 hover:border-slate-400'}`}>
+            <span className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${hechos[o.p] ? 'bg-emerald-600 border-emerald-600' : 'border-slate-300'}`}>
+              {hechos[o.p] && <Check className="w-3 h-3 text-white" />}
+            </span>
+            <span className="min-w-0">
+              <span className="block font-bold text-slate-800 text-sm">{o.p}</span>
+              <span className="block text-slate-700 text-sm break-words">{o.ruta}</span>
+              <span className="block text-slate-500 text-xs mt-1">{o.extra}</span>
+            </span>
+          </button>
+        ))}
+      </div>
+      <p className={`text-sm font-bold ${n === optOutPlataformas.length ? 'text-emerald-700' : 'text-slate-500'}`}>
+        {n} de {optOutPlataformas.length} revisadas{n === optOutPlataformas.length ? ' · repetilo dentro de seis meses' : ''}
+      </p>
+      <Callout tone="amber" icon={AlertTriangle} title="Qué no hace el interruptor">
+        Desactivarlo corta hacia adelante: no borra lo que ya se usó para entrenar. Y no impide que una persona del
+        proveedor revise una conversación por control de calidad. Por eso el criterio de qué se escribe sigue siendo lo
+        principal, y el interruptor es una capa más.
+      </Callout>
+    </div>
+  );
+};
+
+const NATIVE_ACTS = { bias: BiasDetector, rubric: RubricBuilder, origen: OriginQuiz, optout: OptOutCheck };
 
 const ActivityCard = ({ act, onGo }) => {
   const [open, setOpen] = useState(false);
@@ -4560,7 +4715,7 @@ const ActivityCard = ({ act, onGo }) => {
       {open && act.kind === 'file' && (
         ACT_HTML[act.key]
           ? <iframe srcDoc={ACT_HTML[act.key]} title={act.title} sandbox="allow-scripts"
-            className="w-full bg-white border-0" style={{ height: '640px' }} />
+            className="w-full bg-white border-0" style={{ height: 'min(640px, 78vh)' }} />
           : <p className="bg-white p-4 text-sm text-rose-700 border-t border-amber-200">
             No se encontró la actividad «{act.key}». Volvé a correr build-embebido.py.</p>
       )}
@@ -4593,8 +4748,8 @@ const TheorySection = ({ index, setIndex, onGo }) => {
         </select>
       </div>
 
-      <div className="flex-1 max-w-3xl">
-        <article className="bg-white rounded-2xl shadow-md border border-slate-200 p-6 md:p-8">
+      <div className="flex-1 min-w-0 max-w-3xl">
+        <article className="bg-white rounded-2xl shadow-md border border-slate-200 p-5 sm:p-6 md:p-8">
           <p className="text-xs text-indigo-600 font-bold uppercase mb-1">Módulo {index + 1} de {allModules.length}</p>
           <h2 className="text-2xl font-extrabold text-slate-800 mb-1">{mod.title}</h2>
           <p className="text-slate-500 mb-6">{mod.subtitle}</p>
@@ -4626,14 +4781,14 @@ const TheorySection = ({ index, setIndex, onGo }) => {
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <button onClick={() => setIndex(i => Math.max(0, i - 1))} disabled={index === 0}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-100 text-slate-700 font-medium text-sm hover:bg-slate-200 disabled:opacity-40">
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-lg bg-slate-100 text-slate-700 font-medium text-sm hover:bg-slate-200 disabled:opacity-40">
               <ChevronLeft className="w-4 h-4" /> Anterior
             </button>
             <span className="text-xs text-slate-400">{index + 1} / {allModules.length}</span>
             <button onClick={() => setIndex(i => Math.min(allModules.length - 1, i + 1))} disabled={index === allModules.length - 1}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 disabled:opacity-40">
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-lg bg-indigo-600 text-white font-medium text-sm hover:bg-indigo-700 disabled:opacity-40">
               Siguiente <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -4830,7 +4985,7 @@ const RouteView = ({ route }) => {
       <div className="flex flex-wrap gap-1.5 my-4">
         {route.etapas.map(e => (
           <button key={e.n} onClick={() => setAbierta(e.n)}
-            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${abierta === e.n ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+            className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-xs font-bold transition-all ${abierta === e.n ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
             {e.n}. {e.nombre}
           </button>
         ))}
@@ -4933,7 +5088,7 @@ const GymSection = () => {
           <div className="flex flex-wrap gap-2 mb-2">
             {domains.map(d => (
               <button key={d} onClick={() => setDomain(d)}
-                className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${domain === d ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                className={`px-3 py-2 rounded-full text-xs font-medium transition-all min-h-[2.5rem] ${domain === d ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                 {d === 'todos' ? `Todas (${items.length})` : `${d} (${items.filter(p => p.domain === d).length})`}
               </button>
             ))}
@@ -5793,6 +5948,18 @@ const ImagesSection = () => {
 const App = () => {
   const [view, setView] = useState('theory');
   const [moduleIndex, setModuleIndex] = useState(0);
+  const navRef = React.useRef(null);
+
+  // Al cambiar de pestaña: volver arriba y traer la pestaña activa a la vista.
+  // En un celular, sin esto quedás en mitad del contenido anterior.
+  const irA = (id) => {
+    setView(id);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(() => {
+      const b = navRef.current && navRef.current.querySelector('[data-tab="' + id + '"]');
+      if (b && b.scrollIntoView) b.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+    }, 60);
+  };
 
   const tabs = [
     { id: 'theory', label: 'Teoría', icon: <BookOpen className="w-4 h-4" /> },
@@ -5809,20 +5976,20 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-200 shadow-sm">
-        <div className="max-w-5xl mx-auto px-4 py-3">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
-              <BrainCircuit className="w-6 h-6 text-white" />
+        <div className="max-w-5xl mx-auto px-4 py-2 sm:py-3">
+          <div className="flex items-center gap-3 mb-2 sm:mb-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-indigo-500 to-violet-600 rounded-xl flex items-center justify-center shadow-md flex-shrink-0">
+              <BrainCircuit className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
             </div>
-            <div>
-              <h1 className="text-lg font-extrabold text-slate-800 leading-tight">Laboratorio de IA para operadores judiciales</h1>
-              <p className="text-xs text-slate-500">Fundamentos, anonimización, verificación en fuente oficial y trabajo con documentos</p>
+            <div className="min-w-0">
+              <h1 className="text-sm sm:text-lg font-extrabold text-slate-800 leading-tight">Laboratorio de IA para operadores judiciales</h1>
+              <p className="hidden sm:block text-xs text-slate-500">Fundamentos, anonimización, verificación en fuente oficial y trabajo con documentos</p>
             </div>
           </div>
-          <nav className="flex gap-1 overflow-x-auto">
+          <nav ref={navRef} className="flex gap-1 overflow-x-auto">
             {tabs.map(t => (
-              <button key={t.id} onClick={() => setView(t.id)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${view === t.id ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}>
+              <button key={t.id} data-tab={t.id} onClick={() => irA(t.id)}
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all flex-shrink-0 ${view === t.id ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-600 hover:bg-slate-100'}`}>
                 {t.icon} {t.label}
               </button>
             ))}
@@ -5831,7 +5998,7 @@ const App = () => {
       </header>
 
       <main className="max-w-5xl mx-auto px-4 py-8">
-        {view === 'theory' && <TheorySection index={moduleIndex} setIndex={setModuleIndex} onGo={setView} />}
+        {view === 'theory' && <TheorySection index={moduleIndex} setIndex={setModuleIndex} onGo={irA} />}
         {view === 'anon' && <AnonSection />}
         {view === 'gym' && <GymSection />}
         {view === 'challenges' && <ChallengesSection />}
