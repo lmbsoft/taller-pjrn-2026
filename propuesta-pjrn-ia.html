@@ -2257,7 +2257,7 @@ const biasPatterns = [
 const promptLevels = [
   { id: 'inicio', label: 'Nivel 1 · Primeros usos', hint: 'Tareas de bajo riesgo para calibrar la herramienta.' },
   { id: 'trabajo', label: 'Nivel 2 · Trabajo con precisión', hint: 'Producción real con controles incorporados.' },
-  { id: 'circuito', label: 'Nivel 3 · Circuitos completos', hint: 'Procedimientos de varias etapas y trabajo en equipo.' }
+  { id: 'metodo', label: 'Nivel 3 · Método y equipo', hint: 'Instrucciones para ordenar el trabajo propio y el de la oficina. Para las tareas de varias etapas, mirá las rutas.' }
 ];
 
 const promptItems = [
@@ -2346,21 +2346,17 @@ const promptItems = [
   { id: "p80", level: "trabajo", domain: "Aprendizaje", title: "Explicame mi propio error", objective: "Aprender de una corrección recibida.", prompt: "Me devolvieron este trabajo con estas observaciones. Explicame qué principio o criterio hay detrás de cada observación, no solo qué corregir. Después decime qué tendría que revisar de ahora en más para no repetirlo, en forma de lista de control.", why: "El principio detrás de la corrección es lo que se transfiere al próximo trabajo." },
 
   // ── NIVEL 3 · CIRCUITOS COMPLETOS ───────────────────────────────
-  { id: "p81", level: "circuito", domain: "Circuito completo", title: "Búsqueda oficial y análisis", objective: "Encadenar diseño de búsqueda, descarga y trabajo sobre fuente.", prompt: "Vamos a trabajar en tres etapas y quiero que respetes el orden. Etapa 1: dame consultas con operadores para buscar [tema] en [portales oficiales], sin darme resultados ni citas. Etapa 2: te voy a cargar los documentos que descargue y vas a esperar sin analizar nada hasta que estén todos. Etapa 3: recién ahí analizás, con cita textual obligatoria de cada afirmación y marcando lo que no surja de las fuentes.", why: "Explicitar las etapas evita que el modelo se adelante e invente." },
-  { id: "p82", level: "circuito", domain: "Circuito completo", title: "De la carpeta al informe", objective: "Recorrer el circuito documental entero.", prompt: "Vamos por etapas y no avances hasta que yo confirme. Uno: clasificá el material que te cargo por tipo y estado. Dos: señalá qué falta y qué habría que buscar. Tres: cuando te cargue lo que falte, armá la línea de tiempo con referencia. Cuatro: recién ahí el informe, con campos de verificación entre corchetes dobles.", why: "El circuito por etapas con confirmación es lo que impide saltar la verificación." },
-  { id: "p83", level: "circuito", domain: "Circuito completo", title: "Escritura en cuatro tiempos", objective: "Producir un documento importante sin relleno.", prompt: "Vamos a escribir [documento] en cuatro tiempos y no pases al siguiente sin mi aprobación. Uno: tres opciones de esquema. Dos: el esquema elegido, corregido según mi feedback. Tres: cada sección en viñetas. Cuatro: el texto final. En ningún momento agregues contenido que yo no haya validado en la etapa anterior.", why: "Cada etapa aprobada es contenido que ya no hay que volver a discutir." },
-  { id: "p84", level: "circuito", domain: "Circuito completo", title: "Revisión en tres pasadas", objective: "Controlar un documento con criterios distintos cada vez.", prompt: "Vas a revisar este documento tres veces, con un foco distinto cada vez y sin mezclarlos. Primera pasada: solo estructura y requisitos formales. Segunda: solo coherencia lógica entre hechos, prueba y decisión. Tercera: solo lenguaje y claridad. Entregá las tres devoluciones por separado.", why: "Separar las pasadas evita que un hallazgo grande tape a los chicos." },
-  { id: "p85", level: "circuito", domain: "Trabajo en equipo", title: "Protocolo de oficina", objective: "Acordar reglas de uso en un equipo.", prompt: "Ayudame a redactar un protocolo interno de uso de IA generativa para una oficina judicial de [cantidad] personas. Debe cubrir: qué tareas se pueden delegar, qué se verifica siempre y contra qué fuente, qué nunca se carga en herramientas públicas, cómo se anonimiza, cómo se deja registro y quién revisa qué. Formato de una carilla, en oraciones que se puedan cumplir sin interpretación.", why: "Un protocolo que necesita interpretación no se cumple." },
-  { id: "p86", level: "circuito", domain: "Trabajo en equipo", title: "Reglas de un espacio compartido", objective: "Ordenar un repositorio de trabajo colaborativo.", prompt: "Ayudame a definir las reglas de un espacio de trabajo compartido con documentos de [tipo]. Cubrí: criterio de nomenclatura de archivos con fecha y origen, qué se puede cargar y qué no, quién puede agregar fuentes, cómo se marca lo verificado frente a lo pendiente, y qué se hace con lo que deja de estar vigente. Una regla por línea, sin excepciones ambiguas.", why: "La nomenclatura y el estado de verificación son el 80 % del orden." },
-  { id: "p87", level: "circuito", domain: "Trabajo en equipo", title: "Repartir una tarea grande", objective: "Distribuir trabajo sin superposiciones ni huecos.", prompt: "Tengo que repartir [tarea] entre [n] personas. Proponé tres formas distintas de dividirla: por etapa, por tipo de material y por criterio. Para cada una decí qué se gana, qué se pierde, dónde puede haber superposición y dónde puede quedar un hueco sin responsable.", why: "El hueco sin responsable es el que aparece cuando ya es tarde." },
-  { id: "p88", level: "circuito", domain: "Trabajo con normativa", title: "Mapa de una cuestión", objective: "Organizar el material normativo de un tema.", prompt: "Con las fuentes oficiales que cargué, armá un mapa de la cuestión: norma aplicable con su artículo, precedentes que la interpretan con cita, doctrina si figura en las fuentes, y puntos donde las fuentes se contradicen entre sí. Todo con cita textual. Al final, listá las preguntas que las fuentes cargadas no permiten responder.", why: "La lista final define qué falta buscar y evita cerrar en falso." },
-  { id: "p89", level: "circuito", domain: "Trabajo con normativa", title: "Ficha de un instituto", objective: "Construir material de consulta reutilizable.", prompt: "Con las fuentes que cargué, armá una ficha de consulta sobre [instituto]: definición según las fuentes, requisitos, plazos, efectos, excepciones y remisiones a otras normas. Todo con cita. Dejá una sección final de «cuestiones abiertas» con lo que las fuentes no resuelven.", why: "Una ficha con cuestiones abiertas se puede actualizar; una cerrada envejece mal." },
-  { id: "p90", level: "circuito", domain: "Capacitación", title: "Plan de aprendizaje en cuatro semanas", objective: "Incorporar la herramienta de forma sostenida.", prompt: "Armá un plan de cuatro semanas para incorporar IA generativa a mi trabajo en [función]. Una tarea nueva por semana, de menor a mayor riesgo, con el criterio de verificación correspondiente a cada una. Incluí para cada semana un indicador simple de si conviene avanzar o repetir. Nada de automatización en las dos primeras semanas.", why: "La progresión por riesgo es lo que hace que el hábito se sostenga." },
-  { id: "p91", level: "circuito", domain: "Capacitación", title: "Diagnóstico de necesidades del equipo", objective: "Saber qué capacitación hace falta antes de darla.", prompt: "Ayudame a diseñar un relevamiento breve para saber qué necesita mi equipo en materia de IA generativa. Diez preguntas como máximo, que se respondan en cinco minutos, que no expongan a nadie y que distingan entre lo que la gente usa, lo que cree que puede usar y lo que le preocupa. Después decime cómo interpretar cada respuesta.", why: "Preguntar por lo que preocupa da mejor información que preguntar por lo que se sabe." },
-  { id: "p92", level: "circuito", domain: "Verificación", title: "Auditoría de un procedimiento propio", objective: "Revisar cómo se está usando la herramienta.", prompt: "Te describo cómo venimos usando IA en la oficina para [tarea]. Auditá ese procedimiento: dónde falta verificación, dónde se está cargando información que no debería, dónde no queda registro, y qué pasaría si alguien cuestionara un resultado. Ordená los hallazgos por gravedad y proponé el ajuste mínimo para cada uno.", why: "El ajuste mínimo es el que se implementa; el rediseño completo queda en la carpeta." },
-  { id: "p93", level: "circuito", domain: "Verificación", title: "Reconstruir cómo se llegó a un resultado", objective: "Dejar trazabilidad de un trabajo asistido.", prompt: "A partir de esta conversación, redactá un registro de trazabilidad: qué se pidió, con qué material, qué produjo la herramienta, qué se verificó y contra qué fuente, qué se corrigió y qué quedó pendiente. Formato de media carilla, para archivar junto al documento final.", why: "El registro se escribe en dos minutos ahora y vale por meses después." },
-  { id: "p94", level: "circuito", domain: "Datos", title: "Del dato crudo al tablero", objective: "Convertir registros en información para decidir.", prompt: "Te cargo datos de gestión de la oficina. Etapa uno: describí qué hay, qué campos, qué período, qué falta y qué parece mal cargado, sin analizar todavía. Etapa dos, cuando te lo pida: tres preguntas que estos datos pueden responder y tres que no. Etapa tres: recién ahí el análisis de las que sí, con el cálculo explicado.", why: "Distinguir qué no pueden responder los datos es lo que evita la conclusión inventada." },
-  { id: "p95", level: "circuito", domain: "Circuito completo", title: "Diseñar tu propia ficha de prompt", objective: "Producir una instrucción reutilizable de calidad institucional.", prompt: "Ayudame a convertir esta tarea que hago seguido en una ficha de prompt reutilizable. La ficha debe tener: rol, contexto, normativa o criterios de referencia, tarea, instrucciones paso a paso, restricciones explícitas y formato de salida. Hacéme las preguntas que necesites para completarla, de a una por vez, antes de escribirla.", why: "Preguntar de a una por vez es lo que hace que la ficha salga completa." }
+  { id: "p84", level: "metodo", domain: "Circuito completo", title: "Revisión en tres pasadas", objective: "Controlar un documento con criterios distintos cada vez.", prompt: "Vas a revisar este documento tres veces, con un foco distinto cada vez y sin mezclarlos. Primera pasada: solo estructura y requisitos formales. Segunda: solo coherencia lógica entre hechos, prueba y decisión. Tercera: solo lenguaje y claridad. Entregá las tres devoluciones por separado.", why: "Separar las pasadas evita que un hallazgo grande tape a los chicos." },
+  { id: "p85", level: "metodo", domain: "Trabajo en equipo", title: "Protocolo de oficina", objective: "Acordar reglas de uso en un equipo.", prompt: "Ayudame a redactar un protocolo interno de uso de IA generativa para una oficina judicial de [cantidad] personas. Debe cubrir: qué tareas se pueden delegar, qué se verifica siempre y contra qué fuente, qué nunca se carga en herramientas públicas, cómo se anonimiza, cómo se deja registro y quién revisa qué. Formato de una carilla, en oraciones que se puedan cumplir sin interpretación.", why: "Un protocolo que necesita interpretación no se cumple." },
+  { id: "p86", level: "metodo", domain: "Trabajo en equipo", title: "Reglas de un espacio compartido", objective: "Ordenar un repositorio de trabajo colaborativo.", prompt: "Ayudame a definir las reglas de un espacio de trabajo compartido con documentos de [tipo]. Cubrí: criterio de nomenclatura de archivos con fecha y origen, qué se puede cargar y qué no, quién puede agregar fuentes, cómo se marca lo verificado frente a lo pendiente, y qué se hace con lo que deja de estar vigente. Una regla por línea, sin excepciones ambiguas.", why: "La nomenclatura y el estado de verificación son el 80 % del orden." },
+  { id: "p87", level: "metodo", domain: "Trabajo en equipo", title: "Repartir una tarea grande", objective: "Distribuir trabajo sin superposiciones ni huecos.", prompt: "Tengo que repartir [tarea] entre [n] personas. Proponé tres formas distintas de dividirla: por etapa, por tipo de material y por criterio. Para cada una decí qué se gana, qué se pierde, dónde puede haber superposición y dónde puede quedar un hueco sin responsable.", why: "El hueco sin responsable es el que aparece cuando ya es tarde." },
+  { id: "p88", level: "metodo", domain: "Trabajo con normativa", title: "Mapa de una cuestión", objective: "Organizar el material normativo de un tema.", prompt: "Con las fuentes oficiales que cargué, armá un mapa de la cuestión: norma aplicable con su artículo, precedentes que la interpretan con cita, doctrina si figura en las fuentes, y puntos donde las fuentes se contradicen entre sí. Todo con cita textual. Al final, listá las preguntas que las fuentes cargadas no permiten responder.", why: "La lista final define qué falta buscar y evita cerrar en falso." },
+  { id: "p89", level: "metodo", domain: "Trabajo con normativa", title: "Ficha de un instituto", objective: "Construir material de consulta reutilizable.", prompt: "Con las fuentes que cargué, armá una ficha de consulta sobre [instituto]: definición según las fuentes, requisitos, plazos, efectos, excepciones y remisiones a otras normas. Todo con cita. Dejá una sección final de «cuestiones abiertas» con lo que las fuentes no resuelven.", why: "Una ficha con cuestiones abiertas se puede actualizar; una cerrada envejece mal." },
+  { id: "p90", level: "metodo", domain: "Capacitación", title: "Plan de aprendizaje en cuatro semanas", objective: "Incorporar la herramienta de forma sostenida.", prompt: "Armá un plan de cuatro semanas para incorporar IA generativa a mi trabajo en [función]. Una tarea nueva por semana, de menor a mayor riesgo, con el criterio de verificación correspondiente a cada una. Incluí para cada semana un indicador simple de si conviene avanzar o repetir. Nada de automatización en las dos primeras semanas.", why: "La progresión por riesgo es lo que hace que el hábito se sostenga." },
+  { id: "p91", level: "metodo", domain: "Capacitación", title: "Diagnóstico de necesidades del equipo", objective: "Saber qué capacitación hace falta antes de darla.", prompt: "Ayudame a diseñar un relevamiento breve para saber qué necesita mi equipo en materia de IA generativa. Diez preguntas como máximo, que se respondan en cinco minutos, que no expongan a nadie y que distingan entre lo que la gente usa, lo que cree que puede usar y lo que le preocupa. Después decime cómo interpretar cada respuesta.", why: "Preguntar por lo que preocupa da mejor información que preguntar por lo que se sabe." },
+  { id: "p92", level: "metodo", domain: "Verificación", title: "Auditoría de un procedimiento propio", objective: "Revisar cómo se está usando la herramienta.", prompt: "Te describo cómo venimos usando IA en la oficina para [tarea]. Auditá ese procedimiento: dónde falta verificación, dónde se está cargando información que no debería, dónde no queda registro, y qué pasaría si alguien cuestionara un resultado. Ordená los hallazgos por gravedad y proponé el ajuste mínimo para cada uno.", why: "El ajuste mínimo es el que se implementa; el rediseño completo queda en la carpeta." },
+  { id: "p93", level: "metodo", domain: "Verificación", title: "Reconstruir cómo se llegó a un resultado", objective: "Dejar trazabilidad de un trabajo asistido.", prompt: "A partir de esta conversación, redactá un registro de trazabilidad: qué se pidió, con qué material, qué produjo la herramienta, qué se verificó y contra qué fuente, qué se corrigió y qué quedó pendiente. Formato de media carilla, para archivar junto al documento final.", why: "El registro se escribe en dos minutos ahora y vale por meses después." },
+  { id: "p95", level: "metodo", domain: "Circuito completo", title: "Diseñar tu propia ficha de prompt", objective: "Producir una instrucción reutilizable de calidad institucional.", prompt: "Ayudame a convertir esta tarea que hago seguido en una ficha de prompt reutilizable. La ficha debe tener: rol, contexto, normativa o criterios de referencia, tarea, instrucciones paso a paso, restricciones explícitas y formato de salida. Hacéme las preguntas que necesites para completarla, de a una por vez, antes de escribirla.", why: "Preguntar de a una por vez es lo que hace que la ficha salga completa." }
 ];
 
 // ═══════════════════════════════════════════════════════════════
@@ -3580,6 +3576,142 @@ const imageTrouble = [
 ];
 
 // ═══════════════════════════════════════════════════════════════
+// DATA: RUTAS DE TRABAJO
+// ═══════════════════════════════════════════════════════════════
+// Una ruta no es un prompt largo: es una secuencia de etapas donde cada una
+// produce un recurso intermedio concreto que la siguiente consume. Entre etapa
+// y etapa hay un control humano. El patrón está tomado de los pipelines de
+// procesamiento documental: descubrir, segmentar, clasificar, consolidar,
+// extraer, controlar y derivar a revisión manual lo que no alcanza confianza.
+
+const workRoutes = [
+  {
+    id: 'legajo',
+    title: 'De carpeta desordenada a legajo estructurado',
+    para: 'Un conjunto de archivos mezclados —escaneos, fotos, PDF combinados— que hay que convertir en información utilizable.',
+    cuando: 'Documentación que llega sin orden: presentaciones, legajos, expedientes administrativos, postulaciones.',
+    cierre: 'El resultado no es un resumen: es una tabla con trazabilidad hacia cada archivo de origen y una lista corta de casos que necesitan ojo humano. Esa lista corta es el verdadero producto.',
+    etapas: [
+      { n: 1, nombre: 'Inventario', entra: 'La lista de archivos tal como está.', sale: 'Índice numerado con tipo aparente y estado de cada archivo.', control: 'Verificá que la cantidad coincida con lo que hay en la carpeta.',
+        prompt: 'Te voy a describir uno por uno los archivos de una carpeta. Armá un índice con: número de orden, nombre del archivo, tipo aparente de documento, cantidad de páginas si la sé, y estado (legible / dudoso / ilegible). No interpretes contenido todavía. Al final, decime cuántos archivos quedaron en estado dudoso o ilegible.' },
+      { n: 2, nombre: 'Segmentación', entra: 'El índice de la etapa 1 y los archivos.', sale: 'Lista de documentos lógicos, que pueden no coincidir con los archivos.', control: 'Revisá a mano los archivos donde declaró duda: son los que más se equivocan.',
+        prompt: 'Un mismo archivo puede contener varios documentos distintos, y un mismo documento puede estar repartido en varios archivos (anverso y reverso, escaneo cortado en partes). Para cada archivo del índice, decime cuántos documentos distintos contiene y dónde empieza y termina cada uno. Numeralos como archivo-1, archivo-2. Si no estás seguro de dónde corta, marcá el caso como DUDOSO en lugar de decidir.' },
+      { n: 3, nombre: 'Clasificación', entra: 'La lista de segmentos de la etapa 2.', sale: 'Tabla segmento → tipo de documento, con nivel de certeza.', control: 'Todo lo que quede en certeza baja va a la cola de revisión manual.',
+        prompt: 'Clasificá cada segmento según su tipo de documento, usando esta lista cerrada: [ tipos posibles ]. Devolvé una tabla: identificador del segmento, tipo asignado, certeza (alta / media / baja) y en qué te basaste. Si un segmento no encaja en ninguno de los tipos de la lista, ponelo como OTRO y describilo. No inventes tipos nuevos.' },
+      { n: 4, nombre: 'Consolidación', entra: 'La tabla de clasificación.', sale: 'Documentos lógicos: los segmentos agrupados en unidades con sentido.', control: 'Mirá especialmente los duplicados: dos versiones del mismo documento no siempre son iguales.',
+        prompt: 'Agrupá los segmentos clasificados en documentos lógicos. Uní los que sean partes complementarias del mismo documento (anverso y reverso, páginas cortadas) y los que sean versiones repetidas del mismo contenido. Devolvé: identificador del documento lógico, tipo, qué segmentos lo componen, y si es una consolidación de duplicados. Justificá cada agrupamiento en una línea.' },
+      { n: 5, nombre: 'Extracción', entra: 'Los documentos lógicos consolidados.', sale: 'Tabla de datos, un renglón por documento.', control: 'Verificá tres renglones al azar contra el documento original antes de seguir.',
+        prompt: 'Para cada documento lógico, extraé los campos que correspondan a su tipo. Devolvé una tabla con una fila por documento y una columna por campo. Campo que no conste en el documento, celda vacía: no lo completes ni lo infieras. Agregá una columna final con los campos que esperabas encontrar y no estaban.' },
+      { n: 6, nombre: 'Control cruzado', entra: 'La tabla de datos de la etapa 5.', sale: 'Lista de inconsistencias con su severidad.', control: 'Las de severidad alta se miran en el documento original, siempre.',
+        prompt: 'Compará los datos extraídos entre sí buscando inconsistencias: el mismo dato con valores distintos en dos documentos, fechas incompatibles, datos que deberían coincidir y no coinciden, documentos que deberían estar y faltan. Para cada inconsistencia: qué documentos la involucran, qué dice cada uno, y severidad (alta / media / baja). No la resuelvas: identificala.' },
+      { n: 7, nombre: 'Informe y cola de revisión', entra: 'Todo lo anterior.', sale: 'Informe ejecutivo más la lista corta de casos que necesitan una persona.', control: 'La cola de revisión es el entregable que se trabaja a mano. Si está vacía, desconfiá.',
+        prompt: 'Armá dos cosas por separado. Primero, un informe ejecutivo de una carilla: cuántos documentos se procesaron, qué se encontró, qué inconsistencias aparecieron. Segundo, y por separado, la cola de revisión manual: la lista de casos que quedaron en certeza baja, con duda de segmentación o con inconsistencia de severidad alta, indicando para cada uno qué hay que verificar concretamente.' }
+    ]
+  },
+  {
+    id: 'escrito',
+    title: 'De escrito no estructurado a tabla de decisión',
+    para: 'Un escrito largo del que hay que sacar estructura para poder decidir sobre él.',
+    cuando: 'Demandas, contestaciones, dictámenes, informes técnicos extensos.',
+    cierre: 'Lo que empezó como texto corrido termina como una tabla donde se ve, de un vistazo, qué está sostenido y qué no. La última columna —lo que falta— suele decidir el próximo paso más que las otras.',
+    etapas: [
+      { n: 1, nombre: 'Segmentar en afirmaciones', entra: 'El texto completo.', sale: 'Lista numerada de afirmaciones, sin interpretar.', control: 'Chequeá que no haya fusionado dos afirmaciones en una.',
+        prompt: 'Descomponé el texto adjunto en afirmaciones individuales, una por línea, numeradas y en el orden en que aparecen. Una afirmación es una proposición que puede ser verdadera o falsa por separado. No resumas, no agrupes y no interpretes: solo separá.' },
+      { n: 2, nombre: 'Clasificar cada afirmación', entra: 'La lista numerada.', sale: 'Cada afirmación con su naturaleza.', control: 'Las clasificadas como inferencia son las que más conviene revisar.',
+        prompt: 'Clasificá cada afirmación de la lista según su naturaleza: hecho afirmado, hecho con respaldo citado en el texto, inferencia del autor, valoración, o cita normativa. Devolvé número de afirmación y clasificación. Si una afirmación mezcla dos naturalezas, separala en dos.' },
+      { n: 3, nombre: 'Estructurar', entra: 'Las afirmaciones clasificadas.', sale: 'Tabla con respaldo y ubicación.', control: 'Verificá tres filas contra el texto original.',
+        prompt: 'Armá una tabla con: número de afirmación, texto de la afirmación, naturaleza, elemento de respaldo citado en el propio escrito, y ubicación (foja, párrafo o sección). Si no hay respaldo citado, escribí «sin respaldo en el texto». No completes con conocimiento general.' },
+      { n: 4, nombre: 'Detectar vacíos', entra: 'La tabla estructurada.', sale: 'Lista de lo que falta.', control: 'Este es el producto que más rinde: revisalo entero.',
+        prompt: 'Sobre la tabla anterior: qué afirmaciones sin respaldo son relevantes para la decisión, qué prueba habría que producir para sostenerlas, y qué cuestiones plantea el escrito que quedaron sin desarrollo. Ordená por importancia para la resolución del caso.' },
+      { n: 5, nombre: 'Decisión sobre el material', entra: 'La tabla y la lista de vacíos.', sale: 'Qué se pide, qué se resuelve y qué se difiere.', control: 'La decisión es tuya: acá solo se ordena el insumo.',
+        prompt: 'Con la tabla y los vacíos identificados, organizá el material en tres grupos: cuestiones que pueden resolverse con lo que hay, cuestiones que requieren prueba adicional indicando cuál, y cuestiones que dependen de una decisión previa sobre otra. No propongas la decisión: ordená el material para que la tome yo.' }
+    ]
+  },
+  {
+    id: 'planilla',
+    title: 'De la tabla a la planilla que decide',
+    para: 'Datos ya estructurados que hay que llevar a una planilla y hacer que respondan una pregunta.',
+    cuando: 'Seguimiento de expedientes, control de plazos, estadística de la oficina, relevamientos.',
+    cierre: 'La clave está en la etapa 4: no le pedís al asistente que haga el cálculo, le pedís que te enseñe a hacerlo en tu propia herramienta. Así el conocimiento queda en la oficina y la planilla sigue funcionando sin la IA.',
+    etapas: [
+      { n: 1, nombre: 'Definir la pregunta', entra: 'La necesidad, en palabras.', sale: 'Una pregunta que la planilla tiene que poder responder.', control: 'Si la pregunta no cabe en una línea, todavía no está definida.',
+        prompt: 'Quiero armar una planilla para [ describir qué querés controlar ]. Antes de proponerme nada, hacéme cinco preguntas sobre qué decisiones voy a tomar con esa información. Después de que las responda, formulá en una sola línea la pregunta concreta que la planilla tiene que poder responder.' },
+      { n: 2, nombre: 'Diseñar las columnas', entra: 'La pregunta de la etapa 1.', sale: 'Estructura de columnas con su tipo de dato.', control: 'Toda columna que no sirva para responder la pregunta, sobra.',
+        prompt: 'Para responder esa pregunta, proponé la estructura de columnas: nombre de columna, qué contiene, tipo de dato (texto, número, fecha, lista cerrada), y si es obligatoria. Para las de lista cerrada, dame los valores posibles. Marcá cuáles se cargan a mano y cuáles se calculan a partir de otras.' },
+      { n: 3, nombre: 'Volcar los datos', entra: 'La estructura y el material de origen.', sale: 'Filas listas para pegar.', control: 'Celda vacía es un dato: celda inventada es un error.',
+        prompt: 'Convertí el material que te doy en filas con la estructura de columnas definida. Una fila por registro, separadas por tabulaciones para pegar directo en la planilla. Dato que no conste, celda vacía. Al final decime cuántas celdas quedaron vacías por columna.' },
+      { n: 4, nombre: 'Aprender el cálculo', entra: 'La planilla ya cargada.', sale: 'La fórmula, explicada, para hacerla vos.', control: 'Probala en tres filas antes de arrastrarla a toda la columna.',
+        prompt: 'Estoy trabajando en [ Excel / Google Sheets / LibreOffice Calc ]. Necesito que la planilla calcule [ describir el cálculo en palabras ]. No me des el resultado: enseñame a hacerlo. Dame la fórmula exacta, explicá qué hace cada parte, decime en qué celda va y cómo se copia al resto, y avisame qué pasa si una celda está vacía o tiene texto en lugar de número. Después dame una versión más simple aunque sea menos elegante.' },
+      { n: 5, nombre: 'Validar', entra: 'La fórmula aplicada.', sale: 'Confirmación de que el cálculo es correcto.', control: 'Una fila calculada a mano vale más que diez explicaciones.',
+        prompt: 'Voy a verificar el cálculo a mano en una fila. Decime paso a paso qué operaciones debería hacer con lápiz y papel para llegar al mismo resultado que la fórmula, con los valores de esta fila: [ pegar la fila ].' },
+      { n: 6, nombre: 'Automatizar el control', entra: 'La planilla funcionando.', sale: 'Reglas de validación y alertas visuales.', control: 'Que la planilla avise sola es lo que evita el error de carga.',
+        prompt: 'Enseñame a agregar en [ herramienta ] dos cosas: validación de datos para que la columna [ nombre ] solo acepte los valores de la lista cerrada, y formato condicional que pinte de rojo las filas donde [ condición de alerta ]. Instrucciones paso a paso, con los nombres de los menús tal como aparecen en la herramienta.' }
+    ]
+  },
+  {
+    id: 'audiencia',
+    title: 'De audiencia grabada a acta y pendientes',
+    para: 'Una grabación que hay que convertir en documento de trabajo.',
+    cuando: 'Audiencias, reuniones de equipo, entrevistas, capacitaciones.',
+    cierre: 'La etapa 2 es la que casi nadie hace y la que decide la calidad de todo lo demás: la transcripción automática siempre arruina los nombres propios y los términos técnicos, y ese error se propaga a cada documento posterior.',
+    etapas: [
+      { n: 1, nombre: 'Transcribir', entra: 'El archivo de audio.', sale: 'Texto completo de la grabación.', control: 'Abrí la fuente cargada y mirá la transcripción antes de seguir.',
+        prompt: 'Cargá el audio en el entorno de cuadernos, hacé clic sobre la fuente y copiá la transcripción completa que aparece debajo del resumen. No hace falta pedirle nada al chat todavía.' },
+      { n: 2, nombre: 'Corregir', entra: 'La transcripción cruda.', sale: 'Transcripción corregida, que pasa a ser la fuente buena.', control: 'Corregí a mano lo que sabés que está mal: nombres, apellidos, artículos, carátulas.',
+        prompt: 'Te pego una transcripción automática. Listá todas las palabras que probablemente sean errores de reconocimiento: nombres propios raros, términos jurídicos deformados, números que no cierran, referencias normativas mal escritas. No las corrijas vos: listalas con su contexto para que las corrija yo, porque solo yo sé qué se dijo realmente.' },
+      { n: 3, nombre: 'Segmentar por tema', entra: 'La transcripción corregida.', sale: 'Índice temático con marcas de tiempo.', control: 'Verificá dos marcas de tiempo contra el audio.',
+        prompt: 'Sobre esta transcripción ya corregida: armá un índice de temas en el orden en que se trataron, con la marca de tiempo de inicio de cada uno si la transcripción la tiene y una línea describiendo de qué se habló. No resumas el contenido todavía.' },
+      { n: 4, nombre: 'Extraer lo accionable', entra: 'La transcripción y el índice.', sale: 'Decisiones, plazos, responsables y pendientes.', control: 'Todo plazo se verifica escuchando el pasaje original.',
+        prompt: 'De la transcripción, extraé cuatro listas separadas: decisiones adoptadas con quién las adoptó, plazos fijados con desde cuándo corren, tareas asignadas con su responsable, y cuestiones que quedaron abiertas sin resolver. No infieras responsables ni plazos que no se hayan dicho de forma expresa: si no se dijo, escribí «no se indicó».' },
+      { n: 5, nombre: 'Redactar el acta', entra: 'Todo lo anterior.', sale: 'Documento formal listo para revisar.', control: 'Los datos marcados entre dobles corchetes se verifican antes de firmar.',
+        prompt: 'Con el índice temático y las listas de decisiones, plazos y pendientes, redactá el acta con el formato institucional que corresponde. Toda fecha, plazo, monto o cita textual va entre [[dobles corchetes]] para que yo la verifique. Al final incluí la tabla de elementos marcados con dónde verificar cada uno.' }
+    ]
+  },
+  {
+    id: 'criterio',
+    title: 'De relevamiento de fallos a criterio consolidado',
+    para: 'Varias resoluciones sobre una misma cuestión que hay que leer juntas.',
+    cuando: 'Cuando necesitás saber qué se viene resolviendo sobre un tema y dónde está la divergencia.',
+    cierre: 'La etapa 6 es la que separa un relevamiento serio de una impresión: la síntesis se vuelve a poner a prueba contra las fuentes que la originaron, y recién ahí se puede citar hacia adentro de la oficina.',
+    etapas: [
+      { n: 1, nombre: 'Diseñar la búsqueda', entra: 'La cuestión, en palabras.', sale: 'Consultas con operadores, listas para ejecutar.', control: 'La IA arma la búsqueda; la búsqueda la hacés vos.',
+        prompt: 'Necesito relevar cómo se viene resolviendo [ cuestión ] en [ jurisdicción ]. No me des fallos ni citas. Dame ocho consultas con operadores para buscar en [ portal oficial ], con sinónimos del vocabulario técnico y variantes de redacción, y explicá en una línea qué busca cada una.' },
+      { n: 2, nombre: 'Descargar y registrar', entra: 'Las consultas.', sale: 'Los documentos oficiales, con URL y fecha.', control: 'Sin URL y fecha de consulta, el relevamiento no es auditable.',
+        prompt: 'Armá una planilla de registro de las descargas con estas columnas: identificador, carátula, órgano, fecha de la resolución, URL de descarga, fecha de consulta y observaciones. Dame el encabezado listo para pegar. Yo la voy completando a medida que descargo.' },
+      { n: 3, nombre: 'Tabla comparativa', entra: 'Los documentos cargados como fuentes.', sale: 'Una fila por resolución.', control: 'Verificá tres filas contra el fallo original.',
+        prompt: 'Con las resoluciones cargadas, armá una tabla: identificador, órgano, fecha, hechos relevantes en una línea, cuestión decidida, norma o doctrina aplicada, resultado, y cita textual del pasaje decisorio. Campo que no conste, vacío. No infieras el resultado a partir del tono.' },
+      { n: 4, nombre: 'Detectar divergencias', entra: 'La tabla comparativa.', sale: 'Mapa de coincidencias y apartamientos.', control: 'Distinguí divergencia real de diferencia de supuesto fáctico.',
+        prompt: 'Sobre la tabla: dónde coinciden las resoluciones, dónde se apartan entre sí, y en cada apartamiento qué fundamento da cada una. Distinguí los casos donde la diferencia se explica por hechos distintos de los casos donde hay criterios efectivamente contrapuestos sobre el mismo supuesto.' },
+      { n: 5, nombre: 'Sintetizar', entra: 'El mapa de divergencias.', sale: 'Documento de criterio, media carilla.', control: 'La síntesis es material derivado: nunca se cita como fuente.',
+        prompt: 'Escribí una síntesis de media carilla del criterio predominante, indicando: qué se resuelve de manera uniforme, dónde hay divergencia y en qué términos, cuáles son las excepciones y qué cuestiones no aparecen tratadas en ninguna de las resoluciones. Cada afirmación tiene que remitir a la fila de la tabla que la sostiene.' },
+      { n: 6, nombre: 'Poner a prueba la síntesis', entra: 'La síntesis y las fuentes originales.', sale: 'Síntesis validada o corregida.', control: 'Este paso es obligatorio antes de que la síntesis circule.',
+        prompt: 'Te doy la síntesis y las resoluciones originales. Verificá: qué afirmaciones de la síntesis están sostenidas por las fuentes con cita, cuáles están sostenidas parcialmente, y cuáles no encuentran respaldo o son contradichas por alguna resolución. No reescribas la síntesis: señalá qué habría que corregir.' }
+    ]
+  },
+  {
+    id: 'documento',
+    title: 'De la nada a un documento firmable',
+    para: 'Un texto que hay que escribir y que va a llevar tu firma.',
+    cuando: 'Proyectos de resolución, dictámenes, informes, instructivos.',
+    cierre: 'Cada etapa se aprueba antes de pasar a la siguiente, y lo aprobado no se vuelve a discutir. Corregir un esquema reescribe secciones enteras; corregir el texto final cambia palabras.',
+    etapas: [
+      { n: 1, nombre: 'Tres esquemas', entra: 'El material de base y el objetivo.', sale: 'Tres estructuras alternativas.', control: 'Elegí una y descartá las otras dos de forma explícita.',
+        prompt: 'Necesito redactar [ tipo de documento ] sobre [ tema ], con este material de base. No redactes todavía. Dame tres opciones de esquema con enfoques distintos, cada una con sus títulos de sección y una línea explicando qué prioriza y qué deja afuera.' },
+      { n: 2, nombre: 'Esquema corregido', entra: 'El esquema elegido y tu feedback.', sale: 'La estructura definitiva.', control: 'Acá es donde conviene invertir el tiempo, no en el texto.',
+        prompt: 'Trabajemos sobre la opción [ número ]. Los cambios son: [ tus correcciones ]. Devolvé el esquema corregido, y decime qué consecuencias tienen esos cambios sobre las otras secciones.' },
+      { n: 3, nombre: 'Viñetas', entra: 'El esquema aprobado.', sale: 'Contenido de cada sección, en puntos.', control: 'Todavía se puede reordenar barato. Después no.',
+        prompt: 'Expandí cada sección del esquema aprobado a viñetas, sin redactar prosa. Cada viñeta, una idea. Marcá con [ verificar ] toda viñeta que dependa de un dato que hay que comprobar.' },
+      { n: 4, nombre: 'Texto con campos de control', entra: 'Las viñetas aprobadas.', sale: 'Borrador con sus puntos de verificación marcados.', control: 'El borrador no se usa hasta completar la tabla de verificación.',
+        prompt: 'Desarrollá las viñetas aprobadas en el texto final. Toda norma, fecha, monto, plazo o cita va entre [[dobles corchetes]]. Al final incluí una tabla con cada elemento marcado, dónde se verifica y qué consecuencia tiene si es incorrecto. No entregues el texto sin esa tabla.' },
+      { n: 5, nombre: 'Revisión de lenguaje', entra: 'El texto verificado.', sale: 'Observaciones de estilo, una por una.', control: 'Aceptás o rechazás cada cambio: no se aplican en bloque.',
+        prompt: 'Revisá el texto según estos criterios: oraciones de menos de 30 palabras, voz activa, un concepto por párrafo, sin latinismos innecesarios, siglas desarrolladas en su primera aparición. Devolvé una tabla: fragmento original, criterio incumplido, propuesta de reemplazo, y si la propuesta implica algún riesgo de pérdida de precisión. No cambies el sentido.' },
+      { n: 6, nombre: 'Registro de trazabilidad', entra: 'Todo el proceso.', sale: 'Media carilla para archivar junto al documento.', control: 'Se escribe en dos minutos y vale por meses.',
+        prompt: 'A partir de esta conversación, redactá un registro de trazabilidad: qué se pidió, con qué material, en qué etapas se trabajó, qué se verificó y contra qué fuente, qué se corrigió y qué quedó pendiente. Media carilla, para archivar junto al documento final.' }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════════════
 // UTILIDADES Y COMPONENTES BASE
 // ═══════════════════════════════════════════════════════════════
 
@@ -4605,68 +4737,222 @@ const AnonSection = () => {
   );
 };
 
+// Marcas que el modelo debe producir en su respuesta: no son huecos a completar.
+const NO_ES_HUECO = new Set([
+  'verificar', 'ilegible', 'aprox', 'falta desarrollo', 'corchetes', 'dobles corchetes',
+  'recortado: qué', 'no consta', 'sin información', 'Falta información'
+]);
+
+const esHueco = (t) => {
+  const s = t.trim();
+  if (!s || s.length > 60) return false;
+  if (NO_ES_HUECO.has(s)) return false;
+  if (/^[A-ZÁÉÍÓÚÑ_0-9\s]+$/.test(s)) return false; // etiquetas tipo [DNI]
+  return true;
+};
+
+// Bloque de prompt con los huecos completables. Lo que se copia es el texto ya
+// relleno con lo que hayas escrito; lo que quede vacío se copia como está.
+const PromptBlock = ({ text, label }) => {
+  const partes = useMemo(() => text.split(/(\[\[[^\]]*\]\]|\[[^\]]*\])/g), [text]);
+  const huecos = useMemo(() => {
+    const out = [];
+    partes.forEach(p => {
+      const m = /^\[([^[\]]*)\]$/.exec(p);
+      if (m && esHueco(m[1]) && !out.includes(m[1].trim())) out.push(m[1].trim());
+    });
+    return out;
+  }, [partes]);
+
+  const [vals, setVals] = useState({});
+  const set = (k, v) => setVals(o => ({ ...o, [k]: v }));
+
+  const relleno = useMemo(() => partes.map(p => {
+    const m = /^\[([^[\]]*)\]$/.exec(p);
+    if (m && esHueco(m[1]) && (vals[m[1].trim()] || '').trim()) return vals[m[1].trim()].trim();
+    return p;
+  }).join(''), [partes, vals]);
+
+  const completos = huecos.filter(h => (vals[h] || '').trim()).length;
+
+  return (
+    <div className="my-3">
+      {huecos.length > 0 && (
+        <div className="rounded-t-xl border border-b-0 border-amber-300 bg-amber-50 p-3">
+          <p className="text-[0.65rem] font-black uppercase tracking-widest text-amber-700 mb-2">
+            Completá antes de copiar · {completos} de {huecos.length}
+          </p>
+          <div className="grid sm:grid-cols-2 gap-2">
+            {huecos.map(h => (
+              <label key={h} className="block">
+                <span className="text-xs font-medium text-amber-900">{h}</span>
+                <input value={vals[h] || ''} onChange={e => set(h, e.target.value)}
+                  placeholder={h}
+                  className="w-full p-2 rounded-lg border-2 border-amber-300 text-sm bg-white focus:border-amber-500 outline-none" />
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+      <div className={`overflow-hidden border border-slate-700 ${huecos.length > 0 ? 'rounded-b-xl' : 'rounded-xl'}`}>
+        <div className="bg-slate-800 px-4 py-2 flex items-center justify-between gap-3">
+          <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">{label || 'Tu mensaje al asistente'}</span>
+          <CopyBtn text={relleno} small />
+        </div>
+        <div className="bg-slate-900 text-slate-100 p-4 text-[0.82em] leading-loose font-mono whitespace-pre-wrap">
+          {partes.map((p, i) => {
+            const m = /^\[([^[\]]*)\]$/.exec(p);
+            if (m && esHueco(m[1])) {
+              const n = m[1].trim();
+              const v = (vals[n] || '').trim();
+              return v
+                ? <span key={i} className="bg-emerald-500/25 text-emerald-200 rounded px-1.5 py-0.5 mx-0.5">{v}</span>
+                : <span key={i} className="bg-amber-400/25 text-amber-200 rounded px-1.5 py-0.5 mx-0.5 border border-amber-400/40">{n}</span>;
+            }
+            if (/^\[\[.*\]\]$/.test(p)) return <span key={i} className="text-sky-300">{p}</span>;
+            return <span key={i}>{p}</span>;
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const RouteView = ({ route }) => {
+  const [abierta, setAbierta] = useState(1);
+  return (
+    <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm">
+      <h4 className="text-lg font-extrabold text-slate-800">{route.title}</h4>
+      <p className="text-slate-600 text-sm mb-1">{route.para}</p>
+      <p className="text-sm text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg p-3 my-3 flex items-start gap-2">
+        <Target className="w-4 h-4 mt-0.5 flex-shrink-0" /><span><strong>Cuándo:</strong> {route.cuando}</span></p>
+
+      <div className="flex flex-wrap gap-1.5 my-4">
+        {route.etapas.map(e => (
+          <button key={e.n} onClick={() => setAbierta(e.n)}
+            className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${abierta === e.n ? 'bg-emerald-600 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+            {e.n}. {e.nombre}
+          </button>
+        ))}
+      </div>
+
+      {route.etapas.filter(e => e.n === abierta).map(e => (
+        <div key={e.n} className="rounded-xl border-2 border-emerald-200 bg-emerald-50/40 p-4">
+          <div className="flex items-center gap-3 mb-3">
+            <span className="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">{e.n}</span>
+            <h5 className="font-bold text-slate-800">{e.nombre}</h5>
+          </div>
+          <div className="grid sm:grid-cols-2 gap-2 mb-1">
+            <div className="rounded-lg bg-white border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Entra</p>
+              <p className="text-sm text-slate-700">{e.entra}</p>
+            </div>
+            <div className="rounded-lg bg-white border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Sale</p>
+              <p className="text-sm text-slate-700">{e.sale}</p>
+            </div>
+          </div>
+          <PromptBlock text={e.prompt} />
+          <p className="text-sm text-rose-900 bg-rose-50 border border-rose-200 rounded-lg p-3 flex items-start gap-2">
+            <ShieldAlert className="w-4 h-4 mt-0.5 flex-shrink-0" /><span><strong>Control antes de avanzar:</strong> {e.control}</span></p>
+          {e.n < route.etapas.length && (
+            <button onClick={() => setAbierta(e.n + 1)}
+              className="mt-3 px-4 py-2 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
+              Etapa {e.n + 1} <ArrowRight className="w-4 h-4" />
+            </button>
+          )}
+        </div>
+      ))}
+
+      <p className="text-sm text-slate-600 mt-4 pt-3 border-t border-slate-100 flex items-start gap-2">
+        <Lightbulb className="w-4 h-4 text-amber-500 mt-0.5 flex-shrink-0" /><span>{route.cierre}</span></p>
+    </div>
+  );
+};
+
 const GymSection = () => {
+  const [vista, setVista] = useState('sueltos');
   const [level, setLevel] = useState('inicio');
   const [domain, setDomain] = useState('todos');
+  const [ruta, setRuta] = useState(workRoutes[0].id);
+
   const items = promptItems.filter(p => p.level === level);
   const domains = ['todos', ...Array.from(new Set(items.map(p => p.domain)))];
   const shown = domain === 'todos' ? items : items.filter(p => p.domain === domain);
   const lvl = promptLevels.find(l => l.id === level);
+  const r = workRoutes.find(x => x.id === ruta);
 
   return (
     <div className="max-w-4xl mx-auto">
-      <SectionHead icon={Target} title="Gimnasio de prompts" tone="emerald">
-        {promptItems.length} instrucciones listas para copiar, agrupadas por nivel de exigencia y por área de trabajo.
-        Los corchetes marcan lo que tenés que completar. No están pensadas solo para usarse tal cual: sirven sobre todo
-        como disparadores, para ver qué clase de pedidos rinden y descubrir tareas propias que no se te habían ocurrido
-        delegar. Ninguna incluye datos personales: antes de usarlas sobre material propio, decidí qué podés cargar y en
-        qué herramienta.
+      <SectionHead icon={Target} title="Gimnasio" tone="emerald">
+        Dos formas de trabajar. <strong>Instrucciones sueltas</strong>: {promptItems.length} pedidos listos para copiar,
+        cada uno resuelve una tarea. <strong>Rutas de trabajo</strong>: secuencias donde cada etapa produce un recurso
+        que la siguiente usa, con un control humano en el medio. Los pedidos no están solo para usarse tal cual: sirven
+        sobre todo como disparadores, para descubrir tareas propias que no se te habían ocurrido delegar.
       </SectionHead>
 
-      <div className="flex flex-wrap gap-2 mb-3">
-        {promptLevels.map(l => (
-          <button key={l.id} onClick={() => { setLevel(l.id); setDomain('todos'); }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${level === l.id ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
-            {l.label}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {[{ id: 'sueltos', l: 'Instrucciones sueltas', i: <Target className="w-4 h-4" /> },
+        { id: 'rutas', l: 'Rutas de trabajo', i: <Layers className="w-4 h-4" /> }].map(v => (
+          <button key={v.id} onClick={() => setVista(v.id)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${vista === v.id ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
+            {v.i} {v.l}
           </button>
         ))}
       </div>
-      <p className="text-sm text-slate-500 mb-4">{lvl.hint} · {items.length} instrucciones en este nivel</p>
 
-      <div className="flex flex-wrap gap-2 mb-2">
-        {domains.map(d => (
-          <button key={d} onClick={() => setDomain(d)}
-            className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${domain === d ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
-            {d === 'todos' ? `Todas (${items.length})` : `${d} (${items.filter(p => p.domain === d).length})`}
-          </button>
-        ))}
-      </div>
-      <p className="text-xs text-slate-400 mb-6">Mostrando {shown.length} de {items.length}</p>
+      {vista === 'rutas' ? (
+        <div className="space-y-4">
+          <Callout tone="slate" icon={Layers} title="Cómo se lee una ruta">
+            Cada etapa dice qué material entra, qué pedido se hace, qué recurso sale y qué hay que controlar antes de
+            avanzar. Ese recurso intermedio —un índice, una tabla, una transcripción corregida— es lo que hace posible
+            la etapa siguiente. No se saltean etapas: si el control falla, se vuelve, no se sigue.
+          </Callout>
+          <div className="flex flex-wrap gap-2">
+            {workRoutes.map(x => (
+              <button key={x.id} onClick={() => setRuta(x.id)}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${ruta === x.id ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
+                {x.title}
+              </button>
+            ))}
+          </div>
+          <RouteView key={r.id} route={r} />
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-wrap gap-2 mb-3">
+            {promptLevels.map(l => (
+              <button key={l.id} onClick={() => { setLevel(l.id); setDomain('todos'); }}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${level === l.id ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
+                {l.label}
+              </button>
+            ))}
+          </div>
+          <p className="text-sm text-slate-500 mb-4">{lvl.hint} · {items.length} instrucciones en este nivel</p>
 
-      <div className="space-y-4">
-        {shown.map(p => (
-          <div key={p.id} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-            <div className="flex items-start justify-between gap-3 mb-2">
-              <div>
+          <div className="flex flex-wrap gap-2 mb-2">
+            {domains.map(d => (
+              <button key={d} onClick={() => setDomain(d)}
+                className={`px-3 py-1 rounded-full text-xs font-medium transition-all ${domain === d ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
+                {d === 'todos' ? `Todas (${items.length})` : `${d} (${items.filter(p => p.domain === d).length})`}
+              </button>
+            ))}
+          </div>
+          <p className="text-xs text-slate-400 mb-6">Mostrando {shown.length} de {items.length}</p>
+
+          <div className="space-y-4">
+            {shown.map(p => (
+              <div key={p.id} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
                 <span className="text-xs font-bold text-emerald-700 uppercase">{p.domain}</span>
                 <h4 className="font-bold text-slate-800">{p.title}</h4>
                 <p className="text-sm text-slate-500">{p.objective}</p>
+                <PromptBlock text={p.prompt} />
+                <p className="text-sm text-slate-600 flex items-start gap-2"><Lightbulb className="w-4 h-4 text-amber-500 mt-1 flex-shrink-0" /><span>{p.why}</span></p>
               </div>
-              <CopyBtn text={p.prompt} small />
-            </div>
-            <div className="rounded-xl overflow-hidden border border-slate-700 my-3">
-              <div className="bg-slate-800 px-4 py-2 flex items-center gap-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
-                <span className="w-2.5 h-2.5 rounded-full bg-slate-600"></span>
-                <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400 ml-2">Tu mensaje al asistente</span>
-              </div>
-              <div className="bg-slate-900 text-slate-100 p-4 text-[0.82em] leading-relaxed font-mono whitespace-pre-wrap">{p.prompt}</div>
-            </div>
-            <p className="text-sm text-slate-600 flex items-start gap-2"><Lightbulb className="w-4 h-4 text-amber-500 mt-1 flex-shrink-0" /><span>{p.why}</span></p>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
     </div>
   );
 };
