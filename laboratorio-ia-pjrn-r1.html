@@ -4058,7 +4058,37 @@ const searchFlow = [
   { n: 5, t: 'Controlar vigencia', d: 'En la fuente. La vigencia nunca se pregunta al modelo.' },
   { n: 6, t: 'Cargar como fuente', d: 'Recién ahora el documento verificado entra a un cuaderno de trabajo.' },
   { n: 7, t: 'Preguntar con cita obligatoria', d: 'Y abrir dos citas al azar para comprobar que sostienen lo que se afirma.' }
+]
+
+// ── Las dos rutas de búsqueda, que no son intercambiables ──────
+const searchRutas = [
+  { ruta: 'Buscador general, acotado con site:',
+    donde: 'Google, Bing o el que uses habitualmente',
+    sirve: 'Los ocho operadores de la tabla. Es lo que arma esta herramienta.',
+    cuando: 'Cuando buscás por tema, por una frase del texto, o cuando todavía no sabés en qué portal está.' },
+  { ruta: 'Buscador propio del portal',
+    donde: 'El formulario del sitio oficial',
+    sirve: 'Sus propios campos: número de expediente, carátula, fecha, organismo, tipo de acto.',
+    cuando: 'Cuando ya sabés dónde está y tenés un dato exacto para pedirlo.' }
 ];
+
+// ── Tres casos resueltos: de la pregunta a la consulta ─────────
+const searchEjemplos = [
+  { pregunta: 'Necesito las acordadas del Superior Tribunal sobre notificación electrónica dictadas desde 2024.',
+    campos: { frases: 'notificación electrónica', libres: '', variantes: '', titulo: 'acordada',
+              sitio: 'jusrionegro.gov.ar', tipo: 'pdf', excluir: '', desde: '2024-01-01', hasta: '' },
+    porque: 'La frase entre comillas evita que traiga «notificación» y «electrónica» sueltas por todo el sitio. El intitle: descarta las páginas que apenas la mencionan y deja las que son la acordada.' },
+  { pregunta: 'Busco jurisprudencia sobre prescripción liberatoria y me llena de cursos de capacitación.',
+    campos: { frases: 'prescripción liberatoria', libres: '', variantes: 'sentencia, fallo, resolución',
+              titulo: '', sitio: 'saij.gob.ar', tipo: '', excluir: 'curso capacitación jornada inscripción',
+              desde: '', hasta: '' },
+    porque: 'El OR cubre que la misma cosa se nombra distinto en cada portal. Y excluir cuatro palabras es lo que saca el ruido de capacitaciones, que en materia de prescripción es enorme.' },
+  { pregunta: 'Necesito el texto vigente de una ley provincial y no sé cómo está titulada.',
+    campos: { frases: '', libres: 'ley 5450 texto vigente', variantes: '', titulo: '',
+              sitio: 'legisrn.gov.ar', tipo: '', excluir: 'proyecto', desde: '', hasta: '' },
+    porque: 'Acá NO conviene entrecomillar: no sabés si el portal dice «texto vigente», «texto ordenado» o «texto actualizado». Con términos libres encuentra cualquiera de las tres. Entrecomillar de más es la causa más frecuente de una búsqueda que no devuelve nada.' }
+];
+;
 
 // ═══════════════════════════════════════════════════════════════
 // DATA: NOTEBOOKLM / GEMINI NOTEBOOK
@@ -6390,53 +6420,125 @@ const Turn = ({ c }) => {
 };
 
 const SearchSection = () => {
-  const [frase, setFrase] = useState('');
+  const [frases, setFrases] = useState('');
+  const [libres, setLibres] = useState('');
+  const [variantes, setVariantes] = useState('');
+  const [titulo, setTitulo] = useState('');
   const [sitio, setSitio] = useState('');
   const [tipo, setTipo] = useState('');
-  const [titulo, setTitulo] = useState('');
   const [excluir, setExcluir] = useState('');
   const [desde, setDesde] = useState('');
+  const [hasta, setHasta] = useState('');
+  const [verPor, setVerPor] = useState(null);
 
   const query = useMemo(() => {
     const p = [];
-    if (frase.trim()) p.push('"' + frase.trim() + '"');
+    frases.split('\n').map(f => f.trim()).filter(Boolean).forEach(f => p.push('"' + f + '"'));
+    if (libres.trim()) p.push(libres.trim().replace(/\s+/g, ' '));
+    const vs = variantes.split(/[,\n]/).map(v => v.trim()).filter(Boolean);
+    if (vs.length > 1) p.push('(' + vs.join(' OR ') + ')');
+    else if (vs.length === 1) p.push(vs[0]);
     if (titulo.trim()) p.push('intitle:' + titulo.trim());
     if (sitio.trim()) p.push('site:' + sitio.trim());
     if (tipo.trim()) p.push('filetype:' + tipo.trim());
     if (excluir.trim()) p.push(...excluir.trim().split(/\s+/).map(w => '-' + w));
     if (desde.trim()) p.push('after:' + desde.trim());
+    if (hasta.trim()) p.push('before:' + hasta.trim());
     return p.join(' ');
-  }, [frase, sitio, tipo, titulo, excluir, desde]);
+  }, [frases, libres, variantes, titulo, sitio, tipo, excluir, desde, hasta]);
+
+  const aplicar = (c, i) => {
+    setFrases(c.frases); setLibres(c.libres); setVariantes(c.variantes);
+    setTitulo(c.titulo); setSitio(c.sitio); setTipo(c.tipo);
+    setExcluir(c.excluir); setDesde(c.desde); setHasta(c.hasta);
+    setVerPor(i);
+  };
+  const limpiar = () => {
+    setFrases(''); setLibres(''); setVariantes(''); setTitulo(''); setSitio('');
+    setTipo(''); setExcluir(''); setDesde(''); setHasta(''); setVerPor(null);
+  };
 
   const field = "w-full p-2.5 rounded-lg border-2 border-slate-300 text-sm focus:border-sky-500 outline-none";
+  const rot = "text-xs font-bold text-slate-500 uppercase";
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <SectionHead icon={Search} title="Investigador" tone="indigo">
         La IA diseña la búsqueda; vos la ejecutás en la fuente oficial. Este es el reparto de tareas que evita la cita
-        inventada, y este armador te deja la consulta lista para pegar en el portal que corresponda.
+        inventada.
       </SectionHead>
 
       <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-        <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2"><Wand2 className="w-4 h-4 text-sky-500" /> Armador de consultas</h4>
-        <div className="grid sm:grid-cols-2 gap-3 mb-4">
-          <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Frase exacta</span>
-            <input className={field} value={frase} onChange={e => setFrase(e.target.value)} placeholder="interés superior del niño" /></label>
-          <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Palabra en el título</span>
-            <input className={field} value={titulo} onChange={e => setTitulo(e.target.value)} placeholder="acordada" /></label>
-          <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Dominio</span>
-            <input className={field} value={sitio} onChange={e => setSitio(e.target.value)} placeholder="jusrionegro.gov.ar" /></label>
-          <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Tipo de archivo</span>
-            <input className={field} value={tipo} onChange={e => setTipo(e.target.value)} placeholder="pdf" /></label>
-          <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Excluir palabras</span>
-            <input className={field} value={excluir} onChange={e => setExcluir(e.target.value)} placeholder="curso capacitación" /></label>
-          <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Desde (aaaa-mm-dd)</span>
-            <input className={field} value={desde} onChange={e => setDesde(e.target.value)} placeholder="2024-01-01" /></label>
+        <h4 className="font-bold text-slate-800 mb-2 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-600" /> Antes de armar nada: dónde se usa esto</h4>
+        <p className="text-sm text-slate-600 mb-3">
+          Buscar en un portal oficial son <strong>dos cosas distintas</strong>, y los operadores solo funcionan en una.
+        </p>
+        <div className="grid md:grid-cols-2 gap-3">
+          {searchRutas.map((r, i) => (
+            <div key={i} className={"rounded-xl p-4 border-2 " + (i === 0 ? "border-sky-300 bg-sky-50" : "border-slate-200 bg-slate-50")}>
+              <p className="font-bold text-slate-800 text-sm mb-1">{r.ruta}</p>
+              <p className="text-xs text-slate-500 mb-2">{r.donde}</p>
+              <p className="text-slate-700 text-sm mb-2">{r.sirve}</p>
+              <p className="text-slate-600 text-xs"><strong>Cuándo:</strong> {r.cuando}</p>
+            </div>
+          ))}
         </div>
+        <p className="text-sm text-slate-600 mt-3">
+          El armador de abajo produce consultas para la <strong>primera</strong> ruta. Si pegás
+          <code className="mx-1 text-sky-700">site:jusrionegro.gov.ar</code> en el buscador interno de un portal,
+          no vas a obtener nada: ese buscador tiene sus propios campos.
+        </p>
+      </div>
+
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
+          <h4 className="font-bold text-slate-800 flex items-center gap-2"><Wand2 className="w-4 h-4 text-sky-500" /> Armador de consultas</h4>
+          <button onClick={limpiar} className="text-xs font-bold text-slate-500 border border-slate-300 rounded-lg px-3 py-1.5 hover:bg-slate-50">Limpiar</button>
+        </div>
+
+        <p className={rot + " mb-2"}>Empezá por un caso resuelto, o completá a mano</p>
+        <div className="space-y-2 mb-4">
+          {searchEjemplos.map((e, i) => (
+            <div key={i} className={"rounded-xl border-2 p-3 " + (verPor === i ? "border-sky-400 bg-sky-50" : "border-slate-200 bg-slate-50")}>
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-slate-700 text-sm italic">«{e.pregunta}»</p>
+                <button onClick={() => aplicar(e.campos, i)} className="text-xs font-bold text-white bg-slate-800 rounded-lg px-3 py-1.5 flex-shrink-0">Usar</button>
+              </div>
+              {verPor === i && <p className="text-slate-600 text-xs mt-2 pt-2 border-t border-sky-200"><strong>Por qué así:</strong> {e.porque}</p>}
+            </div>
+          ))}
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-3 mb-4">
+          <label className="block sm:col-span-2"><span className={rot}>Frases exactas — una por línea</span>
+            <textarea rows="2" className={field} value={frases} onChange={e => { setFrases(e.target.value); setVerPor(null); }} placeholder="interés superior del niño" /></label>
+          <label className="block"><span className={rot}>Términos libres — sin comillas</span>
+            <input className={field} value={libres} onChange={e => { setLibres(e.target.value); setVerPor(null); }} placeholder="alimentos cuota" /></label>
+          <label className="block"><span className={rot}>Cualquiera de estas — separadas por coma</span>
+            <input className={field} value={variantes} onChange={e => { setVariantes(e.target.value); setVerPor(null); }} placeholder="sentencia, fallo, resolución" /></label>
+          <label className="block"><span className={rot}>Palabra en el título</span>
+            <input className={field} value={titulo} onChange={e => { setTitulo(e.target.value); setVerPor(null); }} placeholder="acordada" /></label>
+          <label className="block"><span className={rot}>Dominio</span>
+            <input className={field} list="dominios-oficiales" value={sitio} onChange={e => { setSitio(e.target.value); setVerPor(null); }} placeholder="jusrionegro.gov.ar" />
+            <datalist id="dominios-oficiales">{officialSources.map((s, i) => <option key={i} value={s.dom}>{s.name}</option>)}</datalist></label>
+          <label className="block"><span className={rot}>Tipo de archivo</span>
+            <input className={field} value={tipo} onChange={e => { setTipo(e.target.value); setVerPor(null); }} placeholder="pdf" /></label>
+          <label className="block"><span className={rot}>Excluir palabras</span>
+            <input className={field} value={excluir} onChange={e => { setExcluir(e.target.value); setVerPor(null); }} placeholder="curso capacitación" /></label>
+          <label className="block"><span className={rot}>Desde (aaaa-mm-dd)</span>
+            <input className={field} value={desde} onChange={e => { setDesde(e.target.value); setVerPor(null); }} placeholder="2024-01-01" /></label>
+          <label className="block"><span className={rot}>Hasta (aaaa-mm-dd)</span>
+            <input className={field} value={hasta} onChange={e => { setHasta(e.target.value); setVerPor(null); }} placeholder="2026-01-01" /></label>
+        </div>
+
         <div className="rounded-xl bg-slate-900 p-4 flex flex-wrap items-center justify-between gap-3">
           <code className="text-slate-100 text-sm break-all">{query || 'Completá algún campo para armar la consulta'}</code>
           {query && <CopyBtn text={query} label="Copiar consulta" small />}
         </div>
+        <p className="text-xs text-slate-500 mt-2">
+          Se pega en un <strong>buscador general</strong>. El comodín <code className="text-sky-700">*</code> va dentro
+          del campo de frase exacta: <code className="text-slate-600">recurso de * extraordinario</code>.
+        </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
@@ -6471,15 +6573,11 @@ const SearchSection = () => {
         <ol className="space-y-3">
           {searchFlow.map(s => (
             <li key={s.n} className="flex items-start gap-3">
-              <span className="w-7 h-7 rounded-full bg-sky-900 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{s.n}</span>
+              <span className="w-6 h-6 rounded-full bg-sky-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{s.n}</span>
               <div><p className="font-bold text-slate-800 text-sm">{s.t}</p><p className="text-slate-600 text-sm">{s.d}</p></div>
             </li>
           ))}
         </ol>
-        <Callout tone="sky" icon={Library} title="Dónde sigue">
-          Los pasos 6 y 7 se desarrollan en la pestaña Cuadernos. Este circuito termina donde empieza aquel: con el
-          documento oficial descargado, su URL y su fecha de consulta registradas.
-        </Callout>
       </div>
     </div>
   );
@@ -6489,13 +6587,13 @@ const NotebookSection = () => {
   const [sub, setSub] = useState('que');
   const subs = [
     { id: 'que', label: 'Qué es', icon: <Library className="w-4 h-4" /> },
-    { id: 'secuencia', label: 'Secuencia completa', icon: <ListChecks className="w-4 h-4" /> },
     { id: 'fuentes', label: 'Fuentes', icon: <ClipboardCheck className="w-4 h-4" /> },
     { id: 'preguntar', label: 'Preguntar', icon: <Quote className="w-4 h-4" /> },
     { id: 'studio', label: 'Artefactos', icon: <Sparkles className="w-4 h-4" /> },
     { id: 'datos', label: 'Datos y código', icon: <Layers className="w-4 h-4" /> },
     { id: 'multi', label: 'Audio, video e imagen', icon: <Camera className="w-4 h-4" /> },
     { id: 'bucle', label: 'El bucle', icon: <RefreshCw className="w-4 h-4" /> },
+    { id: 'secuencia', label: 'Secuencia completa', icon: <ListChecks className="w-4 h-4" /> },
     { id: 'compartir', label: 'Compartir', icon: <Users className="w-4 h-4" /> },
     { id: 'cuadernos', label: 'Cuadernos tipo', icon: <FileText className="w-4 h-4" /> }
   ];
@@ -6548,6 +6646,12 @@ const NotebookSection = () => {
 
       {sub === 'que' && (
         <div className="space-y-4">
+          <Callout tone="emerald" icon={ListChecks} title="Si preferís hacer el recorrido entero">
+            La pestaña <strong>Secuencia completa</strong> tiene los siete pasos encadenados sobre
+            tres textos que se copian y se pegan, con la salida esperada en cada uno. Está después
+            de «El bucle» porque usa todo lo que explican las pestañas anteriores; si ya conocés la
+            herramienta, podés ir directo.
+          </Callout>
           <div className="grid md:grid-cols-2 gap-4">
             {nbConcepts.map((c, i) => (
               <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
