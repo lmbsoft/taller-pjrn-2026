@@ -3133,6 +3133,359 @@ pintar();
 </body>
 </html>
 `,
+  '17_secuencia_de_cuaderno': `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secuencia completa de un cuaderno</title>
+<style>
+:root{
+  --papel:#f2f1ec; --tinta:#1f2a37; --sello:#9c2b2e; --laton:#8a6d2f;
+  --verde:#2e6b4f; --linea:#d9d6cc; --tarjeta:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);
+  font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:660px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(21px,5vw,29px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:13px}
+
+.pasos{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:14px}
+.pasos button{min-height:44px;padding:5px 3px;border:1.5px solid var(--linea);border-radius:9px;
+  background:var(--tarjeta);font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;color:#6c7885;line-height:1.15}
+.pasos button.activo{background:var(--tinta);border-color:var(--tinta);color:#fff}
+.pasos button.hecho{border-color:#a9bfae;color:var(--verde)}
+
+.tarjeta{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:16px}
+.rotulo{font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--laton);margin-bottom:8px}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:19.5px;margin-bottom:10px;line-height:1.25;font-weight:400}
+.et{font-size:10px;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:#7d8894;margin:15px 0 6px}
+.et:first-of-type{margin-top:0}
+.accion{font-size:14.5px;line-height:1.55}
+.accion b{color:var(--tinta)}
+.accion ol,.accion ul{margin:7px 0 0 19px}
+.accion li{margin-bottom:4px}
+
+.barra-copiar{display:flex;justify-content:flex-end;margin-bottom:-3px}
+.barra-copiar button{min-height:38px;padding:5px 13px;border:1.5px solid var(--linea);border-radius:19px;
+  background:var(--tarjeta);font:inherit;font-size:12px;font-weight:700;color:#6c7885;cursor:pointer}
+.barra-copiar button:hover{background:#eceade;color:var(--tinta)}
+.barra-copiar button.listo{background:#edf4f0;border-color:#a9bfae;color:var(--verde)}
+pre{font-family:"Liberation Mono",Consolas,monospace;font-size:12.5px;line-height:1.6;
+  background:#f6f5f1;border:1px solid #cfcabd;border-radius:8px;padding:11px 12px;
+  white-space:pre-wrap;word-break:break-word;color:#25313b}
+pre.fuente{background:#fdfdfb;border-color:#ddd9cf;font-family:Georgia,"Times New Roman",serif;font-size:12px;line-height:1.55}
+
+.salida{border:1.5px solid #b3d0c2;border-radius:10px;overflow:hidden}
+.salida .cab{background:#edf4f0;padding:7px 12px;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;font-weight:700;color:var(--verde);border-bottom:1px solid #b3d0c2}
+.salida .cuerpo{padding:12px;font-size:13.5px;line-height:1.55}
+.salida .cuerpo > *+*{margin-top:9px}
+.salida table{border-collapse:collapse;width:100%;font-size:11.5px}
+.salida th,.salida td{border:1px solid #cfcabd;padding:4px 6px;text-align:left;vertical-align:top}
+.salida th{background:#f2f4f2;font-size:10.5px;color:var(--verde)}
+.salida .cita{color:#5c6b7a;font-size:11px}
+.salida ul{margin-left:17px}
+.salida li{margin-bottom:3px}
+
+.mirar{background:#faf6ea;border-left:4px solid var(--laton);border-radius:0 8px 8px 0;padding:11px 13px;font-size:13.5px}
+.mirar b{color:var(--laton)}
+.ojo{background:#f9ecec;border-left:4px solid var(--sello);border-radius:0 8px 8px 0;padding:11px 13px;font-size:13.5px}
+.ojo b{color:var(--sello)}
+
+.mandos{display:flex;gap:8px;margin-top:16px;align-items:center;flex-wrap:wrap}
+.mandos button{min-height:44px;padding:9px 17px;border-radius:22px;font:inherit;font-size:13.5px;
+  font-weight:700;cursor:pointer;border:1.5px solid var(--tinta);background:var(--tinta);color:#fff}
+.mandos button.sec{background:var(--tarjeta);color:#6c7885;border-color:var(--linea)}
+.mandos button:disabled{opacity:.32;cursor:default}
+.cuenta{margin-left:auto;font-size:12px;color:#6c7885;font-weight:600}
+
+.cierre{background:var(--tinta);color:#f2f1ec;border-radius:12px;padding:17px;font-size:14.5px;margin-top:16px}
+.cierre strong{color:#e0c179}
+.cierre p+p{margin-top:10px}
+footer{margin-top:22px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (max-width:520px){.pasos{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Cuadernos · Secuencia completa</div>
+  <h1>De tres textos pegados a un cuaderno que responde</h1>
+  <p class="instr">Siete pasos encadenados sobre material que no hay que descargar: se copia y se pega. Cada paso muestra <b>cómo se ve cuando sale bien</b>, que es lo que cuesta saber la primera vez.</p>
+
+  <div class="pasos" id="pasos" role="group" aria-label="Pasos"></div>
+
+  <div class="tarjeta">
+    <div class="rotulo" id="rotulo"></div>
+    <h2 id="titulo"></h2>
+    <div id="cuerpo"></div>
+    <div class="mandos">
+      <button type="button" id="ant" class="sec">Anterior</button>
+      <button type="button" id="sig">Siguiente</button>
+      <span class="cuenta" id="cuenta"></span>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <p>Los tres textos eran públicos y despersonalizados, así que <strong>no hubo ningún dato de partes en juego</strong>. Esa es la vía que conviene practicar primero: pegar texto ya despersonalizado es la entrada más rápida y la más controlable.</p>
+    <p>Y fijate qué produjo la secuencia: una tabla verificable, un informe con sus citas y <strong>una fuente nueva que antes no existía</strong>. El cuaderno no contestó preguntas: ordenó material para que vos decidas.</p>
+  </div>
+
+  <footer>Laboratorio de IA · Poder Judicial de Río Negro</footer>
+</div>
+
+<script>
+const T1 = \`ACORDADA N.º 18/26 — PRESENTACIONES ELECTRÓNICAS
+
+Artículo 1. Objeto. La presente regula la presentación electrónica de escritos
+ante los organismos jurisdiccionales alcanzados.
+
+Artículo 3. Horario de recepción. Las presentaciones recibidas con posterioridad
+a las 13:00 se tienen por presentadas el día hábil siguiente.
+
+Artículo 5. Formato. Los archivos se remiten en PDF con capa de texto, con un
+máximo de 20 MB por archivo. No se admiten imágenes escaneadas sin
+reconocimiento de texto.
+
+Artículo 7. Observaciones. La Mesa de Entradas formula las observaciones dentro
+de las cuarenta y ocho (48) horas de recibida la presentación. El plazo para
+subsanar es de cinco (5) días hábiles contados desde la notificación.
+
+Artículo 9. Firma. Toda presentación requiere firma digital del profesional
+interviniente.
+
+Artículo 11. Excepciones. No se admiten por vía electrónica las presentaciones
+que requieran original en papel.\`;
+
+const T2 = \`RESOLUCIÓN N.º 41/26
+
+VISTO la migración del sistema de gestión iniciada el 1.º de julio de 2026, y
+
+CONSIDERANDO que durante el período de transición las notificaciones
+electrónicas han sufrido demoras verificadas,
+
+SE RESUELVE:
+
+1. Extender a diez (10) días hábiles, por única vez, el plazo de subsanación
+previsto en el artículo 7 de la Acordada 18/26, para las presentaciones
+observadas entre el 1.º de julio y el 30 de septiembre de 2026.
+
+2. Dejar establecido que lo dispuesto no importa modificación del régimen
+general, que recupera su vigencia plena a partir del 1.º de octubre de 2026.\`;
+
+const T3 = \`GUÍA DE PROCEDIMIENTO — MESA DE ENTRADAS (documento interno)
+
+Etapa 1. Recepción. Se verifica la firma digital y que el archivo abra
+correctamente. Si no abre, se devuelve sin registrar.
+
+Etapa 2. Control formal. Se coteja la presentación contra los requisitos del
+artículo 5 de la Acordada 18/26.
+
+Etapa 3. Observación. Si falta algún requisito, se notifica por el sistema con
+el detalle de qué falta. La notificación deja constancia de fecha y hora.
+
+Etapa 4. Subsanación. Se recibe la corrección y se controla nuevamente. Si
+persiste el defecto, se eleva a Secretaría.
+
+Etapa 5. Registro. Se asigna número de presentación y se pasa al despacho.\`;
+
+const PASOS = [
+  {
+    rot: "Paso 1 · Armar",
+    tit: "Tres textos pegados, tres fuentes",
+    accion: '<p>Creá un cuaderno nuevo y llamalo <b>Presentaciones electrónicas · 2026</b>. Después cargá las tres fuentes usando la opción de <b>pegar texto</b>, no la de subir archivo.</p>' +
+      '<p>Copiá cada bloque por separado y renombralo al cargarlo, con el formato <b>origen + tipo + tema</b>:</p>' +
+      '<ol><li><code>Acordada 18-26 · norma · presentaciones</code></li>' +
+      '<li><code>Resolucion 41-26 · norma · plazo transitorio</code></li>' +
+      '<li><code>Guia interna · procedimiento · mesa de entradas</code></li></ol>',
+    fuentes: true,
+    mirar: '<b>Por qué pegar y no subir.</b> Es la vía más controlable: sabés exactamente qué texto entró, porque lo estás viendo. Con un PDF nunca sabés del todo qué extrajo hasta que abrís la fuente y mirás. Y para material ya despersonalizado, es también la más rápida.'
+  },
+  {
+    rot: "Paso 2 · Citar",
+    tit: "La primera pregunta, con cita obligatoria",
+    accion: '<p>Con las tres fuentes activas, hacé la primera consulta. No preguntes suelto: pedí la respuesta en tabla y prohibí que complete lo que no esté.</p>',
+    pedido: 'Respondé en una tabla con estas columnas: afirmación, fuente, cita textual, comentario, pendiente.\\nNo completes nada que no surja de las fuentes cargadas; si un dato no está, escribí «no consta».\\n\\nPregunta: ¿qué requisitos de formato debe cumplir una presentación electrónica?',
+    salida: {
+      cab: "Así se ve cuando sale bien",
+      html: '<table><tr><th>Afirmación</th><th>Fuente</th><th>Cita</th><th>Pendiente</th></tr>' +
+        '<tr><td>El archivo va en PDF con capa de texto</td><td>Acordada 18/26</td><td class="cita">«se remiten en PDF con capa de texto»</td><td>—</td></tr>' +
+        '<tr><td>Máximo 20 MB por archivo</td><td>Acordada 18/26, art. 5</td><td class="cita">«con un máximo de 20 MB por archivo»</td><td>—</td></tr>' +
+        '<tr><td>No se admiten escaneos sin reconocimiento</td><td>Acordada 18/26, art. 5</td><td class="cita">«No se admiten imágenes escaneadas sin reconocimiento de texto»</td><td>—</td></tr>' +
+        '<tr><td>Requiere firma digital</td><td>Acordada 18/26, art. 9</td><td class="cita">«requiere firma digital del profesional interviniente»</td><td>—</td></tr>' +
+        '<tr><td>Qué pasa si el archivo supera los 20 MB</td><td>—</td><td class="cita">no consta</td><td>Buscar instructivo de división de archivos</td></tr></table>'
+    },
+    mirar: '<b>Abrí dos citas al azar</b> y comprobá que sostienen lo que dice la fila. Y mirá la última: el cuaderno declaró un hueco en vez de inventar una respuesta. Esa fila vale más que las cuatro anteriores, porque es la que te dice dónde seguir buscando.'
+  },
+  {
+    rot: "Paso 3 · Recortar",
+    tit: "La misma pregunta, dos recortes de fuentes",
+    accion: '<p>Ahora el ejercicio que más rinde de todos. Hacé <b>exactamente la misma pregunta dos veces</b>, cambiando solo qué fuentes están tildadas.</p>' +
+      '<ol><li>Primero con las <b>tres</b> activas.</li>' +
+      '<li>Después destildá la resolución y dejá <b>solo la acordada y la guía</b>.</li></ol>' +
+      '<p>Guardá las dos respuestas antes de compararlas.</p>',
+    pedido: '¿De cuántos días hábiles dispone quien recibe una observación para subsanarla? Citá el artículo.',
+    salida: {
+      cab: "Las dos respuestas, enfrentadas",
+      html: '<p><b>Con las tres fuentes:</b> «Cinco (5) días hábiles como regla general, según el artículo 7 de la Acordada 18/26. Sin embargo, para las presentaciones observadas entre el 1.º de julio y el 30 de septiembre de 2026 el plazo es de diez (10) días hábiles, por única vez, conforme la Resolución 41/26, que aclara que no modifica el régimen general.»</p>' +
+        '<p><b>Solo con la acordada y la guía:</b> «Cinco (5) días hábiles, contados desde la notificación, según el artículo 7 de la Acordada 18/26.»</p>'
+    },
+    ojo: '<b>Ninguna de las dos está mal.</b> Las dos citan bien y las dos son fieles a lo que tenían delante. Lo que cambió no fue la calidad del cuaderno: fue qué le dejaste mirar. <b>El recorte de fuentes es parte de la pregunta</b>, no una opción de configuración — y en una consulta real, dejar afuera la resolución vigente produce una respuesta correcta y equivocada al mismo tiempo.'
+  },
+  {
+    rot: "Paso 4 · Vacíos",
+    tit: "Tres preguntas, y una que no tiene respuesta",
+    accion: '<p>Volvé a activar las tres fuentes. Ahora usá el cuaderno para lo contrario de lo habitual: <b>para descubrir qué no está</b>.</p>' +
+      '<p>Mandá las tres preguntas juntas, en un solo mensaje.</p>',
+    pedido: 'Respondé estas tres preguntas por separado. Si alguna no puede contestarse con las fuentes cargadas, decilo explícitamente e indicá qué tipo de documento haría falta. No completes con criterio general.\\n\\n1. ¿Qué formato deben tener los archivos?\\n2. ¿El plazo de subsanación se suspende durante la feria judicial?\\n3. ¿Quién notifica la observación?',
+    salida: {
+      cab: "Así se ve cuando sale bien",
+      html: '<p><b>1.</b> PDF con capa de texto, máximo 20 MB, sin escaneos sin reconocimiento <span class="cita">(Acordada 18/26, art. 5)</span>.</p>' +
+        '<p><b>2.</b> <b>No consta en las fuentes cargadas.</b> Ninguno de los tres documentos menciona la feria judicial ni la suspensión de plazos. Haría falta la acordada que regula el régimen de ferias o una resolución específica sobre suspensión de plazos procesales.</p>' +
+        '<p><b>3.</b> La Mesa de Entradas, por el sistema, dejando constancia de fecha y hora <span class="cita">(Guía interna, etapa 3)</span>.</p>'
+    },
+    ojo: '<b>La segunda es la que importa.</b> Es una pregunta perfectamente razonable, que suena a que debería tener respuesta, y no la tiene. Si el cuaderno hubiera contestado algo verosímil sobre la feria, no habrías tenido manera de notarlo — porque las otras dos salieron bien y con el mismo tono.<br><br>Poner las tres juntas es lo que hace visible la diferencia. Sola, la del medio pasa desapercibida.'
+  },
+  {
+    rot: "Paso 5 · Tabla",
+    tit: "De las fuentes a una tabla comparable",
+    accion: '<p>Hasta acá el cuaderno respondió. Ahora que <b>produzca</b>. Definí vos las columnas antes de pedirla: si no lo hacés, las elige el modelo y no vas a poder comparar dos tablas entre sí.</p>',
+    pedido: 'Armá una tabla de control formal con estas columnas exactas: requisito, dónde está regulado (norma y artículo), cómo se verifica, qué pasa si falta.\\nUna fila por requisito. Si algo no está regulado en las fuentes, poné «no consta» en la columna correspondiente en lugar de omitir la fila.',
+    salida: {
+      cab: "Así se ve cuando sale bien",
+      html: '<table><tr><th>Requisito</th><th>Dónde</th><th>Cómo se verifica</th><th>Si falta</th></tr>' +
+        '<tr><td>Firma digital</td><td>Acordada 18/26, art. 9</td><td>Etapa 1 de la guía: se verifica al recibir</td><td>No se registra; se devuelve</td></tr>' +
+        '<tr><td>PDF con capa de texto</td><td>Acordada 18/26, art. 5</td><td>Etapa 2, control formal</td><td>Observación y plazo para subsanar</td></tr>' +
+        '<tr><td>Tamaño máximo 20 MB</td><td>Acordada 18/26, art. 5</td><td>Etapa 2, control formal</td><td>no consta</td></tr>' +
+        '<tr><td>El archivo abre correctamente</td><td>Guía interna, etapa 1</td><td>Al recibir</td><td>Se devuelve sin registrar</td></tr>' +
+        '<tr><td>Presentado antes de las 13:00</td><td>Acordada 18/26, art. 3</td><td>Sello del sistema</td><td>Se tiene por presentado el día hábil siguiente</td></tr></table>'
+    },
+    mirar: '<b>Controlá tres filas contra el texto original</b>, no las tres primeras: al azar. Y mirá la columna «si falta» de la fila del tamaño: dice «no consta», que es exactamente lo que corresponde. Una tabla sin ningún «no consta», sobre fuentes que no lo dicen todo, es una tabla que rellenó.'
+  },
+  {
+    rot: "Paso 6 · Informe",
+    tit: "El informe, con el prompt cambiado",
+    accion: '<p>Generá un informe en el Studio del cuaderno. Pero antes de generarlo, hacé lo que casi nadie hace:</p>' +
+      '<ol><li>Abrí el menú del artefacto y entrá en <b>ver el prompt personalizado</b>.</li>' +
+      '<li><b>Leelo completo.</b> Ahí vas a ver cómo la herramienta tradujo tu pedido.</li>' +
+      '<li>Reemplazalo por el de abajo y generá.</li></ol>',
+    pedido: 'Escribí un informe para una persona que entra mañana a Mesa de Entradas y no conoce el circuito.\\n\\nEstructura: (1) qué se controla al recibir, (2) qué motiva una observación, (3) qué plazos corren y desde cuándo, (4) qué queda sin regular en estas fuentes.\\n\\nTono: instructivo y breve, sin fórmulas administrativas. Cada afirmación con su norma o etapa entre paréntesis. La sección 4 es obligatoria: si no encontrás vacíos, decí que no los hay.',
+    salida: {
+      cab: "Así se ve cuando sale bien (fragmento)",
+      html: '<p><b>3. Qué plazos corren</b></p>' +
+        '<p>La observación se formula dentro de las 48 horas de recibida la presentación (Acordada 18/26, art. 7). Desde la notificación corren cinco días hábiles para subsanar (art. 7), salvo para lo observado entre el 1.º de julio y el 30 de septiembre de 2026, donde el plazo es de diez días hábiles por única vez (Resolución 41/26). A partir del 1.º de octubre vuelve el régimen general.</p>' +
+        '<p>Atención al horario: lo recibido después de las 13:00 se tiene por presentado el día hábil siguiente (art. 3), y eso corre también para la subsanación.</p>' +
+        '<p><b>4. Qué queda sin regular</b></p>' +
+        '<ul><li>Qué ocurre si el archivo supera los 20 MB.</li>' +
+        '<li>Si el plazo de subsanación se suspende durante la feria judicial.</li>' +
+        '<li>Qué sucede si vence el plazo sin respuesta.</li></ul>'
+    },
+    mirar: '<b>Leer el prompt por defecto es el paso que abre la puerta al uso avanzado</b>, y casi nadie lo abre. Aunque no lo cambies, leerlo te muestra qué está pidiendo la herramienta por vos.<br><br>Y mirá la sección 4: la pediste explícitamente y por eso existe. Un informe que no tiene esa sección no es que no tenga vacíos — es que nadie los pidió.'
+  },
+  {
+    rot: "Paso 7 · Bucle",
+    tit: "El informe se convierte en fuente",
+    accion: '<p>Último paso, y el que cierra el circuito.</p>' +
+      '<ol><li><b>Verificá tres citas del informe</b> contra las fuentes. Sin este paso, lo que sigue propaga errores en lugar de conocimiento.</li>' +
+      '<li>Guardalo como nota del cuaderno.</li>' +
+      '<li>Convertí la nota en fuente, y nombrala empezando con <b>SÍNTESIS —</b> para distinguirla del material original.</li>' +
+      '<li>Ahora hacé una pregunta que antes no se podía formular.</li></ol>',
+    pedido: 'Tomando la síntesis y las fuentes originales: preparame cinco preguntas que le haría a Secretaría para cerrar los vacíos detectados, ordenadas por urgencia según cuántas presentaciones podrían verse afectadas.\\nPara cada una, indicá qué documento resolvería la duda.',
+    salida: {
+      cab: "Así se ve cuando sale bien",
+      html: '<ol><li><b>¿Se suspende el plazo de subsanación en feria?</b> Afecta a toda observación notificada en enero o julio. Lo resolvería la acordada de ferias o una resolución de suspensión de plazos.</li>' +
+        '<li><b>¿Qué se hace con un archivo de más de 20 MB?</b> Frecuente en pericias con anexos. Lo resolvería un instructivo técnico de división de archivos.</li>' +
+        '<li><b>¿Qué ocurre si vence el plazo sin respuesta?</b> Lo resolvería una aclaración del artículo 7.</li></ol>' +
+        '<p class="cita">(se listan cinco; se muestran las tres primeras)</p>'
+    },
+    ojo: '<b>Esa pregunta no se podía hacer en el paso 2.</b> No porque el cuaderno no supiera, sino porque la lista de vacíos no existía todavía: la produjo el informe del paso 6.<br><br>Eso es el bucle. Y el paso que lo vuelve seguro es el primero: <b>verificar antes de convertir</b>. Una síntesis con un error, ascendida a fuente, contamina todas las respuestas que vengan después — y ya no se distingue del material original.'
+  }
+];
+
+let paso = 0;
+const visitados = new Set([0]);
+
+function copiable(texto, etiqueta) {
+  return '<div class="barra-copiar"><button type="button" class="copiar" data-txt="' +
+    texto.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + (etiqueta || 'Copiar') + '</button></div>' +
+    '<pre>' + texto.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</pre>';
+}
+
+function pintar() {
+  const cont = document.getElementById('pasos');
+  cont.innerHTML = '';
+  PASOS.forEach((p, i) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = i + 1;
+    b.className = i === paso ? 'activo' : (visitados.has(i) ? 'hecho' : '');
+    b.setAttribute('aria-label', p.rot);
+    b.setAttribute('aria-pressed', i === paso ? 'true' : 'false');
+    b.addEventListener('click', () => { paso = i; visitados.add(i); pintar(); });
+    cont.appendChild(b);
+  });
+
+  const p = PASOS[paso];
+  document.getElementById('rotulo').textContent = p.rot;
+  document.getElementById('titulo').textContent = p.tit;
+
+  let h = '<div class="et">Qué hacés</div><div class="accion">' + p.accion + '</div>';
+  if (p.fuentes) {
+    h += '<div class="et">Los tres textos, para copiar</div>';
+    h += copiable(T1, 'Copiar la acordada');
+    h += copiable(T2, 'Copiar la resolución');
+    h += copiable(T3, 'Copiar la guía');
+  }
+  if (p.pedido) {
+    h += '<div class="et">El pedido</div>' + copiable(p.pedido);
+  }
+  if (p.salida) {
+    h += '<div class="et">Cómo se ve cuando sale bien</div>' +
+      '<div class="salida"><div class="cab">' + p.salida.cab + '</div>' +
+      '<div class="cuerpo">' + p.salida.html + '</div></div>';
+  }
+  if (p.mirar) h += '<div class="et">Qué mirar</div><div class="mirar">' + p.mirar + '</div>';
+  if (p.ojo) h += '<div class="et">Qué mirar</div><div class="ojo">' + p.ojo + '</div>';
+  document.getElementById('cuerpo').innerHTML = h;
+
+  document.getElementById('ant').disabled = paso === 0;
+  document.getElementById('sig').disabled = paso === PASOS.length - 1;
+  document.getElementById('sig').textContent = paso === PASOS.length - 1 ? 'Terminaste' : 'Siguiente';
+  document.getElementById('cuenta').textContent = (paso + 1) + ' de ' + PASOS.length;
+
+  document.querySelectorAll('.copiar').forEach(b => {
+    b.addEventListener('click', () => {
+      const t = b.getAttribute('data-txt');
+      const listo = () => {
+        const antes = b.textContent;
+        b.textContent = 'Copiado'; b.classList.add('listo');
+        setTimeout(() => { b.textContent = antes; b.classList.remove('listo'); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(t).then(listo, () => manual(t, listo));
+      } else { manual(t, listo); }
+    });
+  });
+}
+
+function manual(texto, listo) {
+  const a = document.createElement('textarea');
+  a.value = texto; a.style.position = 'fixed'; a.style.opacity = '0';
+  document.body.appendChild(a); a.select();
+  try { document.execCommand('copy'); listo(); } catch (e) {}
+  document.body.removeChild(a);
+}
+
+document.getElementById('ant').addEventListener('click', () => { if (paso > 0) { paso--; visitados.add(paso); pintar(); } });
+document.getElementById('sig').addEventListener('click', () => { if (paso < PASOS.length - 1) { paso++; visitados.add(paso); pintar(); } });
+pintar();
+<\/script>
+</body>
+</html>
+`,
 };
 // ─── FIN ACTIVIDADES EMBEBIDAS ───
 
@@ -3188,7 +3541,7 @@ const biasPatterns = [
 ];
 
 // ═══════════════════════════════════════════════════════════════
-// DATA: GIMNASIO DE PROMPTS
+// DATA: REPERTORIO DE PROMPTS
 // ═══════════════════════════════════════════════════════════════
 
 const promptLevels = [
@@ -5922,7 +6275,7 @@ const GymSection = () => {
 
   return (
     <div className="max-w-4xl mx-auto">
-      <SectionHead icon={Target} title="Gimnasio" tone="emerald">
+      <SectionHead icon={Target} title="Repertorio" tone="emerald">
         Dos formas de trabajar. <strong>Instrucciones sueltas</strong>: {promptItems.length} pedidos listos para copiar,
         cada uno resuelve una tarea. <strong>Rutas de trabajo</strong>: secuencias donde cada etapa produce un recurso
         que la siguiente usa, con un control humano en el medio. Los pedidos no están solo para usarse tal cual: sirven
@@ -6136,6 +6489,7 @@ const NotebookSection = () => {
   const [sub, setSub] = useState('que');
   const subs = [
     { id: 'que', label: 'Qué es', icon: <Library className="w-4 h-4" /> },
+    { id: 'secuencia', label: 'Secuencia completa', icon: <ListChecks className="w-4 h-4" /> },
     { id: 'fuentes', label: 'Fuentes', icon: <ClipboardCheck className="w-4 h-4" /> },
     { id: 'preguntar', label: 'Preguntar', icon: <Quote className="w-4 h-4" /> },
     { id: 'studio', label: 'Artefactos', icon: <Sparkles className="w-4 h-4" /> },
@@ -6230,6 +6584,27 @@ const NotebookSection = () => {
               </table>
             </div>
           </div>
+        </div>
+      )}
+
+      {sub === 'secuencia' && (
+        <div className="space-y-4">
+          <Callout tone="emerald" icon={ListChecks} title="El recorrido entero, sin descargar nada">
+            Siete pasos encadenados sobre tres textos que se copian y se pegan: una acordada, una
+            resolución posterior que le cambia un plazo, y una guía interna de procedimiento. Pegar
+            texto es la vía de entrada más controlable, porque sabés exactamente qué entró.
+            <br /><br />
+            Lo que esta secuencia agrega a los ejercicios sueltos son dos cosas: <strong>cada paso usa
+            lo que produjo el anterior</strong>, y cada paso muestra <strong>cómo se ve la salida
+            cuando sale bien</strong>, que es lo que más cuesta saber la primera vez.
+          </Callout>
+          <ActivityCard act={{ kind: 'file', key: '17_secuencia_de_cuaderno',
+            title: 'Secuencia completa de un cuaderno', mins: '25 min',
+            what: 'De tres textos pegados a un informe verificado que vuelve a entrar como fuente. Con la salida esperada en cada paso.' }} />
+          <Callout tone="slate" icon={Lightbulb} title="Después de hacerla">
+            Las demás pestañas de esta sección desarrollan por separado cada pieza del recorrido: las
+            fuentes, el recorte, los artefactos del Studio y el bucle. Esta es la que las hilvana.
+          </Callout>
         </div>
       )}
 
@@ -6822,7 +7197,7 @@ const App = () => {
   const tabs = [
     { id: 'theory', label: 'Teoría', icon: <BookOpen className="w-4 h-4" /> },
     { id: 'anon', label: 'Anonimización', icon: <Lock className="w-4 h-4" /> },
-    { id: 'gym', label: 'Gimnasio', icon: <Target className="w-4 h-4" /> },
+    { id: 'gym', label: 'Repertorio', icon: <Target className="w-4 h-4" /> },
     { id: 'challenges', label: 'Desafíos', icon: <Zap className="w-4 h-4" /> },
     { id: 'search', label: 'Investigador', icon: <Search className="w-4 h-4" /> },
     { id: 'notebook', label: 'Cuadernos', icon: <Library className="w-4 h-4" /> },
