@@ -4103,6 +4103,198 @@ pintar();
 <\/script>
 </body>
 </html>
+`,
+  '21_pruebas_de_disparo': `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pruebas de disparo</title>
+<style>
+:root{
+  --papel:#f2f1ec; --tinta:#1f2a37; --sello:#9c2b2e; --laton:#8a6d2f;
+  --verde:#2e6b4f; --linea:#d9d6cc; --tarjeta:#ffffff;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);
+  font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:13px}
+.instr b{color:var(--tinta)}
+
+.desc{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:13px 14px;margin-bottom:13px}
+.desc .et{font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:#7d8894;margin-bottom:5px}
+.desc p{font-size:14px;font-style:italic;color:#33414a;line-height:1.5}
+.desc.mejor{border-color:var(--verde);background:#f6faf8}
+
+.cuenta{font-size:12px;color:#6c7885;font-weight:600;margin-bottom:9px}
+.lista{display:grid;gap:7px;margin-bottom:6px}
+.item{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:10px;padding:10px 12px}
+.item .p{font-size:13.5px;line-height:1.4;margin-bottom:8px}
+.bts{display:flex;gap:6px}
+.bts button{flex:1;min-height:40px;padding:7px 6px;border:1.5px solid var(--linea);border-radius:8px;
+  background:#fdfdfb;font:inherit;font-size:12px;font-weight:700;cursor:pointer;color:#5c6b7a;line-height:1.2}
+.bts button:disabled{cursor:default}
+.bts button.elegida{border-width:2px;border-color:var(--tinta);color:var(--tinta)}
+.bts button.ok{background:#edf4f0;border-color:var(--verde);color:var(--verde)}
+.bts button.mal{background:#f9ecec;border-color:var(--sello);color:var(--sello)}
+.item .fb{font-size:12.5px;color:#5b6773;margin-top:8px;line-height:1.5}
+.item .fb b{color:var(--tinta)}
+.item.acierto{border-color:var(--verde)}
+.item.fallo{border-color:var(--sello)}
+
+.mandos{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.mandos button{min-height:44px;padding:9px 16px;border-radius:22px;font:inherit;font-size:13.5px;
+  font-weight:700;cursor:pointer;border:1.5px solid var(--tinta);background:var(--tinta);color:#fff}
+.mandos button.sec{background:var(--tarjeta);color:#6c7885;border-color:var(--linea)}
+.mandos button:disabled{opacity:.45;cursor:default}
+
+.marcador{background:#faf6ea;border-left:4px solid var(--laton);border-radius:0 8px 8px 0;
+  padding:12px 14px;font-size:14px;margin-top:14px}
+.marcador b{color:var(--laton)}
+.moraleja{background:var(--tinta);color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;margin-top:13px}
+.moraleja strong{color:#e0c179}
+.moraleja p+p{margin-top:9px}
+.oculto{display:none}
+.pie{font-size:11px;color:#8b939c;text-align:center;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Capacidades · Skills</div>
+  <h1>Pruebas de disparo</h1>
+  <p class="instr">Escribiste un skill que revisa cédulas y funciona muy bien. Pero <b>solo se activa si el asistente decide que le corresponde</b>, y para decidirlo lee una sola cosa: la descripción. Esta es la que escribiste.</p>
+
+  <div class="desc">
+    <div class="et">La descripción, primera versión</div>
+    <p id="descTexto"></p>
+  </div>
+
+  <p class="cuenta" id="cuenta"></p>
+  <div class="lista" id="lista"></div>
+
+  <div class="mandos">
+    <button id="ver">Ver qué pasó</button>
+    <button id="reset" class="sec">Empezar de nuevo</button>
+  </div>
+
+  <div id="cierre" class="oculto">
+    <div class="marcador" id="marcador"></div>
+    <div class="desc mejor" style="margin-top:13px">
+      <div class="et">La descripción corregida</div>
+      <p id="descMejor"></p>
+    </div>
+    <div class="moraleja">
+      <p><strong>Los dos errores tienen la misma causa y no son el mismo.</strong> Si no se activa cuando debería, la descripción es demasiado angosta o usa tus palabras y no las de quien lo pide. Si se activa donde no corresponde, es demasiado amplia.</p>
+      <p>En los dos casos <strong>el arreglo está en la descripción, no en las instrucciones</strong>. Es el error más frecuente al escribir un skill, y el que menos se sospecha: uno revisa el procedimiento veinte veces sin darse cuenta de que nunca llegó a ejecutarse.</p>
+    </div>
+  </div>
+
+  <p class="pie">Taller IAGen · Poder Judicial de Río Negro · 2026</p>
+</div>
+
+<script>
+const DESC = "Revisa documentos del juzgado y devuelve observaciones.";
+const MEJOR = "Revisa una cédula de notificación antes del despacho. Verifica domicilio, carátula, plazo y firma, y devuelve una lista de observaciones con su gravedad. Usar cuando alguien pida controlar, revisar o chequear una cédula antes de despacharla o firmarla. No usar para revisar sentencias, escritos de parte ni resoluciones.";
+
+const CASOS = [
+  { p:"Revisá esta cédula antes de que la despache.", debe:true, real:true,
+    fb:"Bien. Cae de lleno: dice «revisá» y dice «cédula»." },
+  { p:"¿Está completo el domicilio de esta notificación?", debe:true, real:false,
+    fb:"<b>Falla.</b> Es exactamente el caso para el que lo escribiste, pero la persona no dijo ni «revisar» ni «cédula»: dijo «notificación» y preguntó por un campo puntual. La descripción no las contempla." },
+  { p:"Chequeame esta cédula que la tengo que firmar hoy.", debe:true, real:true,
+    fb:"Bien, aunque de casualidad: «cédula» está en la descripción, «chequear» no. Con otra redacción podría no haber entrado." },
+  { p:"Antes de notificar, mirá si esto está bien.", debe:true, real:false,
+    fb:"<b>Falla.</b> El pedido más natural que existe para esta tarea, y no tiene ninguna de las palabras de la descripción. Así es como un skill correcto no se usa nunca." },
+  { p:"Revisá esta sentencia y decime si le falta algo.", debe:false, real:true,
+    fb:"<b>Se dispara de más.</b> «Revisa documentos del juzgado» abarca una sentencia igual de bien que una cédula. Va a aplicarle criterios de cédula a un documento que no lo es." },
+  { p:"Revisá este escrito de la contraparte antes de que conteste.", debe:false, real:true,
+    fb:"<b>Se dispara de más.</b> Mismo problema: es un documento del juzgado y alguien pidió revisarlo." },
+  { p:"Resumime este expediente en tres puntos.", debe:false, real:false,
+    fb:"Bien: no pidió revisar nada, así que no se activa." },
+  { p:"¿Cuántos días hábiles tengo para contestar esto?", debe:false, real:false,
+    fb:"Bien: es otra tarea, y para eso hay otro skill." }
+];
+
+let resp = new Array(CASOS.length).fill(null);
+let revelado = false;
+
+const lista = document.getElementById("lista");
+
+function pintar() {
+  lista.innerHTML = "";
+  CASOS.forEach((c, i) => {
+    const d = document.createElement("div");
+    let cls = "item";
+    if (revelado) cls += (resp[i] === c.real) ? " acierto" : " fallo";
+    d.className = cls;
+
+    const p = document.createElement("p");
+    p.className = "p";
+    p.textContent = "«" + c.p + "»";
+    d.appendChild(p);
+
+    const bts = document.createElement("div");
+    bts.className = "bts";
+    [["Se activa", true], ["No se activa", false]].forEach(([txt, val]) => {
+      const b = document.createElement("button");
+      b.textContent = txt;
+      if (revelado) {
+        b.disabled = true;
+        if (val === c.real) b.className = "ok";
+        else if (val === resp[i]) b.className = "mal";
+      } else {
+        if (resp[i] === val) b.className = "elegida";
+        b.addEventListener("click", () => { resp[i] = val; pintar(); });
+      }
+      bts.appendChild(b);
+    });
+    d.appendChild(bts);
+
+    if (revelado) {
+      const fb = document.createElement("p");
+      fb.className = "fb";
+      fb.innerHTML = c.fb;
+      d.appendChild(fb);
+    }
+    lista.appendChild(d);
+  });
+
+  const n = resp.filter(x => x !== null).length;
+  document.getElementById("cuenta").textContent = revelado
+    ? "Ocho pedidos. Cuatro deberían activarlo y cuatro no."
+    : "Ocho pedidos. Para cada uno: ¿esta descripción alcanza para que se active? (" + n + "/8)";
+  document.getElementById("ver").disabled = revelado || n < CASOS.length;
+}
+
+document.getElementById("ver").addEventListener("click", () => {
+  revelado = true;
+  const bien = CASOS.filter((c, i) => resp[i] === c.real).length;
+  const noDispara = CASOS.filter(c => c.debe && !c.real).length;
+  const deMas = CASOS.filter(c => !c.debe && c.real).length;
+  document.getElementById("marcador").innerHTML =
+    "<b>" + bien + " de 8</b> acertadas. Con esa descripción, el skill <b>no se activa en " + noDispara +
+    " casos donde tendría que activarse</b> y <b>se activa de más en " + deMas +
+    "</b>. O sea: falla la mitad de las veces, y el procedimiento que escribiste no tiene nada que ver con eso.";
+  document.getElementById("cierre").className = "";
+  pintar();
+});
+
+document.getElementById("reset").addEventListener("click", () => {
+  resp = new Array(CASOS.length).fill(null); revelado = false;
+  document.getElementById("cierre").className = "oculto";
+  pintar();
+});
+
+document.getElementById("descTexto").textContent = DESC;
+document.getElementById("descMejor").textContent = MEJOR;
+pintar();
+<\/script>
+</body>
+</html>
 `
 };
 // ─── FIN ACTIVIDADES EMBEBIDAS ───
@@ -8060,7 +8252,13 @@ const capSuperficies = {
         "Varias de estas superficies vienen con una suscripción personal que se paga con tarjeta propia y se usa desde casa. Que la herramienta lo permita no cambia el marco: el circuito de autorización interno sigue siendo el mismo, y el pilar 5 no distingue si la cuenta la paga el organismo o vos.",
         "Esta sección explica qué hay disponible y cómo funciona. No habilita a usarlo con material de trabajo: eso lo decide el circuito que corresponde, no la pantalla de suscripción."
       ]
-    }
+    },
+    fuenteTitulo: "Una advertencia que vale para proyectos y cuadernos",
+    fuente: [
+      "Cuando cargás en un proyecto o en un cuaderno algo que además vive en un sistema del organismo, creaste una segunda copia. Y esa copia no se entera cuando la original cambia.",
+      "Con una acordada del año pasado no pasa nada. Con un instructivo interno que se actualiza, con una tabla de plazos o con la guía de un trámite, sí: seis meses después el asistente responde con confianza sobre una versión que ya no rige.",
+      "La regla es sencilla: anotá qué versión cargaste y de cuándo, y revisá el contenido cada vez que sepas que la fuente cambió. Si algo cambia seguido, conviene consultarlo donde vive y no tenerlo cargado."
+    ]
   };
 const capModelos = {
     entrada: [
@@ -8273,21 +8471,21 @@ const capAgentes = {
   };
 const capSkills = {
     entrada: [
-      "Un skill es un conjunto de instrucciones guardado, que la herramienta carga sola cuando detecta que la tarea lo amerita. La diferencia con un asistente propio es cuándo aparece: un asistente lo elegís vos; un skill se activa porque la tarea encaja con lo que dice hacer.",
+      "Un skill es un procedimiento guardado que la herramienta carga sola cuando la tarea lo amerita. La diferencia con un asistente propio es cuándo aparece: un asistente lo elegís vos; un skill se activa porque lo que pediste encaja con lo que dice hacer.",
       "Para una oficina judicial es la forma más directa de que un procedimiento escrito una vez lo apliquen todos igual, sin que nadie tenga que acordarse del pedido correcto."
     ],
     anatomia: [
       {
         t: "Un nombre y una descripción",
-        d: "La descripción es la parte que decide todo: es lo que la herramienta lee para saber si esta tarea le corresponde. Una descripción vaga hace que el skill no se active nunca, o que se active donde no corresponde."
+        d: "La descripción es lo único que el asistente lee para decidir si le corresponde. Tiene que decir qué hace y cuándo usarlo, con las palabras que va a usar quien lo pida."
       },
       {
         t: "Las instrucciones",
-        d: "Qué hacer, en qué orden, con qué criterios y qué no hacer. Es el cuerpo del asunto."
+        d: "Qué hacer, en qué orden, con qué criterios, qué no hacer y qué devolver. Conviene que sea corto y denso: si crece, el detalle se mueve a los archivos de apoyo."
       },
       {
         t: "Material de apoyo, opcional",
-        d: "Plantillas, ejemplos, listas de control. Lo que el procedimiento necesite tener a mano."
+        d: "Plantillas, criterios, ejemplos. Se cargan solo cuando hacen falta, así que no ocupan lugar mientras tanto."
       }
     ],
     pasosTitulo: "Armar uno, paso a paso",
@@ -8302,35 +8500,41 @@ const capSkills = {
       {
         n: 2,
         t: "Escribí la descripción antes que las instrucciones",
-        d: "Una oración que diga cuándo corresponde usarlo. Si la escribís al final, va a quedar genérica.",
-        ej: "«Revisa una cédula de notificación antes del despacho: verifica domicilio, carátula, plazo y firma, y devuelve una lista de observaciones.»"
+        d: "Es lo único que el asistente lee para decidir si le corresponde. Tiene que decir qué hace y cuándo usarlo, con las palabras que va a usar quien lo pida —«controlar», «revisar», «chequear»—, no con las tuyas.",
+        ej: "«Revisa una cédula de notificación antes del despacho. Verifica domicilio, carátula, plazo y firma… Usar cuando alguien pida controlar, revisar o chequear una cédula.»"
       },
       {
         n: 3,
         t: "Escribí el procedimiento como se lo explicarías a alguien nuevo",
         d: "Los pasos que seguís, en orden, con el criterio de cada uno. Acá aplica lo de la pestaña anterior: enunciá qué hay que lograr en cada punto, no dictes microscópicamente cómo.",
-        ej: "«1. Verificá que el domicilio tenga calle, número, localidad y, si corresponde, piso y departamento. 2. Contrastá la carátula contra el número de expediente…»"
+        ej: "«Verificá que el domicilio esté completo: calle, número, localidad y, cuando corresponda, piso, departamento y entre calles.»"
       },
       {
         n: 4,
         t: "Declará qué NO debe hacer",
-        d: "El bloque que más se olvida y el que más rinde. Cuatro puntos concretos como mínimo.",
-        ej: "«No modifiques el texto de la cédula. No completes datos faltantes: marcalos. No opines sobre el fondo. No des por válido un domicilio que no puedas contrastar con el expediente.»"
+        d: "El bloque que más se olvida y el que más rinde. Cuatro puntos concretos como mínimo. Con los modelos nuevos hace más falta que antes, porque amplían la tarea por su cuenta.",
+        ej: "«No modifiques el texto. No completes datos faltantes, ni siquiera cuando parezcan evidentes. No opines sobre el fondo. No des por válido lo que no puedas contrastar.»"
       },
       {
         n: 5,
-        t: "Definí qué devuelve",
-        d: "El formato exacto. Una lista de observaciones, una tabla, un semáforo. Sin esto, cada corrida devuelve algo distinto y no se puede comparar.",
-        ej: "«Devolvé una tabla con tres columnas: campo, observación y gravedad, donde gravedad es impide despacho, revisar, o correcto.»"
+        t: "Definí qué devuelve, con los valores exactos",
+        d: "El formato y el vocabulario. Sin esto, cada corrida devuelve algo distinto y no se pueden comparar dos revisiones.",
+        ej: "«Una tabla de tres columnas: campo, observación y gravedad, donde gravedad es IMPIDE DESPACHO, REVISAR o CORRECTO.»"
       },
       {
         n: 6,
-        t: "Probalo contra casos donde ya sabés la respuesta",
+        t: "Probá que se dispare, y que no se dispare de más",
+        d: "Escribí diez pedidos que deberían activarlo y diez que no, y pasalos. Si alguno de los primeros no lo activa, el problema está en la descripción, no en las instrucciones. Si alguno de los segundos sí lo activa, la descripción es demasiado amplia.",
+        ej: "Debería: «revisá esta cédula antes de que la despache». No debería: «resumime este escrito en tres puntos»."
+      },
+      {
+        n: 7,
+        t: "Probá el resultado contra casos donde ya sepas la respuesta",
         d: "Tres al menos: uno impecable, uno con un error evidente y uno con un error sutil. Si no marca el sutil, el problema está en el paso 3 o en el 4.",
         ej: "Una cédula correcta, una sin plazo, y una con la carátula de otro expediente del mismo juzgado."
       },
       {
-        n: 7,
+        n: 8,
         t: "Dejá dicho que no reemplaza el control de quien firma",
         d: "Adentro del propio skill, no en un correo aparte. Quien lo use dentro de seis meses no va a leer el correo.",
         ej: "«Estas observaciones son un apoyo a la revisión. La responsabilidad por el despacho es de quien firma.»"
@@ -8340,14 +8544,141 @@ const capSkills = {
     usos: [
       "Control de estructura de una resolución contra los requisitos del artículo que corresponda",
       "Revisión de lenguaje claro sobre un texto ya redactado, sin tocar el contenido jurídico",
-      "Extracción de plazos y fechas de un escrito recibido, con lo que los suspende o interrumpe",
       "Armado de una minuta a partir de notas de una reunión, con el mismo formato siempre",
       "Clasificación de escritos entrantes por tipo de trámite para la mesa de entradas",
-      "Control de anonimización antes de mandar un texto a una herramienta pública"
+      "Control de anonimización antes de mandar un texto a una herramienta pública",
+      "Verificación de que un texto generado no afirme nada que no esté en las fuentes"
     ],
     cierre: [
-      "Un skill bien escrito es un procedimiento de oficina que quedó escrito. Ese es el verdadero valor: no es que la IA haga la tarea, es que la oficina tuvo que ponerse de acuerdo en cómo se hace y dejarlo por escrito.",
-      "Varias oficinas descubren, escribiendo el paso 3, que cada persona lo venía haciendo distinto."
+      "Un skill bien escrito es un procedimiento de oficina que quedó escrito. Ese es el verdadero valor: no es que la IA haga la tarea, es que la oficina tuvo que ponerse de acuerdo en cómo se hace.",
+      "Varias oficinas descubren, escribiendo el paso 3, que cada persona lo venía haciendo distinto. Ese hallazgo suele valer más que el skill."
+    ],
+    noEsTitulo: "Lo que un skill no es",
+    noEs: [
+      "No es entrenar ni modificar el modelo: no le enseña nada nuevo, le da un procedimiento",
+      "No es necesariamente código: la mayoría son solo instrucciones escritas",
+      "No es un asistente aparte: es una capacidad que el asistente que ya usás carga cuando corresponde",
+      "No es un archivo que se pega en cada conversación: se registra una vez y queda disponible"
+    ],
+    cicloTitulo: "Los tres momentos, y por qué la descripción decide todo",
+    cicloEntrada: "Instalar un skill no carga su contenido en cada conversación. Se registra como capacidad disponible, y el asistente solo conoce al principio lo mínimo para decidir si le sirve. Recién ahí lee el resto.",
+    ciclo: [
+      {
+        t: "Descubrimiento",
+        d: "El asistente ve únicamente el nombre y la descripción, y con eso decide si esta tarea le corresponde a este skill.",
+        ojo: "Acá se juega todo. Una descripción vaga hace que no se active nunca; una demasiado amplia lo activa donde no corresponde."
+      },
+      {
+        t: "Activación",
+        d: "Si decide que sí, recién entonces carga las instrucciones completas y las sigue.",
+        ojo: "Un skill que nunca llega a este momento es un skill que no existe, por bien escrito que esté."
+      },
+      {
+        t: "Ejecución",
+        d: "Carga además el material de apoyo que ese caso puntual necesite: una plantilla, una lista de criterios, un ejemplo.",
+        ojo: "Por eso conviene que el cuerpo sea corto y el detalle esté en archivos aparte."
+      }
+    ],
+    carpetaTitulo: "Cómo se ve por dentro",
+    carpeta: "control-de-cedula/\n  SKILL.md          las instrucciones · lo único obligatorio\n  references/       criterios y material de consulta\n  assets/           plantillas del formato de salida\n  scripts/          código, cuando hace falta un cálculo exacto",
+    clasesTitulo: "Dos clases de skill, y la pregunta que las separa",
+    clasesEntrada: "Antes de escribir uno conviene contestar: ¿qué es lo peor que puede pasar si esto se activa solo? La respuesta decide cuánto control hace falta.",
+    clases: [
+      {
+        t: "De conocimiento",
+        d: "Resume, explica, analiza, controla, recomienda. No cambia nada.",
+        ej: "Los dos ejemplos de esta pestaña son de esta clase.",
+        ok: true
+      },
+      {
+        t: "De acción",
+        d: "Notifica, publica, registra un movimiento, modifica un archivo, envía.",
+        ej: "Estos piden activación explícita y confirmación proporcional a lo que tocan.",
+        ok: false
+      }
+    ],
+    escalaTitulo: "Cinco niveles de efecto",
+    escalaEntrada: "Es la misma distinción entre lo que se deshace y lo que no, aplicada a lo que un skill puede llegar a hacer.",
+    escala: [
+      {
+        n: "L0",
+        t: "Leer y explicar",
+        ej: "Resumir un escrito, señalar observaciones",
+        ctrl: "Puede activarse solo"
+      },
+      {
+        n: "L1",
+        t: "Producir algo nuevo",
+        ej: "Redactar un borrador, armar una tabla",
+        ctrl: "Se valida la salida antes de usarla"
+      },
+      {
+        n: "L2",
+        t: "Modificar algo existente",
+        ej: "Editar un documento de trabajo",
+        ctrl: "Respaldo previo y verificación posterior"
+      },
+      {
+        n: "L3",
+        t: "Cambiar un sistema externo",
+        ej: "Registrar un movimiento, cargar un dato",
+        ctrl: "Aprobación explícita, de a una"
+      },
+      {
+        n: "L4",
+        t: "Irreversible o de alto impacto",
+        ej: "Notificar, publicar, borrar",
+        ctrl: "No se automatiza. Confirmación humana y registro"
+      }
+    ],
+    entrevistaTitulo: "Sacar el procedimiento de la cabeza de quien lo hace",
+    entrevistaEntrada: "Escribir un skill es convertir experiencia tácita en procedimiento explícito. Si lo vas a escribir sobre una tarea de otra persona, estas preguntas la sacan.",
+    entrevista: [
+      "¿Qué mirás primero cuando te llega?",
+      "¿Qué necesitás tener a mano para poder hacerlo?",
+      "¿Qué casos descartás de entrada?",
+      "¿Qué errores estás buscando?",
+      "¿Qué parte es criterio y qué parte es mecánica?",
+      "¿Qué tiene consecuencias si sale mal?",
+      "¿Cómo se ve cuando está bien hecho?",
+      "¿Qué parte no delegarías nunca?"
+    ],
+    ejemplosTitulo: "Dos skills completos, para copiar y adaptar",
+    ejemplosEntrada: "Son de la clase de conocimiento: revisan y señalan, no tocan nada. Copialos, cambiá lo que corresponda a tu oficina y probalos con el paso 6 antes de compartirlos.",
+    ejemplos: [
+      {
+        id: "cedula",
+        t: "Control de cédula de notificación",
+        que: "El del paso a paso, armado entero. Contrasta contra lo que se le aporta y marca como no verificable lo que no puede contrastar.",
+        nivel: "L0 · lee y señala",
+        texto: "---\nname: control-de-cedula\ndescription: Revisa una cédula de notificación antes del despacho. Verifica domicilio, carátula, plazo y firma, y devuelve una lista de observaciones con su gravedad. Usar cuando alguien pida controlar, revisar o chequear una cédula antes de despacharla o firmarla.\n---\n\n# Control de cédula de notificación\n\n## Para qué sirve\nDetectar antes del despacho los errores que obligan a rehacer la notificación.\nNo reemplaza el control de quien firma: lo ordena y lo acelera.\n\n## Qué necesita\n- El texto de la cédula.\n- Cuando esté disponible, la carátula y el número de expediente para contrastar.\n\n## Procedimiento\n1. Verificá que el domicilio esté completo: calle, número, localidad y, cuando\n   corresponda, piso, departamento y entre calles. Si es domicilio electrónico,\n   que tenga la forma que usa el organismo.\n2. Contrastá la carátula y el número de expediente contra los que te pasaron.\n   Si no te pasaron ninguno, marcalo como no verificable en lugar de darlo por bueno.\n3. Verificá que esté el plazo, que esté expresado en días y que diga si son\n   hábiles o corridos.\n4. Verificá que estén identificados quién notifica y a quién se notifica.\n5. Verificá que lo que se notifica esté nombrado de manera que el destinatario\n   pueda saber de qué se trata sin abrir el expediente.\n6. Revisá que no haya quedado texto de una plantilla anterior: otro nombre, otra\n   carátula, otra fecha.\n\n## Qué NO debe hacer\n- No modifiques el texto de la cédula. Señalá, no corrijas.\n- No completes datos faltantes, ni siquiera cuando parezcan evidentes.\n- No opines sobre el fondo de lo que se notifica.\n- No des por válido un domicilio o una carátula que no puedas contrastar con lo\n  que te pasaron: marcalos como no verificables.\n\n## Qué devuelve\nUna tabla con tres columnas: campo, observación y gravedad.\nLa gravedad es uno de estos tres valores:\n- IMPIDE DESPACHO — hay que corregir antes de despachar\n- REVISAR — puede estar bien, pero alguien tiene que mirarlo\n- CORRECTO — verificado contra lo que se aportó\n\nDespués de la tabla, una línea: cuántas observaciones impiden el despacho.\n\n## Antes de terminar\n- Toda observación tiene que apuntar a un texto concreto de la cédula.\n- Si un campo no se pudo verificar, tiene que decirlo, no omitirlo.\n- Estas observaciones son un apoyo a la revisión. La responsabilidad por el\n  despacho es de quien firma."
+      },
+      {
+        id: "plazos",
+        t: "Plazos de un escrito",
+        que: "De otra naturaleza: extrae en lugar de controlar. Deliberadamente no calcula vencimientos ni aplica reglas de cómputo, y deja explícito lo que falta para poder computar.",
+        nivel: "L0 · lee y extrae",
+        texto: "---\nname: plazos-de-un-escrito\ndescription: Extrae de un escrito todos los plazos, fechas límite y términos, junto con lo que los suspende o interrumpe. Usar cuando alguien pida identificar plazos, armar un cronograma o saber qué vence de un escrito recibido.\n---\n\n# Plazos de un escrito\n\n## Para qué sirve\nQue no se pase un plazo por estar disperso en el texto.\nEs un skill de lectura: no calcula vencimientos ni agenda nada.\n\n## Qué necesita\nSolamente el texto del escrito. Si hay una fecha de notificación conocida,\nque se aporte por separado.\n\n## Procedimiento\n1. Recorré el escrito y marcá todo lo que implique un término: días, meses,\n   fechas ciertas, expresiones como «dentro de», «hasta», «vencido el término».\n2. Para cada uno, registrá qué lo dispara: la notificación, el traslado, la\n   presentación, una resolución.\n3. Registrá si el escrito dice que son días hábiles o corridos. Si no lo dice,\n   anotá que no lo dice.\n4. Registrá lo que el propio escrito mencione como suspensivo o interruptivo.\n5. Marcá aparte lo que el escrito NO resuelve y haría falta para calcular el\n   vencimiento.\n\n## Qué NO debe hacer\n- No calcules fechas de vencimiento.\n- No apliques reglas de cómputo que no estén en el escrito.\n- No supongas si son hábiles o corridos cuando el texto no lo dice.\n- No consultes normativa: trabajá solo con el texto aportado.\n\n## Qué devuelve\nUna tabla: plazo, desde cuándo corre, hábiles o corridos, qué lo suspende,\ny dónde aparece en el escrito.\nDebajo, una lista con el título «Lo que falta para poder computar».\n\n## Antes de terminar\n- Cada fila tiene que poder rastrearse a un pasaje del escrito.\n- Un plazo cuyo cómputo no esté claro va igual en la tabla, con la columna\n  marcada como «no lo dice el escrito». No se omite."
+      }
+    ],
+    usoTitulo: "Cómo se usa una vez que está",
+    uso: [
+      {
+        t: "No se invoca por su nombre",
+        d: "Se pide la tarea con las palabras de siempre. Si la descripción está bien escrita, se activa solo. Muchas herramientas avisan cuál cargaron; conviene mirar ese aviso las primeras veces."
+      },
+      {
+        t: "Si no se activa, el problema es la descripción",
+        d: "No las instrucciones. Fijate qué palabras usaste al pedirlo y si están en la descripción. Es el error más frecuente y el que menos se sospecha."
+      },
+      {
+        t: "Si se activa donde no corresponde, es lo mismo al revés",
+        d: "La descripción abarca de más. Acotala: decí para qué NO es, o nombrá el tipo de documento concreto."
+      },
+      {
+        t: "Cuando cambia el procedimiento, cambia el skill",
+        d: "Un skill desactualizado es peor que ninguno, porque aplica con confianza un criterio que dejó de valer. Vale la misma regla que para cualquier instructivo de oficina."
+      }
     ]
   };
 const capConfiar = {
@@ -8420,7 +8751,52 @@ const capConfiar = {
         "Habilitar un servidor que llegue a un sistema del organismo no es una decisión personal, aunque la herramienta la presente como un botón. Involucra acceso a datos institucionales desde una cuenta que puede ser personal.",
         "El criterio es el mismo del circuito de autorización: si toca material de trabajo, se consulta antes al área que corresponde. Probarlo con material de ejemplo no requiere nada de eso, y es la manera de aprender cómo funciona sin comprometer nada."
       ]
-    }
+    },
+    capasTitulo: "Tres cosas distintas que se confunden todo el tiempo",
+    capasEntrada: "La analogía que mejor funciona: un servidor conectado es la cocina con sus herramientas e ingredientes; un skill es la receta; los permisos son quién tiene llave de qué.",
+    capas: [
+      {
+        t: "El servidor conectado",
+        d: "Amplía lo que el asistente puede llegar a hacer: buscar en un repositorio, leer un calendario, consultar una base.",
+        verbo: "Agrega acciones posibles"
+      },
+      {
+        t: "El skill",
+        d: "Acota cómo se hace una tarea: qué pasos, con qué criterios, qué no hacer.",
+        verbo: "Reduce decisiones"
+      },
+      {
+        t: "Los permisos",
+        d: "Limitan qué se puede ejecutar de verdad, más allá de lo que el asistente crea que puede.",
+        verbo: "Ponen el límite duro"
+      }
+    ],
+    capasCierre: "Un skill no reemplaza a un servidor ni al revés: la receta no compra los ingredientes. Y ninguno de los dos reemplaza a los permisos, que es lo único que efectivamente frena una acción.",
+    ejemploTitulo: "Cómo se ve uno funcionando",
+    ejemplo: {
+      escena: "Habilitás una conexión al repositorio de jurisprudencia del organismo, de solo lectura. A partir de ahí, cuando le pedís al asistente que busque fallos sobre notificación electrónica, en lugar de contestarte de memoria consulta el repositorio y te trae lo que hay.",
+      pasos: [
+        "Le pedís la búsqueda con tus palabras de siempre",
+        "El asistente decide que la herramienta conectada le sirve y la usa",
+        "El repositorio le devuelve resultados: carátulas, fechas y texto",
+        "El asistente arma la respuesta con eso, y debería decirte de dónde salió"
+      ],
+      gano: "La diferencia con preguntarle sin conexión es que ahora la respuesta sale de un sistema real y no de lo que el modelo recuerde. Es el mismo principio de los cuadernos, con la fuente del otro lado en lugar de cargada por vos.",
+      cuidado: "Y la contracara: lo que ese repositorio devuelva entra a la conversación como texto. Si un documento trae adentro una línea dirigida al modelo, entra con todo lo demás. No lo elegiste vos consulta por consulta."
+    },
+    inspeccionTitulo: "Qué mirar concretamente antes de instalar algo ajeno",
+    inspeccionEntrada: "La grilla de arriba es el criterio. Esto es la lista de lo que hay que abrir y leer, en orden.",
+    inspeccion: [
+      "Leer la descripción y las instrucciones completas, de punta a punta",
+      "Si trae código, leerlo o hacerlo leer por alguien que pueda",
+      "Buscar las direcciones y los sitios a los que se conecta, y reconocerlos",
+      "Ver qué archivos y qué carpetas necesita tocar",
+      "Ver si pide credenciales, claves o acceso a una cuenta",
+      "Ver qué acciones con efecto tiene: enviar, escribir, borrar",
+      "Confirmar quién lo publica y desde dónde",
+      "Fijar la versión, cuando la herramienta lo permita",
+      "Probarlo primero con material de ejemplo, nunca con material de trabajo"
+    ]
   };
 
 // ═══════════════════════════════════════════════════════════════
@@ -10976,9 +11352,14 @@ const CapacidadesSection = () => {
               </div>
             ))}
           </div>
-          <Callout tone="rose" icon={ShieldAlert} title={capSuperficies.aviso.titulo}>
-            {capSuperficies.aviso.cuerpo.map((c, i) => <p key={i} className={i ? 'mt-2' : ''}>{c}</p>)}
+          <Callout tone="amber" icon={RotateCcw} title={capSuperficies.fuenteTitulo}>
+            {capSuperficies.fuente.map((c, i) => <p key={i} className={i ? 'mt-2' : ''}>{c}</p>)}
           </Callout>
+          <div className="mt-4">
+            <Callout tone="rose" icon={ShieldAlert} title={capSuperficies.aviso.titulo}>
+              {capSuperficies.aviso.cuerpo.map((c, i) => <p key={i} className={i ? 'mt-2' : ''}>{c}</p>)}
+            </Callout>
+          </div>
         </div>
       )}
 
@@ -11121,7 +11502,29 @@ const CapacidadesSection = () => {
       {sub === 'skills' && (
         <div>
           <Parrafos ps={capSkills.entrada} />
+
+          <Callout tone="slate" icon={AlertTriangle} title={capSkills.noEsTitulo}>
+            <ul className="space-y-1 mt-1">
+              {capSkills.noEs.map((n, i) => <li key={i}>· {n}</li>)}
+            </ul>
+          </Callout>
+
+          <h4 className="font-bold text-slate-800 mt-6 mb-1">{capSkills.cicloTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.cicloEntrada}</p>
           <div className="grid md:grid-cols-3 gap-4 mb-6">
+            {capSkills.ciclo.map((c, i) => (
+              <div key={i} className="bg-white border border-slate-200 p-5">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="w-6 h-6 bg-sky-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                  <h5 className="font-bold text-slate-800">{c.t}</h5>
+                </div>
+                <p className="text-sm text-slate-700 mb-2">{c.d}</p>
+                <p className="text-sm text-amber-900 border-l-2 border-amber-800 pl-3">{c.ojo}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-4 mb-4">
             {capSkills.anatomia.map((a, i) => (
               <div key={i} className="bg-white border border-slate-200 p-5">
                 <h5 className="font-bold text-sky-900 mb-2">{a.t}</h5>
@@ -11129,6 +11532,55 @@ const CapacidadesSection = () => {
               </div>
             ))}
           </div>
+          <h5 className="font-bold text-slate-800 mb-2">{capSkills.carpetaTitulo}</h5>
+          <pre className="bg-slate-100 border border-slate-200 p-4 mb-6 text-xs text-slate-700 overflow-x-auto font-mono leading-relaxed">{capSkills.carpeta}</pre>
+
+          <h4 className="font-bold text-slate-800 mb-1">{capSkills.clasesTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.clasesEntrada}</p>
+          <div className="grid md:grid-cols-2 gap-4 mb-4">
+            {capSkills.clases.map((c, i) => (
+              <div key={i} className={`bg-white border border-slate-200 p-5 border-l-2 ${c.ok ? 'border-l-emerald-800' : 'border-l-rose-800'}`}>
+                <h5 className="font-bold text-slate-800 mb-2">{c.t}</h5>
+                <p className="text-sm text-slate-700 mb-2">{c.d}</p>
+                <p className="text-sm text-slate-500 italic">{c.ej}</p>
+              </div>
+            ))}
+          </div>
+          <h5 className="font-bold text-slate-800 mb-1">{capSkills.escalaTitulo}</h5>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.escalaEntrada}</p>
+          <div className="overflow-x-auto mb-6">
+            <table className="w-full text-sm border border-slate-200 bg-white">
+              <thead>
+                <tr className="bg-slate-100 text-left">
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Nivel</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Qué hace</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">En una oficina judicial</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Control</th>
+                </tr>
+              </thead>
+              <tbody>
+                {capSkills.escala.map((e, i) => (
+                  <tr key={i} className="border-b border-slate-200 last:border-0">
+                    <td className="p-3 font-bold text-sky-900 align-top">{e.n}</td>
+                    <td className="p-3 text-slate-700 align-top">{e.t}</td>
+                    <td className="p-3 text-slate-600 align-top">{e.ej}</td>
+                    <td className="p-3 text-slate-600 align-top">{e.ctrl}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <h4 className="font-bold text-slate-800 mb-1">{capSkills.entrevistaTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.entrevistaEntrada}</p>
+          <ol className="grid md:grid-cols-2 gap-2 mb-6">
+            {capSkills.entrevista.map((q, i) => (
+              <li key={i} className="text-sm text-slate-700 flex gap-2 bg-white border border-slate-200 p-3">
+                <span className="font-bold text-sky-900 flex-shrink-0">{i + 1}.</span>{q}
+              </li>
+            ))}
+          </ol>
+
           <h4 className="font-bold text-slate-800 mb-1">{capSkills.pasosTitulo}</h4>
           <p className="text-sm text-slate-600 mb-4">{capSkills.pasosEntrada}</p>
           <div className="space-y-3 mb-6">
@@ -11143,6 +11595,39 @@ const CapacidadesSection = () => {
               </div>
             ))}
           </div>
+
+          <ActivityCard act={{ kind: 'file', key: '21_pruebas_de_disparo',
+            title: 'Pruebas de disparo', mins: '10 min',
+            what: 'Un skill correcto con una descripción floja. Ocho pedidos: decidí en cuáles se activa, y mirá cuántas veces falla.' }} />
+
+          <h4 className="font-bold text-slate-800 mt-6 mb-1">{capSkills.ejemplosTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-4">{capSkills.ejemplosEntrada}</p>
+          <div className="space-y-4 mb-6">
+            {capSkills.ejemplos.map(e => (
+              <div key={e.id} className="bg-white border border-slate-200 p-5">
+                <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
+                  <h5 className="font-bold text-slate-800">{e.t}</h5>
+                  <span className="text-xs font-bold uppercase tracking-wide text-emerald-900">{e.nivel}</span>
+                </div>
+                <p className="text-sm text-slate-700 mb-3">{e.que}</p>
+                <pre className="bg-slate-50 border border-slate-200 p-4 text-xs text-slate-800 overflow-x-auto font-mono leading-relaxed max-h-96 overflow-y-auto whitespace-pre-wrap">{e.texto}</pre>
+                <div className="mt-3">
+                  <CopyBtn text={e.texto} label="Copiar el skill completo" small />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h4 className="font-bold text-slate-800 mb-3">{capSkills.usoTitulo}</h4>
+          <div className="space-y-2 mb-6">
+            {capSkills.uso.map((u, i) => (
+              <div key={i} className="bg-white border border-slate-200 p-4">
+                <h5 className="font-bold text-slate-800 text-sm mb-1">{u.t}</h5>
+                <p className="text-sm text-slate-700">{u.d}</p>
+              </div>
+            ))}
+          </div>
+
           <h4 className="font-bold text-slate-800 mb-3">{capSkills.usosTitulo}</h4>
           <ul className="grid md:grid-cols-2 gap-2 mb-5">
             {capSkills.usos.map((u, i) => (
@@ -11160,12 +11645,42 @@ const CapacidadesSection = () => {
       {sub === 'confiar' && (
         <div>
           <Parrafos ps={capConfiar.entrada} />
+
+          <h4 className="font-bold text-slate-800 mb-1">{capConfiar.capasTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capConfiar.capasEntrada}</p>
+          <div className="grid md:grid-cols-3 gap-4 mb-3">
+            {capConfiar.capas.map((c, i) => (
+              <div key={i} className="bg-white border border-slate-200 p-5">
+                <h5 className="font-bold text-slate-800 mb-1">{c.t}</h5>
+                <p className="text-xs font-bold uppercase tracking-wide text-sky-900 mb-2">{c.verbo}</p>
+                <p className="text-sm text-slate-700">{c.d}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-slate-700 leading-relaxed mb-6">{capConfiar.capasCierre}</p>
+
           <h4 className="font-bold text-slate-800 mb-2">{capConfiar.mcpTitulo}</h4>
-          <div className="mb-6">
+          <div className="mb-5">
             {capConfiar.mcp.map((m, i) => (
               <p key={i} className="text-slate-700 leading-relaxed mb-3">{m}</p>
             ))}
           </div>
+
+          <h4 className="font-bold text-slate-800 mb-3">{capConfiar.ejemploTitulo}</h4>
+          <div className="bg-white border border-slate-200 p-5 mb-6">
+            <p className="text-slate-700 mb-4">{capConfiar.ejemplo.escena}</p>
+            <ol className="space-y-2 mb-4">
+              {capConfiar.ejemplo.pasos.map((p, i) => (
+                <li key={i} className="text-sm text-slate-700 flex gap-3">
+                  <span className="w-6 h-6 bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                  {p}
+                </li>
+              ))}
+            </ol>
+            <p className="text-sm text-slate-700 border-l-2 border-emerald-800 pl-3 mb-2">{capConfiar.ejemplo.gano}</p>
+            <p className="text-sm text-slate-700 border-l-2 border-rose-800 pl-3">{capConfiar.ejemplo.cuidado}</p>
+          </div>
+
           <h4 className="font-bold text-slate-800 mb-3">{capConfiar.grillaTitulo}</h4>
           <div className="space-y-2 mb-6">
             {capConfiar.grilla.map((g, i) => (
@@ -11178,6 +11693,18 @@ const CapacidadesSection = () => {
               </div>
             ))}
           </div>
+
+          <h4 className="font-bold text-slate-800 mb-1">{capConfiar.inspeccionTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capConfiar.inspeccionEntrada}</p>
+          <ol className="space-y-2 mb-6">
+            {capConfiar.inspeccion.map((x, i) => (
+              <li key={i} className="text-sm text-slate-700 flex gap-3 bg-white border border-slate-200 p-3">
+                <span className="w-6 h-6 border border-slate-300 text-slate-400 text-xs flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                {x}
+              </li>
+            ))}
+          </ol>
+
           <h4 className="font-bold text-rose-900 mb-3">{capConfiar.senalesTitulo}</h4>
           <ul className="space-y-2 mb-6">
             {capConfiar.senales.map((s, i) => (
