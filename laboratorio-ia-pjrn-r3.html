@@ -8013,7 +8013,7 @@ const workRoutes = [
   ];
 
 
-// ── Cómo se agrupan las siete secciones ────────────────────────
+// ── Cómo se agrupan las secciones ──────────────────────────────
 // El criterio no es el tema sino qué se hace con cada una: unas se leen una
 // vez, otras se abren cuando hay algo que resolver, y dos son procedimientos
 // completos que se recorren de punta a punta.
@@ -11167,15 +11167,23 @@ const ICONOS = {
     capacidades: BrainCircuit
   };
 
+// Los conteos de la pantalla de inicio salen de los datos, no escritos a mano:
+// al agregar una sección o un recorrido quedaban desactualizados en silencio.
+const LETRAS = ['cero','una','dos','tres','cuatro','cinco','seis','siete','ocho','nueve','diez','once','doce'];
+const enLetras = (n, capital) => {
+  const w = LETRAS[n] || String(n);
+  return capital ? w.charAt(0).toUpperCase() + w.slice(1) : w;
+};
+
 const InicioSection = ({ onGo }) => (
   <div className="max-w-4xl mx-auto space-y-8">
     <div className="border-l-4 border-sky-900 pl-4">
       <h2 className="text-slate-900 mb-2" style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontSize: '1.6rem', lineHeight: '1.2' }}>
-        Siete secciones, tres maneras de usarlas
+        {enLetras(Object.keys(SECCIONES).length, true)} secciones, {enLetras(RECORRIDOS.length)} maneras de usarlas
       </h2>
       <p className="text-slate-600">
         Este material no se lee de corrido: se entra por donde haga falta. Abajo está qué es cada
-        sección y para qué momento sirve. Si no sabés por dónde empezar, mirá los tres recorridos del final.
+        sección y para qué momento sirve. Si no sabés por dónde empezar, mirá los {enLetras(RECORRIDOS.length)} recorridos del final.
       </p>
     </div>
 
