@@ -6931,11 +6931,11 @@ const promptItems = [
 
 const anonPrinciples = [
     {
-      title: "Esto es una pista de práctica",
+      title: "Qué es esto, y qué no",
       body: [
-        "El detector de esta pestaña sirve para entrenar el ojo y practicar el criterio, no para dejar un documento listo para usar.",
-        "No es el anonimizador institucional del Poder Judicial ni pretende reemplazarlo: cuando exista una herramienta oficial, esa es la que corresponde para material de trabajo.",
-        "Acá se practica con textos de ejemplo o material propio no reservado, y se sale sabiendo qué mirar."
+        "Lo de acá abajo ilustra el mecanismo de un anonimizador: busca formatos conocidos y propone una etiqueta para cada uno. Sirve para entender cómo trabaja cualquiera de ellos y, sobre todo, dónde falla.",
+        "Lo que no tiene un formato reconocible no aparece marcado, y ahí entra buena parte de lo que más identifica: un apodo, una circunstancia, una fecha junto a una localidad chica.",
+        "No es el anonimizador institucional del Poder Judicial ni lo reemplaza. Practicá con textos de ejemplo o con material propio no reservado."
       ]
     },
     {
@@ -7550,8 +7550,8 @@ const anonNoIniciales = new Set([
 
 const anonWorkflow = [
     "Copiá el texto a una hoja aparte: nunca trabajes sobre el original.",
-    "Pasá el detector o revisá a ojo por categorías, no leyendo de corrido.",
-    "Etiquetá a mano lo que el detector no vio: es la parte que más entrena.",
+    "Pasá el buscador de patrones para levantar lo evidente, y después revisá a ojo por categorías: lo que no tiene un formato reconocible no va a estar marcado.",
+    "Etiquetá a mano todo lo que quedó sin marcar. Es la parte que más entrena, y la que ninguna herramienta hace por vos.",
     "Reemplazá con etiquetas estables y anotá el glosario en otro archivo.",
     "Releé buscando reidentificación por combinación de datos que quedaron.",
     "Recién entonces usá el texto en el asistente.",
@@ -7966,16 +7966,23 @@ const searchFlow = [
 // ── Las dos rutas de búsqueda, que no son intercambiables ──────
 const searchRutas = [
     {
-      ruta: "Buscador general, acotado con site:",
+      ruta: "Buscador general, acotado con operadores",
       donde: "Google, Bing o el que uses habitualmente",
-      sirve: "Los ocho operadores de la tabla. Es lo que arma esta herramienta.",
-      cuando: "Cuando buscás por tema, por una frase del texto, o cuando todavía no sabés en qué portal está."
+      sirve: "Los ocho operadores de la tabla, escritos con la sintaxis que ese buscador entiende. Es la que arma el armador de consultas de esta sección.",
+      cuando: "Cuando buscás por tema, por una frase del texto, o cuando todavía no sabés en qué portal está lo que necesitás."
     },
     {
       ruta: "Buscador propio del portal",
       donde: "El formulario del sitio oficial",
-      sirve: "Sus propios campos: número de expediente, carátula, fecha, organismo, tipo de acto.",
+      sirve: "Sus propios campos: número de expediente, carátula, fecha, organismo, tipo de acto. Los operadores de la tabla no funcionan acá.",
       cuando: "Cuando ya sabés dónde está y tenés un dato exacto para pedirlo."
+    },
+    {
+      ruta: "Un asistente que tenga buscador",
+      donde: "Un asistente con acceso a internet, o un agente con la herramienta de búsqueda habilitada",
+      sirve: "Las mismas restricciones, pero dichas en palabras en lugar de con operadores: qué buscás, en qué sitios, entre qué fechas y qué querés que devuelva. El asistente arma las consultas por su cuenta y las corre varias veces.",
+      cuando: "Cuando la pregunta necesita varias búsquedas encadenadas, o cuando querés un resumen de lo que encontró. Con una advertencia: lo que devuelve hay que abrirlo igual. Que el asistente cite una fuente no prueba que diga lo que él afirma.",
+      ejemplo: "Buscá en internet la frase exacta «notificación electrónica».\nLimitate al sitio jusrionegro.gov.ar. Si ahí no está, decímelo en lugar de traerme otra fuente.\nMe interesan las páginas cuyo título contenga «acordada».\nPriorizá archivos PDF.\nAcotá a lo publicado desde 2024-01-01.\nPara cada resultado dame el título, el enlace y la fecha, y una línea con qué dice. No resumas de memoria: abrí cada página antes de afirmar qué contiene. Si de algo no estás seguro, decilo en lugar de completarlo."
     }
   ];
 
@@ -10555,7 +10562,7 @@ const AnonDetector = () => {
           <div className="flex flex-wrap gap-2">
             <button onClick={() => setRan(true)} disabled={!text.trim()}
               className="px-4 py-2 rounded-lg font-bold text-sm bg-sky-900 text-white hover:bg-sky-800 disabled:opacity-40 inline-flex items-center gap-2">
-              <ShieldAlert className="w-4 h-4" /> Detectar
+              <ShieldAlert className="w-4 h-4" /> Buscar patrones
             </button>
             <button onClick={() => { setText(''); setRan(false); setManual([]); setSel(''); setUltima(null); }}
               className="px-3 py-2 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Limpiar</button>
@@ -10657,7 +10664,7 @@ const AnonDetector = () => {
               <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
                   <h4 className="font-bold text-slate-800 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-800" /> Versión con etiquetas</h4>
-                  <CopyBtn text={analysis.anon} label="Copiar versión etiquetada" small />
+                  <CopyBtn text={analysis.anon} label="Copiar el ejercicio" small />
                 </div>
                 <div className="rounded-xl border border-emerald-800 bg-slate-50 p-4 max-h-80 overflow-y-auto whitespace-pre-wrap text-[0.85em] leading-relaxed text-emerald-950">
                   {analysis.anon}
@@ -11382,11 +11389,7 @@ const AnonSection = () => {
   return (
     <div className="max-w-4xl mx-auto">
       <SectionHead icon={Lock} title="Anonimización · pista de práctica" tone="rose">
-        El pilar 5 del Protocolo de Buenas Prácticas prohíbe ingresar datos personales, sensibles o confidenciales en
-        plataformas que no aseguren la privacidad. Esta pestaña convierte esa prohibición en una práctica concreta que
-        no te impide trabajar: la IA no necesita los datos que no podés darle. El detector que vas a usar acá es una
-        <strong> herramienta de ejercitación</strong> para entrenar el ojo; no es el anonimizador institucional ni lo
-        reemplaza.
+        {INTROS.anon.map((t, i) => <p key={i} className={i ? 'mt-2' : ''}>{t}</p>)}
       </SectionHead>
 
       <div className="flex flex-wrap gap-2 mb-6">
@@ -11781,6 +11784,33 @@ const SearchSection = () => {
     return p.join(' ');
   }, [frases, libres, variantes, titulo, sitio, tipo, excluir, desde, hasta]);
 
+  // La misma búsqueda dicha en palabras. No es una traducción del operador: es lo que
+  // hay que pedirle a un asistente con buscador para que llegue al mismo lugar, más la
+  // restricción que un buscador no necesita y un asistente sí: que abra lo que cita en
+  // lugar de resumir de memoria.
+  const pedido = useMemo(() => {
+    const fs = frases.split('\n').map(f => f.trim()).filter(Boolean);
+    const vs = variantes.split(/[,\n]/).map(v => v.trim()).filter(Boolean);
+    const l = [];
+    const objeto = [libres.trim(),
+      fs.length ? 'la frase exacta ' + fs.map(f => '\u00ab' + f + '\u00bb').join(' y ') : '']
+      .filter(Boolean).join(', ');
+    l.push('Buscá en internet ' + (objeto || '[qué estás buscando]') + '.');
+    if (vs.length > 1) l.push('Probá también con estas variantes del término: ' + vs.join(', ') + '.');
+    if (sitio.trim()) l.push('Limitate al sitio ' + sitio.trim() +
+      '. Si ahí no está, decímelo en lugar de traerme otra fuente.');
+    if (titulo.trim()) l.push('Me interesan las páginas cuyo título contenga \u00ab' + titulo.trim() + '\u00bb.');
+    if (tipo.trim()) l.push('Priorizá archivos ' + tipo.trim().toUpperCase() + '.');
+    if (excluir.trim()) l.push('Dejá afuera lo que hable de: ' + excluir.trim().split(/\s+/).join(', ') + '.');
+    if (desde.trim() || hasta.trim()) l.push('Acotá a lo publicado ' +
+      [desde.trim() && 'desde ' + desde.trim(), hasta.trim() && 'hasta ' + hasta.trim()]
+        .filter(Boolean).join(' ') + '.');
+    l.push('Para cada resultado dame el título, el enlace y la fecha, y una línea con qué dice. ' +
+      'No resumas de memoria: abrí cada página antes de afirmar qué contiene. ' +
+      'Si de algo no estás seguro, decilo en lugar de completarlo.');
+    return l.join('\n');
+  }, [frases, libres, variantes, titulo, sitio, tipo, excluir, desde, hasta]);
+
   const aplicar = (c, i) => {
     setFrases(c.frases); setLibres(c.libres); setVariantes(c.variantes);
     setTitulo(c.titulo); setSitio(c.sitio); setTipo(c.tipo);
@@ -11798,8 +11828,7 @@ const SearchSection = () => {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <SectionHead icon={Search} title="Investigador" tone="indigo">
-        La IA diseña la búsqueda; vos la ejecutás en la fuente oficial. Este es el reparto de tareas que evita la cita
-        inventada.
+        {INTROS.search.map((t, i) => <p key={i} className={i ? 'mt-2' : ''}>{t}</p>)}
       </SectionHead>
 
       <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
@@ -11868,6 +11897,19 @@ const SearchSection = () => {
         <div className="rounded-xl bg-slate-900 p-4 flex flex-wrap items-center justify-between gap-3">
           <code className="text-slate-100 text-sm break-all">{query || 'Completá algún campo para armar la consulta'}</code>
           {query && <CopyBtn text={query} label="Copiar consulta" small />}
+        </div>
+
+        <div className="mt-5 pt-5 border-t border-slate-200">
+          <p className="text-xs font-bold text-slate-500 uppercase mb-1">
+            La misma búsqueda, pedida a un asistente que tenga buscador
+          </p>
+          <p className="text-sm text-slate-600 mb-2">
+            Sirve cuando la pregunta necesita varias búsquedas encadenadas, o cuando querés que te
+            resuma lo que encontró. Lo que devuelva se abre igual: que cite una fuente no prueba que
+            diga lo que él afirma.
+          </p>
+          <pre className="bg-slate-50 border border-slate-200 p-3 text-sm text-slate-800 whitespace-pre-wrap mb-2">{pedido}</pre>
+          {query && <CopyBtn text={pedido} label="Copiar el pedido" small />}
         </div>
         <p className="text-xs text-slate-500 mt-2">
           Se pega en un <strong>buscador general</strong>. El comodín <code className="text-sky-700">*</code> va dentro
@@ -12617,6 +12659,16 @@ Cinco líneas para quien solo necesita el resultado.
 // ═══════════════════════════════════════════════════════════════
 
 // Los iconos no van en los datos: son componentes y romperían la extracción a JSON.
+const INTROS = {
+    anon: [
+      "El pilar 5 del Protocolo de Buenas Prácticas prohíbe ingresar datos personales, sensibles o confidenciales en plataformas que no aseguren la privacidad. Esta sección convierte esa prohibición en una práctica concreta que no te impide trabajar: la IA no necesita los datos que no podés darle.",
+      "Lo que hay acá muestra cómo funciona un anonimizador por dentro y en qué casos falla, para que sepas qué mirar cuando uses uno: busca formatos conocidos —un DNI, un CUIT, una carátula— sobre el texto que se le pegue, y lo que no tiene un formato reconocible no lo encuentra. El resultado es un ejercicio, no un documento listo para usar."
+    ],
+    search: [
+      "Acá se arma una consulta para un buscador general —Google, Bing— con los operadores que ese buscador entiende. No es un pedido a la IA: es una línea de texto que se pega en el cuadro de búsqueda, y ahí la fuente contesta directamente.",
+      "La misma búsqueda se puede pedir en palabras a un asistente que tenga buscador, y más abajo está la tercera ruta con un ejemplo escrito. En las dos, lo que vuelve se abre y se lee: el reparto que evita la cita inventada es que la búsqueda se diseña con criterio y se verifica en la fuente."
+    ]
+  };
 const ICONOS = {
     theory: BookOpen,
     challenges: Zap,

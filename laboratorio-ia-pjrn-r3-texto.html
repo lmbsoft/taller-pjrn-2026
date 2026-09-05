@@ -124,7 +124,7 @@ nav ol ol { margin: .25rem 0 .5rem; }
     </ol></li>
   <li><a href="#s-search">Investigador</a>
     <ol>
-      <li><a href="#e-searchRutas">Las dos rutas</a></li>
+      <li><a href="#e-searchRutas">Las rutas para buscar</a></li>
       <li><a href="#e-searchOperators">Los operadores</a></li>
       <li><a href="#e-officialSources">Las fuentes oficiales</a></li>
       <li><a href="#e-searchEjemplos">Casos resueltos</a></li>
@@ -4593,16 +4593,34 @@ Además verificá EXCLUSIVAMENTE los reflejos textuales de: celebración del acu
 </section>
 <section id="s-search">
 <h2>Investigador</h2>
+<p>Acá se arma una consulta para un buscador general —Google, Bing— con los operadores que ese buscador entiende. No es un pedido a la IA: es una línea de texto que se pega en el cuadro de búsqueda, y ahí la fuente contesta directamente.</p>
+<p>La misma búsqueda se puede pedir en palabras a un asistente que tenga buscador, y más abajo está la tercera ruta con un ejemplo escrito. En las dos, lo que vuelve se abre y se lee: el reparto que evita la cita inventada es que la búsqueda se diseña con criterio y se verifica en la fuente.</p>
 <section id="e-searchRutas">
-<h3>Las dos rutas</h3>
-<p>ruta: Buscador general, acotado con site:</p>
-<p>donde: Google, Bing o el que uses habitualmente</p>
-<p>sirve: Los ocho operadores de la tabla. Es lo que arma esta herramienta.</p>
-<p>Cuándo: Cuando buscás por tema, por una frase del texto, o cuando todavía no sabés en qué portal está.</p>
-<p>ruta: Buscador propio del portal</p>
-<p>donde: El formulario del sitio oficial</p>
-<p>sirve: Sus propios campos: número de expediente, carátula, fecha, organismo, tipo de acto.</p>
+<h3>Las rutas para buscar</h3>
+<section>
+<h4>Buscador general, acotado con operadores</h4>
+<p>Dónde se usa: Google, Bing o el que uses habitualmente</p>
+<p>Para qué sirve: Los ocho operadores de la tabla, escritos con la sintaxis que ese buscador entiende. Es la que arma el armador de consultas de esta sección.</p>
+<p>Cuándo: Cuando buscás por tema, por una frase del texto, o cuando todavía no sabés en qué portal está lo que necesitás.</p>
+</section>
+<section>
+<h4>Buscador propio del portal</h4>
+<p>Dónde se usa: El formulario del sitio oficial</p>
+<p>Para qué sirve: Sus propios campos: número de expediente, carátula, fecha, organismo, tipo de acto. Los operadores de la tabla no funcionan acá.</p>
 <p>Cuándo: Cuando ya sabés dónde está y tenés un dato exacto para pedirlo.</p>
+</section>
+<section>
+<h4>Un asistente que tenga buscador</h4>
+<p>Dónde se usa: Un asistente con acceso a internet, o un agente con la herramienta de búsqueda habilitada</p>
+<p>Para qué sirve: Las mismas restricciones, pero dichas en palabras en lugar de con operadores: qué buscás, en qué sitios, entre qué fechas y qué querés que devuelva. El asistente arma las consultas por su cuenta y las corre varias veces.</p>
+<p>Cuándo: Cuando la pregunta necesita varias búsquedas encadenadas, o cuando querés un resumen de lo que encontró. Con una advertencia: lo que devuelve hay que abrirlo igual. Que el asistente cite una fuente no prueba que diga lo que él afirma.</p>
+<pre>Buscá en internet la frase exacta «notificación electrónica».
+Limitate al sitio jusrionegro.gov.ar. Si ahí no está, decímelo en lugar de traerme otra fuente.
+Me interesan las páginas cuyo título contenga «acordada».
+Priorizá archivos PDF.
+Acotá a lo publicado desde 2024-01-01.
+Para cada resultado dame el título, el enlace y la fecha, y una línea con qué dice. No resumas de memoria: abrí cada página antes de afirmar qué contiene. Si de algo no estás seguro, decilo en lugar de completarlo.</pre>
+</section>
 </section>
 <section id="e-searchOperators">
 <h3>Los operadores</h3>
@@ -4654,7 +4672,7 @@ Además verificá EXCLUSIVAMENTE los reflejos textuales de: celebración del acu
 </section>
 <section id="e-searchEjemplos">
 <h3>Casos resueltos</h3>
-<p>pregunta: Necesito las acordadas del Superior Tribunal sobre notificación electrónica dictadas desde 2024.</p>
+<p>La pregunta: Necesito las acordadas del Superior Tribunal sobre notificación electrónica dictadas desde 2024.</p>
 <section>
 <h4>acordada</h4>
 <p>frases: notificación electrónica</p>
@@ -4662,18 +4680,18 @@ Además verificá EXCLUSIVAMENTE los reflejos textuales de: celebración del acu
 <p>tipo: pdf</p>
 <p>desde: 2024-01-01</p>
 </section>
-<p>porque: La frase entre comillas evita que traiga «notificación» y «electrónica» sueltas por todo el sitio. El intitle: descarta las páginas que apenas la mencionan y deja las que son la acordada.</p>
-<p>pregunta: Busco jurisprudencia sobre prescripción liberatoria y me llena de cursos de capacitación.</p>
+<p>Por qué se armó así: La frase entre comillas evita que traiga «notificación» y «electrónica» sueltas por todo el sitio. El intitle: descarta las páginas que apenas la mencionan y deja las que son la acordada.</p>
+<p>La pregunta: Busco jurisprudencia sobre prescripción liberatoria y me llena de cursos de capacitación.</p>
 <p>frases: prescripción liberatoria</p>
 <p>variantes: sentencia, fallo, resolución</p>
 <p>sitio: saij.gob.ar</p>
 <p>excluir: curso capacitación jornada inscripción</p>
-<p>porque: El OR cubre que la misma cosa se nombra distinto en cada portal. Y excluir cuatro palabras es lo que saca el ruido de capacitaciones, que en materia de prescripción es enorme.</p>
-<p>pregunta: Necesito el texto vigente de una ley provincial y no sé cómo está titulada.</p>
+<p>Por qué se armó así: El OR cubre que la misma cosa se nombra distinto en cada portal. Y excluir cuatro palabras es lo que saca el ruido de capacitaciones, que en materia de prescripción es enorme.</p>
+<p>La pregunta: Necesito el texto vigente de una ley provincial y no sé cómo está titulada.</p>
 <p>libres: ley 5450 texto vigente</p>
 <p>sitio: legisrn.gov.ar</p>
 <p>excluir: proyecto</p>
-<p>porque: Acá NO conviene entrecomillar: no sabés si el portal dice «texto vigente», «texto ordenado» o «texto actualizado». Con términos libres encuentra cualquiera de las tres. Entrecomillar de más es la causa más frecuente de una búsqueda que no devuelve nada.</p>
+<p>Por qué se armó así: Acá NO conviene entrecomillar: no sabés si el portal dice «texto vigente», «texto ordenado» o «texto actualizado». Con términos libres encuentra cualquiera de las tres. Entrecomillar de más es la causa más frecuente de una búsqueda que no devuelve nada.</p>
 </section>
 <section id="e-searchFlow">
 <h3>El circuito</h3>
@@ -4709,14 +4727,16 @@ Además verificá EXCLUSIVAMENTE los reflejos textuales de: celebración del acu
 </section>
 <section id="s-anon">
 <h2>Anonimización</h2>
+<p>El pilar 5 del Protocolo de Buenas Prácticas prohíbe ingresar datos personales, sensibles o confidenciales en plataformas que no aseguren la privacidad. Esta sección convierte esa prohibición en una práctica concreta que no te impide trabajar: la IA no necesita los datos que no podés darle.</p>
+<p>Lo que hay acá muestra cómo funciona un anonimizador por dentro y en qué casos falla, para que sepas qué mirar cuando uses uno: busca formatos conocidos —un DNI, un CUIT, una carátula— sobre el texto que se le pegue, y lo que no tiene un formato reconocible no lo encuentra. El resultado es un ejercicio, no un documento listo para usar.</p>
 <section id="e-anonPrinciples">
 <h3>Los principios</h3>
 <section>
-<h4>Esto es una pista de práctica</h4>
+<h4>Qué es esto, y qué no</h4>
 <ul>
-  <li>El detector de esta pestaña sirve para entrenar el ojo y practicar el criterio, no para dejar un documento listo para usar.</li>
-  <li>No es el anonimizador institucional del Poder Judicial ni pretende reemplazarlo: cuando exista una herramienta oficial, esa es la que corresponde para material de trabajo.</li>
-  <li>Acá se practica con textos de ejemplo o material propio no reservado, y se sale sabiendo qué mirar.</li>
+  <li>Lo de acá abajo ilustra el mecanismo de un anonimizador: busca formatos conocidos y propone una etiqueta para cada uno. Sirve para entender cómo trabaja cualquiera de ellos y, sobre todo, dónde falla.</li>
+  <li>Lo que no tiene un formato reconocible no aparece marcado, y ahí entra buena parte de lo que más identifica: un apodo, una circunstancia, una fecha junto a una localidad chica.</li>
+  <li>No es el anonimizador institucional del Poder Judicial ni lo reemplaza. Practicá con textos de ejemplo o con material propio no reservado.</li>
 </ul>
 </section>
 <section>
@@ -4892,8 +4912,8 @@ Además verificá EXCLUSIVAMENTE los reflejos textuales de: celebración del acu
 <h3>El circuito</h3>
 <ul>
   <li>Copiá el texto a una hoja aparte: nunca trabajes sobre el original.</li>
-  <li>Pasá el detector o revisá a ojo por categorías, no leyendo de corrido.</li>
-  <li>Etiquetá a mano lo que el detector no vio: es la parte que más entrena.</li>
+  <li>Pasá el buscador de patrones para levantar lo evidente, y después revisá a ojo por categorías: lo que no tiene un formato reconocible no va a estar marcado.</li>
+  <li>Etiquetá a mano todo lo que quedó sin marcar. Es la parte que más entrena, y la que ninguna herramienta hace por vos.</li>
   <li>Reemplazá con etiquetas estables y anotá el glosario en otro archivo.</li>
   <li>Releé buscando reidentificación por combinación de datos que quedaron.</li>
   <li>Recién entonces usá el texto en el asistente.</li>
@@ -6172,10 +6192,10 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
   <li>Las comprobaciones hechas hasta ahora son automáticas. Falta la verificación de uso real, que es la que vale.</li>
 </ul>
 </section>
-<p class="sello">Sello de esta construcción: 763ee60f46b7. Fecha: ver el pie de la versión interactiva. La versión interactiva y esta se publican juntas y comparten el sello: si no coinciden, una de las dos está atrasada.</p>
+<p class="sello">Sello de esta construcción: fc9d60c68d68. Fecha: ver el pie de la versión interactiva. La versión interactiva y esta se publican juntas y comparten el sello: si no coinciden, una de las dos está atrasada.</p>
 </section>
 </main>
-<footer><p class="sello">Sello de construcción 763ee60f46b7.</p></footer>
+<footer><p class="sello">Sello de construcción fc9d60c68d68.</p></footer>
 <script>/**
  * El tokenizador de la actividad 03, sacado a un módulo propio.
  *
