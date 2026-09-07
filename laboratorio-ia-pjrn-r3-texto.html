@@ -665,12 +665,7 @@ nav ol ol { margin: .25rem 0 .5rem; }
 <p>15 palabras se convierten en 19 piezas.</p>
 <p>Las piezas, en orden: Acor · dada · 22/ · 25 · — · multa · de · 2 · a · 20 · Jus · (arts. · 29 · a · 32 · , · Ley · 5731 · ).</p>
 </section>
-<section><h5>Probar con texto propio</h5>
-<p><label for="tok-in">Escribí o pegá un texto y presioná Analizar:</label></p>
-<textarea id="tok-in" rows="3"></textarea>
-<p><button type="button" id="tok-go">Analizar</button></p>
-<div id="tok-out" role="status"></div>
-<p class="nota">Este campo necesita JavaScript. Sin él, las seis frases de arriba muestran lo mismo.</p></section>
+<p>Si querés probar con un texto propio y ver la partición en el momento, eso está en la versión interactiva de este material: es la misma actividad, con el texto partiéndose a medida que escribís.</p>
 <details>
 <summary>Ver qué muestra esta actividad</summary>
 <p>Las piezas no son palabras ni sílabas: son fragmentos que el modelo aprendió a tratar como unidad. Por eso una palabra larga y poco frecuente cuesta más que tres cortas, por eso los límites se cuentan en piezas y no en palabras, y por eso un número de expediente se desarma en pedazos que no significan nada.</p>
@@ -6192,65 +6187,10 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
   <li>Las comprobaciones hechas hasta ahora son automáticas. Falta la verificación de uso real, que es la que vale.</li>
 </ul>
 </section>
-<p class="sello">Sello de esta construcción: fc9d60c68d68. Fecha: ver el pie de la versión interactiva. La versión interactiva y esta se publican juntas y comparten el sello: si no coinciden, una de las dos está atrasada.</p>
+<p class="sello">Sello de esta construcción: 39bb312e168e. Fecha: ver el pie de la versión interactiva. La versión interactiva y esta se publican juntas y comparten el sello: si no coinciden, una de las dos está atrasada.</p>
 </section>
 </main>
-<footer><p class="sello">Sello de construcción fc9d60c68d68.</p></footer>
-<script>/**
- * El tokenizador de la actividad 03, sacado a un módulo propio.
- *
- * Está acá porque la versión en texto necesita la partición REAL y no una
- * escrita de memoria: el algoritmo prueba los sufijos en orden, así que
- * «ución» gana antes que «ción», y las palabras sin sufijo de la lista se
- * parten por mitades o tercios. Traducirlo a Python no es opción: cualquier
- * diferencia sería silenciosa y las dos versiones dirían cosas distintas
- * sobre el mismo texto.
- *
- * La actividad y construir/precomputar.js lo leen del mismo lugar.
- */
-const COMUNES = new Set(["la","el","los","las","un","una","de","del","en","y","o","a","que","es",
-  "con","por","para","su","sus","al","se","no","lo","si","ya","ha","fue","ser","sin","sobre","más",
-  "como","este","esta","bis","c/","s/"]);
-
-function tokenizar(t, suf) {
-  const toks = []; const parts = t.split(/(\s+)/);
-  for (const p of parts) {
-    if (!p) continue;
-    if (/^\s+$/.test(p)) { toks.push({ t: p, ws: true }); continue; }
-    const m = p.match(/^([^.,;:()¿?¡!«»"']*)([.,;:()¿?¡!«»"']+)?$/u);
-    let core = p, tail = '';
-    if (m && m[2] !== undefined) { core = m[1]; tail = m[2]; }
-    if (!core) { toks.push({ t: tail }); continue; }
-    const low = core.toLowerCase();
-    if (COMUNES.has(low) || core.length <= 4) { toks.push({ t: core }); }
-    else if (/^[\d./-]+$/.test(core)) {
-      for (let i = 0; i < core.length; i += 3) toks.push({ t: core.slice(i, i + 3) });
-    } else {
-      let pieces = null;
-      for (const s of suf) {
-        if (core.length > s.length + 3 && low.endsWith(s)) {
-          pieces = [core.slice(0, core.length - s.length), core.slice(core.length - s.length)];
-          break;
-        }
-      }
-      if (!pieces) {
-        if (core.length > 9) {
-          const a = Math.ceil(core.length / 3);
-          pieces = [core.slice(0, a), core.slice(a, a * 2), core.slice(a * 2)].filter(Boolean);
-        } else if (core.length > 6) {
-          const h = Math.ceil(core.length / 2);
-          pieces = [core.slice(0, h), core.slice(h)];
-        } else pieces = [core];
-      }
-      pieces.forEach(x => toks.push({ t: x }));
-    }
-    if (tail) toks.push({ t: tail });
-  }
-  return toks;
-}
-
-
-window.__tokenizar = function (t) { return tokenizar(t, ["aci\u00f3n", "ici\u00f3n", "uci\u00f3n", "alidad", "amente", "emente", "iente", "encia", "ancia", "mente", "ando", "iendo", "ado", "ido", "ci\u00f3n", "dad"]).filter(function (x) { return !x.ws; }).map(function (x) { return x.t; }); };</script>
+<footer><p class="sello">Sello de construcción 39bb312e168e.</p></footer>
 <script>
 // Mejora progresiva y nada más. Con esto apagado no se pierde ni un contenido
 // ni una actividad: las respuestas siguen estando en sus desplegables.
@@ -6285,17 +6225,6 @@ window.__tokenizar = function (t) { return tokenizar(t, ["aci\u00f3n", "ici\u00f
     });
   });
 
-  var go = document.getElementById('tok-go');
-  if (go && window.__tokenizar) {
-    go.addEventListener('click', function () {
-      var t = (document.getElementById('tok-in') || {}).value || '';
-      var piezas = window.__tokenizar(t);
-      var o = document.getElementById('tok-out');
-      if (!t.trim()) { o.textContent = 'Escribí algo primero.'; return; }
-      o.textContent = t.trim().split(/\s+/).length + ' palabras se convierten en ' +
-        piezas.length + ' piezas. En orden: ' + piezas.join(' · ') + '.';
-    });
-  }
 })();
 </script>
 </body>
