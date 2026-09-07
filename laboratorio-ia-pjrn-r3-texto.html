@@ -1197,174 +1197,205 @@ Verificación antes de entregar:
 <h2>Desafíos</h2>
 <section id="e-challengesData">
 <h3>Las seis mecánicas</h3>
-<section>
+<section data-act="desafio_c1">
 <h4>Pares de conceptos</h4>
-<p>type: memoryPairs</p>
-<p>description: Encontrá las parejas entre el concepto y lo que significa en tu trabajo.</p>
-<p>a: Conocimiento paramétrico</p>
-<p>b: Lo que el modelo trae de fábrica</p>
-<p>a: Conocimiento contextual</p>
-<p>b: Lo que vos le das en esta conversación</p>
-<p>a: Ventana de contexto</p>
-<p>b: La mesa de trabajo, que es finita</p>
-<p>a: Alucinación</p>
-<p>b: Cita con forma correcta y sin existencia</p>
-<p>a: Complacencia</p>
-<p>b: Coincidir con lo que esperás escuchar</p>
-<p>a: Trazabilidad</p>
-<p>b: Poder reconstruir cómo llegaste al resultado</p>
+<p>Qué vas a hacer: Encontrá las parejas entre el concepto y lo que significa en tu trabajo.</p>
+<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<fieldset>
+<legend>Le pegás un fallo en el chat y le preguntás por él. Lo que el asistente sabe de ese fallo mientras dura la conversación, ¿qué es?</legend>
+  <div class="op"><input type="radio" name="g11" id="g11-0"><label for="g11-0">Conocimiento paramétrico</label></div>
+  <div class="op"><input type="radio" name="g11" id="g11-1"><label for="g11-1">Conocimiento contextual</label></div>
+  <div class="op"><input type="radio" name="g11" id="g11-2"><label for="g11-2">Las dos cosas por igual</label></div>
+</fieldset>
+<details>
+<summary>Ver la respuesta y por qué</summary>
+<p><b>Respuesta esperada:</b> Conocimiento contextual. Es lo que vos le diste, y por eso desaparece cuando se cierra la conversación.</p>
+<p>Conocimiento paramétrico es lo que el modelo trae de fábrica: no lo aprendió de vos y no cambia. Conocimiento contextual es lo que vos le das en esta conversación: existe solamente mientras la conversación está abierta. La diferencia importa por una razón práctica: lo que le pegaste hoy no va a estar mañana, y lo que trae de fábrica no se corrige diciéndole que está mal.</p>
+</details>
+<table>
+  <caption>Los 6 pares. 2 columnas, 6 filas.</caption>
+  <thead>
+    <tr><th scope="col">El término</th><th scope="col">Qué significa en tu trabajo</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Conocimiento paramétrico</th><td>Lo que el modelo trae de fábrica</td></tr>
+    <tr><th scope="row">Conocimiento contextual</th><td>Lo que vos le das en esta conversación</td></tr>
+    <tr><th scope="row">Ventana de contexto</th><td>La mesa de trabajo, que es finita</td></tr>
+    <tr><th scope="row">Alucinación</th><td>Cita con forma correcta y sin existencia</td></tr>
+    <tr><th scope="row">Complacencia</th><td>Coincidir con lo que esperás escuchar</td></tr>
+    <tr><th scope="row">Trazabilidad</th><td>Poder reconstruir cómo llegaste al resultado</td></tr>
+  </tbody>
+</table>
+<details>
+<summary>Lo que te llevás</summary>
+<p>Los seis términos nombran cosas que ya te pasan cuando trabajás. Tenerlos nombrados sirve para lo mismo que sirve nombrar cualquier cosa en un expediente: para poder decir qué falló sin dar un rodeo.</p>
+</details>
 </section>
-<section>
+<section data-act="desafio_c2">
 <h4>El circuito de verificación</h4>
-<p>type: orderSteps</p>
-<p>description: Ordená los pasos del flujo de búsqueda oficial, de principio a fin.</p>
-<ul>
-  <li>Describir el problema jurídico y pedir estrategia de búsqueda</li>
-  <li>Obtener consultas con operadores y sinónimos técnicos</li>
-  <li>Ejecutar la consulta en el portal oficial correspondiente</li>
-  <li>Descargar el documento y registrar URL y fecha de consulta</li>
-  <li>Verificar el estado de vigencia en la fuente</li>
-  <li>Cargar el documento verificado como fuente de trabajo</li>
-  <li>Preguntar exigiendo cita textual de cada afirmación</li>
-  <li>Abrir dos citas al azar y comprobarlas en el original</li>
-</ul>
+<p>Qué vas a hacer: Ordená los pasos del flujo de búsqueda oficial, de principio a fin.</p>
+<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<fieldset>
+<legend>De estos tres, ¿cuál va primero en el circuito?</legend>
+  <div class="op"><input type="radio" name="g12" id="g12-0"><label for="g12-0">Ejecutar la consulta en el portal oficial correspondiente</label></div>
+  <div class="op"><input type="radio" name="g12" id="g12-1"><label for="g12-1">Describir el problema jurídico y pedir estrategia de búsqueda</label></div>
+  <div class="op"><input type="radio" name="g12" id="g12-2"><label for="g12-2">Verificar el estado de vigencia en la fuente</label></div>
+</fieldset>
+<details>
+<summary>Ver la respuesta y por qué</summary>
+<p><b>Respuesta esperada:</b> Describir el problema jurídico y pedir estrategia de búsqueda.</p>
+<p>Es el paso que más se saltea: se arranca buscando y recién después se piensa qué se está buscando. Describir el problema primero es lo que hace que la búsqueda tenga forma, y es gratis.</p>
+</details>
+<table>
+  <caption>El circuito completo, en orden. 2 columnas, 8 filas.</caption>
+  <thead>
+    <tr><th scope="col">Paso</th><th scope="col">Qué hacer</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Paso 1</th><td>Describir el problema jurídico y pedir estrategia de búsqueda</td></tr>
+    <tr><th scope="row">Paso 2</th><td>Obtener consultas con operadores y sinónimos técnicos</td></tr>
+    <tr><th scope="row">Paso 3</th><td>Ejecutar la consulta en el portal oficial correspondiente</td></tr>
+    <tr><th scope="row">Paso 4</th><td>Descargar el documento y registrar URL y fecha de consulta</td></tr>
+    <tr><th scope="row">Paso 5</th><td>Verificar el estado de vigencia en la fuente</td></tr>
+    <tr><th scope="row">Paso 6</th><td>Cargar el documento verificado como fuente de trabajo</td></tr>
+    <tr><th scope="row">Paso 7</th><td>Preguntar exigiendo cita textual de cada afirmación</td></tr>
+    <tr><th scope="row">Paso 8</th><td>Abrir dos citas al azar y comprobarlas en el original</td></tr>
+  </tbody>
+</table>
+<details>
+<summary>Lo que te llevás</summary>
+<p>El circuito no es burocracia: cada paso existe porque el siguiente lo necesita. Saltear el primero deja los demás sin criterio, y saltear el último deja todo el trabajo sin respaldo.</p>
+</details>
 </section>
-<section>
+<section data-act="desafio_c3">
 <h4>Cuál pedido es mejor</h4>
-<p>type: spotDifference</p>
-<p>description: Elegí la formulación que va a producir mejor resultado y fijate por qué.</p>
-<p>a: ¿No es cierto que este planteo es improcedente?</p>
-<p>b: ¿Qué argumentos hay a favor y en contra de la procedencia de este planteo?</p>
-<p>correct: b</p>
-<p>Por qué: La primera incorpora la respuesta esperada y activa la tendencia a coincidir. La segunda pide contraste sin insinuar resultado.</p>
-<p>a: Dame jurisprudencia de Río Negro sobre este tema, con citas completas.</p>
-<p>b: Dame cinco consultas con operadores para buscar este tema en el portal del PJRN.</p>
-<p>correct: b</p>
-<p>Por qué: La IA es pésima como fuente y muy buena diseñando búsquedas. El primer pedido es el que produce citas inventadas.</p>
-<p>a: Resumime el expediente.</p>
-<p>b: Devolvé una tabla: afirmación, tipo, respaldo citado en el texto. Si no hay respaldo, escribilo.</p>
-<p>correct: b</p>
-<p>Por qué: El formato tabular obliga a distinguir lo alegado de lo acreditado. El resumen libre reproduce el tono del original.</p>
-<p>a: Revisá este proyecto y decime si está bien.</p>
-<p>b: Verificá uno por uno los incisos del artículo aplicable: inciso, cumple sí/no, fragmento donde consta.</p>
-<p>correct: b</p>
-<p>Por qué: Sin rúbrica, la evaluación es una impresión amable. Los incisos de la norma son una rúbrica binaria ya escrita.</p>
-<p>a: Redactame el proyecto completo con las citas normativas.</p>
-<p>b: Redactá el borrador con toda norma, fecha y cita entre dobles corchetes, y una tabla final de verificación.</p>
-<p>correct: b</p>
-<p>Por qué: El segundo entrega el borrador junto con su propio plan de control, y hace visible qué falta comprobar.</p>
+<p>Qué vas a hacer: Elegí la formulación que va a producir mejor resultado y fijate por qué.</p>
+<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<fieldset>
+<legend>De estas dos maneras de pedir lo mismo, ¿cuál va a dar mejor resultado?</legend>
+  <div class="op"><input type="radio" name="g13" id="g13-0"><label for="g13-0">¿No es cierto que este planteo es improcedente?</label></div>
+  <div class="op"><input type="radio" name="g13" id="g13-1"><label for="g13-1">¿Qué argumentos hay a favor y en contra de la procedencia de este planteo?</label></div>
+</fieldset>
+<details>
+<summary>Ver la respuesta y por qué</summary>
+<p><b>Respuesta esperada:</b> ¿Qué argumentos hay a favor y en contra de la procedencia de este planteo?.</p>
+<p>La primera incorpora la respuesta esperada y activa la tendencia a coincidir. La segunda pide contraste sin insinuar resultado.</p>
+</details>
+<table>
+  <caption>Las otras 4 comparaciones, ya resueltas. 2 columnas, 4 filas.</caption>
+  <thead>
+    <tr><th scope="col">La que conviene</th><th scope="col">Por qué</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Dame cinco consultas con operadores para buscar este tema en el portal del PJRN.</th><td>La IA es pésima como fuente y muy buena diseñando búsquedas.</td></tr>
+    <tr><th scope="row">Devolvé una tabla: afirmación, tipo, respaldo citado en el texto.</th><td>El formato tabular obliga a distinguir lo alegado de lo acreditado.</td></tr>
+    <tr><th scope="row">Verificá uno por uno los incisos del artículo aplicable: inciso, cumple sí/no, fragmento donde…</th><td>Sin rúbrica, la evaluación es una impresión amable. Los incisos de la norma son una rúbrica binaria ya…</td></tr>
+    <tr><th scope="row">Redactá el borrador con toda norma, fecha y cita entre dobles corchetes, y una tabla final de…</th><td>El segundo entrega el borrador junto con su propio plan de control, y hace visible qué falta comprobar.</td></tr>
+  </tbody>
+</table>
+<details>
+<summary>Lo que te llevás</summary>
+<p>Los cinco casos son el mismo criterio aplicado a materiales distintos. Si el primero te salió por intuición, la tabla de arriba te dice si esa intuición sostiene los otros cuatro.</p>
+</details>
 </section>
-<section>
+<section data-act="desafio_c4">
 <h4>Qué sigue ahora</h4>
-<p>type: sequence</p>
-<p>description: En cada situación, elegí cuál es el paso siguiente correcto.</p>
-<p>context: El asistente te devolvió un borrador con cuatro citas normativas que se ven correctas.</p>
-<ul>
-  <li>Incorporarlas al proyecto y seguir</li>
-  <li>Pedirle al modelo que confirme si son correctas</li>
-  <li>Abrir cada una en la fuente oficial</li>
-</ul>
-<p>Por qué: Preguntarle al modelo si tiene razón activa la complacencia. La verificación se hace fuera del chat.</p>
-<p>context: Vas a pedir ayuda con un escrito que tiene nombres, DNI y domicilio.</p>
-<ul>
-  <li>Anonimizar con etiquetas estables y guardar el glosario aparte</li>
-  <li>Borrar solo los apellidos</li>
-  <li>Usarlo tal cual porque es una consulta breve</li>
-</ul>
-<p>Por qué: El pilar 5 no admite excepciones por brevedad, y borrar solo apellidos deja el resto identificando igual.</p>
-<p>context: Venías analizando un expediente y ahora necesitás trabajar sobre otro distinto.</p>
-<ul>
-  <li>Seguir en la misma conversación aclarando el cambio</li>
-  <li>Abrir una conversación nueva</li>
-  <li>Pedirle que olvide lo anterior</li>
-</ul>
-<p>Por qué: El contexto anterior sigue influyendo aunque se lo pidas. La única forma limpia es empezar de nuevo.</p>
-<p>context: Un agente con acceso a tus carpetas propone un plan que incluye eliminar duplicados.</p>
-<ul>
-  <li>Autorizar el plan completo</li>
-  <li>Autorizar todo menos la eliminación y pedir el listado</li>
-  <li>Cancelar la tarea</li>
-</ul>
-<p>Por qué: Eliminar suele no pasar por la papelera. La opción intermedia conserva el beneficio y evita lo irreversible.</p>
-<p>context: Necesitás que revise un texto tuyo y te dé una crítica honesta.</p>
-<ul>
-  <li>Pedirle que sea objetivo y severo</li>
-  <li>Darle una rúbrica de criterios binarios con puntaje por categoría</li>
-  <li>Decirle que el texto es de otra persona</li>
-</ul>
-<p>Por qué: Pedir objetividad no la produce. Los criterios explícitos sí, porque eliminan el margen para adivinar qué querés oír.</p>
+<p>Qué vas a hacer: En cada situación, elegí cuál es el paso siguiente correcto.</p>
+<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<fieldset>
+<legend>El asistente te devolvió un borrador con cuatro citas normativas que se ven correctas. ¿Cuál es el paso siguiente?</legend>
+  <div class="op"><input type="radio" name="g14" id="g14-0"><label for="g14-0">Incorporarlas al proyecto y seguir</label></div>
+  <div class="op"><input type="radio" name="g14" id="g14-1"><label for="g14-1">Pedirle al modelo que confirme si son correctas</label></div>
+  <div class="op"><input type="radio" name="g14" id="g14-2"><label for="g14-2">Abrir cada una en la fuente oficial</label></div>
+</fieldset>
+<details>
+<summary>Ver la respuesta y por qué</summary>
+<p><b>Respuesta esperada:</b> Abrir cada una en la fuente oficial.</p>
+<p>Preguntarle al modelo si tiene razón activa la complacencia. La verificación se hace fuera del chat.</p>
+</details>
+<table>
+  <caption>Las otras 4 situaciones, ya resueltas. 3 columnas, 4 filas.</caption>
+  <thead>
+    <tr><th scope="col">La situación</th><th scope="col">Qué sigue</th><th scope="col">Por qué</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Vas a pedir ayuda con un escrito que tiene nombres, DNI y domicilio.</th><td>Anonimizar con etiquetas estables y guardar el glosario aparte</td><td>El pilar 5 no admite excepciones por brevedad, y borrar solo apellidos deja el resto…</td></tr>
+    <tr><th scope="row">Venías analizando un expediente y ahora necesitás trabajar sobre otro distinto.</th><td>Abrir una conversación nueva</td><td>El contexto anterior sigue influyendo aunque se lo pidas.</td></tr>
+    <tr><th scope="row">Un agente con acceso a tus carpetas propone un plan que incluye eliminar duplicados.</th><td>Autorizar todo menos la eliminación y pedir el listado</td><td>Eliminar suele no pasar por la papelera. La opción intermedia conserva el beneficio y evita lo…</td></tr>
+    <tr><th scope="row">Necesitás que revise un texto tuyo y te dé una crítica honesta.</th><td>Darle una rúbrica de criterios binarios con puntaje por categoría</td><td>Pedir objetividad no la produce. Los criterios explícitos sí, porque eliminan el margen para…</td></tr>
+  </tbody>
+</table>
+<details>
+<summary>Lo que te llevás</summary>
+<p>Los cinco casos son el mismo criterio aplicado a materiales distintos. Si el primero te salió por intuición, la tabla de arriba te dice si esa intuición sostiene los otros cuatro.</p>
+</details>
 </section>
-<section>
+<section data-act="desafio_c5">
 <h4>La herramienta adecuada</h4>
-<p>type: association</p>
-<p>description: Asociá cada necesidad con la vía de trabajo que corresponde.</p>
-<p>left: Confirmar el texto vigente de un artículo</p>
-<p>right: Portal oficial o InfoLEG, nunca el chat</p>
-<p>left: Comparar cinco documentos ya descargados</p>
-<p>right: Cuaderno de fuentes con cita obligatoria</p>
-<p>left: Encontrar cómo buscar un tema poco frecuente</p>
-<p>right: Asistente general, pidiendo estrategia de búsqueda</p>
-<p>left: Mejorar la redacción de un párrafo</p>
-<p>right: Asistente general, con el texto anonimizado</p>
-<p>left: Saber qué dice un precedente concreto</p>
-<p>right: Descargar el fallo y leerlo</p>
-<p>left: Ordenar archivos de una carpeta propia</p>
-<p>right: Aplicación con permisos, plan antes de acción</p>
+<p>Qué vas a hacer: Asociá cada necesidad con la vía de trabajo que corresponde.</p>
+<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<fieldset>
+<legend>Necesitás c. ¿Por dónde vas?onfirmar el texto vigente de un artículo</legend>
+  <div class="op"><input type="radio" name="g15" id="g15-0"><label for="g15-0">Portal oficial o InfoLEG, nunca el chat</label></div>
+  <div class="op"><input type="radio" name="g15" id="g15-1"><label for="g15-1">Cuaderno de fuentes con cita obligatoria</label></div>
+  <div class="op"><input type="radio" name="g15" id="g15-2"><label for="g15-2">Asistente general, pidiendo estrategia de búsqueda</label></div>
+</fieldset>
+<details>
+<summary>Ver la respuesta y por qué</summary>
+<p><b>Respuesta esperada:</b> Portal oficial o InfoLEG, nunca el chat</p>
+<p>Cada necesidad tiene una vía que la resuelve mejor, y confundirlas es la causa más frecuente de una respuesta que suena bien y no sirve.</p>
+</details>
+<table>
+  <caption>Los 6 pares. 2 columnas, 6 filas.</caption>
+  <thead>
+    <tr><th scope="col">La necesidad</th><th scope="col">La vía que corresponde</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Confirmar el texto vigente de un artículo</th><td>Portal oficial o InfoLEG, nunca el chat</td></tr>
+    <tr><th scope="row">Comparar cinco documentos ya descargados</th><td>Cuaderno de fuentes con cita obligatoria</td></tr>
+    <tr><th scope="row">Encontrar cómo buscar un tema poco frecuente</th><td>Asistente general, pidiendo estrategia de búsqueda</td></tr>
+    <tr><th scope="row">Mejorar la redacción de un párrafo</th><td>Asistente general, con el texto anonimizado</td></tr>
+    <tr><th scope="row">Saber qué dice un precedente concreto</th><td>Descargar el fallo y leerlo</td></tr>
+    <tr><th scope="row">Ordenar archivos de una carpeta propia</th><td>Aplicación con permisos, plan antes de acción</td></tr>
+  </tbody>
+</table>
+<details>
+<summary>Lo que te llevás</summary>
+<p>La pregunta que ordena esto no es cuál herramienta es mejor: es qué necesitás. Confirmar un texto vigente y comparar documentos que ya tenés son dos trabajos distintos, y la vía que sirve para uno falla en el otro.</p>
+</details>
 </section>
-<section>
+<section data-act="desafio_c6">
 <h4>Detectá el intruso</h4>
-<p>type: intruder</p>
-<p>description: En cada grupo hay un elemento que no corresponde. Encontralo.</p>
-<section>
-<h5>Datos que hay que anonimizar antes de una consulta</h5>
-<ul>
-  <li>DNI de la parte</li>
-  <li>Domicilio real</li>
-  <li>El artículo del código aplicable</li>
-  <li>Tomo y folio del letrado</li>
-</ul>
-<p>Por qué: La norma aplicable es información pública y necesaria para la tarea. Los otros tres identifican personas.</p>
-</section>
-<section>
-<h5>Cosas que la IA hace bien</h5>
-<ul>
-  <li>Diseñar consultas de búsqueda</li>
-  <li>Reestructurar un texto largo</li>
-  <li>Confirmar si un fallo existe</li>
-  <li>Comparar dos versiones de un documento</li>
-</ul>
-<p>Por qué: La existencia de un fallo se verifica en la fuente oficial. El modelo genera texto plausible, no consulta registros.</p>
-</section>
-<section>
-<h5>Los cinco pilares del Protocolo</h5>
-<ul>
-  <li>Responsabilidad indelegable</li>
-  <li>Validación obligatoria</li>
-  <li>Automatización progresiva</li>
-  <li>Confidencialidad y datos sensibles</li>
-</ul>
-<p>Por qué: La automatización no es un pilar del Protocolo. Los pilares son responsabilidad, validación, supervisión humana, mitigación de riesgos y confidencialidad.</p>
-</section>
-<section>
-<h5>Señales de relleno en un texto generado</h5>
-<ul>
-  <li>Principios generales sin aplicación al caso</li>
-  <li>Construcciones «no es X sino Y» con términos vagos</li>
-  <li>Cita textual con referencia a foja</li>
-  <li>Adjetivación grandilocuente sin respaldo</li>
-</ul>
-<p>Por qué: La cita con referencia concreta es lo contrario del relleno: es información verificable.</p>
-</section>
-<section>
-<h5>Pasos del protocolo de cuatro etapas</h5>
-<ul>
-  <li>Generación asistida</li>
-  <li>Verificación manual</li>
-  <li>Validación cruzada</li>
-  <li>Publicación automática</li>
-</ul>
-<p>Por qué: El cuarto paso es la firma profesional, que es un acto humano de validación, no una publicación automática.</p>
-</section>
+<p>Qué vas a hacer: En cada grupo hay un elemento que no corresponde. Encontralo.</p>
+<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<fieldset>
+<legend>Datos que hay que anonimizar antes de una consulta. ¿Cuál de estos no corresponde?</legend>
+  <div class="op"><input type="radio" name="g16" id="g16-0"><label for="g16-0">DNI de la parte</label></div>
+  <div class="op"><input type="radio" name="g16" id="g16-1"><label for="g16-1">Domicilio real</label></div>
+  <div class="op"><input type="radio" name="g16" id="g16-2"><label for="g16-2">El artículo del código aplicable</label></div>
+  <div class="op"><input type="radio" name="g16" id="g16-3"><label for="g16-3">Tomo y folio del letrado</label></div>
+</fieldset>
+<details>
+<summary>Ver la respuesta y por qué</summary>
+<p><b>Respuesta esperada:</b> El artículo del código aplicable.</p>
+<p>La norma aplicable es información pública y necesaria para la tarea. Los otros tres identifican personas.</p>
+</details>
+<table>
+  <caption>Los otros 4 grupos, ya resueltos. 3 columnas, 4 filas.</caption>
+  <thead>
+    <tr><th scope="col">El grupo</th><th scope="col">El que sobra</th><th scope="col">Por qué</th></tr>
+  </thead>
+  <tbody>
+    <tr><th scope="row">Cosas que la IA hace bien</th><td>Confirmar si un fallo existe</td><td>La existencia de un fallo se verifica en la fuente oficial.</td></tr>
+    <tr><th scope="row">Los cinco pilares del Protocolo</th><td>Automatización progresiva</td><td>La automatización no es un pilar del Protocolo. Los pilares son responsabilidad, validación,…</td></tr>
+    <tr><th scope="row">Señales de relleno en un texto generado</th><td>Cita textual con referencia a foja</td><td>La cita con referencia concreta es lo contrario del relleno: es información verificable.</td></tr>
+    <tr><th scope="row">Pasos del protocolo de cuatro etapas</th><td>Publicación automática</td><td>El cuarto paso es la firma profesional, que es un acto humano de validación, no una…</td></tr>
+  </tbody>
+</table>
+<details>
+<summary>Lo que te llevás</summary>
+<p>Los cinco casos son el mismo criterio aplicado a materiales distintos. Si el primero te salió por intuición, la tabla de arriba te dice si esa intuición sostiene los otros cuatro.</p>
+</details>
 </section>
 </section>
 </section>
@@ -4864,9 +4895,9 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 <pre>No opines sobre la procedencia de las defensas ni sugieras cómo resolverlas. No cites normativa que no esté en el documento.</pre>
 <fieldset>
 <legend>Uno de los dos hoy resta. ¿Cuál sacarías?</legend>
-  <div class="op"><input type="radio" name="g11" id="g11-0"><label for="g11-0">El renglón A</label></div>
-  <div class="op"><input type="radio" name="g11" id="g11-1"><label for="g11-1">El renglón B</label></div>
-  <div class="op"><input type="radio" name="g11" id="g11-2"><label for="g11-2">Ninguno: los dos suman</label></div>
+  <div class="op"><input type="radio" name="g17" id="g17-0"><label for="g17-0">El renglón A</label></div>
+  <div class="op"><input type="radio" name="g17" id="g17-1"><label for="g17-1">El renglón B</label></div>
+  <div class="op"><input type="radio" name="g17" id="g17-2"><label for="g17-2">Ninguno: los dos suman</label></div>
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
@@ -4886,9 +4917,9 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 <p>Instalaste un asistente que trabaja con archivos y le pediste que renombre los PDF de una carpeta. Al aceptar, te ofreció «acceso a Documentos» y le diste que sí.</p>
 <fieldset>
 <legend>En esa situación, ¿hasta dónde llega?</legend>
-  <div class="op"><input type="radio" name="g12" id="g12-0"><label for="g12-0">Solo la carpeta de los PDF</label></div>
-  <div class="op"><input type="radio" name="g12" id="g12-1"><label for="g12-1">Documentos entero, incluidas las subcarpetas</label></div>
-  <div class="op"><input type="radio" name="g12" id="g12-2"><label for="g12-2">Solo los archivos que abras vos</label></div>
+  <div class="op"><input type="radio" name="g18" id="g18-0"><label for="g18-0">Solo la carpeta de los PDF</label></div>
+  <div class="op"><input type="radio" name="g18" id="g18-1"><label for="g18-1">Documentos entero, incluidas las subcarpetas</label></div>
+  <div class="op"><input type="radio" name="g18" id="g18-2"><label for="g18-2">Solo los archivos que abras vos</label></div>
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
@@ -4933,9 +4964,9 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 </table>
 <fieldset>
 <legend>¿Qué hacés con «Anonimizador rápido»?</legend>
-  <div class="op"><input type="radio" name="g13" id="g13-0"><label for="g13-0">Habilitar</label></div>
-  <div class="op"><input type="radio" name="g13" id="g13-1"><label for="g13-1">Habilitar acotado</label></div>
-  <div class="op"><input type="radio" name="g13" id="g13-2"><label for="g13-2">No habilitar</label></div>
+  <div class="op"><input type="radio" name="g19" id="g19-0"><label for="g19-0">Habilitar</label></div>
+  <div class="op"><input type="radio" name="g19" id="g19-1"><label for="g19-1">Habilitar acotado</label></div>
+  <div class="op"><input type="radio" name="g19" id="g19-2"><label for="g19-2">No habilitar</label></div>
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
@@ -4969,8 +5000,8 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 <pre>¿Está completo el domicilio de esta notificación?</pre>
 <fieldset>
 <legend>Con esa descripción, ¿el skill se activa ante ese pedido?</legend>
-  <div class="op"><input type="radio" name="g14" id="g14-0"><label for="g14-0">Se activa</label></div>
-  <div class="op"><input type="radio" name="g14" id="g14-1"><label for="g14-1">No se activa</label></div>
+  <div class="op"><input type="radio" name="g20" id="g20-0"><label for="g20-0">Se activa</label></div>
+  <div class="op"><input type="radio" name="g20" id="g20-1"><label for="g20-1">No se activa</label></div>
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
