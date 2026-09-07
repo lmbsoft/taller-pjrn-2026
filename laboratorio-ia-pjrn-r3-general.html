@@ -87,9 +87,9 @@
 
         /* Los recuadros de aviso llevan filete a la izquierda en vez de
            marco completo de color. */
-        .max-w-4xl [class*="border-[#03914F]"],
-        .max-w-4xl [class*="border-[#9F1010]"],
-        .max-w-4xl [class*="border-[#CC8800]"] {
+        .max-w-4xl [class*="border-emerald-800"],
+        .max-w-4xl [class*="border-rose-800"],
+        .max-w-4xl [class*="border-amber-800"] {
             border-left-width: 4px !important;
         }
 
@@ -98,7 +98,7 @@
             background-color: #1e293b !important;
         }
 
-        .bg-[#2F2F2F] {
+        .bg-slate-800 {
             background-color: #334155 !important;
         }
 
@@ -117,34 +117,6 @@
             }
         }
     </style>
-<style>
-/* Tres franjas, como el sitio: la barra azul con el logotipo, el filete verde,
-   y la franja gris con la navegación donde el activo va relleno. */
-header { background: #E7E7E7 !important; border-bottom: 1px solid #D1D1D1 !important;
-  box-shadow: none !important; backdrop-filter: none !important; }
-header > div > div:first-child {
-  background: #17487F; border-bottom: 4px solid #03914F;
-  margin: -0.5rem -1rem 0.5rem; padding: 0.75rem 1rem; }
-header h1, header p { color: #fff !important; }
-header > div > div:first-child > button { background: transparent !important; }
-
-/* La navegación, sobre el gris. */
-header nav button { color: #2F2F2F !important; border-bottom-color: transparent !important;
-  border-radius: 0 !important; }
-header nav button[aria-current], header nav button.font-semibold {
-  background: #17487F !important; color: #fff !important; }
-
-/* La sans del organismo, también en los títulos: una serif no se lee como
-   parte del mismo sitio aunque los colores coincidan. */
-body, h1, h2, h3, h4, h5, h6 {
-  font-family: Roboto, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif !important; }
-
-/* El filete bajo el título de cada tarjeta. */
-main h3 { border-bottom: 1px solid #DFE3E6; padding-bottom: .4rem; }
-
-/* Los enlaces van en el celeste institucional. */
-main a[href]:not([class*='bg-']) { color: #107F91; }
-</style>
 </head>
 
 <body>
@@ -7325,98 +7297,98 @@ const anonDetectors = [
       id: "dni",
       label: "Documento",
       tag: "[DNI]",
-      cls: "bg-[#E3E3E3] text-[#9F1010]",
+      cls: "bg-slate-200 text-rose-900",
       re: /\b\d{1,2}\.\d{3}\.\d{3}\b/g
     },
     {
       id: "dnisin",
       label: "Documento",
       tag: "[DNI]",
-      cls: "bg-[#E3E3E3] text-[#9F1010]",
+      cls: "bg-slate-200 text-rose-900",
       re: /\b(?:D\.?N\.?I\.?|documento|matr[ií]cula individual)\s*(?:n[°º]?\s*)?\d{7,8}\b/gi
     },
     {
       id: "cuit",
       label: "CUIT / CUIL",
       tag: "[CUIT]",
-      cls: "bg-[#E3E3E3] text-[#9F1010]",
+      cls: "bg-slate-200 text-rose-900",
       re: /\b\d{2}-\d{7,8}-\d\b/g
     },
     {
       id: "legajo",
       label: "Legajo o matrícula",
       tag: "[LEGAJO]",
-      cls: "bg-[#E3E3E3] text-[#9F1010]",
+      cls: "bg-slate-200 text-rose-900",
       re: /\b(?:legajo|padr[oó]n|matr[ií]cula|n[°º]?\s*de\s*orden)\s*(?:personal\s*)?(?:n[°º]?\s*)?[\w./-]+/gi
     },
     {
       id: "mat",
       label: "Legajo o matrícula",
       tag: "[MATRÍCULA]",
-      cls: "bg-[#E3E3E3] text-[#9F1010]",
+      cls: "bg-slate-200 text-rose-900",
       re: /\b[Tt]omo\s+[IVXLCDM]+,?\s*[Ff]olio\s*\d+/g
     },
     {
       id: "mail",
       label: "Correo",
       tag: "[CORREO]",
-      cls: "bg-[#E3E3E3] text-[#9F6A00]",
+      cls: "bg-slate-200 text-amber-900",
       re: /[\w.+-]+@[\w-]+\.[\w.]{2,}/g
     },
     {
       id: "telctx",
       label: "Teléfono",
       tag: "[TELÉFONO]",
-      cls: "bg-[#E3E3E3] text-[#9F6A00]",
+      cls: "bg-slate-200 text-amber-900",
       re: /\b(?:tel[eé]fono|tel\.|cel(?:ular)?|whatsapp)\s*:?\s*[\d\s()+-]{7,}/gi
     },
     {
       id: "tel",
       label: "Teléfono",
       tag: "[TELÉFONO]",
-      cls: "bg-[#E3E3E3] text-[#9F6A00]",
+      cls: "bg-slate-200 text-amber-900",
       re: /\b(?:\+?54[\s-]?)?(?:9[\s-]?)?\d{3,4}[\s.-]\d{6,7}\b/g
     },
     {
       id: "exp",
       label: "Expediente",
       tag: "[EXPEDIENTE]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /\b(?:expte\.?|expediente|autos)\s*(?:n[°º]?\s*)?[\w/.-]*\d[\w/.-]*/gi
     },
     {
       id: "caratula",
       label: "Carátula",
       tag: "[CARÁTULA]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /[A-ZÁÉÍÓÚÑ][^\n«»"']{0,70}?\s+c\/\s*[^\n«»"']{0,70}?\s+s\/\s*[^\n«»"']{0,70}?(?=[«»"'\n]|,\s+(?:Expte|expte)|\.\s|$)/g
     },
     {
       id: "caratula2",
       label: "Carátula",
       tag: "[CARÁTULA]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /[A-ZÁÉÍÓÚÑ][^\n«»"'.;]{0,45}?\s+c\/\s*[^\n«»"'.;,]{0,45}/g
     },
     {
       id: "cas",
       label: "Casillero",
       tag: "[CASILLERO]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /\bcasillero\s*(?:n[°º]?\s*)?\d+/gi
     },
     {
       id: "dom",
       label: "Domicilio",
       tag: "[DOMICILIO]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /\b(?:[Cc]alle|[Aa]v\.|[Aa]venida|[Pp]asaje|[Rr]uta|[Bb]ulevar|[Bb]arrio)\s+[A-ZÁÉÍÓÚÑ][\wáéíóúñ]*(?:\s+[A-ZÁÉÍÓÚÑa-záéíóúñ]+){0,2}(?:\s+(?:[Nn][°º]?\s*)?\d{1,5})?/g
     },
     {
       id: "domsin",
       label: "Domicilio",
       tag: "[DOMICILIO]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '(?!Ley|Art|Art[ií]culo|Acordada|Expediente|Expte|Tomo|Folio|Inciso|Resoluci[oó]n|Acuerdo|Decreto|Fallo|Sentencia|Anexo|Cap[ií]tulo)[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\\s+(?:al\\s+)?\\d{2,4}' + NA, 'g')
     },
@@ -7424,7 +7396,7 @@ const anonDetectors = [
       id: "loc",
       label: "Localidad",
       tag: "[LOCALIDAD]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '(?:' + lista(anonLocalidades) + ')' + NA, 'g')
     },
@@ -7432,21 +7404,21 @@ const anonDetectors = [
       id: "dominio",
       label: "Dominio",
       tag: "[DOMINIO]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /\b[A-Z]{2}\s?\d{3}\s?[A-Z]{2}\b|\b[A-Z]{3}\s?\d{3}\b/g
     },
     {
       id: "fecha",
       label: "Fecha",
       tag: "[FECHA]",
-      cls: "bg-[#E3E3E3] text-slate-900 underline decoration-2 decoration-slate-500",
+      cls: "bg-slate-200 text-slate-900 underline decoration-2 decoration-slate-500",
       re: /\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/g
     },
     {
       id: "fechatxt",
       label: "Fecha",
       tag: "[FECHA]",
-      cls: "bg-[#E3E3E3] text-slate-900 underline decoration-2 decoration-slate-500",
+      cls: "bg-slate-200 text-slate-900 underline decoration-2 decoration-slate-500",
       re: null,
       build: () => new RegExp('\\b\\d{1,2}\\s+de\\s+(?:' + anonMeses + ')(?:\\s+de\\s+\\d{4})?\\b', 'gi')
     },
@@ -7454,21 +7426,21 @@ const anonDetectors = [
       id: "edad",
       label: "Edad",
       tag: "[EDAD]",
-      cls: "bg-[#E3E3E3] text-slate-900 underline decoration-2 decoration-slate-500",
+      cls: "bg-slate-200 text-slate-900 underline decoration-2 decoration-slate-500",
       re: /\b\d{1,2}\s+a[ñn]os(?:\s+de\s+edad)?\b/gi
     },
     {
       id: "nna",
       label: "Referencia a NNA",
       tag: "[NNA]",
-      cls: "bg-[#E3E3E3] text-orange-900",
+      cls: "bg-slate-200 text-orange-900",
       re: /\b(?:ni[ñn][oa]s?|ni[ñn]es?|adolescentes?|menor(?:es)?\s+de\s+edad)\b/gi
     },
     {
       id: "salud",
       label: "Dato de salud",
       tag: "[DATO_SALUD]",
-      cls: "bg-[#E3E3E3] text-orange-900",
+      cls: "bg-slate-200 text-orange-900",
       re: null,
       build: () => new RegExp('\\b(?:' + anonSalud + ')', 'gi')
     },
@@ -7476,21 +7448,21 @@ const anonDetectors = [
       id: "iniciales",
       label: "Iniciales",
       tag: "[PERSONA]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /\b(?:[A-ZÁÉÍÓÚÑ]\.){2,4}/g
     },
     {
       id: "trato",
       label: "Persona con tratamiento",
       tag: "[PERSONA]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: /\b(?:Dr|Dra|Sr|Sra|Srta|Lic|Ing|Cdor|Cra)\.?\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,2}/g
     },
     {
       id: "pila",
       label: "Nombre de pila",
       tag: "[PERSONA]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '(?:' + lista(anonNombres) + ')' + NA + '(?:\\s+(?:de|del|la|las|los)\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+|\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,3}', 'g')
     },
@@ -7498,7 +7470,7 @@ const anonDetectors = [
       id: "persona",
       label: "Nombre en mayúsculas",
       tag: "[PERSONA]",
-      cls: "bg-[#E3E3E3] text-[#17487F]",
+      cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '[A-ZÁÉÍÓÚÑ]{2,}(?:\\s+(?:DE|DEL|LA|LAS|LOS|Y)\\s+|\\s+)[A-ZÁÉÍÓÚÑ]{2,}(?:\\s+[A-ZÁÉÍÓÚÑ]{2,})*' + NA, 'g')
     }
@@ -10316,7 +10288,7 @@ const CopyBtn = ({ text, label = 'Copiar', small = false }) => {
   };
   return (
     <button onClick={go}
-      className={`inline-flex items-center gap-2 rounded-lg font-medium transition-all ${small ? 'px-3 py-2 min-h-[2.5rem] text-xs' : 'px-4 py-2.5 min-h-[2.75rem] text-sm'} ${done ? 'bg-[#17487F] text-white' : 'bg-[#2F2F2F] text-white hover:bg-slate-700'}`}>
+      className={`inline-flex items-center gap-2 rounded-lg font-medium transition-all ${small ? 'px-3 py-2 min-h-[2.5rem] text-xs' : 'px-4 py-2.5 min-h-[2.75rem] text-sm'} ${done ? 'bg-sky-900 text-white' : 'bg-slate-800 text-white hover:bg-slate-700'}`}>
       {done ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
       {done ? 'Copiado' : label}
     </button>
@@ -10325,11 +10297,11 @@ const CopyBtn = ({ text, label = 'Copiar', small = false }) => {
 
 const Callout = ({ tone = 'amber', icon: Icon = Lightbulb, title, children }) => {
   const tones = {
-    amber: 'bg-[#F7FAFC] border-[#CC8800] text-[#9F6A00]',
-    rose: 'bg-[#F7FAFC] border-[#9F1010] text-[#9F1010]',
-    sky: 'bg-[#F7FAFC] border-sky-200 text-[#17487F]',
-    emerald: 'bg-[#F7FAFC] border-[#03914F] text-[#038549]',
-    slate: 'bg-[#EFF6F9] border-[#D1D1D1] text-[#2F2F2F]'
+    amber: 'bg-slate-50 border-amber-800 text-amber-900',
+    rose: 'bg-slate-50 border-rose-800 text-rose-900',
+    sky: 'bg-slate-50 border-sky-200 text-sky-900',
+    emerald: 'bg-slate-50 border-emerald-800 text-emerald-900',
+    slate: 'bg-slate-100 border-slate-300 text-slate-800'
   };
   return (
     <div className={`rounded-xl border p-5 ${tones[tone]}`}>
@@ -10341,13 +10313,13 @@ const Callout = ({ tone = 'amber', icon: Icon = Lightbulb, title, children }) =>
 
 const SectionHead = ({ icon: Icon, title, children, tone = 'indigo' }) => {
   const tones = {
-    indigo: 'from-indigo-50 border-[#D1D1D1] text-[#17487F]',
-    rose: 'from-rose-50 border-[#9F1010] text-[#9F1010]',
-    emerald: 'from-emerald-50 border-[#03914F] text-[#038549]',
-    violet: 'from-violet-50 border-[#D1D1D1] text-[#17487F]'
+    indigo: 'from-indigo-50 border-slate-300 text-sky-900',
+    rose: 'from-rose-50 border-rose-800 text-rose-900',
+    emerald: 'from-emerald-50 border-emerald-800 text-emerald-900',
+    violet: 'from-violet-50 border-slate-300 text-sky-900'
   };
   return (
-    <div className={`bg-[#F7FAFC] p-6 mb-6 border-t-2 border-x border-b ${tones[tone]}`}>
+    <div className={`bg-slate-50 p-6 mb-6 border-t-2 border-x border-b ${tones[tone]}`}>
       <h3 className="text-xl font-bold mb-2 flex items-center gap-2"><Icon className="w-5 h-5" /> {title}</h3>
       <div className="opacity-90">{children}</div>
     </div>
@@ -10369,7 +10341,7 @@ const shuffle = (arr, seed = 7) => {
 // DETECTOR DE DATOS SENSIBLES (ejercitación)
 // ═══════════════════════════════════════════════════════════════
 
-const MANUAL_CLS = 'bg-[#E3E3E3] text-[#17487F]';
+const MANUAL_CLS = 'bg-slate-200 text-sky-900';
 
 function detectPII(text, manual = []) {
   const hits = [];
@@ -10556,7 +10528,7 @@ const AnonDetector = () => {
 
   const chip = (t, extra = '') => (
     <button key={t} onClick={() => etiquetar(t)}
-      className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-xs font-mono font-bold border transition-all ${extra || 'bg-white border-[#AEAEAE] text-[#17487F] hover:bg-[#17487F] hover:text-white hover:border-[#17487F]'}`}>
+      className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-xs font-mono font-bold border transition-all ${extra || 'bg-white border-slate-400 text-sky-900 hover:bg-sky-900 hover:text-white hover:border-sky-900'}`}>
       {t}
     </button>
   );
@@ -10573,49 +10545,49 @@ const AnonDetector = () => {
         Todo corre en tu navegador. El texto no se envía a ningún servidor, no se guarda y desaparece al recargar.
       </Callout>
 
-      <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-        <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-rose-800" /> Textos de ejemplo</h4>
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-rose-800" /> Textos de ejemplo</h4>
         <div className="grid sm:grid-cols-2 gap-2">
           {anonSamples.map(s => (
             <button key={s.id} onClick={() => cargar(s)}
-              className="text-left p-3 rounded-xl border-2 border-[#E3E3E3] hover:border-[#9F1010] transition-all">
+              className="text-left p-3 rounded-xl border-2 border-slate-200 hover:border-rose-800 transition-all">
               <span className={`text-[0.65rem] font-black uppercase tracking-widest ${s.id === 'dificil' ? 'text-amber-800' : 'text-emerald-800'}`}>{s.nivel}</span>
-              <p className="font-bold text-[#2F2F2F] text-sm">{s.label}</p>
-              <p className="text-xs text-[#727272]">{s.hint}</p>
+              <p className="font-bold text-slate-800 text-sm">{s.label}</p>
+              <p className="text-xs text-slate-500">{s.hint}</p>
             </button>
           ))}
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-          <h4 className="font-bold text-[#2F2F2F] flex items-center gap-2"><Eraser className="w-4 h-4 text-rose-800" /> Texto a revisar</h4>
+          <h4 className="font-bold text-slate-800 flex items-center gap-2"><Eraser className="w-4 h-4 text-rose-800" /> Texto a revisar</h4>
           <div className="flex flex-wrap gap-2">
             <button onClick={() => setRan(true)} disabled={!text.trim()}
-              className="px-4 py-2 rounded-lg font-bold text-sm bg-[#17487F] text-white hover:bg-[#123A66] disabled:opacity-40 inline-flex items-center gap-2">
+              className="px-4 py-2 rounded-lg font-bold text-sm bg-sky-900 text-white hover:bg-sky-800 disabled:opacity-40 inline-flex items-center gap-2">
               <ShieldAlert className="w-4 h-4" /> Buscar patrones
             </button>
             <button onClick={() => { setText(''); setRan(false); setManual([]); setSel(''); setUltima(null); }}
-              className="px-3 py-2 rounded-lg text-xs font-medium bg-[#EFF6F9] text-[#3F3F3F] hover:bg-[#E3E3E3]">Limpiar</button>
+              className="px-3 py-2 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">Limpiar</button>
           </div>
         </div>
 
         <textarea ref={areaRef} value={text} onChange={e => { setText(e.target.value); setRan(false); }}
           onSelect={leerSeleccion} rows={10}
           placeholder="Pegá acá un texto de práctica, o elegí uno de los ejemplos de arriba."
-          className="w-full p-4 rounded-xl border-2 border-[#D1D1D1] font-mono text-[0.8em] leading-relaxed focus:border-sky-500 outline-none" />
+          className="w-full p-4 rounded-xl border-2 border-slate-300 font-mono text-[0.8em] leading-relaxed focus:border-sky-500 outline-none" />
 
         {/* Barra de etiquetado: aparece sola al seleccionar, arriba o abajo. */}
         {sel ? (
-          <div className="mt-3 rounded-xl border-2 border-[#17487F] bg-[#F7FAFC] p-4">
-            <p className="text-sm text-[#17487F] mb-3">
-              Etiquetar <strong className="bg-[#E3E3E3] px-1.5 py-0.5 rounded">{sel}</strong> en todas sus apariciones:
+          <div className="mt-3 rounded-xl border-2 border-sky-900 bg-slate-50 p-4">
+            <p className="text-sm text-sky-900 mb-3">
+              Etiquetar <strong className="bg-slate-200 px-1.5 py-0.5 rounded">{sel}</strong> en todas sus apariciones:
             </p>
             <div className="flex flex-wrap gap-1.5 mb-3">
-              {chip(proximaPersona, 'bg-[#17487F] border-[#17487F] text-white hover:bg-[#17487F]')}
-              {enUso.filter(t => t !== proximaPersona).map(t => chip(t, 'bg-[#17487F] border-[#17487F] text-white hover:bg-[#17487F]'))}
+              {chip(proximaPersona, 'bg-sky-900 border-sky-900 text-white hover:bg-sky-900')}
+              {enUso.filter(t => t !== proximaPersona).map(t => chip(t, 'bg-sky-900 border-sky-900 text-white hover:bg-sky-900'))}
             </div>
-            <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#17487F] mb-1.5">Etiquetas frecuentes</p>
+            <p className="text-[0.65rem] font-black uppercase tracking-widest text-sky-900 mb-1.5">Etiquetas frecuentes</p>
             <div className="flex flex-wrap gap-1.5 mb-3">
               {anonEtiquetasComunes.filter(t => !enUso.includes(t)).map(t => chip(t))}
             </div>
@@ -10623,16 +10595,16 @@ const AnonDetector = () => {
               <input value={nuevo} onChange={e => setNuevo(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter') etiquetar(nuevo); }}
                 placeholder="Otra etiqueta…"
-                className="flex-1 min-w-[10rem] p-2 rounded-lg border-2 border-[#AEAEAE] text-sm focus:border-[#17487F] outline-none" />
+                className="flex-1 min-w-[10rem] p-2 rounded-lg border-2 border-slate-400 text-sm focus:border-sky-900 outline-none" />
               <button onClick={() => etiquetar(nuevo)} disabled={!nuevo.trim()}
-                className="px-4 py-2 rounded-lg text-sm font-bold bg-[#17487F] text-white hover:bg-[#17487F] disabled:opacity-40">Usar</button>
+                className="px-4 py-2 rounded-lg text-sm font-bold bg-sky-900 text-white hover:bg-sky-900 disabled:opacity-40">Usar</button>
               <button onClick={() => setSel('')}
-                className="px-3 py-2 rounded-lg text-sm font-medium bg-white border border-[#AEAEAE] text-[#17487F] hover:bg-[#EFF6F9]">Cancelar</button>
+                className="px-3 py-2 rounded-lg text-sm font-medium bg-white border border-slate-400 text-sky-900 hover:bg-slate-100">Cancelar</button>
             </div>
           </div>
         ) : (
-          <p className="mt-3 text-sm text-[#727272] flex items-start gap-2">
-            <Layers className="w-4 h-4 mt-0.5 flex-shrink-0 text-[#17487F]" />
+          <p className="mt-3 text-sm text-slate-500 flex items-start gap-2">
+            <Layers className="w-4 h-4 mt-0.5 flex-shrink-0 text-sky-900" />
             <span><strong>Seleccioná con el mouse</strong> cualquier fragmento —acá arriba o en el texto marcado de abajo— y
               aparecen las etiquetas para asignarlo de un clic. Es la forma de marcar lo que el detector no vio.
               {ultima && <span className="text-emerald-700 font-semibold"> Última: «{ultima.text}» → {ultima.tag}.</span>}</span>
@@ -10641,10 +10613,10 @@ const AnonDetector = () => {
 
         {manual.length > 0 && (
           <div className="mt-3">
-            <p className="text-xs font-bold text-[#727272] uppercase mb-2">Etiquetado a mano ({manual.length})</p>
+            <p className="text-xs font-bold text-slate-500 uppercase mb-2">Etiquetado a mano ({manual.length})</p>
             <div className="flex flex-wrap gap-2">
               {manual.map((m, i) => (
-                <span key={i} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs bg-[#EFF6F9] border border-[#AEAEAE] text-[#17487F]">
+                <span key={i} className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs bg-slate-100 border border-slate-400 text-sky-900">
                   <span className="font-mono font-bold">{m.tag}</span>
                   <span className="opacity-70">← {m.text}</span>
                   <button onClick={() => setManual(x => x.filter((_, j) => j !== i))} className="font-bold hover:text-rose-700" title="Quitar">×</button>
@@ -10657,20 +10629,20 @@ const AnonDetector = () => {
 
       {analysis && (
         <>
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><ListChecks className="w-4 h-4 text-rose-800" /> Qué encontró</h4>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><ListChecks className="w-4 h-4 text-rose-800" /> Qué encontró</h4>
             {analysis.hits.length === 0 ? (
-              <p className="text-[#5C5C5C]">No se detectaron patrones conocidos. Eso <strong>no</strong> significa que el texto esté limpio:
+              <p className="text-slate-600">No se detectaron patrones conocidos. Eso <strong>no</strong> significa que el texto esté limpio:
                 seleccioná con el mouse lo que veas y etiquetalo a mano.</p>
             ) : (
               <>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {Object.entries(analysis.counts).map(([k, v]) => (
-                    <span key={k} className="px-3 py-1 rounded-full text-xs font-bold bg-[#EFF6F9] text-[#3F3F3F] border border-[#E3E3E3]">{k}: {v}</span>
+                    <span key={k} className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-700 border border-slate-200">{k}: {v}</span>
                   ))}
                 </div>
-                <p className="text-xs text-[#727272] mb-2">Podés seleccionar texto acá abajo para etiquetarlo.</p>
-                <div className="rounded-xl border border-[#E3E3E3] bg-[#F7FAFC] p-4 max-h-80 overflow-y-auto whitespace-pre-wrap text-[0.85em] leading-relaxed select-text">
+                <p className="text-xs text-slate-500 mb-2">Podés seleccionar texto acá abajo para etiquetarlo.</p>
+                <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 max-h-80 overflow-y-auto whitespace-pre-wrap text-[0.85em] leading-relaxed select-text">
                   {segments.map(s => s.plain !== undefined
                     ? <span key={s.key}>{s.plain}</span>
                     : <mark key={s.key} className={`pii ${s.hit.det.cls}`} title={s.hit.det.label + ' → ' + s.hit.tag}>{s.hit.text}</mark>)}
@@ -10692,32 +10664,32 @@ const AnonDetector = () => {
 
           {analysis.hits.length > 0 && (
             <>
-              <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+              <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-3 mb-3">
-                  <h4 className="font-bold text-[#2F2F2F] flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-800" /> Versión con etiquetas</h4>
+                  <h4 className="font-bold text-slate-800 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-emerald-800" /> Versión con etiquetas</h4>
                   <CopyBtn text={analysis.anon} label="Copiar el ejercicio" small />
                 </div>
-                <div className="rounded-xl border border-[#03914F] bg-[#F7FAFC] p-4 max-h-80 overflow-y-auto whitespace-pre-wrap text-[0.85em] leading-relaxed text-emerald-950">
+                <div className="rounded-xl border border-emerald-800 bg-slate-50 p-4 max-h-80 overflow-y-auto whitespace-pre-wrap text-[0.85em] leading-relaxed text-emerald-950">
                   {analysis.anon}
                 </div>
               </div>
 
-              <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-                <h4 className="font-bold text-[#2F2F2F] mb-1 flex items-center gap-2"><Layers className="w-4 h-4 text-[#17487F]" /> Glosario de reemplazos</h4>
-                <p className="text-sm text-[#5C5C5C] mb-3">Esto es lo que <strong>no</strong> debe viajar con el texto. Guardalo aparte y usalo para la sustitución inversa cuando traigas el resultado.</p>
+              <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <h4 className="font-bold text-slate-800 mb-1 flex items-center gap-2"><Layers className="w-4 h-4 text-sky-900" /> Glosario de reemplazos</h4>
+                <p className="text-sm text-slate-600 mb-3">Esto es lo que <strong>no</strong> debe viajar con el texto. Guardalo aparte y usalo para la sustitución inversa cuando traigas el resultado.</p>
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
-                    <thead><tr className="text-left border-b border-[#E3E3E3]">
-                      <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Etiqueta</th>
-                      <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Dato original</th>
-                      <th className="py-2 font-bold text-[#5C5C5C]">Categoría</th>
+                    <thead><tr className="text-left border-b border-slate-200">
+                      <th className="py-2 pr-4 font-bold text-slate-600">Etiqueta</th>
+                      <th className="py-2 pr-4 font-bold text-slate-600">Dato original</th>
+                      <th className="py-2 font-bold text-slate-600">Categoría</th>
                     </tr></thead>
                     <tbody>
                       {analysis.glosario.map((g, i) => (
-                        <tr key={i} className="border-b border-[#EDEDED]">
-                          <td className="py-2 pr-4 font-mono text-xs font-bold text-[#17487F]">{g.tag}</td>
-                          <td className="py-2 pr-4 text-[#2F2F2F]">{g.orig}</td>
-                          <td className="py-2 text-[#727272] text-xs">{g.cat}</td>
+                        <tr key={i} className="border-b border-slate-100">
+                          <td className="py-2 pr-4 font-mono text-xs font-bold text-sky-900">{g.tag}</td>
+                          <td className="py-2 pr-4 text-slate-800">{g.orig}</td>
+                          <td className="py-2 text-slate-500 text-xs">{g.cat}</td>
                         </tr>
                       ))}
                     </tbody>
@@ -10768,15 +10740,15 @@ const MemoryPairs = ({ data }) => {
           const active = sel.includes(i);
           return (
             <button key={i} onClick={() => click(i)} disabled={matched}
-              className={`p-3 rounded-xl text-sm text-left min-h-[5rem] transition-all border-2 ${matched ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' :
-                active ? 'bg-[#EFF6F9] border-[#17487F] text-[#17487F]' : 'bg-white border-[#E3E3E3] text-[#3F3F3F] hover:border-[#AEAEAE]'}`}>
+              className={`p-3 rounded-xl text-sm text-left min-h-[5rem] transition-all border-2 ${matched ? 'bg-slate-50 border-emerald-800 text-emerald-900' :
+                active ? 'bg-slate-100 border-sky-900 text-sky-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-400'}`}>
               {c.text}
             </button>
           );
         })}
       </div>
       <div className="flex items-center justify-between text-sm">
-        <span className="text-[#727272]">{done.length} de {data.pairs.length} · {tries} intentos</span>
+        <span className="text-slate-500">{done.length} de {data.pairs.length} · {tries} intentos</span>
         {complete && <span className="font-bold text-emerald-700 flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> Completo</span>}
       </div>
     </div>
@@ -10803,9 +10775,9 @@ const OrderSteps = ({ data }) => {
           const ok = idx >= 0;
           return (
             <button key={i} onClick={() => click(s)} disabled={ok}
-              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all flex items-start gap-3 ${ok ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' :
-                error === s ? 'bg-[#EFF6F9] border-[#9F1010] text-[#9F1010]' : 'bg-white border-[#E3E3E3] text-[#3F3F3F] hover:border-[#AEAEAE]'}`}>
-              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${ok ? 'bg-[#17487F] text-white' : 'bg-[#E3E3E3] text-[#727272]'}`}>{ok ? idx + 1 : '·'}</span>
+              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all flex items-start gap-3 ${ok ? 'bg-slate-50 border-emerald-800 text-emerald-900' :
+                error === s ? 'bg-slate-100 border-rose-800 text-rose-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-400'}`}>
+              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${ok ? 'bg-sky-900 text-white' : 'bg-slate-200 text-slate-500'}`}>{ok ? idx + 1 : '·'}</span>
               <span>{s}</span>
             </button>
           );
@@ -10827,15 +10799,15 @@ const SpotDifference = ({ data }) => {
 
   return (
     <div>
-      <p className="text-xs font-bold text-[#8E8E8E] uppercase mb-3">Ronda {i + 1} de {data.rounds.length}</p>
+      <p className="text-xs font-bold text-slate-400 uppercase mb-3">Ronda {i + 1} de {data.rounds.length}</p>
       <div className="grid md:grid-cols-2 gap-3 mb-4">
         {['a', 'b'].map(k => {
           const isRight = r.correct === k;
           const show = chosen !== null;
           return (
             <button key={k} onClick={() => pick(k)} disabled={show}
-              className={`p-4 rounded-xl text-sm text-left border-2 transition-all ${!show ? 'bg-white border-[#E3E3E3] hover:border-[#AEAEAE] text-[#3F3F3F]' :
-                isRight ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' : 'bg-[#F7FAFC] border-[#9F1010] text-[#9F1010] opacity-70'}`}>
+              className={`p-4 rounded-xl text-sm text-left border-2 transition-all ${!show ? 'bg-white border-slate-200 hover:border-slate-400 text-slate-700' :
+                isRight ? 'bg-slate-50 border-emerald-800 text-emerald-900' : 'bg-slate-50 border-rose-800 text-rose-900 opacity-70'}`}>
               <span className="block text-xs font-bold uppercase mb-1 opacity-60">Opción {k.toUpperCase()}</span>
               {r[k]}
             </button>
@@ -10849,7 +10821,7 @@ const SpotDifference = ({ data }) => {
             {r.why}
           </Callout>
           {i < data.rounds.length - 1 && (
-            <button onClick={advance} className="px-4 py-2 rounded-lg text-sm font-bold bg-[#2F2F2F] text-white hover:bg-slate-700 inline-flex items-center gap-2">
+            <button onClick={advance} className="px-4 py-2 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
               Siguiente <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -10865,16 +10837,16 @@ const SequenceGame = ({ data }) => {
   const r = data.rounds[i];
   return (
     <div>
-      <p className="text-xs font-bold text-[#8E8E8E] uppercase mb-2">Situación {i + 1} de {data.rounds.length}</p>
-      <p className="text-[#2F2F2F] mb-4 font-medium">{r.context}</p>
+      <p className="text-xs font-bold text-slate-400 uppercase mb-2">Situación {i + 1} de {data.rounds.length}</p>
+      <p className="text-slate-800 mb-4 font-medium">{r.context}</p>
       <div className="space-y-2 mb-4">
         {r.options.map((o, k) => {
           const show = chosen !== null;
           const isRight = k === r.answer;
           return (
             <button key={k} onClick={() => { if (!show) setChosen(k); }} disabled={show}
-              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${!show ? 'bg-white border-[#E3E3E3] hover:border-[#AEAEAE] text-[#3F3F3F]' :
-                isRight ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' : (k === chosen ? 'bg-[#F7FAFC] border-[#9F1010] text-[#9F1010]' : 'bg-white border-[#E3E3E3] text-[#8E8E8E]')}`}>
+              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${!show ? 'bg-white border-slate-200 hover:border-slate-400 text-slate-700' :
+                isRight ? 'bg-slate-50 border-emerald-800 text-emerald-900' : (k === chosen ? 'bg-slate-50 border-rose-800 text-rose-900' : 'bg-white border-slate-200 text-slate-400')}`}>
               {o}
             </button>
           );
@@ -10886,7 +10858,7 @@ const SequenceGame = ({ data }) => {
             title={chosen === r.answer ? 'Correcto' : 'Revisá el criterio'}>{r.why}</Callout>
           {i < data.rounds.length - 1 && (
             <button onClick={() => { setChosen(null); setI(x => x + 1); }}
-              className="px-4 py-2 rounded-lg text-sm font-bold bg-[#2F2F2F] text-white hover:bg-slate-700 inline-flex items-center gap-2">
+              className="px-4 py-2 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
               Siguiente <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -10912,23 +10884,23 @@ const AssociationGame = ({ data }) => {
   return (
     <div className="grid md:grid-cols-2 gap-4">
       <div className="space-y-2">
-        <p className="text-xs font-bold text-[#8E8E8E] uppercase">Necesidad</p>
+        <p className="text-xs font-bold text-slate-400 uppercase">Necesidad</p>
         {data.pairs.map((p, i) => (
           <button key={i} onClick={() => { if (!done.includes(i)) setSel(i); }} disabled={done.includes(i)}
-            className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${done.includes(i) ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' :
-              sel === i ? 'bg-[#EFF6F9] border-[#17487F] text-[#17487F]' : 'bg-white border-[#E3E3E3] text-[#3F3F3F] hover:border-[#AEAEAE]'}`}>
+            className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${done.includes(i) ? 'bg-slate-50 border-emerald-800 text-emerald-900' :
+              sel === i ? 'bg-slate-100 border-sky-900 text-sky-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-400'}`}>
             {p.left}
           </button>
         ))}
       </div>
       <div className="space-y-2">
-        <p className="text-xs font-bold text-[#8E8E8E] uppercase">Vía de trabajo</p>
+        <p className="text-xs font-bold text-slate-400 uppercase">Vía de trabajo</p>
         {rights.map((r, i) => {
           const matched = data.pairs.some((p, k) => done.includes(k) && p.right === r);
           return (
             <button key={i} onClick={() => clickRight(r)} disabled={matched}
-              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${matched ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' :
-                wrong === r ? 'bg-[#EFF6F9] border-[#9F1010] text-[#9F1010]' : 'bg-white border-[#E3E3E3] text-[#3F3F3F] hover:border-[#AEAEAE]'}`}>
+              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${matched ? 'bg-slate-50 border-emerald-800 text-emerald-900' :
+                wrong === r ? 'bg-slate-100 border-rose-800 text-rose-900' : 'bg-white border-slate-200 text-slate-700 hover:border-slate-400'}`}>
               {r}
             </button>
           );
@@ -10947,16 +10919,16 @@ const IntruderGame = ({ data }) => {
   const r = data.rounds[i];
   return (
     <div>
-      <p className="text-xs font-bold text-[#8E8E8E] uppercase mb-2">Grupo {i + 1} de {data.rounds.length}</p>
-      <p className="text-[#2F2F2F] mb-4 font-bold">{r.title}</p>
+      <p className="text-xs font-bold text-slate-400 uppercase mb-2">Grupo {i + 1} de {data.rounds.length}</p>
+      <p className="text-slate-800 mb-4 font-bold">{r.title}</p>
       <div className="grid sm:grid-cols-2 gap-2 mb-4">
         {r.items.map((it, k) => {
           const show = chosen !== null;
           const isRight = k === r.answer;
           return (
             <button key={k} onClick={() => { if (!show) setChosen(k); }} disabled={show}
-              className={`p-3 rounded-xl text-sm text-left border-2 transition-all ${!show ? 'bg-white border-[#E3E3E3] hover:border-[#AEAEAE] text-[#3F3F3F]' :
-                isRight ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' : (k === chosen ? 'bg-[#F7FAFC] border-[#9F1010] text-[#9F1010]' : 'bg-white border-[#E3E3E3] text-[#8E8E8E]')}`}>
+              className={`p-3 rounded-xl text-sm text-left border-2 transition-all ${!show ? 'bg-white border-slate-200 hover:border-slate-400 text-slate-700' :
+                isRight ? 'bg-slate-50 border-emerald-800 text-emerald-900' : (k === chosen ? 'bg-slate-50 border-rose-800 text-rose-900' : 'bg-white border-slate-200 text-slate-400')}`}>
               {it}
             </button>
           );
@@ -10968,7 +10940,7 @@ const IntruderGame = ({ data }) => {
             title={chosen === r.answer ? 'Correcto' : 'El intruso era otro'}>{r.why}</Callout>
           {i < data.rounds.length - 1 && (
             <button onClick={() => { setChosen(null); setI(x => x + 1); }}
-              className="px-4 py-2 rounded-lg text-sm font-bold bg-[#2F2F2F] text-white hover:bg-slate-700 inline-flex items-center gap-2">
+              className="px-4 py-2 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
               Siguiente <ArrowRight className="w-4 h-4" />
             </button>
           )}
@@ -10997,19 +10969,19 @@ const ChallengesSection = () => {
       <div className="flex flex-wrap gap-2 mb-6">
         {challengesData.map(c => (
           <button key={c.id} onClick={() => { setActive(c.id); setNonce(n => n + 1); }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${active === c.id ? 'bg-[#17487F] text-white shadow-md' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${active === c.id ? 'bg-sky-900 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
             {c.title}
           </button>
         ))}
       </div>
-      <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 md:p-6 shadow-sm">
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm">
         <div className="flex items-start justify-between gap-4 mb-4">
           <div>
-            <h4 className="font-bold text-[#2F2F2F] text-lg">{ch.title}</h4>
-            <p className="text-[#5C5C5C] text-sm">{ch.description}</p>
+            <h4 className="font-bold text-slate-800 text-lg">{ch.title}</h4>
+            <p className="text-slate-600 text-sm">{ch.description}</p>
           </div>
           <button onClick={() => setNonce(n => n + 1)} title="Reiniciar" aria-label="Reiniciar el desafío"
-            className="p-3 rounded-lg bg-[#EFF6F9] text-[#5C5C5C] hover:bg-[#E3E3E3] flex-shrink-0"><RotateCcw className="w-4 h-4" /></button>
+            className="p-3 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-200 flex-shrink-0"><RotateCcw className="w-4 h-4" /></button>
         </div>
         <Game key={ch.id + '-' + nonce} data={ch} />
       </div>
@@ -11058,22 +11030,22 @@ const BiasDetector = () => {
     <div className="space-y-3">
       <textarea value={t} onChange={e => setT(e.target.value)} rows={4}
         placeholder="Escribí un pedido como se lo harías a un asistente. Por ejemplo: ¿No te parece que corresponde rechazar este planteo?"
-        className="w-full p-3 rounded-xl border-2 border-[#D1D1D1] text-sm focus:border-[#CC8800] outline-none" />
+        className="w-full p-3 rounded-xl border-2 border-slate-300 text-sm focus:border-amber-800 outline-none" />
       {t.trim() && (
         hits.length === 0 ? (
-          <p className="text-sm text-emerald-800 bg-[#F7FAFC] border border-[#03914F] rounded-xl p-3 flex items-start gap-2">
+          <p className="text-sm text-emerald-800 bg-slate-50 border border-emerald-800 rounded-xl p-3 flex items-start gap-2">
             <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
             <span>No aparecen expresiones que adelanten la respuesta. Igual revisá vos: el sesgo también entra por qué información elegiste dar y cuál omitiste.</span>
           </p>
         ) : (
           <>
-            <div className="rounded-xl border border-[#E3E3E3] bg-[#F7FAFC] p-3 text-sm leading-relaxed whitespace-pre-wrap">
+            <div className="rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm leading-relaxed whitespace-pre-wrap">
               {segs.map(s => s.p !== undefined ? <span key={s.k}>{s.p}</span>
-                : <mark key={s.k} className="pii bg-[#E3E3E3] text-[#9F6A00]">{s.h.text}</mark>)}
+                : <mark key={s.k} className="pii bg-slate-200 text-amber-900">{s.h.text}</mark>)}
             </div>
             <ul className="space-y-1">
               {hits.map((h, i) => (
-                <li key={i} className="text-sm text-[#9F6A00] flex items-start gap-2">
+                <li key={i} className="text-sm text-amber-900 flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 text-amber-800" />
                   <span><strong>«{h.text}»</strong> — {h.why}</span>
                 </li>
@@ -11110,24 +11082,24 @@ No adelantes el puntaje total antes de la evaluación criterio por criterio.`;
 
   return (
     <div className="space-y-3">
-      <label className="block"><span className="text-xs font-bold text-[#727272] uppercase">Qué vas a evaluar</span>
+      <label className="block"><span className="text-xs font-bold text-slate-500 uppercase">Qué vas a evaluar</span>
         <input value={obj} onChange={e => setObj(e.target.value)}
-          className="w-full p-2.5 rounded-lg border-2 border-[#D1D1D1] text-sm focus:border-[#17487F] outline-none" /></label>
+          className="w-full p-2.5 rounded-lg border-2 border-slate-300 text-sm focus:border-sky-900 outline-none" /></label>
       <div className="space-y-2">
         {crit.map((c, i) => (
           <div key={i} className="flex gap-2 items-center">
             <input value={c.c} onChange={e => upd(i, 'c', e.target.value)} placeholder="Criterio que se cumple o no se cumple"
-              className="flex-1 p-2.5 rounded-lg border-2 border-[#D1D1D1] text-sm focus:border-[#17487F] outline-none" />
+              className="flex-1 p-2.5 rounded-lg border-2 border-slate-300 text-sm focus:border-sky-900 outline-none" />
             <input type="number" value={c.p} onChange={e => upd(i, 'p', e.target.value)} min="0" max="100"
-              className="w-20 p-2.5 rounded-lg border-2 border-[#D1D1D1] text-sm focus:border-[#17487F] outline-none" />
+              className="w-20 p-2.5 rounded-lg border-2 border-slate-300 text-sm focus:border-sky-900 outline-none" />
             <button onClick={() => setCrit(x => x.filter((_, j) => j !== i))}
-              className="p-2.5 rounded-lg bg-[#EFF6F9] text-[#727272] hover:bg-[#EFF6F9] hover:text-rose-700" title="Quitar">×</button>
+              className="p-2.5 rounded-lg bg-slate-100 text-slate-500 hover:bg-slate-100 hover:text-rose-700" title="Quitar">×</button>
           </div>
         ))}
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <button onClick={() => setCrit(c => [...c, { c: '', p: 25 }])}
-          className="px-3 py-1.5 rounded-lg text-xs font-medium bg-[#EFF6F9] text-[#3F3F3F] hover:bg-[#E3E3E3]">+ Agregar criterio</button>
+          className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-700 hover:bg-slate-200">+ Agregar criterio</button>
         <span className={`text-xs font-bold ${total === 100 ? 'text-emerald-700' : 'text-amber-700'}`}>Total: {total} puntos</span>
       </div>
       <Callout tone="slate" icon={Lightbulb} title="Lo que hace que funcione">
@@ -11136,7 +11108,7 @@ No adelantes el puntaje total antes de la evaluación criterio por criterio.`;
       </Callout>
       <div className="rounded-xl bg-slate-900 p-4">
         <div className="flex items-center justify-between gap-3 mb-2">
-          <span className="text-xs font-bold text-[#8E8E8E] uppercase">Instrucción resultante</span>
+          <span className="text-xs font-bold text-slate-400 uppercase">Instrucción resultante</span>
           <CopyBtn text={prompt} small />
         </div>
         <p className="text-slate-100 font-mono text-[0.78em] leading-relaxed whitespace-pre-wrap">{prompt}</p>
@@ -11193,16 +11165,16 @@ const OriginQuiz = () => {
   const elegir = (k) => { if (pick !== null) return; setPick(k); if (k === c.a) setAciertos(a => a + 1); };
   return (
     <div className="space-y-3">
-      <p className="text-xs font-bold text-[#8E8E8E] uppercase">Situación {i + 1} de {origenCasos.length} · {aciertos} correctas</p>
-      <p className="text-[#2F2F2F] font-medium">{c.q}</p>
+      <p className="text-xs font-bold text-slate-400 uppercase">Situación {i + 1} de {origenCasos.length} · {aciertos} correctas</p>
+      <p className="text-slate-800 font-medium">{c.q}</p>
       <div className="space-y-2">
         {origenOpciones.map((o, k) => {
           const show = pick !== null;
           const ok = k === c.a;
           return (
             <button key={k} onClick={() => elegir(k)} disabled={show}
-              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${!show ? 'bg-white border-[#E3E3E3] hover:border-[#AEAEAE] text-[#3F3F3F]' :
-                ok ? 'bg-[#F7FAFC] border-[#03914F] text-[#038549]' : (k === pick ? 'bg-[#F7FAFC] border-[#9F1010] text-[#9F1010]' : 'bg-white border-[#E3E3E3] text-[#8E8E8E]')}`}>
+              className={`w-full text-left p-3 rounded-xl text-sm border-2 transition-all ${!show ? 'bg-white border-slate-200 hover:border-slate-400 text-slate-700' :
+                ok ? 'bg-slate-50 border-emerald-800 text-emerald-900' : (k === pick ? 'bg-slate-50 border-rose-800 text-rose-900' : 'bg-white border-slate-200 text-slate-400')}`}>
               {o}
             </button>
           );
@@ -11214,14 +11186,14 @@ const OriginQuiz = () => {
             title={pick === c.a ? 'Correcto' : 'Revisá el criterio'}>{c.why}</Callout>
           {i < origenCasos.length - 1
             ? <button onClick={() => { setPick(null); setI(x => x + 1); }}
-              className="px-4 py-2.5 rounded-lg text-sm font-bold bg-[#2F2F2F] text-white hover:bg-slate-700 inline-flex items-center gap-2">
+              className="px-4 py-2.5 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
               Siguiente <ArrowRight className="w-4 h-4" /></button>
             : <p className="font-bold text-emerald-700 text-sm">Terminaste: {aciertos} de {origenCasos.length}.</p>}
         </>
       )}
       <div className="rounded-xl bg-slate-900 p-4 mt-2">
         <div className="flex items-center justify-between gap-3 mb-2">
-          <span className="text-xs font-bold text-[#8E8E8E] uppercase">Pedido para usar siempre</span>
+          <span className="text-xs font-bold text-slate-400 uppercase">Pedido para usar siempre</span>
           <CopyBtn text={'Para cada afirmación de tu respuesta, indicá de dónde sale: de tu conocimiento general de entrenamiento, de una búsqueda que hiciste ahora (con el enlace), o del material que te di (con la cita). Si no podés atribuir una afirmación a ninguno de los tres, marcala como SIN ORIGEN IDENTIFICABLE y explicá por qué la sostenés igual.'} small />
         </div>
         <p className="text-slate-100 font-mono text-[0.78em] leading-relaxed">Para cada afirmación de tu respuesta, indicá de dónde sale: de tu conocimiento general de entrenamiento, de una búsqueda que hiciste ahora (con el enlace), o del material que te di (con la cita). Si no podés atribuir una afirmación a ninguno de los tres, marcala como SIN ORIGEN IDENTIFICABLE y explicá por qué la sostenés igual.</p>
@@ -11260,7 +11232,7 @@ const OptOutCheck = () => {
   const n = Object.values(hechos).filter(Boolean).length;
   return (
     <div className="space-y-3">
-      <p className="text-sm text-[#5C5C5C]">
+      <p className="text-sm text-slate-600">
         Rutas relevadas en agosto de 2026. Los menús cambian de nombre seguido: si no encontrás la opción con este
         camino, buscá en la configuración las palabras «datos», «privacidad» o «mejorar el modelo». Tildá a medida que
         vayas revisando cada cuenta.
@@ -11268,19 +11240,19 @@ const OptOutCheck = () => {
       <div className="space-y-2">
         {optOutPlataformas.map(o => (
           <button key={o.p} onClick={() => marcar(o.p)}
-            className={`w-full text-left p-3 rounded-xl border-2 transition-all flex items-start gap-3 ${hechos[o.p] ? 'bg-[#F7FAFC] border-[#03914F]' : 'bg-white border-[#E3E3E3] hover:border-[#AEAEAE]'}`}>
-            <span className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${hechos[o.p] ? 'bg-emerald-800 border-[#03914F]' : 'border-[#D1D1D1]'}`}>
+            className={`w-full text-left p-3 rounded-xl border-2 transition-all flex items-start gap-3 ${hechos[o.p] ? 'bg-slate-50 border-emerald-800' : 'bg-white border-slate-200 hover:border-slate-400'}`}>
+            <span className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${hechos[o.p] ? 'bg-emerald-800 border-emerald-800' : 'border-slate-300'}`}>
               {hechos[o.p] && <Check className="w-3 h-3 text-white" />}
             </span>
             <span className="min-w-0">
-              <span className="block font-bold text-[#2F2F2F] text-sm">{o.p}</span>
-              <span className="block text-[#3F3F3F] text-sm break-words">{o.ruta}</span>
-              <span className="block text-[#727272] text-xs mt-1">{o.extra}</span>
+              <span className="block font-bold text-slate-800 text-sm">{o.p}</span>
+              <span className="block text-slate-700 text-sm break-words">{o.ruta}</span>
+              <span className="block text-slate-500 text-xs mt-1">{o.extra}</span>
             </span>
           </button>
         ))}
       </div>
-      <p className={`text-sm font-bold ${n === optOutPlataformas.length ? 'text-emerald-700' : 'text-[#727272]'}`}>
+      <p className={`text-sm font-bold ${n === optOutPlataformas.length ? 'text-emerald-700' : 'text-slate-500'}`}>
         {n} de {optOutPlataformas.length} revisadas{n === optOutPlataformas.length ? ' · repetilo dentro de seis meses' : ''}
       </p>
       <Callout tone="amber" icon={AlertTriangle} title="Qué no hace el interruptor">
@@ -11298,23 +11270,23 @@ const ActivityCard = ({ act, onGo }) => {
   const [open, setOpen] = useState(false);
   const Native = act.kind === 'native' ? NATIVE_ACTS[act.comp] : null;
   return (
-    <div className="rounded-xl border-2 border-[#CC8800] bg-[#F7FAFC] overflow-hidden">
+    <div className="rounded-xl border-2 border-amber-800 bg-slate-50 overflow-hidden">
       <div className="p-4 flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <span className="text-xs font-bold text-amber-700 uppercase tracking-wide flex items-center gap-2">
             <Zap className="w-3.5 h-3.5" /> Actividad · {act.mins}
           </span>
-          <h4 className="font-bold text-[#9F6A00]">{act.title}</h4>
-          <p className="text-sm text-[#9F6A00]/80">{act.what}</p>
+          <h4 className="font-bold text-amber-900">{act.title}</h4>
+          <p className="text-sm text-amber-900/80">{act.what}</p>
         </div>
         {act.kind === 'link' ? (
           <button onClick={() => onGo(act.to)}
-            className="px-4 py-2 rounded-lg text-sm font-bold bg-[#17487F] text-white hover:bg-[#123A66] inline-flex items-center gap-2 flex-shrink-0">
+            className="px-4 py-2 rounded-lg text-sm font-bold bg-sky-900 text-white hover:bg-sky-800 inline-flex items-center gap-2 flex-shrink-0">
             Ir <ArrowRight className="w-4 h-4" />
           </button>
         ) : (
           <button onClick={() => setOpen(o => !o)}
-            className="px-4 py-2 rounded-lg text-sm font-bold bg-[#17487F] text-white hover:bg-[#123A66] inline-flex items-center gap-2 flex-shrink-0">
+            className="px-4 py-2 rounded-lg text-sm font-bold bg-sky-900 text-white hover:bg-sky-800 inline-flex items-center gap-2 flex-shrink-0">
             {open ? 'Cerrar' : 'Abrir'} {open ? <ChevronLeft className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
           </button>
         )}
@@ -11327,10 +11299,10 @@ const ActivityCard = ({ act, onGo }) => {
             {...(ACT_SRC[act.key] ? { src: ACT_SRC[act.key] } : { srcDoc: ACT_HTML[act.key] })}
             title={act.title} sandbox="allow-scripts"
             className="w-full bg-white border-0" style={{ height: 'min(640px, 78vh)' }} />
-          : <p className="bg-white p-4 text-sm text-rose-700 border-t border-[#CC8800]">
+          : <p className="bg-white p-4 text-sm text-rose-700 border-t border-amber-800">
             No se encontró la actividad «{act.key}». Volvé a correr construir/armar.py.</p>
       )}
-      {open && Native && <div className="bg-white p-4 border-t border-[#CC8800]"><Native /></div>}
+      {open && Native && <div className="bg-white p-4 border-t border-amber-800"><Native /></div>}
     </div>
   );
 };
@@ -11342,11 +11314,11 @@ const TheorySection = ({ index, setIndex, onGo }) => {
     <div className="flex flex-col md:flex-row gap-6">
       <aside className="hidden md:block md:w-64 flex-shrink-0">
         <div className="sticky top-32 space-y-1">
-          <p className="text-xs font-bold text-[#8E8E8E] uppercase mb-2">Módulos ({allModules.length})</p>
+          <p className="text-xs font-bold text-slate-400 uppercase mb-2">Módulos ({allModules.length})</p>
           {allModules.map((m, i) => (
             <button key={m.id} onClick={() => setIndex(i)}
-              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${i === index ? 'bg-[#EFF6F9] text-[#17487F] font-bold border-l-4 border-[#17487F]' : 'text-[#5C5C5C] hover:bg-[#EFF6F9]'}`}>
-              <span className="text-xs text-[#8E8E8E] mr-1">{i + 1}.</span> {m.title}
+              className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-all ${i === index ? 'bg-slate-100 text-sky-900 font-bold border-l-4 border-sky-900' : 'text-slate-600 hover:bg-slate-100'}`}>
+              <span className="text-xs text-slate-400 mr-1">{i + 1}.</span> {m.title}
             </button>
           ))}
         </div>
@@ -11354,52 +11326,52 @@ const TheorySection = ({ index, setIndex, onGo }) => {
 
       <div className="md:hidden mb-2">
         <select value={index} onChange={e => setIndex(Number(e.target.value))}
-          className="w-full p-3 rounded-xl border-2 border-[#D1D1D1] bg-white text-[#2F2F2F] font-medium">
+          className="w-full p-3 rounded-xl border-2 border-slate-300 bg-white text-slate-800 font-medium">
           {allModules.map((m, i) => <option key={m.id} value={i}>{i + 1}. {m.title}</option>)}
         </select>
       </div>
 
       <div className="flex-1 min-w-0 max-w-3xl">
-        <article className="bg-white rounded-2xl shadow-md border border-[#E3E3E3] p-5 sm:p-6 md:p-8">
-          <p className="text-xs text-[#17487F] font-bold uppercase mb-1">Módulo {index + 1} de {allModules.length}</p>
-          <h2 className="text-2xl font-extrabold text-[#2F2F2F] mb-1">{mod.title}</h2>
-          <p className="text-[#727272] mb-6">{mod.subtitle}</p>
+        <article className="bg-white rounded-2xl shadow-md border border-slate-200 p-5 sm:p-6 md:p-8">
+          <p className="text-xs text-sky-900 font-bold uppercase mb-1">Módulo {index + 1} de {allModules.length}</p>
+          <h2 className="text-2xl font-extrabold text-slate-800 mb-1">{mod.title}</h2>
+          <p className="text-slate-500 mb-6">{mod.subtitle}</p>
 
-          <div className="prosa text-[#3F3F3F] mb-8">
+          <div className="prosa text-slate-700 mb-8">
             {mod.reading.map((p, i) => <p key={i}>{p}</p>)}
           </div>
 
-          <div className="bg-[#F7FAFC] rounded-xl p-5 border border-[#D1D1D1] mb-5">
-            <h4 className="font-bold text-[#17487F] mb-3 flex items-center gap-2"><ClipboardCheck className="w-4 h-4" /> Para llevarse</h4>
+          <div className="bg-slate-50 rounded-xl p-5 border border-slate-300 mb-5">
+            <h4 className="font-bold text-sky-900 mb-3 flex items-center gap-2"><ClipboardCheck className="w-4 h-4" /> Para llevarse</h4>
             <ul className="space-y-2">
               {mod.checklist.map((it, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#17487F] text-[0.95em]">
-                  <CheckCircle2 className="w-4 h-4 text-[#17487F] mt-1 flex-shrink-0" /><span>{it}</span>
+                <li key={i} className="flex items-start gap-2 text-sky-900 text-[0.95em]">
+                  <CheckCircle2 className="w-4 h-4 text-sky-900 mt-1 flex-shrink-0" /><span>{it}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="bg-[#F7FAFC] rounded-xl p-5 border border-[#CC8800] mb-6">
+          <div className="bg-slate-50 rounded-xl p-5 border border-amber-800 mb-6">
             <h4 className="font-bold text-amber-800 mb-2 flex items-center gap-2"><Lightbulb className="w-4 h-4" /> Práctica sugerida</h4>
-            <p className="text-[#9F6A00] text-[0.95em]">{mod.practice}</p>
+            <p className="text-amber-900 text-[0.95em]">{mod.practice}</p>
           </div>
 
           {(moduleActivities[mod.id] || []).length > 0 && (
             <div className="mb-8 space-y-3">
-              <p className="text-xs font-bold text-[#8E8E8E] uppercase">Probalo acá mismo</p>
+              <p className="text-xs font-bold text-slate-400 uppercase">Probalo acá mismo</p>
               {moduleActivities[mod.id].map(a => <ActivityCard key={mod.id + '-' + (a.key || a.comp || a.to)} act={a} onGo={onGo} />)}
             </div>
           )}
 
           <div className="flex flex-wrap items-center justify-between gap-2">
             <button onClick={() => setIndex(i => Math.max(0, i - 1))} disabled={index === 0}
-              className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-lg bg-[#EFF6F9] text-[#3F3F3F] font-medium text-sm hover:bg-[#E3E3E3] disabled:opacity-40">
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-lg bg-slate-100 text-slate-700 font-medium text-sm hover:bg-slate-200 disabled:opacity-40">
               <ChevronLeft className="w-4 h-4" /> Anterior
             </button>
-            <span className="text-xs text-[#8E8E8E]">{index + 1} / {allModules.length}</span>
+            <span className="text-xs text-slate-400">{index + 1} / {allModules.length}</span>
             <button onClick={() => setIndex(i => Math.min(allModules.length - 1, i + 1))} disabled={index === allModules.length - 1}
-              className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-lg bg-[#17487F] text-white font-medium text-sm hover:bg-[#17487F] disabled:opacity-40">
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-2.5 rounded-lg bg-sky-900 text-white font-medium text-sm hover:bg-sky-900 disabled:opacity-40">
               Siguiente <ChevronRight className="w-4 h-4" />
             </button>
           </div>
@@ -11426,7 +11398,7 @@ const AnonSection = () => {
       <div className="flex flex-wrap gap-2 mb-6">
         {subs.map(s => (
           <button key={s.id} onClick={() => setSub(s.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-[#17487F] text-white' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-sky-900 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
             {s.icon} {s.label}
           </button>
         ))}
@@ -11437,11 +11409,11 @@ const AnonSection = () => {
       {sub === 'criterio' && (
         <div className="grid md:grid-cols-2 gap-4">
           {anonPrinciples.map((c, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-rose-800" /> {c.title}</h4>
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-rose-800" /> {c.title}</h4>
               <ul className="space-y-2">
                 {c.body.map((b, j) => (
-                  <li key={j} className="flex items-start gap-2 text-[#3F3F3F] text-sm">
+                  <li key={j} className="flex items-start gap-2 text-slate-700 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-rose-800 mt-1 flex-shrink-0" /><span>{b}</span>
                   </li>
                 ))}
@@ -11452,21 +11424,21 @@ const AnonSection = () => {
       )}
 
       {sub === 'categorias' && (
-        <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm overflow-x-auto">
+        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm overflow-x-auto">
           <table className="w-full text-sm min-w-[40rem]">
-            <thead><tr className="text-left border-b-2 border-[#E3E3E3]">
-              <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Categoría</th>
-              <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Qué incluye</th>
-              <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Etiqueta</th>
-              <th className="py-2 font-bold text-[#5C5C5C]">Criterio</th>
+            <thead><tr className="text-left border-b-2 border-slate-200">
+              <th className="py-2 pr-4 font-bold text-slate-600">Categoría</th>
+              <th className="py-2 pr-4 font-bold text-slate-600">Qué incluye</th>
+              <th className="py-2 pr-4 font-bold text-slate-600">Etiqueta</th>
+              <th className="py-2 font-bold text-slate-600">Criterio</th>
             </tr></thead>
             <tbody>
               {anonCategories.map((c, i) => (
-                <tr key={i} className="border-b border-[#EDEDED] align-top">
-                  <td className="py-3 pr-4 font-bold text-[#2F2F2F]">{c.cat}</td>
-                  <td className="py-3 pr-4 text-[#5C5C5C]">{c.ej}</td>
+                <tr key={i} className="border-b border-slate-100 align-top">
+                  <td className="py-3 pr-4 font-bold text-slate-800">{c.cat}</td>
+                  <td className="py-3 pr-4 text-slate-600">{c.ej}</td>
                   <td className="py-3 pr-4 font-mono text-xs text-rose-700 whitespace-nowrap">{c.tag}</td>
-                  <td className="py-3 text-[#5C5C5C]">{c.nota}</td>
+                  <td className="py-3 text-slate-600">{c.nota}</td>
                 </tr>
               ))}
             </tbody>
@@ -11476,13 +11448,13 @@ const AnonSection = () => {
 
       {sub === 'circuito' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-4 flex items-center gap-2"><ArrowRight className="w-4 h-4 text-rose-800" /> Seis pasos, siempre en este orden</h4>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2"><ArrowRight className="w-4 h-4 text-rose-800" /> Seis pasos, siempre en este orden</h4>
             <ol className="space-y-3">
               {anonWorkflow.map((s, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#17487F] text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
-                  <span className="text-[#3F3F3F] text-[0.95em] pt-0.5">{s}</span>
+                  <span className="w-7 h-7 rounded-full bg-sky-900 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
+                  <span className="text-slate-700 text-[0.95em] pt-0.5">{s}</span>
                 </li>
               ))}
             </ol>
@@ -11548,25 +11520,25 @@ const PromptBlock = ({ text, label }) => {
   return (
     <div className="my-3">
       {huecos.length > 0 && (
-        <div className="rounded-t-xl border border-b-0 border-[#CC8800] bg-[#F7FAFC] p-3">
+        <div className="rounded-t-xl border border-b-0 border-amber-800 bg-slate-50 p-3">
           <p className="text-[0.65rem] font-black uppercase tracking-widest text-amber-700 mb-2">
             Completá antes de copiar · {completos} de {huecos.length}
           </p>
           <div className="grid sm:grid-cols-2 gap-2">
             {huecos.map(h => (
               <label key={h} className="block">
-                <span className="text-xs font-medium text-[#9F6A00]">{h}</span>
+                <span className="text-xs font-medium text-amber-900">{h}</span>
                 <input value={vals[h] || ''} onChange={e => set(h, e.target.value)}
                   placeholder={h}
-                  className="w-full p-2 rounded-lg border-2 border-[#CC8800] text-sm bg-white focus:border-[#CC8800] outline-none" />
+                  className="w-full p-2 rounded-lg border-2 border-amber-800 text-sm bg-white focus:border-amber-800 outline-none" />
               </label>
             ))}
           </div>
         </div>
       )}
       <div className={`overflow-hidden border border-slate-700 ${huecos.length > 0 ? 'rounded-b-xl' : 'rounded-xl'}`}>
-        <div className="bg-[#2F2F2F] px-4 py-2 flex items-center justify-between gap-3">
-          <span className="text-[0.65rem] font-bold uppercase tracking-widest text-[#8E8E8E]">{label || 'Tu mensaje al asistente'}</span>
+        <div className="bg-slate-800 px-4 py-2 flex items-center justify-between gap-3">
+          <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">{label || 'Tu mensaje al asistente'}</span>
           <CopyBtn text={relleno} small />
         </div>
         <div className="bg-slate-900 text-slate-100 p-4 text-[0.82em] leading-loose font-mono whitespace-pre-wrap">
@@ -11577,7 +11549,7 @@ const PromptBlock = ({ text, label }) => {
               const v = (vals[n] || '').trim();
               return v
                 ? <span key={i} className="bg-slate-500/25 text-emerald-200 rounded px-1.5 py-0.5 mx-0.5">{v}</span>
-                : <span key={i} className="bg-amber-800/25 text-amber-200 rounded px-1.5 py-0.5 mx-0.5 border border-[#CC8800]/40">{n}</span>;
+                : <span key={i} className="bg-amber-800/25 text-amber-200 rounded px-1.5 py-0.5 mx-0.5 border border-amber-800/40">{n}</span>;
             }
             if (/^\[\[.*\]\]$/.test(p)) return <span key={i} className="text-sky-300">{p}</span>;
             return <span key={i}>{p}</span>;
@@ -11591,50 +11563,50 @@ const PromptBlock = ({ text, label }) => {
 const RouteView = ({ route }) => {
   const [abierta, setAbierta] = useState(1);
   return (
-    <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 md:p-6 shadow-sm">
-      <h4 className="text-lg font-extrabold text-[#2F2F2F]">{route.title}</h4>
-      <p className="text-[#5C5C5C] text-sm mb-1">{route.para}</p>
-      <p className="text-sm text-emerald-800 bg-[#F7FAFC] border border-[#03914F] rounded-lg p-3 my-3 flex items-start gap-2">
+    <div className="bg-white rounded-2xl border border-slate-200 p-5 md:p-6 shadow-sm">
+      <h4 className="text-lg font-extrabold text-slate-800">{route.title}</h4>
+      <p className="text-slate-600 text-sm mb-1">{route.para}</p>
+      <p className="text-sm text-emerald-800 bg-slate-50 border border-emerald-800 rounded-lg p-3 my-3 flex items-start gap-2">
         <Target className="w-4 h-4 mt-0.5 flex-shrink-0" /><span><strong>Cuándo:</strong> {route.cuando}</span></p>
 
       <div className="flex flex-wrap gap-1.5 my-4">
         {route.etapas.map(e => (
           <button key={e.n} onClick={() => setAbierta(e.n)}
-            className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-xs font-bold transition-all ${abierta === e.n ? 'bg-[#17487F] text-white' : 'bg-[#EFF6F9] text-[#5C5C5C] hover:bg-[#E3E3E3]'}`}>
+            className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-xs font-bold transition-all ${abierta === e.n ? 'bg-sky-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
             {e.n}. {e.nombre}
           </button>
         ))}
       </div>
 
       {route.etapas.filter(e => e.n === abierta).map(e => (
-        <div key={e.n} className="rounded-xl border-2 border-[#03914F] bg-[#F7FAFC]/40 p-4">
+        <div key={e.n} className="rounded-xl border-2 border-emerald-800 bg-slate-50/40 p-4">
           <div className="flex items-center gap-3 mb-3">
-            <span className="w-8 h-8 rounded-full bg-[#17487F] text-white flex items-center justify-center font-bold text-sm flex-shrink-0">{e.n}</span>
-            <h5 className="font-bold text-[#2F2F2F]">{e.nombre}</h5>
+            <span className="w-8 h-8 rounded-full bg-sky-900 text-white flex items-center justify-center font-bold text-sm flex-shrink-0">{e.n}</span>
+            <h5 className="font-bold text-slate-800">{e.nombre}</h5>
           </div>
           <div className="grid sm:grid-cols-2 gap-2 mb-1">
-            <div className="rounded-lg bg-white border border-[#E3E3E3] p-3">
-              <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#8E8E8E] mb-1">Entra</p>
-              <p className="text-sm text-[#3F3F3F]">{e.entra}</p>
+            <div className="rounded-lg bg-white border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Entra</p>
+              <p className="text-sm text-slate-700">{e.entra}</p>
             </div>
-            <div className="rounded-lg bg-white border border-[#E3E3E3] p-3">
-              <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#8E8E8E] mb-1">Sale</p>
-              <p className="text-sm text-[#3F3F3F]">{e.sale}</p>
+            <div className="rounded-lg bg-white border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Sale</p>
+              <p className="text-sm text-slate-700">{e.sale}</p>
             </div>
           </div>
           <PromptBlock text={e.prompt} />
-          <p className="text-sm text-[#9F1010] bg-[#F7FAFC] border border-[#9F1010] rounded-lg p-3 flex items-start gap-2">
+          <p className="text-sm text-rose-900 bg-slate-50 border border-rose-800 rounded-lg p-3 flex items-start gap-2">
             <ShieldAlert className="w-4 h-4 mt-0.5 flex-shrink-0" /><span><strong>Control antes de avanzar:</strong> {e.control}</span></p>
           {e.n < route.etapas.length && (
             <button onClick={() => setAbierta(e.n + 1)}
-              className="mt-3 px-4 py-2 rounded-lg text-sm font-bold bg-[#2F2F2F] text-white hover:bg-slate-700 inline-flex items-center gap-2">
+              className="mt-3 px-4 py-2 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
               Etapa {e.n + 1} <ArrowRight className="w-4 h-4" />
             </button>
           )}
         </div>
       ))}
 
-      <p className="text-sm text-[#5C5C5C] mt-4 pt-3 border-t border-[#EDEDED] flex items-start gap-2">
+      <p className="text-sm text-slate-600 mt-4 pt-3 border-t border-slate-100 flex items-start gap-2">
         <Lightbulb className="w-4 h-4 text-amber-800 mt-0.5 flex-shrink-0" /><span>{route.cierre}</span></p>
     </div>
   );
@@ -11671,7 +11643,7 @@ const GymSection = () => {
         {[{ id: 'sueltos', l: 'Instrucciones sueltas', i: <Target className="w-4 h-4" /> },
         { id: 'rutas', l: 'Rutas de trabajo', i: <Layers className="w-4 h-4" /> }].map(v => (
           <button key={v.id} onClick={() => setVista(v.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${vista === v.id ? 'bg-[#17487F] text-white' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${vista === v.id ? 'bg-sky-900 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
             {v.i} {v.l}
           </button>
         ))}
@@ -11687,7 +11659,7 @@ const GymSection = () => {
           <div className="flex flex-wrap gap-2">
             {workRoutes.map(x => (
               <button key={x.id} onClick={() => setRuta(x.id)}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${ruta === x.id ? 'bg-[#2F2F2F] text-white' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${ruta === x.id ? 'bg-slate-800 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
                 {x.title}
               </button>
             ))}
@@ -11699,11 +11671,11 @@ const GymSection = () => {
           <div className="mb-3">
             <input type="search" value={busca} onChange={e => setBusca(e.target.value)}
               placeholder="Buscar entre las 99 instrucciones: plazo, resumen, audiencia…"
-              className="w-full p-2.5 rounded-lg border-2 border-[#D1D1D1] text-sm focus:border-sky-500 outline-none" />
+              className="w-full p-2.5 rounded-lg border-2 border-slate-300 text-sm focus:border-sky-500 outline-none" />
           </div>
 
           {q ? (
-            <p className="text-sm text-[#727272] mb-4">
+            <p className="text-sm text-slate-500 mb-4">
               {items.length} de {promptItems.length} instrucciones contienen «{busca.trim()}», en cualquiera de los tres niveles.
               {items.length === 0 && ' Probá con una palabra más corta.'}
             </p>
@@ -11711,32 +11683,32 @@ const GymSection = () => {
           <div className="flex flex-wrap gap-2 mb-3">
             {promptLevels.map(l => (
               <button key={l.id} onClick={() => { setLevel(l.id); setDomain('todos'); }}
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${level === l.id ? 'bg-[#17487F] text-white' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${level === l.id ? 'bg-sky-900 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
                 {l.label}
               </button>
             ))}
           </div>
-          <p className="text-sm text-[#727272] mb-4">{lvl.hint} · {items.length} instrucciones en este nivel</p>
+          <p className="text-sm text-slate-500 mb-4">{lvl.hint} · {items.length} instrucciones en este nivel</p>
 
           <div className="flex flex-wrap gap-2 mb-2">
             {domains.map(d => (
               <button key={d} onClick={() => setDomain(d)}
-                className={`px-3 py-2 rounded-full text-xs font-medium transition-all min-h-[2.5rem] ${domain === d ? 'bg-[#2F2F2F] text-white' : 'bg-[#EFF6F9] text-[#5C5C5C] hover:bg-[#E3E3E3]'}`}>
+                className={`px-3 py-2 rounded-full text-xs font-medium transition-all min-h-[2.5rem] ${domain === d ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                 {d === 'todos' ? `Todas (${items.length})` : `${d} (${items.filter(p => p.domain === d).length})`}
               </button>
             ))}
           </div>
-          <p className="text-xs text-[#8E8E8E] mb-6">Mostrando {shown.length} de {items.length}</p>
+          <p className="text-xs text-slate-400 mb-6">Mostrando {shown.length} de {items.length}</p>
           </>)}
 
           <div className="space-y-4">
             {shown.map(p => (
-              <div key={p.id} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+              <div key={p.id} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
                 <span className="text-xs font-bold text-emerald-700 uppercase">{p.domain}</span>
-                <h4 className="font-bold text-[#2F2F2F]">{p.title}</h4>
-                <p className="text-sm text-[#727272]">{p.objective}</p>
+                <h4 className="font-bold text-slate-800">{p.title}</h4>
+                <p className="text-sm text-slate-500">{p.objective}</p>
                 <PromptBlock text={p.prompt} />
-                <p className="text-sm text-[#5C5C5C] flex items-start gap-2"><Lightbulb className="w-4 h-4 text-amber-800 mt-1 flex-shrink-0" /><span>{p.why}</span></p>
+                <p className="text-sm text-slate-600 flex items-start gap-2"><Lightbulb className="w-4 h-4 text-amber-800 mt-1 flex-shrink-0" /><span>{p.why}</span></p>
               </div>
             ))}
           </div>
@@ -11750,21 +11722,21 @@ const GymSection = () => {
 // del hilo a propósito: son una interrupción para pensar, no otro turno.
 const Turn = ({ c }) => {
   if (c.role === 'alerta') return (
-    <div className="my-5 flex gap-3 border-l-4 border-[#9F1010] bg-[#F7FAFC]/70 rounded-r-xl py-4 pl-4 pr-4">
+    <div className="my-5 flex gap-3 border-l-4 border-rose-800 bg-slate-50/70 rounded-r-xl py-4 pl-4 pr-4">
       <AlertTriangle className="w-5 h-5 text-rose-800 flex-shrink-0 mt-0.5" />
       <div>
         <span className="block text-[0.7rem] font-black uppercase tracking-widest text-rose-700 mb-1">Pará un segundo</span>
-        <p className="text-[#9F1010] font-medium">{c.text}</p>
+        <p className="text-rose-900 font-medium">{c.text}</p>
       </div>
     </div>
   );
 
   if (c.role === 'resultado') return (
-    <div className="mt-5 rounded-xl border-2 border-[#03914F] bg-[#F7FAFC] p-4 flex gap-3">
+    <div className="mt-5 rounded-xl border-2 border-emerald-800 bg-slate-50 p-4 flex gap-3">
       <CheckCircle2 className="w-5 h-5 text-emerald-800 flex-shrink-0 mt-0.5" />
       <div>
         <span className="block text-[0.7rem] font-black uppercase tracking-widest text-emerald-700 mb-1">Cómo terminó</span>
-        <p className="text-[#038549]">{c.text}</p>
+        <p className="text-emerald-900">{c.text}</p>
       </div>
     </div>
   );
@@ -11774,12 +11746,12 @@ const Turn = ({ c }) => {
 
   return (
     <div className={`flex gap-2.5 items-end ${mine ? 'flex-row-reverse' : ''}`}>
-      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-bold ${mine ? (fix ? 'bg-slate-500' : 'bg-slate-500') : 'bg-[#17487F]'}`}>
+      <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 text-white text-xs font-bold ${mine ? (fix ? 'bg-slate-500' : 'bg-slate-500') : 'bg-sky-900'}`}>
         {mine ? (fix ? <RefreshCw className="w-4 h-4" /> : 'V') : <BrainCircuit className="w-4 h-4" />}
       </div>
       <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${mine
-        ? (fix ? 'bg-[#EFF6F9] border border-[#CC8800] text-amber-950 rounded-br-sm' : 'bg-[#2F2F2F] text-slate-50 rounded-br-sm')
-        : 'bg-white border border-[#E3E3E3] text-[#2F2F2F] rounded-bl-sm shadow-sm'}`}>
+        ? (fix ? 'bg-slate-100 border border-amber-800 text-amber-950 rounded-br-sm' : 'bg-slate-800 text-slate-50 rounded-br-sm')
+        : 'bg-white border border-slate-200 text-slate-800 rounded-bl-sm shadow-sm'}`}>
         {fix && <span className="block text-[0.65rem] font-black uppercase tracking-widest text-amber-700 mb-1">Reformulado</span>}
         <p className="text-[0.95em] leading-relaxed">{c.text}</p>
       </div>
@@ -11853,8 +11825,8 @@ const SearchSection = () => {
     setTipo(''); setExcluir(''); setDesde(''); setHasta(''); setVerPor(null);
   };
 
-  const field = "w-full p-2.5 rounded-lg border-2 border-[#D1D1D1] text-sm focus:border-sky-500 outline-none";
-  const rot = "text-xs font-bold text-[#727272] uppercase";
+  const field = "w-full p-2.5 rounded-lg border-2 border-slate-300 text-sm focus:border-sky-500 outline-none";
+  const rot = "text-xs font-bold text-slate-500 uppercase";
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -11862,43 +11834,43 @@ const SearchSection = () => {
         {INTROS.search.map((t, i) => <p key={i} className={i ? 'mt-2' : ''}>{t}</p>)}
       </SectionHead>
 
-      <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-        <h4 className="font-bold text-[#2F2F2F] mb-2 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-600" /> Antes de armar nada: dónde se usa esto</h4>
-        <p className="text-sm text-[#5C5C5C] mb-3">
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <h4 className="font-bold text-slate-800 mb-2 flex items-center gap-2"><AlertTriangle className="w-4 h-4 text-amber-600" /> Antes de armar nada: dónde se usa esto</h4>
+        <p className="text-sm text-slate-600 mb-3">
           Buscar en un portal oficial son <strong>dos cosas distintas</strong>, y los operadores solo funcionan en una.
         </p>
         <div className="grid md:grid-cols-2 gap-3">
           {searchRutas.map((r, i) => (
-            <div key={i} className={"rounded-xl p-4 border-2 " + (i === 0 ? "border-sky-300 bg-sky-50" : "border-[#E3E3E3] bg-[#F7FAFC]")}>
-              <p className="font-bold text-[#2F2F2F] text-sm mb-1">{r.ruta}</p>
-              <p className="text-xs text-[#727272] mb-2">{r.donde}</p>
-              <p className="text-[#3F3F3F] text-sm mb-2">{r.sirve}</p>
-              <p className="text-[#5C5C5C] text-xs"><strong>Cuándo:</strong> {r.cuando}</p>
+            <div key={i} className={"rounded-xl p-4 border-2 " + (i === 0 ? "border-sky-300 bg-sky-50" : "border-slate-200 bg-slate-50")}>
+              <p className="font-bold text-slate-800 text-sm mb-1">{r.ruta}</p>
+              <p className="text-xs text-slate-500 mb-2">{r.donde}</p>
+              <p className="text-slate-700 text-sm mb-2">{r.sirve}</p>
+              <p className="text-slate-600 text-xs"><strong>Cuándo:</strong> {r.cuando}</p>
             </div>
           ))}
         </div>
-        <p className="text-sm text-[#5C5C5C] mt-3">
+        <p className="text-sm text-slate-600 mt-3">
           El armador de abajo produce consultas para la <strong>primera</strong> ruta. Si pegás
           <code className="mx-1 text-sky-700">site:jusrionegro.gov.ar</code> en el buscador interno de un portal,
           no vas a obtener nada: ese buscador tiene sus propios campos.
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
         <div className="flex items-center justify-between gap-3 mb-4 flex-wrap">
-          <h4 className="font-bold text-[#2F2F2F] flex items-center gap-2"><Wand2 className="w-4 h-4 text-sky-500" /> Armador de consultas</h4>
-          <button onClick={limpiar} className="text-xs font-bold text-[#727272] border border-[#D1D1D1] rounded-lg px-3 py-2 min-h-[2.5rem] hover:bg-[#F7FAFC]">Limpiar</button>
+          <h4 className="font-bold text-slate-800 flex items-center gap-2"><Wand2 className="w-4 h-4 text-sky-500" /> Armador de consultas</h4>
+          <button onClick={limpiar} className="text-xs font-bold text-slate-500 border border-slate-300 rounded-lg px-3 py-2 min-h-[2.5rem] hover:bg-slate-50">Limpiar</button>
         </div>
 
         <p className={rot + " mb-2"}>Empezá por un caso resuelto, o completá a mano</p>
         <div className="space-y-2 mb-4">
           {searchEjemplos.map((e, i) => (
-            <div key={i} className={"rounded-xl border-2 p-3 " + (verPor === i ? "border-sky-400 bg-sky-50" : "border-[#E3E3E3] bg-[#F7FAFC]")}>
+            <div key={i} className={"rounded-xl border-2 p-3 " + (verPor === i ? "border-sky-400 bg-sky-50" : "border-slate-200 bg-slate-50")}>
               <div className="flex items-start justify-between gap-3">
-                <p className="text-[#3F3F3F] text-sm italic">«{e.pregunta}»</p>
-                <button onClick={() => aplicar(e.campos, i)} className="text-xs font-bold text-white bg-[#2F2F2F] rounded-lg px-3 py-2 min-h-[2.5rem] flex-shrink-0">Usar</button>
+                <p className="text-slate-700 text-sm italic">«{e.pregunta}»</p>
+                <button onClick={() => aplicar(e.campos, i)} className="text-xs font-bold text-white bg-slate-800 rounded-lg px-3 py-2 min-h-[2.5rem] flex-shrink-0">Usar</button>
               </div>
-              {verPor === i && <p className="text-[#5C5C5C] text-xs mt-2 pt-2 border-t border-sky-200"><strong>Por qué así:</strong> {e.porque}</p>}
+              {verPor === i && <p className="text-slate-600 text-xs mt-2 pt-2 border-t border-sky-200"><strong>Por qué así:</strong> {e.porque}</p>}
             </div>
           ))}
         </div>
@@ -11930,58 +11902,58 @@ const SearchSection = () => {
           {query && <CopyBtn text={query} label="Copiar consulta" small />}
         </div>
 
-        <div className="mt-5 pt-5 border-t border-[#E3E3E3]">
-          <p className="text-xs font-bold text-[#727272] uppercase mb-1">
+        <div className="mt-5 pt-5 border-t border-slate-200">
+          <p className="text-xs font-bold text-slate-500 uppercase mb-1">
             La misma búsqueda, pedida a un asistente que tenga buscador
           </p>
-          <p className="text-sm text-[#5C5C5C] mb-2">
+          <p className="text-sm text-slate-600 mb-2">
             Sirve cuando la pregunta necesita varias búsquedas encadenadas, o cuando querés que te
             resuma lo que encontró. Lo que devuelva se abre igual: que cite una fuente no prueba que
             diga lo que él afirma.
           </p>
-          <pre className="bg-[#F7FAFC] border border-[#E3E3E3] p-3 text-sm text-[#2F2F2F] whitespace-pre-wrap mb-2">{pedido}</pre>
+          <pre className="bg-slate-50 border border-slate-200 p-3 text-sm text-slate-800 whitespace-pre-wrap mb-2">{pedido}</pre>
           {query && <CopyBtn text={pedido} label="Copiar el pedido" small />}
         </div>
-        <p className="text-xs text-[#727272] mt-2">
+        <p className="text-xs text-slate-500 mt-2">
           Se pega en un <strong>buscador general</strong>. El comodín <code className="text-sky-700">*</code> va dentro
-          del campo de frase exacta: <code className="text-[#5C5C5C]">recurso de * extraordinario</code>.
+          del campo de frase exacta: <code className="text-slate-600">recurso de * extraordinario</code>.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-          <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><Layers className="w-4 h-4 text-sky-500" /> Operadores</h4>
+        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><Layers className="w-4 h-4 text-sky-500" /> Operadores</h4>
           <div className="space-y-2">
             {searchOperators.map((o, i) => (
-              <div key={i} className="border border-[#EDEDED] rounded-xl p-3 bg-[#F7FAFC]">
+              <div key={i} className="border border-slate-100 rounded-xl p-3 bg-slate-50">
                 <code className="font-bold text-sky-700 text-sm">{o.op}</code>
-                <p className="text-[#3F3F3F] text-sm">{o.what}</p>
-                <code className="text-xs text-[#727272]">{o.ex}</code>
+                <p className="text-slate-700 text-sm">{o.what}</p>
+                <code className="text-xs text-slate-500">{o.ex}</code>
               </div>
             ))}
           </div>
         </div>
-        <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-          <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><Landmark className="w-4 h-4 text-sky-500" /> Fuentes oficiales</h4>
+        <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+          <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><Landmark className="w-4 h-4 text-sky-500" /> Fuentes oficiales</h4>
           <div className="space-y-2">
             {officialSources.map((s, i) => (
-              <div key={i} className="border border-[#EDEDED] rounded-xl p-3 bg-[#F7FAFC]">
-                <p className="font-bold text-[#2F2F2F] text-sm">{s.name}</p>
+              <div key={i} className="border border-slate-100 rounded-xl p-3 bg-slate-50">
+                <p className="font-bold text-slate-800 text-sm">{s.name}</p>
                 <code className="text-xs text-sky-700">{s.dom}</code>
-                <p className="text-[#5C5C5C] text-sm">{s.what}</p>
+                <p className="text-slate-600 text-sm">{s.what}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-        <h4 className="font-bold text-[#2F2F2F] mb-4 flex items-center gap-2"><ArrowRight className="w-4 h-4 text-sky-500" /> El circuito completo</h4>
+      <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+        <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2"><ArrowRight className="w-4 h-4 text-sky-500" /> El circuito completo</h4>
         <ol className="space-y-3">
           {searchFlow.map(s => (
             <li key={s.n} className="flex items-start gap-3">
-              <span className="w-6 h-6 rounded-full bg-[#17487F] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{s.n}</span>
-              <div><p className="font-bold text-[#2F2F2F] text-sm">{s.t}</p><p className="text-[#5C5C5C] text-sm">{s.d}</p></div>
+              <span className="w-6 h-6 rounded-full bg-sky-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{s.n}</span>
+              <div><p className="font-bold text-slate-800 text-sm">{s.t}</p><p className="text-slate-600 text-sm">{s.d}</p></div>
             </li>
           ))}
         </ol>
@@ -12007,27 +11979,27 @@ const NotebookSection = () => {
   const ejPorNivel = (n) => nbExercises.filter(e => e.level === n);
 
   const Ejercicio = ({ e }) => (
-    <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-      <span className="text-xs font-bold text-[#17487F] uppercase">{e.level}</span>
-      <h4 className="font-bold text-[#2F2F2F]">{e.title}</h4>
-      <p className="text-sm text-[#727272] mb-3">{e.goal}</p>
+    <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+      <span className="text-xs font-bold text-sky-900 uppercase">{e.level}</span>
+      <h4 className="font-bold text-slate-800">{e.title}</h4>
+      <p className="text-sm text-slate-500 mb-3">{e.goal}</p>
       <ol className="space-y-2 mb-3">
         {e.steps.map((s, i) => (
-          <li key={i} className="flex items-start gap-2 text-[#3F3F3F] text-sm">
-            <span className="w-5 h-5 rounded-full bg-[#EFF6F9] text-[#17487F] flex items-center justify-center text-[0.65rem] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
+          <li key={i} className="flex items-start gap-2 text-slate-700 text-sm">
+            <span className="w-5 h-5 rounded-full bg-slate-100 text-sky-900 flex items-center justify-center text-[0.65rem] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
             <span>{s}</span>
           </li>
         ))}
       </ol>
-      <p className="text-sm text-[#5C5C5C] flex items-start gap-2 border-t border-[#EDEDED] pt-3">
+      <p className="text-sm text-slate-600 flex items-start gap-2 border-t border-slate-100 pt-3">
         <Lightbulb className="w-4 h-4 text-amber-800 mt-0.5 flex-shrink-0" /><span>{e.tip}</span></p>
     </div>
   );
 
   const Prompt = ({ text, label }) => (
     <div className="rounded-xl overflow-hidden border border-slate-700 my-3">
-      <div className="bg-[#2F2F2F] px-4 py-2 flex items-center justify-between gap-3">
-        <span className="text-[0.65rem] font-bold uppercase tracking-widest text-[#8E8E8E]">{label || 'Pedido'}</span>
+      <div className="bg-slate-800 px-4 py-2 flex items-center justify-between gap-3">
+        <span className="text-[0.65rem] font-bold uppercase tracking-widest text-slate-400">{label || 'Pedido'}</span>
         <CopyBtn text={text} small />
       </div>
       <div className="bg-slate-900 text-slate-100 p-4 text-[0.8em] leading-relaxed font-mono whitespace-pre-wrap">{text}</div>
@@ -12045,7 +12017,7 @@ const NotebookSection = () => {
       <div className="flex flex-wrap gap-2 mb-6">
         {subs.map(s => (
           <button key={s.id} onClick={() => setSub(s.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-[#17487F] text-white shadow-md' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-sky-900 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
             {s.icon} {s.label}
           </button>
         ))}
@@ -12061,34 +12033,34 @@ const NotebookSection = () => {
           </Callout>
           <div className="grid md:grid-cols-2 gap-4">
             {nbConcepts.map((c, i) => (
-              <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-                <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-[#17487F]" /> {c.title}</h4>
+              <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+                <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-sky-900" /> {c.title}</h4>
                 <ul className="space-y-2">
-                  {c.body.map((b, j) => <li key={j} className="text-[#3F3F3F] text-sm flex items-start gap-2">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#17487F] mt-2 flex-shrink-0"></span><span>{b}</span></li>)}
+                  {c.body.map((b, j) => <li key={j} className="text-slate-700 text-sm flex items-start gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-sky-900 mt-2 flex-shrink-0"></span><span>{b}</span></li>)}
                 </ul>
               </div>
             ))}
           </div>
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
             <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
-              <h4 className="font-bold text-[#2F2F2F] flex items-center gap-2"><Layers className="w-4 h-4 text-[#17487F]" /> Límites de los planes</h4>
-              <span className="text-xs font-bold text-[#8E8E8E] uppercase">{nbPlanes.fecha}</span>
+              <h4 className="font-bold text-slate-800 flex items-center gap-2"><Layers className="w-4 h-4 text-sky-900" /> Límites de los planes</h4>
+              <span className="text-xs font-bold text-slate-400 uppercase">{nbPlanes.fecha}</span>
             </div>
-            <p className="text-sm text-[#5C5C5C] mb-4">{nbPlanes.aviso}</p>
+            <p className="text-sm text-slate-600 mb-4">{nbPlanes.aviso}</p>
             <div className="overflow-x-auto">
               <table className="w-full text-sm min-w-[32rem]">
-                <thead><tr className="text-left border-b-2 border-[#E3E3E3]">
-                  <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Concepto</th>
-                  <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Plan gratuito</th>
-                  <th className="py-2 font-bold text-[#5C5C5C]">Plan pago</th>
+                <thead><tr className="text-left border-b-2 border-slate-200">
+                  <th className="py-2 pr-4 font-bold text-slate-600">Concepto</th>
+                  <th className="py-2 pr-4 font-bold text-slate-600">Plan gratuito</th>
+                  <th className="py-2 font-bold text-slate-600">Plan pago</th>
                 </tr></thead>
                 <tbody>
                   {nbPlanes.filas.map((f, i) => (
-                    <tr key={i} className="border-b border-[#EDEDED]">
-                      <td className="py-2 pr-4 font-medium text-[#2F2F2F]">{f.concepto}</td>
-                      <td className="py-2 pr-4 text-[#5C5C5C]">{f.libre}</td>
-                      <td className="py-2 text-[#5C5C5C]">{f.plus}</td>
+                    <tr key={i} className="border-b border-slate-100">
+                      <td className="py-2 pr-4 font-medium text-slate-800">{f.concepto}</td>
+                      <td className="py-2 pr-4 text-slate-600">{f.libre}</td>
+                      <td className="py-2 text-slate-600">{f.plus}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -12142,57 +12114,57 @@ const NotebookSection = () => {
             </p>
           </Callout>
 
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm overflow-x-auto">
-            <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-[#17487F]" /> Qué se puede cargar</h4>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm overflow-x-auto">
+            <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><FileText className="w-4 h-4 text-sky-900" /> Qué se puede cargar</h4>
             <table className="w-full text-sm min-w-[36rem]">
-              <thead><tr className="text-left border-b-2 border-[#E3E3E3]">
-                <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Tipo</th>
-                <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Rinde</th>
-                <th className="py-2 font-bold text-[#5C5C5C]">Qué tener en cuenta</th>
+              <thead><tr className="text-left border-b-2 border-slate-200">
+                <th className="py-2 pr-4 font-bold text-slate-600">Tipo</th>
+                <th className="py-2 pr-4 font-bold text-slate-600">Rinde</th>
+                <th className="py-2 font-bold text-slate-600">Qué tener en cuenta</th>
               </tr></thead>
               <tbody>
                 {nbSourceTypes.map((s, i) => (
-                  <tr key={i} className="border-b border-[#EDEDED] align-top">
-                    <td className="py-3 pr-4 font-bold text-[#2F2F2F]">{s.tipo}</td>
-                    <td className="py-3 pr-4"><span className={`text-xs font-bold px-2 py-1 rounded-full ${s.ok === 'Ideal' ? 'bg-[#EFF6F9] text-emerald-800' : s.ok === 'Sí' ? 'bg-[#EFF6F9] text-sky-800' : 'bg-[#EFF6F9] text-amber-800'}`}>{s.ok}</span></td>
-                    <td className="py-3 text-[#5C5C5C]">{s.nota}</td>
+                  <tr key={i} className="border-b border-slate-100 align-top">
+                    <td className="py-3 pr-4 font-bold text-slate-800">{s.tipo}</td>
+                    <td className="py-3 pr-4"><span className={`text-xs font-bold px-2 py-1 rounded-full ${s.ok === 'Ideal' ? 'bg-slate-100 text-emerald-800' : s.ok === 'Sí' ? 'bg-slate-100 text-sky-800' : 'bg-slate-100 text-amber-800'}`}>{s.ok}</span></td>
+                    <td className="py-3 text-slate-600">{s.nota}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-1 flex items-center gap-2"><Search className="w-4 h-4 text-[#17487F]" /> Abrí la fuente y mirá qué leyó</h4>
-            <p className="text-sm text-[#5C5C5C] mb-3">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-1 flex items-center gap-2"><Search className="w-4 h-4 text-sky-900" /> Abrí la fuente y mirá qué leyó</h4>
+            <p className="text-sm text-slate-600 mb-3">
               Es el control más directo que existe y casi nadie lo usa. Al hacer clic sobre una fuente se abre lo que la
               herramienta extrajo, no el archivo original. Y cuando la fuente es audio o video, ahí está la
               <strong> transcripción completa, lista para copiar</strong>.
             </p>
             <ol className="space-y-2 mb-4">
               {nbVerFuente.pasos.map((p, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#3F3F3F] text-sm">
-                  <span className="w-5 h-5 rounded-full bg-[#EFF6F9] text-[#17487F] flex items-center justify-center text-[0.65rem] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
+                <li key={i} className="flex items-start gap-2 text-slate-700 text-sm">
+                  <span className="w-5 h-5 rounded-full bg-slate-100 text-sky-900 flex items-center justify-center text-[0.65rem] font-bold flex-shrink-0 mt-0.5">{i + 1}</span>
                   <span>{p}</span></li>
               ))}
             </ol>
             <div className="grid md:grid-cols-2 gap-3">
               {nbVerFuente.usos.map((u, i) => (
-                <div key={i} className="border border-[#EDEDED] rounded-xl p-3 bg-[#F7FAFC]">
-                  <p className="font-bold text-[#2F2F2F] text-sm">{u.t}</p>
-                  <p className="text-[#5C5C5C] text-sm">{u.d}</p>
+                <div key={i} className="border border-slate-100 rounded-xl p-3 bg-slate-50">
+                  <p className="font-bold text-slate-800 text-sm">{u.t}</p>
+                  <p className="text-slate-600 text-sm">{u.d}</p>
                 </div>
               ))}
             </div>
             <Prompt text={nbVerFuente.prompt} label="Trabajar sobre la transcripción corregida" />
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-3 flex items-center gap-2"><ClipboardCheck className="w-4 h-4 text-[#17487F]" /> Higiene de fuentes</h4>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-3 flex items-center gap-2"><ClipboardCheck className="w-4 h-4 text-sky-900" /> Higiene de fuentes</h4>
             <ul className="space-y-2">
               {nbChecklist.map((c, i) => (
-                <li key={i} className="flex items-start gap-2 text-[#3F3F3F] text-sm">
-                  <CheckCircle2 className="w-4 h-4 text-[#17487F] mt-1 flex-shrink-0" /><span>{c}</span></li>
+                <li key={i} className="flex items-start gap-2 text-slate-700 text-sm">
+                  <CheckCircle2 className="w-4 h-4 text-sky-900 mt-1 flex-shrink-0" /><span>{c}</span></li>
               ))}
             </ul>
           </div>
@@ -12208,13 +12180,13 @@ const NotebookSection = () => {
             la selección activa. Es el gesto que separa a un usuario común de uno avanzado.
           </Callout>
           {nbScoped.map((s, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F]">{s.title}</h4>
-              <p className="text-sm text-[#5C5C5C] mb-3">{s.what}</p>
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800">{s.title}</h4>
+              <p className="text-sm text-slate-600 mb-3">{s.what}</p>
               <ol className="space-y-1.5 mb-2">
                 {s.steps.map((p, j) => (
-                  <li key={j} className="flex items-start gap-2 text-[#3F3F3F] text-sm">
-                    <span className="w-5 h-5 rounded-full bg-[#EFF6F9] text-[#17487F] flex items-center justify-center text-[0.65rem] font-bold flex-shrink-0 mt-0.5">{j + 1}</span>
+                  <li key={j} className="flex items-start gap-2 text-slate-700 text-sm">
+                    <span className="w-5 h-5 rounded-full bg-slate-100 text-sky-900 flex items-center justify-center text-[0.65rem] font-bold flex-shrink-0 mt-0.5">{j + 1}</span>
                     <span>{p}</span></li>
                 ))}
               </ol>
@@ -12233,20 +12205,20 @@ const NotebookSection = () => {
             siguen están escritos para pegar ahí.
           </Callout>
           {nbStudio.map((t, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F]">{t.name}</h4>
-              <p className="text-sm text-[#5C5C5C]">{t.que}</p>
-              <p className="text-sm text-[#17487F] bg-[#F7FAFC] border border-[#D1D1D1] rounded-lg p-3 my-2 flex items-start gap-2">
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800">{t.name}</h4>
+              <p className="text-sm text-slate-600">{t.que}</p>
+              <p className="text-sm text-sky-900 bg-slate-50 border border-slate-300 rounded-lg p-3 my-2 flex items-start gap-2">
                 <Target className="w-4 h-4 mt-0.5 flex-shrink-0" /><span><strong>Cuándo:</strong> {t.cuando}</span></p>
               <Prompt text={t.prompt} />
             </div>
           ))}
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-1 flex items-center gap-2"><ImageIcon className="w-4 h-4 text-rose-800" /> Infografías con propósito</h4>
-            <p className="text-sm text-[#5C5C5C] mb-3">La infografía por defecto es decorativa. Con un pedido específico se vuelve una herramienta de comunicación institucional.</p>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-1 flex items-center gap-2"><ImageIcon className="w-4 h-4 text-rose-800" /> Infografías con propósito</h4>
+            <p className="text-sm text-slate-600 mb-3">La infografía por defecto es decorativa. Con un pedido específico se vuelve una herramienta de comunicación institucional.</p>
             {nbInfografias.map((g, i) => (
-              <div key={i} className="border-t border-[#EDEDED] pt-3 mt-3 first:border-0 first:pt-0 first:mt-0">
-                <p className="font-bold text-[#2F2F2F] text-sm">{g.title}</p>
+              <div key={i} className="border-t border-slate-100 pt-3 mt-3 first:border-0 first:pt-0 first:mt-0">
+                <p className="font-bold text-slate-800 text-sm">{g.title}</p>
                 <Prompt text={g.prompt} label="Pedido de infografía" />
               </div>
             ))}
@@ -12264,11 +12236,11 @@ const NotebookSection = () => {
             propias fuentes: los números salen de código ejecutado, no de generación de texto.
           </Callout>
           {nbDatos.map((d, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F]">{d.title}</h4>
-              <p className="text-sm text-[#5C5C5C]">{d.what}</p>
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800">{d.title}</h4>
+              <p className="text-sm text-slate-600">{d.what}</p>
               <Prompt text={d.prompt} />
-              <p className="text-sm text-[#5C5C5C] flex items-start gap-2"><Lightbulb className="w-4 h-4 text-amber-800 mt-0.5 flex-shrink-0" /><span>{d.tip}</span></p>
+              <p className="text-sm text-slate-600 flex items-start gap-2"><Lightbulb className="w-4 h-4 text-amber-800 mt-0.5 flex-shrink-0" /><span>{d.tip}</span></p>
             </div>
           ))}
         </div>
@@ -12283,11 +12255,11 @@ const NotebookSection = () => {
             lleva diez segundos: hacé clic en la fuente y mirá lo que extrajo antes de trabajar sobre eso.
           </Callout>
           {nbMultimodal.map((m, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F]">{m.tipo}</h4>
-              <p className="text-sm text-[#5C5C5C] mb-1">{m.como}</p>
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800">{m.tipo}</h4>
+              <p className="text-sm text-slate-600 mb-1">{m.como}</p>
               <Prompt text={m.prompt} />
-              <p className="text-sm text-[#9F6A00] bg-[#F7FAFC] border border-[#CC8800] rounded-lg p-3 flex items-start gap-2">
+              <p className="text-sm text-amber-900 bg-slate-50 border border-amber-800 rounded-lg p-3 flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" /><span>{m.ojo}</span></p>
             </div>
           ))}
@@ -12302,19 +12274,19 @@ const NotebookSection = () => {
             distingue a un usuario avanzado, y la que más daño hace si se saltea la verificación: sin ese paso, el bucle
             propaga errores en lugar de conocimiento.
           </Callout>
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
             <ol className="space-y-3">
               {nbBucle.map(s => (
                 <li key={s.n} className="flex items-start gap-3">
-                  <span className="w-7 h-7 rounded-full bg-[#17487F] text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{s.n}</span>
-                  <div><p className="font-bold text-[#2F2F2F] text-sm">{s.t}</p><p className="text-[#5C5C5C] text-sm">{s.d}</p></div>
+                  <span className="w-7 h-7 rounded-full bg-sky-900 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{s.n}</span>
+                  <div><p className="font-bold text-slate-800 text-sm">{s.t}</p><p className="text-slate-600 text-sm">{s.d}</p></div>
                 </li>
               ))}
             </ol>
           </div>
           {nbBuclePrompts.map((b, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F] text-sm">{b.title}</h4>
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800 text-sm">{b.title}</h4>
               <Prompt text={b.prompt} />
             </div>
           ))}
@@ -12327,19 +12299,19 @@ const NotebookSection = () => {
             Las reglas se acuerdan antes de compartir, no después. Registrar qué se compartió, con quién y bajo qué
             permiso es parte de la trazabilidad, igual que la URL y la fecha de una fuente.
           </Callout>
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm overflow-x-auto">
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm overflow-x-auto">
             <table className="w-full text-sm min-w-[36rem]">
-              <thead><tr className="text-left border-b-2 border-[#E3E3E3]">
-                <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Acción</th>
-                <th className="py-2 pr-4 font-bold text-[#5C5C5C]">Qué implica</th>
-                <th className="py-2 font-bold text-[#5C5C5C]">Cuidado</th>
+              <thead><tr className="text-left border-b-2 border-slate-200">
+                <th className="py-2 pr-4 font-bold text-slate-600">Acción</th>
+                <th className="py-2 pr-4 font-bold text-slate-600">Qué implica</th>
+                <th className="py-2 font-bold text-slate-600">Cuidado</th>
               </tr></thead>
               <tbody>
                 {nbSharing.map((s, i) => (
-                  <tr key={i} className="border-b border-[#EDEDED] align-top">
-                    <td className="py-3 pr-4 font-bold text-[#2F2F2F]">{s.action}</td>
-                    <td className="py-3 pr-4 text-[#5C5C5C]">{s.what}</td>
-                    <td className="py-3 text-[#5C5C5C]">{s.care}</td>
+                  <tr key={i} className="border-b border-slate-100 align-top">
+                    <td className="py-3 pr-4 font-bold text-slate-800">{s.action}</td>
+                    <td className="py-3 pr-4 text-slate-600">{s.what}</td>
+                    <td className="py-3 text-slate-600">{s.care}</td>
                   </tr>
                 ))}
               </tbody>
@@ -12352,15 +12324,15 @@ const NotebookSection = () => {
       {sub === 'cuadernos' && (
         <div className="space-y-4">
           {nbCuadernos.map((c, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-              <h4 className="font-bold text-[#2F2F2F] mb-1 flex items-center gap-2"><Layers className="w-4 h-4 text-[#17487F]" /> {c.title}</h4>
-              <p className="text-[#3F3F3F] text-sm mb-3">{c.what}</p>
-              <p className="text-sm text-[#17487F] bg-[#F7FAFC] border border-sky-200 rounded-lg p-3 mb-3 flex items-start gap-2">
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+              <h4 className="font-bold text-slate-800 mb-1 flex items-center gap-2"><Layers className="w-4 h-4 text-sky-900" /> {c.title}</h4>
+              <p className="text-slate-700 text-sm mb-3">{c.what}</p>
+              <p className="text-sm text-sky-900 bg-slate-50 border border-sky-200 rounded-lg p-3 mb-3 flex items-start gap-2">
                 <Lightbulb className="w-4 h-4 mt-0.5 flex-shrink-0" /><span>{c.ojo}</span></p>
-              <p className="text-xs font-bold text-[#727272] uppercase mb-2">Preguntas que rinden</p>
+              <p className="text-xs font-bold text-slate-500 uppercase mb-2">Preguntas que rinden</p>
               <ul className="space-y-1">
-                {c.prompts.map((p, j) => <li key={j} className="text-[#3F3F3F] text-sm flex items-start gap-2">
-                  <ArrowRight className="w-3 h-3 text-[#17487F] mt-1.5 flex-shrink-0" /><span>{p}</span></li>)}
+                {c.prompts.map((p, j) => <li key={j} className="text-slate-700 text-sm flex items-start gap-2">
+                  <ArrowRight className="w-3 h-3 text-sky-900 mt-1.5 flex-shrink-0" /><span>{p}</span></li>)}
               </ul>
             </div>
           ))}
@@ -12451,7 +12423,7 @@ Cinco líneas para quien solo necesita el resultado.
   const textoDe = (f) => f.dinamica ? auditPrompt : (auditFichas.find(x => x.id === f.id) || {}).prompt || '';
 
   const Esfuerzo = () => (
-    <p className="text-sm text-[#17487F] bg-[#F7FAFC] border border-[#D1D1D1] rounded-lg p-3 flex items-start gap-2">
+    <p className="text-sm text-sky-900 bg-slate-50 border border-slate-300 rounded-lg p-3 flex items-start gap-2">
       <Zap className="w-4 h-4 mt-0.5 flex-shrink-0" />
       <span><strong>Antes de correrla:</strong> elegí el modelo más capaz que te habilite tu cuenta y activá el máximo
         esfuerzo de razonamiento disponible. Conversación nueva, un solo documento. Puede tardar varios minutos.</span></p>
@@ -12463,22 +12435,22 @@ Cinco líneas para quien solo necesita el resultado.
     const texto = textoDe(f);
     return (
       <div className="max-w-3xl mx-auto">
-        <button onClick={() => setAbierta(null)} className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-[#5C5C5C] hover:text-slate-900 py-2">
+        <button onClick={() => setAbierta(null)} className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 py-2">
           <ChevronLeft className="w-4 h-4" /> Volver al catálogo
         </button>
-        <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 sm:p-6 shadow-sm">
-          <span className="text-xs font-bold text-[#17487F] uppercase">{f.area}</span>
-          <h3 className="text-xl font-extrabold text-[#2F2F2F] mb-2">{f.title}</h3>
-          <p className="text-[#3F3F3F] mb-4">{f.que}</p>
+        <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm">
+          <span className="text-xs font-bold text-sky-900 uppercase">{f.area}</span>
+          <h3 className="text-xl font-extrabold text-slate-800 mb-2">{f.title}</h3>
+          <p className="text-slate-700 mb-4">{f.que}</p>
 
           <div className="grid sm:grid-cols-2 gap-2 mb-4">
-            <div className="rounded-lg bg-[#F7FAFC] border border-[#E3E3E3] p-3">
-              <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#8E8E8E] mb-1">Qué necesita</p>
-              <p className="text-sm text-[#3F3F3F]">{f.entrada}</p>
+            <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Qué necesita</p>
+              <p className="text-sm text-slate-700">{f.entrada}</p>
             </div>
-            <div className="rounded-lg bg-[#F7FAFC] border border-[#E3E3E3] p-3">
-              <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#8E8E8E] mb-1">Qué devuelve</p>
-              <p className="text-sm text-[#3F3F3F]">{f.salida}</p>
+            <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+              <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Qué devuelve</p>
+              <p className="text-sm text-slate-700">{f.salida}</p>
             </div>
           </div>
 
@@ -12486,11 +12458,11 @@ Cinco líneas para quien solo necesita el resultado.
 
           {f.dinamica && (
             <div className="mt-4">
-              <p className="text-sm font-bold text-[#3F3F3F] mb-2">Elegí el tipo de resolución: la ficha se arma con la normativa de esa instancia.</p>
+              <p className="text-sm font-bold text-slate-700 mb-2">Elegí el tipo de resolución: la ficha se arma con la normativa de esa instancia.</p>
               <div className="flex flex-wrap gap-2 mb-3">
                 {auditInstancias.map(x => (
                   <button key={x.id} onClick={() => setInst(x.id)}
-                    className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-sm font-medium transition-all ${inst === x.id ? 'bg-[#17487F] text-white shadow-md' : 'bg-[#EFF6F9] text-[#5C5C5C] hover:bg-[#E3E3E3]'}`}>
+                    className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-sm font-medium transition-all ${inst === x.id ? 'bg-sky-900 text-white shadow-md' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                     {x.label}
                   </button>
                 ))}
@@ -12524,7 +12496,7 @@ Cinco líneas para quien solo necesita el resultado.
       <div className="flex flex-wrap gap-2 mb-6">
         {subs.map(s => (
           <button key={s.id} onClick={() => setSub(s.id)}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-[#17487F] text-white shadow-md' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${sub === s.id ? 'bg-sky-900 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
             {s.icon} {s.label}
           </button>
         ))}
@@ -12535,7 +12507,7 @@ Cinco líneas para quien solo necesita el resultado.
           <div className="flex flex-wrap gap-2">
             {areas.map(a => (
               <button key={a} onClick={() => setArea(a)}
-                className={`px-3 py-2 min-h-[2.5rem] rounded-full text-xs font-medium transition-all ${area === a ? 'bg-[#2F2F2F] text-white' : 'bg-[#EFF6F9] text-[#5C5C5C] hover:bg-[#E3E3E3]'}`}>
+                className={`px-3 py-2 min-h-[2.5rem] rounded-full text-xs font-medium transition-all ${area === a ? 'bg-slate-800 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                 {a === 'todas' ? `Todas (${libFichas.length})` : `${a} (${libFichas.filter(f => f.area === a).length})`}
               </button>
             ))}
@@ -12543,11 +12515,11 @@ Cinco líneas para quien solo necesita el resultado.
           <div className="grid md:grid-cols-2 gap-4">
             {visibles.map(f => (
               <button key={f.id} onClick={() => setAbierta(f.id)}
-                className="text-left bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm hover:border-[#17487F] hover:shadow-md transition-all flex flex-col">
-                <span className="text-xs font-bold text-[#17487F] uppercase">{f.area}</span>
-                <h4 className="font-bold text-[#2F2F2F] mb-1">{f.title}</h4>
-                <p className="text-sm text-[#5C5C5C] flex-1">{f.que}</p>
-                <span className="mt-3 text-sm font-bold text-[#17487F] inline-flex items-center gap-1">Ver la ficha <ArrowRight className="w-4 h-4" /></span>
+                className="text-left bg-white rounded-2xl border border-slate-200 p-5 shadow-sm hover:border-sky-900 hover:shadow-md transition-all flex flex-col">
+                <span className="text-xs font-bold text-sky-900 uppercase">{f.area}</span>
+                <h4 className="font-bold text-slate-800 mb-1">{f.title}</h4>
+                <p className="text-sm text-slate-600 flex-1">{f.que}</p>
+                <span className="mt-3 text-sm font-bold text-sky-900 inline-flex items-center gap-1">Ver la ficha <ArrowRight className="w-4 h-4" /></span>
               </button>
             ))}
           </div>
@@ -12566,9 +12538,9 @@ Cinco líneas para quien solo necesita el resultado.
             parece bien hecho. Vale la pena esperar los minutos que tarde.
           </Callout>
           {libDespliegue.map((d, i) => (
-            <div key={i} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm flex items-start gap-3">
-              <span className="w-7 h-7 rounded-full bg-[#17487F] text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
-              <div><p className="font-bold text-[#2F2F2F] text-sm">{d.t}</p><p className="text-[#5C5C5C] text-sm">{d.d}</p></div>
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm flex items-start gap-3">
+              <span className="w-7 h-7 rounded-full bg-sky-900 text-white flex items-center justify-center text-xs font-bold flex-shrink-0">{i + 1}</span>
+              <div><p className="font-bold text-slate-800 text-sm">{d.t}</p><p className="text-slate-600 text-sm">{d.d}</p></div>
             </div>
           ))}
         </div>
@@ -12582,34 +12554,34 @@ Cinco líneas para quien solo necesita el resultado.
             Se completa la ficha, no se escribe el prompt.
           </Callout>
 
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-3">Los cinco pilares</h4>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-3">Los cinco pilares</h4>
             <div className="space-y-3">
               {libPilares.map(p => (
-                <div key={p.n} className="border-l-4 border-[#AEAEAE] pl-3">
-                  <p className="font-bold text-[#2F2F2F] text-sm">{p.n}. {p.t}</p>
-                  <p className="text-[#5C5C5C] text-sm">{p.d}</p>
-                  <p className="text-[#727272] text-sm italic mt-1">«{p.ej}»</p>
+                <div key={p.n} className="border-l-4 border-slate-400 pl-3">
+                  <p className="font-bold text-slate-800 text-sm">{p.n}. {p.t}</p>
+                  <p className="text-slate-600 text-sm">{p.d}</p>
+                  <p className="text-slate-500 text-sm italic mt-1">«{p.ej}»</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
-            <h4 className="font-bold text-[#2F2F2F] mb-1">La ficha: cinco campos</h4>
-            <p className="text-sm text-[#5C5C5C] mb-3">Con las preguntas que ayudan a completar cada uno.</p>
+          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
+            <h4 className="font-bold text-slate-800 mb-1">La ficha: cinco campos</h4>
+            <p className="text-sm text-slate-600 mb-3">Con las preguntas que ayudan a completar cada uno.</p>
             <div className="space-y-4">
               {libCampos.map(c => (
-                <div key={c.n} className="rounded-xl border border-[#E3E3E3] bg-[#F7FAFC] p-4">
-                  <p className="font-bold text-[#2F2F2F] text-sm">Campo {c.n}: {c.t}</p>
-                  <p className="text-[#5C5C5C] text-sm mb-2">{c.d}</p>
+                <div key={c.n} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                  <p className="font-bold text-slate-800 text-sm">Campo {c.n}: {c.t}</p>
+                  <p className="text-slate-600 text-sm mb-2">{c.d}</p>
                   {c.pregs.length > 0 && (
                     <ul className="space-y-1 mb-2">
-                      {c.pregs.map((q, j) => <li key={j} className="text-[#3F3F3F] text-sm flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#17487F] mt-2 flex-shrink-0"></span><span>{q}</span></li>)}
+                      {c.pregs.map((q, j) => <li key={j} className="text-slate-700 text-sm flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-sky-900 mt-2 flex-shrink-0"></span><span>{q}</span></li>)}
                     </ul>
                   )}
-                  {c.ejs.length > 0 && <p className="text-[#727272] text-sm italic">{c.ejs.map(e => '«' + e + '»').join(' · ')}</p>}
+                  {c.ejs.length > 0 && <p className="text-slate-500 text-sm italic">{c.ejs.map(e => '«' + e + '»').join(' · ')}</p>}
                 </div>
               ))}
             </div>
@@ -12632,47 +12604,47 @@ Cinco líneas para quien solo necesita el resultado.
           <div className="flex flex-wrap gap-2">
             {libEvolucion.map(e => (
               <button key={e.n} onClick={() => setPaso(e.n)}
-                className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-sm font-bold transition-all ${paso === e.n ? 'bg-[#17487F] text-white' : 'bg-[#EFF6F9] text-[#5C5C5C] hover:bg-[#E3E3E3]'}`}>
+                className={`px-3 py-2 min-h-[2.5rem] rounded-lg text-sm font-bold transition-all ${paso === e.n ? 'bg-sky-900 text-white' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}>
                 {e.icono} Intento {e.n}
               </button>
             ))}
           </div>
           {libEvolucion.filter(e => e.n === paso).map(e => (
-            <div key={e.n} className="bg-white rounded-2xl border border-[#E3E3E3] p-5 shadow-sm">
+            <div key={e.n} className="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
               <div className="flex items-center gap-3 mb-3">
                 <span className="text-2xl">{e.icono}</span>
-                <h4 className="font-bold text-[#2F2F2F]">Intento {e.n} — {e.estado}</h4>
+                <h4 className="font-bold text-slate-800">Intento {e.n} — {e.estado}</h4>
               </div>
               <PromptBlock text={e.prompt} label={'Intento ' + e.n} />
               <div className="grid sm:grid-cols-2 gap-2 my-3">
-                <div className="rounded-lg bg-[#F7FAFC] border border-[#E3E3E3] p-3">
-                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#8E8E8E] mb-1">Qué pasa</p>
-                  <p className="text-sm text-[#3F3F3F]">{e.diag}</p>
+                <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Qué pasa</p>
+                  <p className="text-sm text-slate-700">{e.diag}</p>
                 </div>
-                <div className="rounded-lg bg-[#F7FAFC] border border-[#E3E3E3] p-3">
-                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-[#8E8E8E] mb-1">Resultado</p>
-                  <p className="text-sm text-[#3F3F3F]">{e.resultado}</p>
+                <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
+                  <p className="text-[0.65rem] font-black uppercase tracking-widest text-slate-400 mb-1">Resultado</p>
+                  <p className="text-sm text-slate-700">{e.resultado}</p>
                 </div>
               </div>
-              <p className="text-sm text-[#038549] bg-[#F7FAFC] border border-[#03914F] rounded-lg p-3 mb-3 flex items-start gap-2">
+              <p className="text-sm text-emerald-900 bg-slate-50 border border-emerald-800 rounded-lg p-3 mb-3 flex items-start gap-2">
                 <Lightbulb className="w-4 h-4 mt-0.5 flex-shrink-0" /><span>{e.regla}</span></p>
-              <p className="text-xs font-bold text-[#727272] uppercase mb-2">Pilares aplicados</p>
+              <p className="text-xs font-bold text-slate-500 uppercase mb-2">Pilares aplicados</p>
               <div className="flex flex-wrap gap-1.5">
                 {libPilares.map(p => (
                   <span key={p.n}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${e.pilares.includes(p.n) ? 'bg-[#EFF6F9] border-[#AEAEAE] text-[#17487F]' : 'bg-[#F7FAFC] border-[#E3E3E3] text-[#8E8E8E]'}`}>
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium border ${e.pilares.includes(p.n) ? 'bg-slate-100 border-slate-400 text-sky-900' : 'bg-slate-50 border-slate-200 text-slate-400'}`}>
                     {p.n}. {p.t}
                   </span>
                 ))}
               </div>
               {e.n < libEvolucion.length && (
                 <button onClick={() => setPaso(e.n + 1)}
-                  className="mt-4 px-4 py-2.5 rounded-lg text-sm font-bold bg-[#2F2F2F] text-white hover:bg-slate-700 inline-flex items-center gap-2">
+                  className="mt-4 px-4 py-2.5 rounded-lg text-sm font-bold bg-slate-800 text-white hover:bg-slate-700 inline-flex items-center gap-2">
                   Intento {e.n + 1} <ArrowRight className="w-4 h-4" />
                 </button>
               )}
               {e.n === libEvolucion.length && (
-                <p className="mt-4 text-center font-bold text-[#3F3F3F] bg-[#EFF6F9] rounded-xl p-3 text-sm">
+                <p className="mt-4 text-center font-bold text-slate-700 bg-slate-100 rounded-xl p-3 text-sm">
                   Rol + Contexto + Tarea clara + Formato + Restricciones
                 </p>
               )}
@@ -12724,11 +12696,11 @@ const enLetras = (n, capital) => {
 
 const InicioSection = ({ onGo }) => (
   <div className="max-w-4xl mx-auto space-y-8">
-    <div className="border-l-4 border-[#17487F] pl-4">
+    <div className="border-l-4 border-sky-900 pl-4">
       <h2 className="text-slate-900 mb-2" style={{ fontFamily: 'Georgia, "Times New Roman", serif', fontSize: '1.6rem', lineHeight: '1.2' }}>
         {enLetras(Object.keys(SECCIONES).length, true)} secciones, {enLetras(RECORRIDOS.length)} maneras de usarlas
       </h2>
-      <p className="text-[#5C5C5C]">
+      <p className="text-slate-600">
         Este material no se lee de corrido: se entra por donde haga falta. Abajo está qué es cada
         sección y para qué momento sirve. Si no sabés por dónde empezar, mirá los {enLetras(RECORRIDOS.length)} recorridos del final.
       </p>
@@ -12739,23 +12711,23 @@ const InicioSection = ({ onGo }) => (
       return (
       <div key={f.id}>
         <div className="flex items-center gap-2 mb-1">
-          <IcoFam className="w-5 h-5 text-[#17487F]" />
+          <IcoFam className="w-5 h-5 text-sky-900" />
           <h3 className="font-bold text-slate-900 text-lg">{f.label}</h3>
         </div>
-        <p className="text-sm text-[#727272] mb-3">{f.lema}</p>
+        <p className="text-sm text-slate-500 mb-3">{f.lema}</p>
         <div className="grid sm:grid-cols-2 gap-3">
           {f.tabs.map(id => {
             const s = SECCIONES[id];
             const Ico = ICONOS[id];
             return (
               <button key={id} onClick={() => onGo(id)}
-                className="text-left bg-white border-2 border-[#E3E3E3] rounded-xl p-4 hover:border-[#17487F] transition-all">
+                className="text-left bg-white border-2 border-slate-200 rounded-xl p-4 hover:border-sky-900 transition-all">
                 <div className="flex items-center gap-2 mb-1">
-                  <Ico className="w-4 h-4 text-[#17487F]" />
+                  <Ico className="w-4 h-4 text-sky-900" />
                   <span className="font-bold text-slate-900">{s.label}</span>
                 </div>
-                <p className="text-sm text-[#3F3F3F] mb-2">{s.que}</p>
-                <p className="text-xs text-[#727272] flex items-start gap-1">
+                <p className="text-sm text-slate-700 mb-2">{s.que}</p>
+                <p className="text-xs text-slate-500 flex items-start gap-1">
                   <ArrowRight className="w-3 h-3 mt-0.5 flex-shrink-0" />{s.cuando}
                 </p>
               </button>
@@ -12768,16 +12740,16 @@ const InicioSection = ({ onGo }) => (
 
     <div>
       <h3 className="font-bold text-slate-900 text-lg mb-1">Por dónde empezar</h3>
-      <p className="text-sm text-[#727272] mb-3">Tres recorridos, según a qué viniste.</p>
+      <p className="text-sm text-slate-500 mb-3">Tres recorridos, según a qué viniste.</p>
       <div className="space-y-3">
         {RECORRIDOS.map((r, i) => (
-          <div key={i} className="bg-[#F7FAFC] border border-[#E3E3E3] rounded-xl p-4">
-            <p className="font-bold text-[#2F2F2F] mb-1">«{r.t}»</p>
-            <p className="text-sm text-[#3F3F3F] mb-3">{r.d}</p>
+          <div key={i} className="bg-slate-50 border border-slate-200 rounded-xl p-4">
+            <p className="font-bold text-slate-800 mb-1">«{r.t}»</p>
+            <p className="text-sm text-slate-700 mb-3">{r.d}</p>
             <div className="flex flex-wrap gap-2">
               {r.ir.map((id, k) => (
                 <button key={id} onClick={() => onGo(id)}
-                  className="text-xs font-bold text-white bg-[#17487F] rounded-lg px-3 py-2 min-h-[2.5rem]">
+                  className="text-xs font-bold text-white bg-sky-900 rounded-lg px-3 py-2 min-h-[2.5rem]">
                   {k + 1}. {SECCIONES[id].label}
                 </button>
               ))}
@@ -12815,7 +12787,7 @@ const CapacidadesSection = () => {
 
   const Parrafos = ({ ps }) => (
     <div className="space-y-3 mb-5">
-      {ps.map((p, i) => <p key={i} className="text-[#3F3F3F] leading-relaxed">{p}</p>)}
+      {ps.map((p, i) => <p key={i} className="text-slate-700 leading-relaxed">{p}</p>)}
     </div>
   );
 
@@ -12830,7 +12802,7 @@ const CapacidadesSection = () => {
       <div className="flex flex-wrap gap-2 mb-6">
         {subs.map(s => (
           <button key={s.id} onClick={() => setSub(s.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[2.5rem] ${sub === s.id ? 'bg-[#17487F] text-white shadow-md' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]'}`}>
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all min-h-[2.5rem] ${sub === s.id ? 'bg-sky-900 text-white shadow-md' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50'}`}>
             {s.icon} {s.label}
           </button>
         ))}
@@ -12841,35 +12813,35 @@ const CapacidadesSection = () => {
           <Parrafos ps={capMirar.entrada} />
           <div className="grid md:grid-cols-2 gap-4 mb-6">
             {capMirar.preguntas.map(p => (
-              <div key={p.n} className="bg-white border border-[#E3E3E3] p-5">
+              <div key={p.n} className="bg-white border border-slate-200 p-5">
                 <div className="flex items-baseline gap-2 mb-2">
-                  <span className="text-2xl font-bold text-[#17487F]">{p.n}</span>
-                  <h4 className="font-bold text-[#2F2F2F] leading-snug">{p.q}</h4>
+                  <span className="text-2xl font-bold text-sky-900">{p.n}</span>
+                  <h4 className="font-bold text-slate-800 leading-snug">{p.q}</h4>
                 </div>
-                <p className="text-sm text-[#5C5C5C] mb-2">{p.d}</p>
-                <p className="text-sm text-[#727272] italic border-l-2 border-[#D1D1D1] pl-3">{p.ej}</p>
+                <p className="text-sm text-slate-600 mb-2">{p.d}</p>
+                <p className="text-sm text-slate-500 italic border-l-2 border-slate-300 pl-3">{p.ej}</p>
               </div>
             ))}
           </div>
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capMirar.duraTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capMirar.duraEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capMirar.duraTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capMirar.duraEntrada}</p>
           <div className="grid md:grid-cols-2 gap-4 mb-5">
-            <div className="bg-white border border-[#E3E3E3] p-5">
-              <p className="text-xs font-bold uppercase tracking-wide text-[#9F1010] mb-3">Se reverifica</p>
+            <div className="bg-white border border-slate-200 p-5">
+              <p className="text-xs font-bold uppercase tracking-wide text-rose-900 mb-3">Se reverifica</p>
               <ul className="space-y-2">
                 {capMirar.cambia.map((c, i) => (
-                  <li key={i} className="text-sm text-[#3F3F3F] flex gap-2">
-                    <RotateCcw className="w-4 h-4 text-[#9F1010] flex-shrink-0 mt-0.5" />{c}
+                  <li key={i} className="text-sm text-slate-700 flex gap-2">
+                    <RotateCcw className="w-4 h-4 text-rose-900 flex-shrink-0 mt-0.5" />{c}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="bg-white border border-[#E3E3E3] p-5">
-              <p className="text-xs font-bold uppercase tracking-wide text-[#038549] mb-3">No cambia</p>
+            <div className="bg-white border border-slate-200 p-5">
+              <p className="text-xs font-bold uppercase tracking-wide text-emerald-900 mb-3">No cambia</p>
               <ul className="space-y-2">
                 {capMirar.noCambia.map((c, i) => (
-                  <li key={i} className="text-sm text-[#3F3F3F] flex gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#038549] flex-shrink-0 mt-0.5" />{c}
+                  <li key={i} className="text-sm text-slate-700 flex gap-2">
+                    <ShieldCheck className="w-4 h-4 text-emerald-900 flex-shrink-0 mt-0.5" />{c}
                   </li>
                 ))}
               </ul>
@@ -12887,23 +12859,23 @@ const CapacidadesSection = () => {
           <Parrafos ps={capSuperficies.entrada} />
           <div className="space-y-3 mb-5">
             {capSuperficies.filas.map(f => (
-              <div key={f.id} className="bg-white border border-[#E3E3E3] p-5">
-                <h4 className="font-bold text-[#2F2F2F] mb-3">{f.nombre}</h4>
+              <div key={f.id} className="bg-white border border-slate-200 p-5">
+                <h4 className="font-bold text-slate-800 mb-3">{f.nombre}</h4>
                 <div className="grid sm:grid-cols-2 gap-x-5 gap-y-2 mb-3">
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-[#8E8E8E]">Qué recuerda</p>
-                    <p className="text-sm text-[#3F3F3F]">{f.recuerda}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Qué recuerda</p>
+                    <p className="text-sm text-slate-700">{f.recuerda}</p>
                   </div>
                   <div>
-                    <p className="text-xs font-bold uppercase tracking-wide text-[#8E8E8E]">Qué toca</p>
-                    <p className="text-sm text-[#3F3F3F]">{f.toca}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Qué toca</p>
+                    <p className="text-sm text-slate-700">{f.toca}</p>
                   </div>
                   <div className="sm:col-span-2">
-                    <p className="text-xs font-bold uppercase tracking-wide text-[#8E8E8E]">Para qué sirve</p>
-                    <p className="text-sm text-[#3F3F3F]">{f.para}</p>
+                    <p className="text-xs font-bold uppercase tracking-wide text-slate-400">Para qué sirve</p>
+                    <p className="text-sm text-slate-700">{f.para}</p>
                   </div>
                 </div>
-                <p className="text-sm text-[#5C5C5C] border-l-2 border-[#CC8800] pl-3">{f.cuidado}</p>
+                <p className="text-sm text-slate-600 border-l-2 border-amber-800 pl-3">{f.cuidado}</p>
               </div>
             ))}
           </div>
@@ -12923,46 +12895,46 @@ const CapacidadesSection = () => {
           <Parrafos ps={capModelos.entrada} />
           <div className="grid md:grid-cols-3 gap-4 mb-6">
             {capModelos.ejes.map((e, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-5">
-                <h4 className="font-bold text-[#17487F] mb-2">{e.t}</h4>
-                <p className="text-sm text-[#3F3F3F]">{e.d}</p>
+              <div key={i} className="bg-white border border-slate-200 p-5">
+                <h4 className="font-bold text-sky-900 mb-2">{e.t}</h4>
+                <p className="text-sm text-slate-700">{e.d}</p>
               </div>
             ))}
           </div>
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capModelos.hoyTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capModelos.hoyEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capModelos.hoyTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capModelos.hoyEntrada}</p>
           <div className="space-y-2 mb-5">
             {capModelos.hoy.map((m, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-4">
+              <div key={i} className="bg-white border border-slate-200 p-4">
                 <div className="flex flex-wrap items-baseline gap-2 mb-1">
-                  <span className="font-bold text-[#2F2F2F]">{m.n}</span>
-                  <span className="text-xs uppercase tracking-wide text-[#8E8E8E]">{m.casa}</span>
+                  <span className="font-bold text-slate-800">{m.n}</span>
+                  <span className="text-xs uppercase tracking-wide text-slate-400">{m.casa}</span>
                 </div>
-                <p className="text-sm text-[#3F3F3F]">{m.r}</p>
+                <p className="text-sm text-slate-700">{m.r}</p>
               </div>
             ))}
           </div>
           <div className="mb-6">
             {capModelos.otras.map((o, i) => (
-              <p key={i} className="text-[#3F3F3F] leading-relaxed mb-3">{o}</p>
+              <p key={i} className="text-slate-700 leading-relaxed mb-3">{o}</p>
             ))}
           </div>
-          <h4 className="font-bold text-[#2F2F2F] mb-3">Qué gama para qué tarea</h4>
+          <h4 className="font-bold text-slate-800 mb-3">Qué gama para qué tarea</h4>
           <div className="overflow-x-auto mb-2">
-            <table className="w-full text-sm border border-[#E3E3E3] bg-white">
+            <table className="w-full text-sm border border-slate-200 bg-white">
               <thead>
-                <tr className="bg-[#EFF6F9] text-left">
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">Tarea</th>
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">Gama</th>
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">Por qué</th>
+                <tr className="bg-slate-100 text-left">
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Tarea</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Gama</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Por qué</th>
                 </tr>
               </thead>
               <tbody>
                 {capModelos.elegir.map((e, i) => (
-                  <tr key={i} className="border-b border-[#E3E3E3] last:border-0">
-                    <td className="p-3 text-[#3F3F3F] align-top">{e.caso}</td>
-                    <td className="p-3 text-[#17487F] font-medium align-top whitespace-nowrap">{e.gama}</td>
-                    <td className="p-3 text-[#5C5C5C] align-top">{e.por}</td>
+                  <tr key={i} className="border-b border-slate-200 last:border-0">
+                    <td className="p-3 text-slate-700 align-top">{e.caso}</td>
+                    <td className="p-3 text-sky-900 font-medium align-top whitespace-nowrap">{e.gama}</td>
+                    <td className="p-3 text-slate-600 align-top">{e.por}</td>
                   </tr>
                 ))}
               </tbody>
@@ -12974,32 +12946,32 @@ const CapacidadesSection = () => {
       {sub === 'prompting' && (
         <div>
           <Parrafos ps={capPrompting.entrada} />
-          <h4 className="font-bold text-[#038549] mb-3">{capPrompting.sigueTitulo}</h4>
+          <h4 className="font-bold text-emerald-900 mb-3">{capPrompting.sigueTitulo}</h4>
           <div className="grid md:grid-cols-2 gap-4 mb-6">
             {capPrompting.sigue.map((s, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] border-l-2 border-l-emerald-800 p-5">
-                <h5 className="font-bold text-[#2F2F2F] mb-2">{s.t}</h5>
-                <p className="text-sm text-[#3F3F3F]">{s.d}</p>
+              <div key={i} className="bg-white border border-slate-200 border-l-2 border-l-emerald-800 p-5">
+                <h5 className="font-bold text-slate-800 mb-2">{s.t}</h5>
+                <p className="text-sm text-slate-700">{s.d}</p>
               </div>
             ))}
           </div>
-          <h4 className="font-bold text-[#9F1010] mb-3">{capPrompting.cambioTitulo}</h4>
+          <h4 className="font-bold text-rose-900 mb-3">{capPrompting.cambioTitulo}</h4>
           <div className="space-y-4 mb-5">
             {capPrompting.cambio.map((c, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-5">
-                <h5 className="font-bold text-[#2F2F2F] mb-3">{c.t}</h5>
+              <div key={i} className="bg-white border border-slate-200 p-5">
+                <h5 className="font-bold text-slate-800 mb-3">{c.t}</h5>
                 <div className="space-y-2 mb-3">
                   <div className="flex gap-3">
-                    <span className="text-xs font-bold uppercase tracking-wide text-[#8E8E8E] w-14 flex-shrink-0 pt-0.5">Antes</span>
-                    <p className="text-sm text-[#727272] flex-1">{c.antes}</p>
+                    <span className="text-xs font-bold uppercase tracking-wide text-slate-400 w-14 flex-shrink-0 pt-0.5">Antes</span>
+                    <p className="text-sm text-slate-500 flex-1">{c.antes}</p>
                   </div>
                   <div className="flex gap-3">
-                    <span className="text-xs font-bold uppercase tracking-wide text-[#9F1010] w-14 flex-shrink-0 pt-0.5">Ahora</span>
-                    <p className="text-sm text-[#3F3F3F] flex-1">{c.ahora}</p>
+                    <span className="text-xs font-bold uppercase tracking-wide text-rose-900 w-14 flex-shrink-0 pt-0.5">Ahora</span>
+                    <p className="text-sm text-slate-700 flex-1">{c.ahora}</p>
                   </div>
                 </div>
-                <p className="text-sm text-[#3F3F3F] bg-[#F7FAFC] border-l-2 border-[#17487F] p-3">
-                  <span className="font-bold text-[#17487F]">Qué hacer. </span>{c.hacer}
+                <p className="text-sm text-slate-700 bg-slate-50 border-l-2 border-sky-900 p-3">
+                  <span className="font-bold text-sky-900">Qué hacer. </span>{c.hacer}
                 </p>
               </div>
             ))}
@@ -13019,32 +12991,32 @@ const CapacidadesSection = () => {
         <div>
           <Parrafos ps={capAgentes.entrada} />
           <div className="overflow-x-auto mb-6">
-            <table className="w-full text-sm border border-[#E3E3E3] bg-white">
+            <table className="w-full text-sm border border-slate-200 bg-white">
               <thead>
-                <tr className="bg-[#EFF6F9] text-left">
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]"></th>
+                <tr className="bg-slate-100 text-left">
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200"></th>
                   {capAgentes.columnas.map((c, i) => (
-                    <th key={i} className="p-3 font-bold text-[#17487F] border-b border-[#E3E3E3]">{c}</th>
+                    <th key={i} className="p-3 font-bold text-sky-900 border-b border-slate-200">{c}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {capAgentes.filas.map((f, i) => (
-                  <tr key={i} className="border-b border-[#E3E3E3] last:border-0">
-                    <td className="p-3 font-medium text-[#3F3F3F] align-top">{f.q}</td>
-                    <td className="p-3 text-[#5C5C5C] align-top">{f.a}</td>
-                    <td className="p-3 text-[#5C5C5C] align-top">{f.b}</td>
+                  <tr key={i} className="border-b border-slate-200 last:border-0">
+                    <td className="p-3 font-medium text-slate-700 align-top">{f.q}</td>
+                    <td className="p-3 text-slate-600 align-top">{f.a}</td>
+                    <td className="p-3 text-slate-600 align-top">{f.b}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <h4 className="font-bold text-[#2F2F2F] mb-3">Cinco reglas que no dependen de la herramienta</h4>
+          <h4 className="font-bold text-slate-800 mb-3">Cinco reglas que no dependen de la herramienta</h4>
           <div className="space-y-2 mb-5">
             {capAgentes.reglas.map((r, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-4">
-                <h5 className="font-bold text-[#2F2F2F] text-sm mb-1">{r.t}</h5>
-                <p className="text-sm text-[#3F3F3F]">{r.d}</p>
+              <div key={i} className="bg-white border border-slate-200 p-4">
+                <h5 className="font-bold text-slate-800 text-sm mb-1">{r.t}</h5>
+                <p className="text-sm text-slate-700">{r.d}</p>
               </div>
             ))}
           </div>
@@ -13064,89 +13036,89 @@ const CapacidadesSection = () => {
             </ul>
           </Callout>
 
-          <h4 className="font-bold text-[#2F2F2F] mt-6 mb-1">{capSkills.cicloTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capSkills.cicloEntrada}</p>
+          <h4 className="font-bold text-slate-800 mt-6 mb-1">{capSkills.cicloTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.cicloEntrada}</p>
           <div className="grid md:grid-cols-3 gap-4 mb-6">
             {capSkills.ciclo.map((c, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-5">
+              <div key={i} className="bg-white border border-slate-200 p-5">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className="w-6 h-6 bg-[#17487F] text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
-                  <h5 className="font-bold text-[#2F2F2F]">{c.t}</h5>
+                  <span className="w-6 h-6 bg-sky-900 text-white text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                  <h5 className="font-bold text-slate-800">{c.t}</h5>
                 </div>
-                <p className="text-sm text-[#3F3F3F] mb-2">{c.d}</p>
-                <p className="text-sm text-[#9F6A00] border-l-2 border-[#CC8800] pl-3">{c.ojo}</p>
+                <p className="text-sm text-slate-700 mb-2">{c.d}</p>
+                <p className="text-sm text-amber-900 border-l-2 border-amber-800 pl-3">{c.ojo}</p>
               </div>
             ))}
           </div>
 
           <div className="grid md:grid-cols-3 gap-4 mb-4">
             {capSkills.anatomia.map((a, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-5">
-                <h5 className="font-bold text-[#17487F] mb-2">{a.t}</h5>
-                <p className="text-sm text-[#3F3F3F]">{a.d}</p>
+              <div key={i} className="bg-white border border-slate-200 p-5">
+                <h5 className="font-bold text-sky-900 mb-2">{a.t}</h5>
+                <p className="text-sm text-slate-700">{a.d}</p>
               </div>
             ))}
           </div>
-          <h5 className="font-bold text-[#2F2F2F] mb-2">{capSkills.carpetaTitulo}</h5>
-          <pre className="bg-[#EFF6F9] border border-[#E3E3E3] p-4 mb-6 text-xs text-[#3F3F3F] overflow-x-auto font-mono leading-relaxed">{capSkills.carpeta}</pre>
+          <h5 className="font-bold text-slate-800 mb-2">{capSkills.carpetaTitulo}</h5>
+          <pre className="bg-slate-100 border border-slate-200 p-4 mb-6 text-xs text-slate-700 overflow-x-auto font-mono leading-relaxed">{capSkills.carpeta}</pre>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capSkills.clasesTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capSkills.clasesEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capSkills.clasesTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.clasesEntrada}</p>
           <div className="grid md:grid-cols-2 gap-4 mb-4">
             {capSkills.clases.map((c, i) => (
-              <div key={i} className={`bg-white border border-[#E3E3E3] p-5 border-l-2 ${c.ok ? 'border-l-emerald-800' : 'border-l-rose-800'}`}>
-                <h5 className="font-bold text-[#2F2F2F] mb-2">{c.t}</h5>
-                <p className="text-sm text-[#3F3F3F] mb-2">{c.d}</p>
-                <p className="text-sm text-[#727272] italic">{c.ej}</p>
+              <div key={i} className={`bg-white border border-slate-200 p-5 border-l-2 ${c.ok ? 'border-l-emerald-800' : 'border-l-rose-800'}`}>
+                <h5 className="font-bold text-slate-800 mb-2">{c.t}</h5>
+                <p className="text-sm text-slate-700 mb-2">{c.d}</p>
+                <p className="text-sm text-slate-500 italic">{c.ej}</p>
               </div>
             ))}
           </div>
-          <h5 className="font-bold text-[#2F2F2F] mb-1">{capSkills.escalaTitulo}</h5>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capSkills.escalaEntrada}</p>
+          <h5 className="font-bold text-slate-800 mb-1">{capSkills.escalaTitulo}</h5>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.escalaEntrada}</p>
           <div className="overflow-x-auto mb-6">
-            <table className="w-full text-sm border border-[#E3E3E3] bg-white">
+            <table className="w-full text-sm border border-slate-200 bg-white">
               <thead>
-                <tr className="bg-[#EFF6F9] text-left">
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">Nivel</th>
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">Qué hace</th>
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">En una oficina judicial</th>
-                  <th className="p-3 font-bold text-[#3F3F3F] border-b border-[#E3E3E3]">Control</th>
+                <tr className="bg-slate-100 text-left">
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Nivel</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Qué hace</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">En una oficina judicial</th>
+                  <th className="p-3 font-bold text-slate-700 border-b border-slate-200">Control</th>
                 </tr>
               </thead>
               <tbody>
                 {capSkills.escala.map((e, i) => (
-                  <tr key={i} className="border-b border-[#E3E3E3] last:border-0">
-                    <td className="p-3 font-bold text-[#17487F] align-top">{e.n}</td>
-                    <td className="p-3 text-[#3F3F3F] align-top">{e.t}</td>
-                    <td className="p-3 text-[#5C5C5C] align-top">{e.ej}</td>
-                    <td className="p-3 text-[#5C5C5C] align-top">{e.ctrl}</td>
+                  <tr key={i} className="border-b border-slate-200 last:border-0">
+                    <td className="p-3 font-bold text-sky-900 align-top">{e.n}</td>
+                    <td className="p-3 text-slate-700 align-top">{e.t}</td>
+                    <td className="p-3 text-slate-600 align-top">{e.ej}</td>
+                    <td className="p-3 text-slate-600 align-top">{e.ctrl}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capSkills.entrevistaTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capSkills.entrevistaEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capSkills.entrevistaTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capSkills.entrevistaEntrada}</p>
           <ol className="grid md:grid-cols-2 gap-2 mb-6">
             {capSkills.entrevista.map((q, i) => (
-              <li key={i} className="text-sm text-[#3F3F3F] flex gap-2 bg-white border border-[#E3E3E3] p-3">
-                <span className="font-bold text-[#17487F] flex-shrink-0">{i + 1}.</span>{q}
+              <li key={i} className="text-sm text-slate-700 flex gap-2 bg-white border border-slate-200 p-3">
+                <span className="font-bold text-sky-900 flex-shrink-0">{i + 1}.</span>{q}
               </li>
             ))}
           </ol>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capSkills.pasosTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-4">{capSkills.pasosEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capSkills.pasosTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-4">{capSkills.pasosEntrada}</p>
           <div className="space-y-3 mb-6">
             {capSkills.pasos.map(p => (
-              <div key={p.n} className="bg-white border border-[#E3E3E3] p-5">
+              <div key={p.n} className="bg-white border border-slate-200 p-5">
                 <div className="flex items-baseline gap-3 mb-2">
-                  <span className="w-7 h-7 bg-[#17487F] text-white text-sm font-bold flex items-center justify-center flex-shrink-0">{p.n}</span>
-                  <h5 className="font-bold text-[#2F2F2F] leading-snug">{p.t}</h5>
+                  <span className="w-7 h-7 bg-sky-900 text-white text-sm font-bold flex items-center justify-center flex-shrink-0">{p.n}</span>
+                  <h5 className="font-bold text-slate-800 leading-snug">{p.t}</h5>
                 </div>
-                <p className="text-sm text-[#3F3F3F] mb-2">{p.d}</p>
-                <p className="text-sm text-[#5C5C5C] bg-[#F7FAFC] border-l-2 border-[#D1D1D1] p-3">{p.ej}</p>
+                <p className="text-sm text-slate-700 mb-2">{p.d}</p>
+                <p className="text-sm text-slate-600 bg-slate-50 border-l-2 border-slate-300 p-3">{p.ej}</p>
               </div>
             ))}
           </div>
@@ -13155,17 +13127,17 @@ const CapacidadesSection = () => {
             title: 'Pruebas de disparo', mins: '10 min',
             what: 'Un skill correcto con una descripción floja. Ocho pedidos: decidí en cuáles se activa, y mirá cuántas veces falla.' }} />
 
-          <h4 className="font-bold text-[#2F2F2F] mt-6 mb-1">{capSkills.ejemplosTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-4">{capSkills.ejemplosEntrada}</p>
+          <h4 className="font-bold text-slate-800 mt-6 mb-1">{capSkills.ejemplosTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-4">{capSkills.ejemplosEntrada}</p>
           <div className="space-y-4 mb-6">
             {capSkills.ejemplos.map(e => (
-              <div key={e.id} className="bg-white border border-[#E3E3E3] p-5">
+              <div key={e.id} className="bg-white border border-slate-200 p-5">
                 <div className="flex flex-wrap items-baseline justify-between gap-2 mb-2">
-                  <h5 className="font-bold text-[#2F2F2F]">{e.t}</h5>
-                  <span className="text-xs font-bold uppercase tracking-wide text-[#038549]">{e.nivel}</span>
+                  <h5 className="font-bold text-slate-800">{e.t}</h5>
+                  <span className="text-xs font-bold uppercase tracking-wide text-emerald-900">{e.nivel}</span>
                 </div>
-                <p className="text-sm text-[#3F3F3F] mb-3">{e.que}</p>
-                <pre className="bg-[#F7FAFC] border border-[#E3E3E3] p-4 text-xs text-[#2F2F2F] overflow-x-auto font-mono leading-relaxed max-h-96 overflow-y-auto whitespace-pre-wrap">{e.texto}</pre>
+                <p className="text-sm text-slate-700 mb-3">{e.que}</p>
+                <pre className="bg-slate-50 border border-slate-200 p-4 text-xs text-slate-800 overflow-x-auto font-mono leading-relaxed max-h-96 overflow-y-auto whitespace-pre-wrap">{e.texto}</pre>
                 <div className="mt-3">
                   <CopyBtn text={e.texto} label="Copiar el skill completo" small />
                 </div>
@@ -13173,21 +13145,21 @@ const CapacidadesSection = () => {
             ))}
           </div>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-3">{capSkills.usoTitulo}</h4>
+          <h4 className="font-bold text-slate-800 mb-3">{capSkills.usoTitulo}</h4>
           <div className="space-y-2 mb-6">
             {capSkills.uso.map((u, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-4">
-                <h5 className="font-bold text-[#2F2F2F] text-sm mb-1">{u.t}</h5>
-                <p className="text-sm text-[#3F3F3F]">{u.d}</p>
+              <div key={i} className="bg-white border border-slate-200 p-4">
+                <h5 className="font-bold text-slate-800 text-sm mb-1">{u.t}</h5>
+                <p className="text-sm text-slate-700">{u.d}</p>
               </div>
             ))}
           </div>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-3">{capSkills.usosTitulo}</h4>
+          <h4 className="font-bold text-slate-800 mb-3">{capSkills.usosTitulo}</h4>
           <ul className="grid md:grid-cols-2 gap-2 mb-5">
             {capSkills.usos.map((u, i) => (
-              <li key={i} className="text-sm text-[#3F3F3F] flex gap-2 bg-white border border-[#E3E3E3] p-3">
-                <CheckCircle2 className="w-4 h-4 text-[#038549] flex-shrink-0 mt-0.5" />{u}
+              <li key={i} className="text-sm text-slate-700 flex gap-2 bg-white border border-slate-200 p-3">
+                <CheckCircle2 className="w-4 h-4 text-emerald-900 flex-shrink-0 mt-0.5" />{u}
               </li>
             ))}
           </ul>
@@ -13201,70 +13173,70 @@ const CapacidadesSection = () => {
         <div>
           <Parrafos ps={capConfiar.entrada} />
 
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capConfiar.capasTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capConfiar.capasEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capConfiar.capasTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capConfiar.capasEntrada}</p>
           <div className="grid md:grid-cols-3 gap-4 mb-3">
             {capConfiar.capas.map((c, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-5">
-                <h5 className="font-bold text-[#2F2F2F] mb-1">{c.t}</h5>
-                <p className="text-xs font-bold uppercase tracking-wide text-[#17487F] mb-2">{c.verbo}</p>
-                <p className="text-sm text-[#3F3F3F]">{c.d}</p>
+              <div key={i} className="bg-white border border-slate-200 p-5">
+                <h5 className="font-bold text-slate-800 mb-1">{c.t}</h5>
+                <p className="text-xs font-bold uppercase tracking-wide text-sky-900 mb-2">{c.verbo}</p>
+                <p className="text-sm text-slate-700">{c.d}</p>
               </div>
             ))}
           </div>
-          <p className="text-[#3F3F3F] leading-relaxed mb-6">{capConfiar.capasCierre}</p>
+          <p className="text-slate-700 leading-relaxed mb-6">{capConfiar.capasCierre}</p>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-2">{capConfiar.mcpTitulo}</h4>
+          <h4 className="font-bold text-slate-800 mb-2">{capConfiar.mcpTitulo}</h4>
           <div className="mb-5">
             {capConfiar.mcp.map((m, i) => (
-              <p key={i} className="text-[#3F3F3F] leading-relaxed mb-3">{m}</p>
+              <p key={i} className="text-slate-700 leading-relaxed mb-3">{m}</p>
             ))}
           </div>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-3">{capConfiar.ejemploTitulo}</h4>
-          <div className="bg-white border border-[#E3E3E3] p-5 mb-6">
-            <p className="text-[#3F3F3F] mb-4">{capConfiar.ejemplo.escena}</p>
+          <h4 className="font-bold text-slate-800 mb-3">{capConfiar.ejemploTitulo}</h4>
+          <div className="bg-white border border-slate-200 p-5 mb-6">
+            <p className="text-slate-700 mb-4">{capConfiar.ejemplo.escena}</p>
             <ol className="space-y-2 mb-4">
               {capConfiar.ejemplo.pasos.map((p, i) => (
-                <li key={i} className="text-sm text-[#3F3F3F] flex gap-3">
-                  <span className="w-6 h-6 bg-[#E3E3E3] text-[#3F3F3F] text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
+                <li key={i} className="text-sm text-slate-700 flex gap-3">
+                  <span className="w-6 h-6 bg-slate-200 text-slate-700 text-xs font-bold flex items-center justify-center flex-shrink-0">{i + 1}</span>
                   {p}
                 </li>
               ))}
             </ol>
-            <p className="text-sm text-[#3F3F3F] border-l-2 border-[#03914F] pl-3 mb-2">{capConfiar.ejemplo.gano}</p>
-            <p className="text-sm text-[#3F3F3F] border-l-2 border-[#9F1010] pl-3">{capConfiar.ejemplo.cuidado}</p>
+            <p className="text-sm text-slate-700 border-l-2 border-emerald-800 pl-3 mb-2">{capConfiar.ejemplo.gano}</p>
+            <p className="text-sm text-slate-700 border-l-2 border-rose-800 pl-3">{capConfiar.ejemplo.cuidado}</p>
           </div>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-3">{capConfiar.grillaTitulo}</h4>
+          <h4 className="font-bold text-slate-800 mb-3">{capConfiar.grillaTitulo}</h4>
           <div className="space-y-2 mb-6">
             {capConfiar.grilla.map((g, i) => (
-              <div key={i} className="bg-white border border-[#E3E3E3] p-4">
-                <p className="font-bold text-[#2F2F2F] text-sm mb-2">{g.q}</p>
+              <div key={i} className="bg-white border border-slate-200 p-4">
+                <p className="font-bold text-slate-800 text-sm mb-2">{g.q}</p>
                 <div className="grid sm:grid-cols-2 gap-3">
-                  <p className="text-sm text-[#3F3F3F] border-l-2 border-[#03914F] pl-3">{g.bien}</p>
-                  <p className="text-sm text-[#3F3F3F] border-l-2 border-[#9F1010] pl-3">{g.mal}</p>
+                  <p className="text-sm text-slate-700 border-l-2 border-emerald-800 pl-3">{g.bien}</p>
+                  <p className="text-sm text-slate-700 border-l-2 border-rose-800 pl-3">{g.mal}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <h4 className="font-bold text-[#2F2F2F] mb-1">{capConfiar.inspeccionTitulo}</h4>
-          <p className="text-sm text-[#5C5C5C] mb-3">{capConfiar.inspeccionEntrada}</p>
+          <h4 className="font-bold text-slate-800 mb-1">{capConfiar.inspeccionTitulo}</h4>
+          <p className="text-sm text-slate-600 mb-3">{capConfiar.inspeccionEntrada}</p>
           <ol className="space-y-2 mb-6">
             {capConfiar.inspeccion.map((x, i) => (
-              <li key={i} className="text-sm text-[#3F3F3F] flex gap-3 bg-white border border-[#E3E3E3] p-3">
-                <span className="w-6 h-6 border border-[#D1D1D1] text-[#8E8E8E] text-xs flex items-center justify-center flex-shrink-0">{i + 1}</span>
+              <li key={i} className="text-sm text-slate-700 flex gap-3 bg-white border border-slate-200 p-3">
+                <span className="w-6 h-6 border border-slate-300 text-slate-400 text-xs flex items-center justify-center flex-shrink-0">{i + 1}</span>
                 {x}
               </li>
             ))}
           </ol>
 
-          <h4 className="font-bold text-[#9F1010] mb-3">{capConfiar.senalesTitulo}</h4>
+          <h4 className="font-bold text-rose-900 mb-3">{capConfiar.senalesTitulo}</h4>
           <ul className="space-y-2 mb-6">
             {capConfiar.senales.map((s, i) => (
-              <li key={i} className="text-sm text-[#3F3F3F] flex gap-2 bg-white border border-[#E3E3E3] p-3">
-                <AlertTriangle className="w-4 h-4 text-[#9F1010] flex-shrink-0 mt-0.5" />{s}
+              <li key={i} className="text-sm text-slate-700 flex gap-2 bg-white border border-slate-200 p-3">
+                <AlertTriangle className="w-4 h-4 text-rose-900 flex-shrink-0 mt-0.5" />{s}
               </li>
             ))}
           </ul>
@@ -13301,19 +13273,19 @@ const App = () => {
 
   const botonTop = (activo) =>
     'flex items-center gap-2 px-3 sm:px-4 py-2.5 text-sm transition-all border-b-2 ' +
-    (activo ? 'border-[#17487F] text-[#17487F] font-semibold' : 'border-transparent text-[#727272] hover:text-[#2F2F2F] hover:border-[#D1D1D1]');
+    (activo ? 'border-sky-900 text-sky-900 font-semibold' : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300');
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-[#E3E3E3] shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-slate-200 shadow-sm">
         <div className="max-w-5xl mx-auto px-4 py-2 sm:py-3">
           <div className="flex items-center gap-3 mb-2 sm:mb-3">
-            <button onClick={() => irA('inicio')} aria-label="Ir al inicio" className="w-9 h-9 sm:w-11 sm:h-11 bg-[#17487F] flex items-center justify-center flex-shrink-0" style={{ borderRadius: '2px' }} aria-label="Volver al inicio">
+            <button onClick={() => irA('inicio')} aria-label="Ir al inicio" className="w-9 h-9 sm:w-11 sm:h-11 bg-sky-900 flex items-center justify-center flex-shrink-0" style={{ borderRadius: '2px' }} aria-label="Volver al inicio">
               <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGMAAADwCAYAAAAUydp4AAAchElEQVR4nO2daXcbx5WGnwLBRZQoUZvtKLFjO85Mlskkk8xyzmxnvs45+Q3zC+cfzIdZkziJE69KvESyJWsXSZHiToKo+XDrom4XqgGQBMEG0O85fRpsdDfR9fZd6tatW857/+9AI2xHwC6wCjwK21NgDdgO37UAHzb93A6bD/fxwL5zbgcD730DaIbvj5xzbWp00AQWkAacQRqpiZCyH/YzwEVgJxyzZBxRJAMiGQfe+03gBbDpnGuHxj/w3jvnnB/JE44RmsAS0uAzROm4ELZl4FVEKvaBQyIBSoIlxhHJaCES9Qh45L1fdc5tAigRQVIAfE2OkHENIWIWmEMa8xDYM5uSoERAJAGEFJUiZ449A/4E3AY+897fdc7tA3jvlbiGufdUo4m8/U2EiEVEbVl4YgOXQSWjmRx/CnwKXA/33wfuQkc6Wt57tSFTjyYiEbPAPN1EQH8i9JyUCBAVN48Q4YB2UE3PnXMbAM65lvfeheMOaE+rymoiKki9oBb5Rj0NrgDfJRr4WeC29/4zVVkICVbFTaXKaiKqo42QsU83GYOoqfT8NtK4hGtvED0uF87ZIqqsNiI1U62ymsRGsltqnB2DN5KSoe6yknuT+Ma3CC4usFKrLEETeejcBlEqcpJhG8klx/S6RnLODaI6mkHsyW3v/efOuT1znrrZLaZIZZWRoVCJOI6aslAvS1XWLPCK+T96fBu4AwWVNcuUqaxhG+sUNmyifQoQlaUG/ZCosqyXdQidjuFUqKyzJkNVVU6yrgF/RvTk5oFPrJcVCJoalTUKMqw9SVXWTXOe/pYdpNeuHcPDaVFZZ02GhY1hQSRF3V7Cd2ovnjnnVkFU1jR4WaMko0xlOaLKaiIByiXgQ+/9rgnDq/Ro7GziVNaoyeinsjQsMx+ObwJ/hI6XdTDJKmuUZKRIw+4gQcu3wucDYC8Y8WfOuRWYbC/rPMko87IuA28idqQJXAI+8N5vO+d2k+tnmCAv67zI6KWyHCIh7yDRXlVZG8AfOjcIoRMmSGWVxabsG5s+7El74+m9tCHt/4XYr7gMvBGO7wG73vsZZIzkuXPOq8qCjtoa6xHDQclodF/ahZSkXo3izWavt0FGEM/qm4jkzCIEvY/0RbaSe85QHIkcO+gI36zZnzaEruh1TfqdqqiUoFlklPAicDVsc4iX9cEx/t9YoIm8balLaVH2kOkbOIg669dgZRHiBcSoL4e/93TEEFhzzm3b/x9sCeOmsuyw66DG3Or3QR/WmX2ZFzUIloGfICrKAR8j3tQ2RRWlGSpjR8YqQsYCkpCwmJyTqikbfT1LlCU5NJEw/OtIGtA8dDqFirH0sprA75EHUr18DSFmlphP1QzbTP42x0abGNLQkcU2YQQQGf49QDIY7bkOsRcPgXXEyzqalKS4JvAfiNdyBcnmuIUQchExlnPh+/mwv8jpJGMfUSvbhMYMWwtp/M2wbYX9Xji+Z87ZQOzFA8SzSiWhzZhKxi+I2YPfAL6FqIElREJUfSkRS+HzHLFPoJtNYLNRWm3sfaTxNoGXxNzdFvL2byNv/Hr4/iWRuK1w/r7Z9sL9Uoxlf8N57xeRt/4S4ka+gkiGHtd8KpWMRfP3DMXUUNurVkOv4QolY4/BJUOTrXfpTrzG/L/UZowlHHR6r7MUG1ttRpOi3Zil6IHpd6lbqimflgyVgEPEJvSyGXpeCzi0ve0Uk2IzTuRiBvIsUZrxkSNDt04a0CQ03FlgrHqt2pmD8evQ1ahR46RwQfRtuMJ+psdnqybKVMZJrvMl++z5k6SuNNSQpmWWodc4R3osl3hQdm4Opd+flgBre4Z53xoThKF6U6PydsrebMqfpysxO/196T3PQ0rGyrWFQqP1sm257wq3MVt6rUfIGvsefY1TQFMme2EU4nocp2EkPfjzmBZtxyhynlIqyv2SDCwGGWJNPw/iTre99+0RqBEtUjCycPzY2YxBkQYPg63Rsf4LSDB0Lnx9SIwO7wOt87AZY0uGaVzd5symf9uRSo1KXwqbRqZBIsNbSBGB+8A9MxNXVVYDSSU9M5KGllGY2J4z1bMhmW0JadSLZrsc9npcx10WiNntV8J588QRyzYykHUX+DUynvLY/EsltUVMxhg6mt77BaJuPHGlm7N8Y4IUNImDYMthuxy2pbC/ao5dJo7NLBLJuhLOT1/ETSTJoQ089d6/0EmfYX4InCERhB/0d+GzRwb3D4nDozr2rANB6Thzmx76NbzBuWFZiBMsNTNF1YsdPVR1Y0cZLyGNuURRCgaRjFwFCMUSUjxgAxn2xXt/D3jgnOsMbp2lymoC/0oMELYRIjaAFWTQ/wWiT3XyvuKIUPDFe6/ZHJrBoZmKutlBKIXO47uIvOVLxKHeOfOdfaMvEcff5+nOiMxlR9qRyH5YAr4fftsyorL26FZZWlli6GT8IzG9HqTR18IPeIwQskEcr1ZoTaqCF4I8tK1FMk+xYexDLSANfQN5eG1slQRVP8uICtKMFcVpp0Xn8ohfI0oXwPNRqawm8O3wg7TBjpDGfw3JFFHJ0Ddf0SaOV2sZJCUjJxk6BUxhJeMqMetEvRzV9apycjgOEWnGe5rU4IhELyHT2jaJKusrRGW1jMpSVTsUlaUunzaeZnwsIm/jLYr1puw/tEkEdpxbUzhV2qzdOInNGJbHZ6cx2/RUR17CVGXpfJF3kbZ4Ys7R33jopWNzKg9SC7kcmb+17tQikrpzGlVQRSgpFmV5ua8SpRNgxXu/blSWTtgZylS2JvJm6+ecqJ03EbkJNdA7QjtoeCWF/R8qkVZlvQRmjMraz6iso5MSo/9QvalRJDQfF/qQud933GkHg4yD5NpAVZbOF/kN8L9Ib12hXpYPsbNjE6L1nXTLSUZV1NRZvyi9xj4corLUxZ4B1rz3L51z69BRWXAKlZUjwxo3PZb7ocOcLDOoWhnlS2G9Lo1hXUAmfr5E1NaM9/5z4Gvn3K5zrgUnV1mpp5Jmh/jkWBkGyQ7ph5Ool7OAfW4No1ssIDZkHukf/RL4b0JVuYATqayzrjc1ruhl4BsICVcRleWA1eBlrUG3yho0F/g8J+WPE1RlHRErkc4Ab1OMZX0G3M+pLO99X5VVk9EfKiW55O4GQsgMIim/QLoKd8w52jHsq7JqMgaDEmA9OlVZqq6WwnFVWVqeaWCVVZMRMYiRtR5mixi+aSAFaNaJKutT8iqr6b0/IjMAN+1k9HPPy66xcS6FEjKDxLKuIzG91MtSN/nIe19Ilpt2MvrlA/dCOoexgUy/09FG9bI2MirrSFWWveG4k9Ev+brX8ZwrfxxYIlRl6f3eRIYeVqGjsr52zu2oyoLuFNJxLXedy+XqNYUgd8ySUVa1YdDObnp9A6kI9C+IpFxHOoZ3ChcbY+69d4MOR1YNg0RgR4GcdGntrJthew0Jo2x573ecc3YIV9cOAYqxqTRMbbP4yn7IcXHSORlpFOA06uW4sFmF+jvSkh29Xo5vAf+EjIre9N7/Eanw8JRY80QuDL1GXXvpIjKY0i8+dZqGyKmOsu9y5wyiXo4LTcRIX0S1BzqaqW2hI6RpJNkmzKV4iFR0eA/4FfA7ZEykUzdLc5FslkV6o2HHps5DreSewZbN2KGYcGHJ0PnoOqysK6ppxiLmGn2ptaKE5nmBFDG7Fa7bRhI9XnrvD5xzB4SLNT6vKTIpqm5TNGXoIGydifzmuGauWFWsZTM2idktKRmeKBl6nY7ta4cPc41mvOiY/hzi7l4jVp64jCTLvYkQsuu9P3TOeZuQkBOtHHITTXLn2Ieyn4c5SLRLLGuhJS40+c7WHNE6JZrhcphcY5e8S3+3tRepzUifr0ExZ2sBifB+A/GubpnzXgnbCrCu3tQzjldvapTG00JLXhwgDa6NuYE09kbYNs13+r1NxLP3UPIOh5FQYAaVtHe+QLFAzi3Ew5pD1GIDaOj/biJZczaH9Rox8SxNmUlF86RQ9aGG0Yao9TurerQIjCbNaYPrm6+fN4mSsWO+1+MdybCdr2FBV1gjJnnsAi+89w+R8fIbiKu7jJCxEvZyvff+34gMvoqwuIxIyBwxT1VzXS8S86uOA/VMtCyRbSB9gANi42ojammjHWIDq9o5TDZ7r9RuWI9o5FWig9RoiajF8DusdOK8928R6029hlj9G8Q5DEqApjym9aZysAbQFnTRSSmaqaeqQxttj1hnSgdtbM0p/fFbdv6EPuy4z+PWCgm23pQOKaprlkqGLYE0iJ+vZKibqC6lejH2bbbuplUvu8BeSsAwELLK7cQaq/ety29rarnkc/q8aahdtcFeeI5sufDOjUL6vjb6Avk6U3afG/nKIVeVTUkpsxm21lTnnLKHOA2891phztbY0kx2q1a0P5Ya6bTomV12VZPDdxBJV5Vkl2pVl7p1Yq8oMx+79FT9cF5qJDO/r0GciqCjdGojVRoWwvFlYolA1QZpBTo7A8rmHR8RPTclQ+e8bBM9wT3gUKcej2VBrrDIokqpnaORVoyz0QX97hKRCCsZes95hCCdAZVKhpKiKgvypcytatbOpSUokjHMxhklwkukYQeNq11GGnkx2S+ZvxfN+ReJzohOWbAZ9JbI1Gbk0pt8ZlO7oWo3dWY6ndFKk5HzkMIcRJ3HZ6eM6Zw+fdv1nCsU1ZFOyNGJPOc5jFC0iYnuT+1AWaR22FFbR/fcD50jciVsOmtJ32orEXYCZToD1krGRSo8utk0Y7E23tSrsYfxFqVE2Aks+v0S8B0klfJtpDO6RHFJaw3M5eb15eaHVxpNyHo5IzPmOn88nYblvb+ERDZ/BvwYyby4SnEifZvu6WnjBJtc7asgsmV9lUUkPPMmIiE3ku9P8tsLD9/nN/X7PChy4+/6uXJklGGWYrnvYSDtoNl9v4Yehp1MUZjwWWUyrB9/SH60TueOHKehBu2sDhOD/K9KkwFFP/3AHFMCLBm9PMB+3mElUAUyemWE2GwVlRJFSkaKssauHAmKKpBRhjQzA/Ih+/MaeRw6quwSprlcYxc7Oy6qTEYu9jPRqDIZMGWEVJ2MqUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCDUZFUJNRoVQk1Eh1GRUCFUmw07Cn/hSFVBtMgZZp2OiUHUybImjSYevMhkwHbVDOtJf5XpTtuLyuK4nOAg6L1olJSOsWDBHLB6sdWxhsmyIXf6hUSnJMNWntXLnZaTa8wLF5dq0ItskqK9O/cSqSIYHKXYcCh6rVFwOm10pbWKrslVBMnLu6zxSy1brnOfOH3eJgKTQ8LmQoerIlP32yXdqK3TdisLl5vxxIqSsLm9ndcxzl4xQGN9Khi40ctJVz8YJdm2No/O0GV3hjrBSjC6/oysCdL6fQFgyDs5dMqAjHboq2jVklceriBcFFa/UfArYRb9aVZEMtR8pGam90OsmhRBdsawFHFaCDNO/mEdIuImQcoFuFTUpRECUjHMlo/N2ByK0gReRhRtfRdbLuEC+8ceNkLLocxspuL8H7J67zQjqSX/oBeKSzdeINqNwyYh+2iigq3buUAUyFGYh2leR5ZqvEtdJyi3NMAnQdclfAlvnpabUlbUNu4AQ8A1ksd8rxAiBHdMYV0JyauoAWb92FXg+UjKSxk9XzbyM2IubYb9AcWXIcex194Muub0OrI5MTRlDnS6C2ERsxSuIirpKdzxqUnFIXBt9Y9RqqvBWh2XhLiDrkL+F2Irl9LzM35MAT1zj9SWwMUoD3tH1QT21ALz3F4E3gO8B30biUrlrxxk519YhbaCL1b8YtWQ0ErsB0vhvAX8R9kvEnqm1E+NMSEqGflZvah14dh5qKv2fN4DvImS8gZCT2pZxJkKR86b2ESKeA4/PXE2ZlYs9yWr33vvrwOuIRLyBeFGdr83ncZeMFPose8ia4CuctTcVVFLDe6/9BLUTM0gP+21kId3XEcNdhnEnIvf7W0QVtQJsnrVk6MrEIP0KJUVXNP4p8COko5cOIo07AVBc4DF9Hu15ryGdvv1ReFPeqqaA14AfAn+N2IsrmesmgQxFjoyXiIraBLacc8Mfdk2isBBUU/huFunUvYNIxI+Q0Mci0YNqUFwQd5xhx71tqtEBIhEbwI5zrgVnkx3iwn3VaB9Bh6QbCBF/iXhPbyMqa7bkPuNMSOo9NcKxQ4SEpwghe3rCWZDhgaOMarqJEKF24i3EiJdhnIlQ5NzzQ+AF8CTs9/WEU5Nh1FKDaB+s+6qe058jNuJvkd72zcyPngQCLMr6FmsYyVD3/1RkqOsatibQ9t6TSMU1xH39G+AfgJ+EYxr2SMcqJoUQ2+vWzw3Ei3oGPEJc2h2NXp+KjHCTo9CPaKeqyXt/EyHip4hU/BixExZHxOWlq5JuOmzYl2wbkYpHDGozMjGk1CvwhDEJJcVcu4yEw99BDPWPEVf2m8k9bfxpGuCR8YvHwNdIh+8AJILdRYYhIbdP315NT7TXzyBv/08QEn6AGOsbdI9p670mRTVBsaOXQu3FQ+AB0tfQl7jZRUYu/zX7H2UsIpd6+Q5CxN+H/dtI38JC+xO2hz6JyHX01pDA4Kpzbs9812iGRrVIh0Pz/8W5tvce7/0VJMB3HelJfw/4K0QqvkMx5mRD45NkrMug0ecjxDY8D9s6Mo5ROLdJ95vpvfdtE0fqhUUk2vqDsL0BvInEml5BxrXTHzeJqski7XV7pOGfA18hhnsj88L7pnPukB5Q9zXjKV1FGv6HwM+IcaYbRIItofojJ9Vjgu7pCjZU/hi4i9iKrdy1PV1b7/08YnQXvfcLSN/gMjHz71uIjfh+2K4nt9ChRSVCXdhJhU5+SbXNHiIRd4B7wMvMHJV8oDDYkSXinLobSI/5FqKKNBd2GTHO1+k20hAJmNQedoqyNM5NxJX9E4EMk3nfubYZ3nhVH7NItsYS0rhXkUZ/FekjvIVIwi2EJA3wWT2ZztCZBkPdDy8QyXgArCRelKLdRFxQneqrROhM0yWk0S0hr9PdX7BBsDYxRDLpxjpFmhumo3nPEJvx1DlnvahGcJY8wWb8nOLs0mXiZPj5sFd7cYl8MrKiyeTmxZYhNdgaKj9C1NNDREVplNai0z4aKPxnpNEvIUQs9/hn/TDpnbgy2H6TPv8e0sG7g7i0K865/eS6giQ1kcSxOYSMnNuZkqAJaFYCGkyXNFioB5W23R4iDV8AXxKkIuNFddAMm/V4+kFH8trm7zSONW3IdZA3EIn4HCFjHbpIKFzXRBg8RN72BfLzrnMR3GlUR8fBKkLGXSRknvOgCq5wk+gBQbdLqrBe0bR5SIPAEdX2EXHM4h5wH5GSls3ET2ZsAbF0kDbyDMUxDjUuqS2oiejOidI5JNuIB/UVQsQTYM908mYIGTOp3VDdr297Liw+KXU6hglbv0RtKEh6/wpitO8AT5xznTiUIcT2RTpoEBkt68rX6IZ6UCn2kV72beAzJFIrF3SPnHYhTRarJWAwKBnpy/sCkYqPEC+q08mzAcGym05z/2AYSNtM+xVfAI80BpVIRWm9rMpMPR4DlEUidBTvJeLG3gUeOud2oBMBdzYGVfYPajIGhzZk6uDsIm7sl8AfEQ9qPblONVDPIe1JHnU7C2hDapQbJBj4FfA7hIxnzrkDvWCQfAJFTcbxkPOiXiCe02+RwaN1kCnVJtljIEJqNXU8pEHBbcSV/QT4AAmBbIfvUqPdFzUZ/WETKZpEIo4QIr5AJON+ktxRGKsY5B/Vaqo30inQ2l4HiKH+EOlT3LNEZHLRBkJNRm8oGamaWUOI+CWinp5lrjt2Qf2ajP7IDRfcB95HPKg7RDshF4haOnYx5NpmdMMGASG2kUdC4WtI7OkT4I5zbhXQgjQgs7ZOFOeryehG6jHZeRX3gU+B3yMSsWqu03kmctEx+heKWk2VI511+wwh4l3gYyQ8fqLOXRlqyYjQkbp0/KZFjDt9hEjFXURlqXrSuYynIqQmQ5DOv1My2kgP+0uEiA8Q6dhIsgI7155GQmoyirBZkCChjS8REj4CvnDOPU2usZ27U60PNc1k+ORzGhrfQzIB3wd+hXhQTzoXdFeCODWmmQyIdkL3iiOk4W8jRPwKGdvegk4PW1Xb0CaJTjsZGnOyqkkzAT9BpOJD59znyXVNoBXU0tDyBqaNDNuhK1NN9xD78BuEjHuFG4j3dCZD1NNIRlqwWDtqqpo+BP4T6U88JbiwBqqWhp5JM21k5NQSRNV0G3gPeNc594E9wXs/R1RNaZGaoWAayEgnPaZE7CBhjo+R0Trt1MUbSJ2sM6+BNS1k6Jtss/9AetePkX7EfwG/RsIcL5N7qGo603Vmp4EMtQs5iXiMeE2/RVTTh/aEIBFHQTWd+YK/k0iGqiXtO6TTnVtItPVrJLTxPolqCh06VU0jW3V5UsnQpXNy9Q5XiSS8h0jGE+fcpp4QEpRbxA7hSDCJZNiU1fT5nhLHI94F3nPOpca6idTOGvk65ONORi7aqmTYZ3uOuK53EEn4OOzTDp2urnwu2fjjTIa1DXZaQzo1eoeolj5GUmu+Bp5nilqOXDVZjDMZdsYVxGXWLFpIav7vgf9DpOGBncACaMGyc1FNFuNChlVFNocpnXfYQAh4jtiHZ4g0vBf2X9m52KaAmaqmc50sNA5k2FlVViXptOkUK8AfkDSaTwlzJZBSEYVJ8VrAjHO0ExbjQIYdxNH56ppmb7GPEPE5Ign/gwT9Hqv68d43zGcXil2eq2qyqAoZ6aib7nOxJEvOAaKSVsL+EZIJ/glw2zn3ML3W5Dd5M4GlEqgCGXaum082iBUccnhGaHjEbX2AhDjUZhTgnDvKzMWuDKpAhlVBKewAkP18iDT2H5C40nuIfXiU8ZS0LLgYhxNm+40CZ0lG+sC5v/tN7rSNv4akzayH/UMknvQxQsp9Xfqg8w9EJTUpVqWuJBFwdmT4zD79bG1Cv9qFz4mzSO8iPecnxMWjVlIiAuyoXOXUUoqzIuO4VXZyjeSJVcxUAj5CpKCTcNw5OXbcOvdKy4JXHXbRkdRwKvr9bY9ZEo4zKuaQht8krAAcPq8hEvAQIxnOuXRcGoKEhX5Dpz9SdWmw6EVGLt0xPV52XlqjsB82kUZ/gAyBPkTc1CdIyHsTsRNr4XMOGlfq/M5xIgLiHLV0s8iltJwUqXek69Q9ROzAXWLlsntIh63Q+N77hln7r4Mqe0mDookU+2oi85rL1j46DfaRRu+sCI+opC1EJa0TF/d4gJDwENNzzmA29BcKIZJxk4QUSoLWmRp2dbUtiu6o9pSfIp2zFYQQJWeTsFxaGREhnqQqaSjZ31VBWomtwWBl8cq+axFVzzqRAN2UhAfImMKK1tiAGC/q96OrFE8aJppIg6mEqMpqIWrFEkU4fojEhHTfMsf3EFW0EbYt81nnw60iAzsv0h9jiSgJb3sq3nE7DZpI4zSJxSJnEL2u6kM7Ux4hSFXKTtjvhm2HorrZQcjaN/s9c35PlIS3J0IdlaGJNPos8mYfIg+/hZC0QVzGp4004nrY7HKY2j/YDNdu2/luMLgKsphUdVSGJtLANuMO5K3eRBr9kOi17CAkrRJtwjrBRmQqGneQEhESxDSj2w4e2f1ES0KK/wc9OsezFnEi5wAAAABJRU5ErkJggg==" alt="" aria-hidden="true"
                 className="h-6 sm:h-7 w-auto" />
             </button>
             <div className="min-w-0">
-              <p className="hidden sm:block text-[#727272] font-semibold" style={{ fontSize: '0.62rem', letterSpacing: '0.14em' }}>PODER JUDICIAL DE RÍO NEGRO</p>
+              <p className="hidden sm:block text-slate-500 font-semibold" style={{ fontSize: '0.62rem', letterSpacing: '0.14em' }}>PODER JUDICIAL DE RÍO NEGRO</p>
               <h1 className="text-sm sm:text-lg font-bold text-slate-900 leading-tight" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>Laboratorio de IA para operadores judiciales</h1>
             </div>
           </div>
@@ -13333,13 +13305,13 @@ const App = () => {
 
       <main className="max-w-5xl mx-auto px-4 py-6 sm:py-8">
         {familia && (
-          <div className="mb-6 pb-4 border-b border-[#E3E3E3]">
-            <p className="text-xs text-[#727272] mb-2">{familia.lema}</p>
+          <div className="mb-6 pb-4 border-b border-slate-200">
+            <p className="text-xs text-slate-500 mb-2">{familia.lema}</p>
             <div className="flex flex-wrap gap-2">
               {familia.tabs.map(id => (
                 <button key={id} data-tab={id} onClick={() => irA(id)}
                   className={'flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all min-h-[2.5rem] ' +
-                    (view === id ? 'bg-[#17487F] text-white' : 'bg-white text-[#5C5C5C] border border-[#E3E3E3] hover:bg-[#F7FAFC]')}>
+                    (view === id ? 'bg-sky-900 text-white' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-50')}>
                   {React.createElement(ICONOS[id], { className: 'w-4 h-4' })} {SECCIONES[id].label}
                 </button>
               ))}
@@ -13358,8 +13330,8 @@ const App = () => {
         {view === 'capacidades' && <CapacidadesSection />}
       </main>
 
-      <footer className="max-w-5xl mx-auto px-4 py-8 border-t border-[#E3E3E3] mt-8">
-        <p className="text-sm text-[#727272]">
+      <footer className="max-w-5xl mx-auto px-4 py-8 border-t border-slate-200 mt-8">
+        <p className="text-sm text-slate-500">
           Versión R3. Poder Judicial de Río Negro · Material de trabajo autogestionado. Marco aplicable: Acordadas 15/24 y 22/25 del
           STJRN y Protocolo de Buenas Prácticas para el uso de IA generativa. La responsabilidad por el contenido producido con estas
           herramientas es siempre de quien firma.
