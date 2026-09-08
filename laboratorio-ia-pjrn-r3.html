@@ -351,23 +351,26 @@ const theoryModules = [
     },
     {
       id: "t7",
-      title: "Cuando la IA te da la razón",
-      subtitle: "Complacencia: el riesgo más grave y el menos visible",
+      title: "Cuando la IA te da la razón, y cuando se la das vos",
+      subtitle: "Complacencia y sesgo de automatización: los dos modos de contaminar tu criterio",
       reading: [
         "Los modelos se entrenan con retroalimentación humana, y las personas premian con el pulgar arriba las respuestas que les dan la razón. El resultado es un sesgo aprendido hacia la coincidencia. Un análisis del Washington Post encontró que las fórmulas de acuerdo -«correcto», «buen punto», «vas bien encaminado»- aparecían alrededor de diez veces más que las de desacuerdo. No es un defecto ocasional: es una tendencia estructural.",
         "En una oficina judicial esto es más grave que una alucinación, porque no deja rastro. Una cita inventada se detecta abriendo el portal. Una confirmación complaciente se ve idéntica a un análisis riguroso, y encima refuerza lo que ya pensabas. El sesgo del operador vuelve con apariencia de validación técnica.",
         "Se cuela por la formulación, y casi siempre sin que lo notes. «¿Es procedente rechazar esta excepción?» ya contiene la respuesta esperada. «¿Corresponde hacer lugar al planteo?» también. Incluso pedidos que suenan neutros no lo son: «analizá esta prueba y señalá los elementos que respaldan la postura de la actora» ya definió qué querés encontrar.",
         "La corrección es de redacción, no de herramienta. En lugar de preguntar si corresponde rechazar, pedí los argumentos a favor y en contra de la procedencia, sin indicar cuál preferís. En lugar de pedir los elementos que respaldan una postura, pedí un análisis de la prueba con sus fortalezas y debilidades para ambas partes. El patrón general: presentar las dos opciones y pedir el contraste sin insinuar el resultado.",
-        "La segunda defensa es entregar una rúbrica, y de eso se ocupa el módulo siguiente. Cuando el modelo tiene criterios explícitos por los cuales evaluar, deja de tener margen para adivinar qué querés escuchar."
+        "Y hay un segundo modo, que corre al revés y es más difícil de ver todavía. La complacencia es el modelo cediendo ante vos. Esto es vos cediendo ante el modelo: te contradice, no te da un argumento nuevo, y aun así aflojás, porque suena informado y porque cuesta sostener una postura contra algo que parece no tener intereses propios. Tiene nombre: sesgo de automatización. La Relatora Especial de Naciones Unidas sobre la independencia de los magistrados y abogados lo describe como la tendencia a aceptar sin cuestionamiento el resultado de una máquina, y advierte sobre su efecto acumulado, que llama descualificación judicial: la pérdida progresiva de la capacidad de análisis y deliberación de quien juzga.",
+        "La prueba práctica es simple. Cuando cambies de opinión después de leer una respuesta, preguntate qué argumento nuevo te dio. Si podés nombrarlo, cambiaste por una razón. Si no podés nombrarlo, cambiaste por el tono.",
+        "Contra la complacencia hay una defensa más, que es entregar una rúbrica, y de eso se ocupa el módulo siguiente. Cuando el modelo tiene criterios explícitos por los cuales evaluar, deja de tener margen para adivinar qué querés escuchar."
       ],
       checklist: [
         "Revisar cada pedido buscando la pista que revela la respuesta esperada.",
         "Formular en términos de «en qué medida, si acaso» en lugar de «¿verdad que?».",
         "Pedir argumentos a favor y en contra en el mismo pedido.",
         "Desconfiar especialmente de las respuestas que confirman lo que ya pensabas.",
+        "Desconfiar también de las que te hacen cambiar de opinión sin darte un argumento nuevo.",
         "Usar una rúbrica cuando se pide evaluación de algo propio."
       ],
-      practice: "Tomá una cuestión que tengas resuelta mentalmente. Preguntala primero como la pensás y después en forma neutral, en conversaciones separadas. Compará las dos respuestas. La distancia entre ambas es la medida de tu sesgo entrando por la puerta del prompt."
+      practice: "Tomá una cuestión que tengas resuelta mentalmente. Preguntala primero como la pensás y después en forma neutral, en conversaciones separadas. Compará las dos respuestas. La distancia entre ambas es la medida de tu sesgo entrando por la puerta del prompt. Y si alguna de las dos te contradice, escribí en una línea con qué argumento te movió. Si no podés escribirla, no te movió un argumento."
     },
     {
       id: "t8",
@@ -501,6 +504,7 @@ const theoryModules = [
         "La trazabilidad es la contracara. Documentar qué herramienta usaste, con qué insumos, qué verificaste y contra qué fuente no es burocracia defensiva: es lo que te permite reconstruir el trabajo si alguien lo cuestiona, corregirlo si aparece un error y sostenerlo si es correcto. Un registro breve al pie del expediente interno alcanza.",
         "El marco normativo provincial distingue dos situaciones. Para el personal judicial interno rige la Acordada 15/24, con autorización previa y potestad disciplinaria interna. Para abogados y peritos rige la extensión de la Acordada 22/25, con sanciones procesales directas que el juez puede aplicar y remisión al Colegio Profesional. Los deberes nucleares son los mismos; cambia quién sanciona y cómo.",
         "Hay una distinción práctica que ordena dónde poner el control, y evita el error de exigir revisión en todos lados o en ninguno. Redactar un proyecto, proponer una corrección o armar un listado son acciones que se deshacen: se revisan, se discuten y se rehacen sin consecuencias. Enviar una cédula, publicar una sentencia, borrar un archivo o registrar un movimiento no se deshacen. La pregunta útil no es si la acción es peligrosa -redactar y notificar son la misma acción hasta el último segundo- sino si se puede deshacer, y dónde: guardar encima de un archivo se recupera en una carpeta con historial de versiones y no se recupera en un pendrive. El control va justo antes de lo irreversible, que es exactamente donde está la firma.",
+        "Hay una clase de tarea donde ese orden se invierte. Redactar una minuta o resumir un expediente es producir texto: pedís, verificás, firmás. Resolver es otra cosa, porque lo que producís es una decisión, y ahí tu criterio va primero: escribís la resolución, o al menos la parte que decide, y recién entonces se la das a la herramienta para que la audite. El motivo es el mismo de recién, porque lo que no se deshace no siempre es una acción: haber leído lo que dijo la máquina tampoco se deshace, y desde ese momento no podés separar lo que pensaste de lo que leíste. Es la puerta de entrada del sesgo de automatización. Las fichas de la Librería están construidas así: todas reciben un proyecto ya escrito y ninguna produce la decisión.",
         "El resumen operativo cabe en una línea que conviene tener presente cada vez que se copia un párrafo generado: la herramienta te asiste, vos validás, y lo que firmás es tuyo. Todo lo demás de este laboratorio son técnicas para que esa validación sea más rápida y más confiable, no para reemplazarla."
       ],
       checklist: [
@@ -508,6 +512,7 @@ const theoryModules = [
         "Dejar registro de herramienta, insumos y verificaciones realizadas.",
         "Conocer qué régimen te aplica según seas personal interno o auxiliar externo.",
         "No incorporar nunca un párrafo generado sin haberlo leído con criterio propio.",
+        "Cuando lo que producís es una decisión, formar el criterio antes de consultar: la herramienta audita la resolución, no la forma.",
         "Asumir que la firma equivale a la validación y que la validación es personal."
       ],
       practice: "Escribí en cinco líneas tu propio protocolo de uso: qué tareas delegás, qué verificás siempre, qué nunca cargás en una herramienta pública y cómo dejás registro. Compartilo con tu equipo y comparen criterios."
@@ -13390,7 +13395,7 @@ const App = () => {
           herramientas es siempre de quien firma.
         </p>
         <p className="text-xs text-[#8E8E8E] mt-2">
-          Sello de construcción 190b3c1494e8. La versión en texto se publica junto con esta y lleva
+          Sello de construcción 776d437c6dad. La versión en texto se publica junto con esta y lleva
           el mismo sello: si no coinciden, una de las dos está atrasada.
         </p>
       </footer>
