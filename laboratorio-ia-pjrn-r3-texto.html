@@ -1065,8 +1065,9 @@ Flujo automático: entra la presentación, se clasifica y se registra sola.</pre
 <h3>Las seis mecánicas</h3>
 <section data-act="desafio_c1">
 <h4>Pares de conceptos</h4>
-<p>Qué vas a hacer: Encontrá las parejas entre el concepto y lo que significa en tu trabajo.</p>
+<p>Qué vas a hacer: reconocer, en una situación de trabajo, cuál de dos conceptos vecinos es el que corresponde.</p>
 <p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<p>Conocimiento paramétrico es lo que el modelo trae de fábrica: no lo aprendió de vos y no cambia. Conocimiento contextual es lo que vos le das en esta conversación: existe solamente mientras la conversación está abierta. La diferencia importa por una razón práctica: lo que le pegaste hoy no va a estar mañana, y lo que trae de fábrica no se corrige diciéndole que está mal.</p>
 <fieldset>
 <legend>Le pegás un fallo en el chat y le preguntás por él. Lo que el asistente sabe de ese fallo mientras dura la conversación, ¿qué es?</legend>
   <div class="op"><input type="radio" name="g13" id="g13-0"><label for="g13-0">Conocimiento paramétrico</label></div>
@@ -1075,21 +1076,21 @@ Flujo automático: entra la presentación, se clasifica y se registra sola.</pre
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
-<p><b>Respuesta esperada:</b> Conocimiento contextual. Es lo que vos le diste, y por eso desaparece cuando se cierra la conversación.</p>
-<p>Conocimiento paramétrico es lo que el modelo trae de fábrica: no lo aprendió de vos y no cambia. Conocimiento contextual es lo que vos le das en esta conversación: existe solamente mientras la conversación está abierta. La diferencia importa por una razón práctica: lo que le pegaste hoy no va a estar mañana, y lo que trae de fábrica no se corrige diciéndole que está mal.</p>
+<p><b>Respuesta esperada:</b> Conocimiento contextual.</p>
+<p>Es lo que vos le diste, y por eso desaparece cuando se cierra la conversación. Lo que trae de fábrica, en cambio, no lo aprendió de vos y no se corrige diciéndole que está mal. La diferencia importa por una razón práctica: lo que le pegaste hoy no va a estar mañana.</p>
 </details>
 <table>
-  <caption>Los 6 pares. 2 columnas, 6 filas.</caption>
+  <caption>Los seis términos. 2 columnas, 6 filas.</caption>
   <thead>
     <tr><th scope="col">El término</th><th scope="col">Qué significa en tu trabajo</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Conocimiento paramétrico</th><td>Lo que el modelo trae de fábrica</td></tr>
-    <tr><th scope="row">Conocimiento contextual</th><td>Lo que vos le das en esta conversación</td></tr>
-    <tr><th scope="row">Ventana de contexto</th><td>La mesa de trabajo, que es finita</td></tr>
-    <tr><th scope="row">Alucinación</th><td>Cita con forma correcta y sin existencia</td></tr>
-    <tr><th scope="row">Complacencia</th><td>Coincidir con lo que esperás escuchar</td></tr>
-    <tr><th scope="row">Trazabilidad</th><td>Poder reconstruir cómo llegaste al resultado</td></tr>
+    <tr><th scope="row">Conocimiento paramétrico</th><td>Lo que el modelo trae de fábrica, de antes de conocerte.</td></tr>
+    <tr><th scope="row">Conocimiento contextual</th><td>Lo que vos le das en esta conversación, y que se pierde al cerrarla.</td></tr>
+    <tr><th scope="row">Ventana de contexto</th><td>La mesa de trabajo del modelo, que es finita: cuando se llena, lo más viejo se cae.</td></tr>
+    <tr><th scope="row">Alucinación</th><td>Una cita con forma correcta y sin existencia: el formato impecable no prueba nada.</td></tr>
+    <tr><th scope="row">Complacencia</th><td>La tendencia a coincidir con lo que esperás escuchar, sobre todo si se lo insinuaste.</td></tr>
+    <tr><th scope="row">Trazabilidad</th><td>Poder reconstruir después cómo llegaste al resultado, paso por paso.</td></tr>
   </tbody>
 </table>
 <details>
@@ -1099,38 +1100,24 @@ Flujo automático: entra la presentación, se clasifica y se registra sola.</pre
 </section>
 <section data-act="desafio_c2">
 <h4>El circuito de verificación</h4>
-<p>Qué vas a hacer: Ordená los pasos del flujo de búsqueda oficial, de principio a fin.</p>
-<p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<p>Qué vas a hacer: rastrear, en un circuito de verificación que se cumplió casi entero, en qué momento faltó un control.</p>
+<p>Una sola decisión. Marcá una opción y recién entonces abrí la respuesta.</p>
+<p>Alguien recorrió el circuito casi entero: pidió la estrategia, ejecutó la consulta en el portal oficial, descargó el fallo, lo cargó en el cuaderno y exigió cita textual.</p>
+<p>El proyecto salió citando un artículo reformado dos años antes.</p>
 <fieldset>
-<legend>De estos tres, ¿cuál va primero en el circuito?</legend>
-  <div class="op"><input type="radio" name="g14" id="g14-0"><label for="g14-0">Ejecutar la consulta en el portal oficial correspondiente</label></div>
-  <div class="op"><input type="radio" name="g14" id="g14-1"><label for="g14-1">Describir el problema jurídico y pedir estrategia de búsqueda</label></div>
-  <div class="op"><input type="radio" name="g14" id="g14-2"><label for="g14-2">Verificar el estado de vigencia en la fuente</label></div>
+<legend>El control que faltó es verificar la vigencia en la fuente. ¿En qué momento del circuito tenía que pasar?</legend>
+  <div class="op"><input type="radio" name="g14" id="g14-0"><label for="g14-0">Antes de describir el problema y pedir la estrategia</label></div>
+  <div class="op"><input type="radio" name="g14" id="g14-1"><label for="g14-1">Al descargarlo, antes de cargarlo como fuente</label></div>
+  <div class="op"><input type="radio" name="g14" id="g14-2"><label for="g14-2">Después de pedir las citas textuales</label></div>
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
-<p><b>Respuesta esperada:</b> Describir el problema jurídico y pedir estrategia de búsqueda.</p>
-<p>Es el paso que más se saltea: se arranca buscando y recién después se piensa qué se está buscando. Describir el problema primero es lo que hace que la búsqueda tenga forma, y es gratis.</p>
+<p><b>Respuesta esperada:</b> Al descargarlo, antes de cargarlo como fuente.</p>
+<p>Si entra al cuaderno sin ese control, todo lo que viene después trabaja sobre un texto derogado y sale impecable: la cita va a ser textual, y va a ser textual de la versión vieja. Abrir dos citas al azar comprueba contra un papel que está bien. Y la vigencia no se le pregunta al modelo, porque el texto viejo estuvo años en su entrenamiento y el nuevo recién aparece. Es lo único que no está escrito adentro del papel que descargaste: se mira en la fuente, y cuesta un clic.</p>
 </details>
-<table>
-  <caption>El circuito completo, en orden. 2 columnas, 8 filas.</caption>
-  <thead>
-    <tr><th scope="col">Paso</th><th scope="col">Qué hacer</th></tr>
-  </thead>
-  <tbody>
-    <tr><th scope="row">Paso 1</th><td>Describir el problema jurídico y pedir estrategia de búsqueda</td></tr>
-    <tr><th scope="row">Paso 2</th><td>Obtener consultas con operadores y sinónimos técnicos</td></tr>
-    <tr><th scope="row">Paso 3</th><td>Ejecutar la consulta en el portal oficial correspondiente</td></tr>
-    <tr><th scope="row">Paso 4</th><td>Descargar el documento y registrar URL y fecha de consulta</td></tr>
-    <tr><th scope="row">Paso 5</th><td>Verificar el estado de vigencia en la fuente</td></tr>
-    <tr><th scope="row">Paso 6</th><td>Cargar el documento verificado como fuente de trabajo</td></tr>
-    <tr><th scope="row">Paso 7</th><td>Preguntar exigiendo cita textual de cada afirmación</td></tr>
-    <tr><th scope="row">Paso 8</th><td>Abrir dos citas al azar y comprobarlas en el original</td></tr>
-  </tbody>
-</table>
 <details>
 <summary>Lo que te llevás</summary>
-<p>El circuito no es burocracia: cada paso existe porque el siguiente lo necesita. Saltear el primero deja los demás sin criterio, y saltear el último deja todo el trabajo sin respaldo.</p>
+<p>El circuito no es una lista de tareas: es un orden. Cada paso existe porque el siguiente lo necesita, y por eso saltear uno no se nota enseguida; se nota después, cuando el trabajo ya salió con tu firma.</p>
 </details>
 </section>
 <section data-act="desafio_c3">
@@ -1144,24 +1131,23 @@ Flujo automático: entra la presentación, se clasifica y se registra sola.</pre
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
-<p><b>Respuesta esperada:</b> ¿Qué argumentos hay a favor y en contra de la procedencia de este planteo?.</p>
+<p><b>Respuesta esperada:</b> La segunda: «¿Qué argumentos hay a favor y en contra de la procedencia de este planteo?»</p>
 <p>La primera incorpora la respuesta esperada y activa la tendencia a coincidir. La segunda pide contraste sin insinuar resultado.</p>
 </details>
 <table>
-  <caption>Las otras 4 comparaciones, ya resueltas. 2 columnas, 4 filas.</caption>
+  <caption>Los otros tres pedidos, ya resueltos. 3 columnas, 3 filas.</caption>
   <thead>
-    <tr><th scope="col">La que conviene</th><th scope="col">Por qué</th></tr>
+    <tr><th scope="col">El que no conviene</th><th scope="col">El que sí</th><th scope="col">Por qué</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Dame cinco consultas con operadores para buscar este tema en el portal del PJRN.</th><td>La IA es pésima como fuente y muy buena diseñando búsquedas.</td></tr>
-    <tr><th scope="row">Devolvé una tabla: afirmación, tipo, respaldo citado en el texto.</th><td>El formato tabular obliga a distinguir lo alegado de lo acreditado.</td></tr>
-    <tr><th scope="row">Verificá uno por uno los incisos del artículo aplicable: inciso, cumple sí/no, fragmento…</th><td>Sin rúbrica, la evaluación es una impresión amable.</td></tr>
-    <tr><th scope="row">Redactá el borrador con toda norma, fecha y cita entre dobles corchetes, y una tabla final…</th><td>El segundo entrega el borrador junto con su propio plan de control, y hace visible qué falta comprobar.</td></tr>
+    <tr><th scope="row">Dame jurisprudencia de Río Negro sobre este tema, con citas completas.</th><td>Dame cinco consultas con operadores para buscar este tema en el portal del PJRN.</td><td>La IA es pésima como fuente y muy buena diseñando búsquedas.</td></tr>
+    <tr><th scope="row">Resumime el expediente.</th><td>Devolvé una tabla: afirmación, tipo, respaldo citado en el texto. Si no hay respaldo, escribilo.</td><td>El formato tabular obliga a distinguir lo alegado de lo acreditado.</td></tr>
+    <tr><th scope="row">Revisá este proyecto y decime si está bien.</th><td>Verificá uno por uno los incisos del artículo aplicable: inciso, cumple sí o no, fragmento donde consta.</td><td>Sin rúbrica, la evaluación es una impresión amable.</td></tr>
   </tbody>
 </table>
 <details>
 <summary>Lo que te llevás</summary>
-<p>Los cinco casos son el mismo criterio aplicado a materiales distintos. Si el primero te salió por intuición, la tabla de arriba te dice si esa intuición sostiene los otros cuatro.</p>
+<p>Lo que separa un pedido del otro no es la cortesía ni la extensión: es si adentro ya está dicha la respuesta que esperás. Los tres de la tabla se distinguen por lo mismo.</p>
 </details>
 </section>
 <section data-act="desafio_c4">
@@ -1180,51 +1166,37 @@ Flujo automático: entra la presentación, se clasifica y se registra sola.</pre
 <p>Preguntarle al modelo si tiene razón activa la complacencia. La verificación se hace fuera del chat.</p>
 </details>
 <table>
-  <caption>Las otras 4 situaciones, ya resueltas. 3 columnas, 4 filas.</caption>
+  <caption>Las otras tres situaciones, ya resueltas. 3 columnas, 3 filas.</caption>
   <thead>
-    <tr><th scope="col">La situación</th><th scope="col">Qué sigue</th><th scope="col">Por qué</th></tr>
+    <tr><th scope="col">La situación</th><th scope="col">Lo que corresponde</th><th scope="col">Por qué no la otra</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Vas a pedir ayuda con un escrito que tiene nombres, DNI y domicilio.</th><td>Anonimizar con etiquetas estables y guardar el glosario aparte</td><td>El pilar 5 no admite excepciones por brevedad, y borrar solo apellidos deja el resto…</td></tr>
-    <tr><th scope="row">Venías analizando un expediente y ahora necesitás trabajar sobre otro distinto.</th><td>Abrir una conversación nueva</td><td>El contexto anterior sigue influyendo aunque se lo pidas.</td></tr>
-    <tr><th scope="row">Un agente con acceso a tus carpetas propone un plan que incluye eliminar duplicados.</th><td>Autorizar todo menos la eliminación y pedir el listado</td><td>Eliminar suele no pasar por la papelera.</td></tr>
-    <tr><th scope="row">Necesitás que revise un texto tuyo y te dé una crítica honesta.</th><td>Darle una rúbrica de criterios binarios con puntaje por categoría</td><td>Pedir objetividad no la produce.</td></tr>
+    <tr><th scope="row">Vas a pedir ayuda con un escrito que tiene nombres, DNI y domicilio.</th><td>Anonimizar con etiquetas estables y guardar el glosario aparte</td><td>Borrar solo los apellidos deja el DNI y el domicilio identificando igual.</td></tr>
+    <tr><th scope="row">Venías con un expediente y ahora necesitás trabajar sobre otro distinto.</th><td>Abrir una conversación nueva</td><td>Pedirle que olvide lo anterior no borra nada: el contexto sigue influyendo.</td></tr>
+    <tr><th scope="row">Un agente con acceso a tus carpetas propone un plan que incluye eliminar duplicados.</th><td>Autorizar todo menos la eliminación y pedir el listado</td><td>Autorizar el plan completo incluye el borrado, y borrar suele no pasar por la papelera.</td></tr>
   </tbody>
 </table>
 <details>
 <summary>Lo que te llevás</summary>
-<p>Los cinco casos son el mismo criterio aplicado a materiales distintos. Si el primero te salió por intuición, la tabla de arriba te dice si esa intuición sostiene los otros cuatro.</p>
+<p>Los cuatro casos comparten un criterio, y es este: el paso que corresponde nunca es pedirle al modelo que se arregle solo -que confirme, que olvide, que sea objetivo-. Es cambiar lo que le das o lo que le dejás hacer.</p>
 </details>
 </section>
 <section data-act="desafio_c5">
 <h4>La herramienta adecuada</h4>
 <p>Qué vas a hacer: Asociá cada necesidad con la vía de trabajo que corresponde.</p>
 <p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
+<p>Cada necesidad tiene una vía que la resuelve mejor, y confundirlas es la causa más frecuente de una respuesta que suena bien y no sirve.</p>
 <fieldset>
-<legend>Necesitás confirmar el texto vigente de un artículo. ¿Por dónde vas?</legend>
-  <div class="op"><input type="radio" name="g17" id="g17-0"><label for="g17-0">Portal oficial o InfoLEG, nunca el chat</label></div>
-  <div class="op"><input type="radio" name="g17" id="g17-1"><label for="g17-1">Cuaderno de fuentes con cita obligatoria</label></div>
+<legend>Necesitás saber qué dice un precedente concreto. ¿Por dónde vas?</legend>
+  <div class="op"><input type="radio" name="g17" id="g17-0"><label for="g17-0">Descargar el fallo y leerlo</label></div>
+  <div class="op"><input type="radio" name="g17" id="g17-1"><label for="g17-1">Portal oficial o InfoLEG, nunca el chat</label></div>
   <div class="op"><input type="radio" name="g17" id="g17-2"><label for="g17-2">Asistente general, pidiendo estrategia de búsqueda</label></div>
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
-<p><b>Respuesta esperada:</b> Portal oficial o InfoLEG, nunca el chat</p>
-<p>Cada necesidad tiene una vía que la resuelve mejor, y confundirlas es la causa más frecuente de una respuesta que suena bien y no sirve.</p>
+<p><b>Respuesta esperada:</b> Descargar el fallo y leerlo.</p>
+<p>Es la única de las seis necesidades que no se resuelve con ninguna herramienta de IA. Un asistente te va a resumir un fallo que no leyó, con la forma exacta de un resumen. Y el portal te da el texto de la norma, no la doctrina del caso. Lo que dice un precedente está en el precedente.</p>
 </details>
-<table>
-  <caption>Los 6 pares. 2 columnas, 6 filas.</caption>
-  <thead>
-    <tr><th scope="col">La necesidad</th><th scope="col">La vía que corresponde</th></tr>
-  </thead>
-  <tbody>
-    <tr><th scope="row">Confirmar el texto vigente de un artículo</th><td>Portal oficial o InfoLEG, nunca el chat</td></tr>
-    <tr><th scope="row">Comparar cinco documentos ya descargados</th><td>Cuaderno de fuentes con cita obligatoria</td></tr>
-    <tr><th scope="row">Encontrar cómo buscar un tema poco frecuente</th><td>Asistente general, pidiendo estrategia de búsqueda</td></tr>
-    <tr><th scope="row">Mejorar la redacción de un párrafo</th><td>Asistente general, con el texto anonimizado</td></tr>
-    <tr><th scope="row">Saber qué dice un precedente concreto</th><td>Descargar el fallo y leerlo</td></tr>
-    <tr><th scope="row">Ordenar archivos de una carpeta propia</th><td>Aplicación con permisos, plan antes de acción</td></tr>
-  </tbody>
-</table>
 <details>
 <summary>Lo que te llevás</summary>
 <p>La pregunta que ordena esto no es cuál herramienta es mejor: es qué necesitás. Confirmar un texto vigente y comparar documentos que ya tenés son dos trabajos distintos, y la vía que sirve para uno falla en el otro.</p>
@@ -1247,20 +1219,19 @@ Flujo automático: entra la presentación, se clasifica y se registra sola.</pre
 <p>La norma aplicable es información pública y necesaria para la tarea. Los otros tres identifican personas.</p>
 </details>
 <table>
-  <caption>Los otros 4 grupos, ya resueltos. 3 columnas, 4 filas.</caption>
+  <caption>Los otros tres grupos, ya resueltos. 3 columnas, 3 filas.</caption>
   <thead>
-    <tr><th scope="col">El grupo</th><th scope="col">El que sobra</th><th scope="col">Por qué</th></tr>
+    <tr><th scope="col">El grupo, con sus cuatro</th><th scope="col">El que sobra</th><th scope="col">Por qué</th></tr>
   </thead>
   <tbody>
-    <tr><th scope="row">Cosas que la IA hace bien</th><td>Confirmar si un fallo existe</td><td>La existencia de un fallo se verifica en la fuente oficial.</td></tr>
-    <tr><th scope="row">Los cinco pilares del Protocolo</th><td>Automatización progresiva</td><td>La automatización no es un pilar del Protocolo.</td></tr>
-    <tr><th scope="row">Señales de relleno en un texto generado</th><td>Cita textual con referencia a foja</td><td>La cita con referencia concreta es lo contrario del relleno: es información verificable.</td></tr>
-    <tr><th scope="row">Pasos del protocolo de cuatro etapas</th><td>Publicación automática</td><td>El cuarto paso es la firma profesional, que es un acto humano de validación, no…</td></tr>
+    <tr><th scope="row">Cosas que la IA hace bien: diseñar consultas, reestructurar un texto largo, confirmar si un fallo existe, comparar dos versiones.</th><td>Confirmar si un fallo existe</td><td>El modelo genera texto plausible, no consulta registros.</td></tr>
+    <tr><th scope="row">Los cinco pilares del Protocolo: responsabilidad indelegable, validación obligatoria, automatización progresiva, confidencialidad.</th><td>Automatización progresiva</td><td>Los pilares son responsabilidad, validación, supervisión humana, mitigación de riesgos y confidencialidad.</td></tr>
+    <tr><th scope="row">Señales de relleno: principios generales sin aplicación al caso, «no es X sino Y» con términos vagos, cita textual con referencia a foja, adjetivación grandilocuente.</th><td>Cita textual con referencia a foja</td><td>Una cita con referencia concreta es lo contrario del relleno: es verificable.</td></tr>
   </tbody>
 </table>
 <details>
 <summary>Lo que te llevás</summary>
-<p>Los cinco casos son el mismo criterio aplicado a materiales distintos. Si el primero te salió por intuición, la tabla de arriba te dice si esa intuición sostiene los otros cuatro.</p>
+<p>El criterio no es si el dato es profesional o público: es si identifica a una persona. Por eso el tomo y folio del letrado, que es público, va igual.</p>
 </details>
 </section>
 </section>
@@ -3769,103 +3740,103 @@ Para cada resultado dame el título, el enlace y la fecha, y una línea con qué
 <h3>Los detectores</h3>
 <section>
 <h4>Documento</h4>
-<p>Expresión de búsqueda: \b\d{1,2}\.\d{3}\.\d{3}\b</p>
+<p>Qué busca: Números con la forma del DNI: dos cifras, punto, tres, punto, tres.</p>
 </section>
 <section>
 <h4>Documento</h4>
-<p>Expresión de búsqueda: \b(?:D\.?N\.?I\.?|documento|matr[ií]cula individual)\s*(?:n[°º]?\s*)?\d{7,8}\b</p>
+<p>Qué busca: Las palabras DNI, documento o matrícula individual seguidas de siete u ocho cifras.</p>
 </section>
 <section>
 <h4>CUIT / CUIL</h4>
-<p>Expresión de búsqueda: \b\d{2}-\d{7,8}-\d\b</p>
+<p>Qué busca: La forma del CUIT y del CUIL: dos cifras, guion, siete u ocho, guion, una.</p>
 </section>
 <section>
 <h4>Legajo o matrícula</h4>
-<p>Expresión de búsqueda: \b(?:legajo|padr[oó]n|matr[ií]cula|n[°º]?\s*de\s*orden)\s*(?:personal\s*)?(?:n[°º]?\s*)?[\w./-]+</p>
+<p>Qué busca: Las palabras legajo, padrón, matrícula o número de orden seguidas de su número.</p>
 </section>
 <section>
 <h4>Legajo o matrícula</h4>
-<p>Expresión de búsqueda: \b[Tt]omo\s+[IVXLCDM]+,?\s*[Ff]olio\s*\d+</p>
+<p>Qué busca: La fórmula tomo y folio con que se identifica a quien matricula.</p>
 </section>
 <section>
 <h4>Correo</h4>
-<p>Expresión de búsqueda: [\w.+-]+@[\w-]+\.[\w.]{2,}</p>
+<p>Qué busca: Cualquier dirección de correo: algo, arroba, un dominio.</p>
 </section>
 <section>
 <h4>Teléfono</h4>
-<p>Expresión de búsqueda: \b(?:tel[eé]fono|tel\.|cel(?:ular)?|whatsapp)\s*:?\s*[\d\s()+-]{7,}</p>
+<p>Qué busca: Las palabras teléfono, celular o whatsapp seguidas de siete cifras o más.</p>
 </section>
 <section>
 <h4>Teléfono</h4>
-<p>Expresión de búsqueda: \b(?:\+?54[\s-]?)?(?:9[\s-]?)?\d{3,4}[\s.-]\d{6,7}\b</p>
+<p>Qué busca: Números con forma de teléfono argentino, con el código de país o sin él.</p>
 </section>
 <section>
 <h4>Expediente</h4>
-<p>Expresión de búsqueda: \b(?:expte\.?|expediente|autos)\s*(?:n[°º]?\s*)?[\w/.-]*\d[\w/.-]*</p>
+<p>Qué busca: Las palabras expediente, expte. o autos seguidas de su identificador.</p>
 </section>
 <section>
 <h4>Carátula</h4>
-<p>Expresión de búsqueda: [A-ZÁÉÍÓÚÑ][^\n«»"']{0,70}?\s+c\/\s*[^\n«»"']{0,70}?\s+s\/\s*[^\n«»"']{0,70}?(?=[«»"'\n]|,\s+(?:Expte|expte)|\.\s|$)</p>
+<p>Qué busca: La carátula completa, con su «c/» y su «s/»: quién contra quién y por qué.</p>
 </section>
 <section>
 <h4>Carátula</h4>
-<p>Expresión de búsqueda: [A-ZÁÉÍÓÚÑ][^\n«»"'.;]{0,45}?\s+c\/\s*[^\n«»"'.;,]{0,45}</p>
+<p>Qué busca: Una carátula corta, con «c/» y sin «s/».</p>
 </section>
 <section>
 <h4>Casillero</h4>
-<p>Expresión de búsqueda: \bcasillero\s*(?:n[°º]?\s*)?\d+</p>
+<p>Qué busca: La palabra casillero seguida de su número.</p>
 </section>
 <section>
 <h4>Domicilio</h4>
-<p>Expresión de búsqueda: \b(?:[Cc]alle|[Aa]v\.|[Aa]venida|[Pp]asaje|[Rr]uta|[Bb]ulevar|[Bb]arrio)\s+[A-ZÁÉÍÓÚÑ][\wáéíóúñ]*(?:\s+[A-ZÁÉÍÓÚÑa-záéíóúñ]+){0,2}(?:\s+(?:[Nn][°º]?\s*)?\d{1,5})?</p>
+<p>Qué busca: Una calle, avenida, pasaje, ruta, bulevar o barrio, con su nombre y su altura.</p>
 </section>
 <section>
 <h4>Domicilio</h4>
-<p>Se construye con código.</p>
+<p>Qué busca: Un nombre propio seguido de un número, que suele ser una dirección. Descarta los que en realidad son una ley, un artículo, una acordada, un expediente o un folio.</p>
 </section>
 <section>
 <h4>Localidad</h4>
-<p>Se construye con código.</p>
+<p>Qué busca: Compara contra una lista de 41 localidades de Río Negro y de la zona.</p>
 </section>
 <section>
 <h4>Dominio</h4>
-<p>Expresión de búsqueda: \b[A-Z]{2}\s?\d{3}\s?[A-Z]{2}\b|\b[A-Z]{3}\s?\d{3}\b</p>
+<p>Qué busca: Patentes de auto, en los dos formatos: tres letras y tres números, o dos, tres y dos.</p>
 </section>
 <section>
 <h4>Fecha</h4>
-<p>Expresión de búsqueda: \b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b</p>
+<p>Qué busca: Fechas escritas con barras o guiones, como 12/03/2024.</p>
 </section>
 <section>
 <h4>Fecha</h4>
-<p>Se construye con código.</p>
+<p>Qué busca: Fechas con el mes en palabras, como «12 de marzo», con año o sin año.</p>
 </section>
 <section>
 <h4>Edad</h4>
-<p>Expresión de búsqueda: \b\d{1,2}\s+a[ñn]os(?:\s+de\s+edad)?\b</p>
+<p>Qué busca: Una cifra seguida de «años», que en un expediente suele ayudar a identificar.</p>
 </section>
 <section>
 <h4>Referencia a NNA</h4>
-<p>Expresión de búsqueda: \b(?:ni[ñn][oa]s?|ni[ñn]es?|adolescentes?|menor(?:es)?\s+de\s+edad)\b</p>
+<p>Qué busca: Las palabras niño, niña, adolescente o menor de edad, que piden un cuidado aparte.</p>
 </section>
 <section>
 <h4>Dato de salud</h4>
-<p>Se construye con código.</p>
+<p>Qué busca: Compara contra una lista de términos de salud: diagnósticos, tratamientos, discapacidad.</p>
 </section>
 <section>
 <h4>Iniciales</h4>
-<p>Expresión de búsqueda: \b(?:[A-ZÁÉÍÓÚÑ]\.){2,4}</p>
+<p>Qué busca: Dos a cuatro iniciales con punto, como M.J.L., que identifican igual que un nombre.</p>
 </section>
 <section>
 <h4>Persona con tratamiento</h4>
-<p>Expresión de búsqueda: \b(?:Dr|Dra|Sr|Sra|Srta|Lic|Ing|Cdor|Cra)\.?\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,2}</p>
+<p>Qué busca: Un tratamiento -Dr., Sra., Lic., Ing.- seguido del nombre que viene detrás.</p>
 </section>
 <section>
 <h4>Nombre de pila</h4>
-<p>Se construye con código.</p>
+<p>Qué busca: Compara contra una lista de 192 nombres de pila, y se lleva también los apellidos que vengan a continuación.</p>
 </section>
 <section>
 <h4>Nombre en mayúsculas</h4>
-<p>Se construye con código.</p>
+<p>Qué busca: Dos o más palabras seguidas en mayúscula sostenida, que es como se escriben las partes en un escrito.</p>
 </section>
 </section>
 <section id="e-anonWorkflow">
@@ -3892,7 +3863,7 @@ Señor Juez:
 
 MARÍA EUGENIA TORRES, DNI 28.456.912, con domicilio real en calle Mitre 342, ciudad de General Roca, constituyendo domicilio procesal electrónico en casillero N° 4521, por derecho propio y con el patrocinio letrado de la Dra. Carolina Vega, Tomo XII, Folio 198 del Colegio de Abogados de la IIa. Circunscripción, a V.S. respetuosamente digo:
 
-I.- OBJETO. Que vengo a promover formal demanda por daños y perjuicios contra la MUNICIPALIDAD DE GENERAL ROCA y contra el Sr. Jorge Mendez, DNI 22.891.334, con domicilio en calle Tucumán 567, por la suma de PESOS QUINCE MILLONES ($15.000.000), por los daños derivados del accidente ocurrido el 15/03/2025 en la intersección de Sarmiento y España.
+I.- OBJETO. Que vengo a promover formal demanda por daños y perjuicios contra la MUNICIPALIDAD DE GENERAL ROCA y contra el Sr. Jorge Méndez, DNI 22.891.334, con domicilio en calle Tucumán 567, por la suma de PESOS QUINCE MILLONES ($15.000.000), por los daños derivados del accidente ocurrido el 15/03/2025 en la intersección de Sarmiento y España.
 
 II.- HECHOS. El 15/03/2025, aproximadamente a las 08:30 horas, la actora circulaba a pie cuando el vehículo Renault Kangoo, dominio AB 234 CD, conducido por el codemandado, realizó un giro sin respetar la prioridad peatonal. Como consecuencia sufrió fractura de tibia y peroné, permaneciendo internada doce días. Se acompaña historia clínica del Hospital Francisco López Lima y pericia del Expte. N° 2025-00892-MR. Contacto de la actora: metorres@correo.com, teléfono 298 154-332211.</pre>
 </section>
@@ -4750,7 +4721,6 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 <p>Qué vas a hacer: decidir, sobre una herramienta que estás por usar, hasta dónde llega lo que puede tocar.</p>
 <p>Una sola decisión, y después una tabla con los otros casos ya resueltos. Marcá una opción y recién entonces abrí la respuesta.</p>
 <p>Instalaste un asistente que trabaja con archivos y le pediste que renombre los PDF de una carpeta. Al aceptar, te ofreció «acceso a Documentos» y le diste que sí.</p>
-<p>El permiso que diste es el que vale, no la tarea que pediste. «Documentos» incluye todo lo que haya adentro, y si ahí tenés una carpeta sincronizada con una unidad de red, llega también a los archivos de otras personas. La carpeta mínima, siempre.</p>
 <fieldset>
 <legend>En esa situación, ¿hasta dónde llega?</legend>
   <div class="op"><input type="radio" name="g20" id="g20-0"><label for="g20-0">Solo la carpeta de los PDF</label></div>
@@ -4759,7 +4729,8 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 </fieldset>
 <details>
 <summary>Ver la respuesta y por qué</summary>
-<p><b>Respuesta esperada:</b> </p>
+<p><b>Respuesta esperada:</b> Documentos entero, incluidas las subcarpetas.</p>
+<p>El permiso que diste es el que vale, no la tarea que pediste. «Documentos» incluye todo lo que haya adentro, y si ahí tenés una carpeta sincronizada con una unidad de red, llega también a los archivos de otras personas. La regla es la carpeta mínima, siempre.</p>
 </details>
 <table>
   <caption>Las otras cinco situaciones, ya resueltas. 3 columnas, 5 filas.</caption>
@@ -4850,7 +4821,7 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
 <ul>
   <li>Un solo archivo, sin JavaScript obligatorio y sin ninguna solicitud a internet: se abre con doble clic y funciona con la máquina desconectada.</li>
   <li>Estructura de encabezados completa, para recorrer por títulos.</li>
-  <li>Las veintiuna actividades interactivas reemplazadas por su equivalente en texto, con campos de formulario nativos.</li>
+  <li>Las 31 actividades interactivas reemplazadas por su equivalente en texto, con campos de formulario nativos.</li>
   <li>Ninguna información depende del color, de un ícono ni de la posición en pantalla.</li>
   <li>Todas las tablas con título, encabezados de fila y de columna.</li>
 </ul>
@@ -4865,10 +4836,10 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
   <li>Las comprobaciones hechas hasta ahora son automáticas. Falta la verificación de uso real, que es la que vale.</li>
 </ul>
 </section>
-<p class="sello">Sello de esta construcción: 25243928619c. Fecha: ver el pie de la versión interactiva. La versión interactiva y esta se publican juntas y comparten el sello: si no coinciden, una de las dos está atrasada.</p>
+<p class="sello">Sello de esta construcción: 190b3c1494e8. Fecha: ver el pie de la versión interactiva. La versión interactiva y esta se publican juntas y comparten el sello: si no coinciden, una de las dos está atrasada.</p>
 </section>
 </main>
-<footer><p class="sello">Sello de construcción 25243928619c.</p></footer>
+<footer><p class="sello">Sello de construcción 190b3c1494e8.</p></footer>
 <script>
 // Mejora progresiva y nada más. Con esto apagado no se pierde ni un contenido
 // ni una actividad: las respuestas siguen estando en sus desplegables.
@@ -4877,18 +4848,6 @@ pendiente: ver lo del informe del hospital, que según ella dice otra cosa de lo
   var av = document.getElementById('aviso');
   function decir(t) { if (av) { av.textContent = ''; setTimeout(function () { av.textContent = t; }, 60); } }
 
-  Array.prototype.forEach.call(document.querySelectorAll('[data-contar]'), function (b) {
-    b.addEventListener('click', function () {
-      var sec = b.closest('section');
-      var gs = {};
-      Array.prototype.forEach.call(sec.querySelectorAll('input[type=radio]'), function (r) {
-        gs[r.name] = gs[r.name] || false; if (r.checked) gs[r.name] = true;
-      });
-      var tot = Object.keys(gs).length, hechas = Object.keys(gs).filter(function (k) { return gs[k]; }).length;
-      decir(hechas === tot
-        ? 'Respondiste las ' + tot + '. Ya podés abrir la clave de respuestas.'
-        : 'Llevás ' + hechas + ' de ' + tot + '. Faltan ' + (tot - hechas) + '.');
-    });
   });
 
   Array.prototype.forEach.call(document.querySelectorAll('[data-copiar]'), function (b) {

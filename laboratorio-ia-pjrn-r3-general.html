@@ -7297,6 +7297,7 @@ const anonDetectors = [
       id: "dni",
       label: "Documento",
       tag: "[DNI]",
+      explica: "Números con la forma del DNI: dos cifras, punto, tres, punto, tres.",
       cls: "bg-slate-200 text-rose-900",
       re: /\b\d{1,2}\.\d{3}\.\d{3}\b/g
     },
@@ -7304,6 +7305,7 @@ const anonDetectors = [
       id: "dnisin",
       label: "Documento",
       tag: "[DNI]",
+      explica: "Las palabras DNI, documento o matrícula individual seguidas de siete u ocho cifras.",
       cls: "bg-slate-200 text-rose-900",
       re: /\b(?:D\.?N\.?I\.?|documento|matr[ií]cula individual)\s*(?:n[°º]?\s*)?\d{7,8}\b/gi
     },
@@ -7311,6 +7313,7 @@ const anonDetectors = [
       id: "cuit",
       label: "CUIT / CUIL",
       tag: "[CUIT]",
+      explica: "La forma del CUIT y del CUIL: dos cifras, guion, siete u ocho, guion, una.",
       cls: "bg-slate-200 text-rose-900",
       re: /\b\d{2}-\d{7,8}-\d\b/g
     },
@@ -7318,6 +7321,7 @@ const anonDetectors = [
       id: "legajo",
       label: "Legajo o matrícula",
       tag: "[LEGAJO]",
+      explica: "Las palabras legajo, padrón, matrícula o número de orden seguidas de su número.",
       cls: "bg-slate-200 text-rose-900",
       re: /\b(?:legajo|padr[oó]n|matr[ií]cula|n[°º]?\s*de\s*orden)\s*(?:personal\s*)?(?:n[°º]?\s*)?[\w./-]+/gi
     },
@@ -7325,6 +7329,7 @@ const anonDetectors = [
       id: "mat",
       label: "Legajo o matrícula",
       tag: "[MATRÍCULA]",
+      explica: "La fórmula tomo y folio con que se identifica a quien matricula.",
       cls: "bg-slate-200 text-rose-900",
       re: /\b[Tt]omo\s+[IVXLCDM]+,?\s*[Ff]olio\s*\d+/g
     },
@@ -7332,6 +7337,7 @@ const anonDetectors = [
       id: "mail",
       label: "Correo",
       tag: "[CORREO]",
+      explica: "Cualquier dirección de correo: algo, arroba, un dominio.",
       cls: "bg-slate-200 text-amber-900",
       re: /[\w.+-]+@[\w-]+\.[\w.]{2,}/g
     },
@@ -7339,6 +7345,7 @@ const anonDetectors = [
       id: "telctx",
       label: "Teléfono",
       tag: "[TELÉFONO]",
+      explica: "Las palabras teléfono, celular o whatsapp seguidas de siete cifras o más.",
       cls: "bg-slate-200 text-amber-900",
       re: /\b(?:tel[eé]fono|tel\.|cel(?:ular)?|whatsapp)\s*:?\s*[\d\s()+-]{7,}/gi
     },
@@ -7346,6 +7353,7 @@ const anonDetectors = [
       id: "tel",
       label: "Teléfono",
       tag: "[TELÉFONO]",
+      explica: "Números con forma de teléfono argentino, con el código de país o sin él.",
       cls: "bg-slate-200 text-amber-900",
       re: /\b(?:\+?54[\s-]?)?(?:9[\s-]?)?\d{3,4}[\s.-]\d{6,7}\b/g
     },
@@ -7353,6 +7361,7 @@ const anonDetectors = [
       id: "exp",
       label: "Expediente",
       tag: "[EXPEDIENTE]",
+      explica: "Las palabras expediente, expte. o autos seguidas de su identificador.",
       cls: "bg-slate-200 text-sky-900",
       re: /\b(?:expte\.?|expediente|autos)\s*(?:n[°º]?\s*)?[\w/.-]*\d[\w/.-]*/gi
     },
@@ -7360,6 +7369,7 @@ const anonDetectors = [
       id: "caratula",
       label: "Carátula",
       tag: "[CARÁTULA]",
+      explica: "La carátula completa, con su «c/» y su «s/»: quién contra quién y por qué.",
       cls: "bg-slate-200 text-sky-900",
       re: /[A-ZÁÉÍÓÚÑ][^\n«»"']{0,70}?\s+c\/\s*[^\n«»"']{0,70}?\s+s\/\s*[^\n«»"']{0,70}?(?=[«»"'\n]|,\s+(?:Expte|expte)|\.\s|$)/g
     },
@@ -7367,6 +7377,7 @@ const anonDetectors = [
       id: "caratula2",
       label: "Carátula",
       tag: "[CARÁTULA]",
+      explica: "Una carátula corta, con «c/» y sin «s/».",
       cls: "bg-slate-200 text-sky-900",
       re: /[A-ZÁÉÍÓÚÑ][^\n«»"'.;]{0,45}?\s+c\/\s*[^\n«»"'.;,]{0,45}/g
     },
@@ -7374,6 +7385,7 @@ const anonDetectors = [
       id: "cas",
       label: "Casillero",
       tag: "[CASILLERO]",
+      explica: "La palabra casillero seguida de su número.",
       cls: "bg-slate-200 text-sky-900",
       re: /\bcasillero\s*(?:n[°º]?\s*)?\d+/gi
     },
@@ -7381,6 +7393,7 @@ const anonDetectors = [
       id: "dom",
       label: "Domicilio",
       tag: "[DOMICILIO]",
+      explica: "Una calle, avenida, pasaje, ruta, bulevar o barrio, con su nombre y su altura.",
       cls: "bg-slate-200 text-sky-900",
       re: /\b(?:[Cc]alle|[Aa]v\.|[Aa]venida|[Pp]asaje|[Rr]uta|[Bb]ulevar|[Bb]arrio)\s+[A-ZÁÉÍÓÚÑ][\wáéíóúñ]*(?:\s+[A-ZÁÉÍÓÚÑa-záéíóúñ]+){0,2}(?:\s+(?:[Nn][°º]?\s*)?\d{1,5})?/g
     },
@@ -7388,6 +7401,7 @@ const anonDetectors = [
       id: "domsin",
       label: "Domicilio",
       tag: "[DOMICILIO]",
+      explica: "Un nombre propio seguido de un número, que suele ser una dirección. Descarta los que en realidad son una ley, un artículo, una acordada, un expediente o un folio.",
       cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '(?!Ley|Art|Art[ií]culo|Acordada|Expediente|Expte|Tomo|Folio|Inciso|Resoluci[oó]n|Acuerdo|Decreto|Fallo|Sentencia|Anexo|Cap[ií]tulo)[A-ZÁÉÍÓÚÑ][a-záéíóúñ]{2,}\\s+(?:al\\s+)?\\d{2,4}' + NA, 'g')
@@ -7396,6 +7410,7 @@ const anonDetectors = [
       id: "loc",
       label: "Localidad",
       tag: "[LOCALIDAD]",
+      explica: "Compara contra una lista de 41 localidades de Río Negro y de la zona.",
       cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '(?:' + lista(anonLocalidades) + ')' + NA, 'g')
@@ -7404,6 +7419,7 @@ const anonDetectors = [
       id: "dominio",
       label: "Dominio",
       tag: "[DOMINIO]",
+      explica: "Patentes de auto, en los dos formatos: tres letras y tres números, o dos, tres y dos.",
       cls: "bg-slate-200 text-sky-900",
       re: /\b[A-Z]{2}\s?\d{3}\s?[A-Z]{2}\b|\b[A-Z]{3}\s?\d{3}\b/g
     },
@@ -7411,6 +7427,7 @@ const anonDetectors = [
       id: "fecha",
       label: "Fecha",
       tag: "[FECHA]",
+      explica: "Fechas escritas con barras o guiones, como 12/03/2024.",
       cls: "bg-slate-200 text-slate-900 underline decoration-2 decoration-slate-500",
       re: /\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b/g
     },
@@ -7418,6 +7435,7 @@ const anonDetectors = [
       id: "fechatxt",
       label: "Fecha",
       tag: "[FECHA]",
+      explica: "Fechas con el mes en palabras, como «12 de marzo», con año o sin año.",
       cls: "bg-slate-200 text-slate-900 underline decoration-2 decoration-slate-500",
       re: null,
       build: () => new RegExp('\\b\\d{1,2}\\s+de\\s+(?:' + anonMeses + ')(?:\\s+de\\s+\\d{4})?\\b', 'gi')
@@ -7426,6 +7444,7 @@ const anonDetectors = [
       id: "edad",
       label: "Edad",
       tag: "[EDAD]",
+      explica: "Una cifra seguida de «años», que en un expediente suele ayudar a identificar.",
       cls: "bg-slate-200 text-slate-900 underline decoration-2 decoration-slate-500",
       re: /\b\d{1,2}\s+a[ñn]os(?:\s+de\s+edad)?\b/gi
     },
@@ -7433,6 +7452,7 @@ const anonDetectors = [
       id: "nna",
       label: "Referencia a NNA",
       tag: "[NNA]",
+      explica: "Las palabras niño, niña, adolescente o menor de edad, que piden un cuidado aparte.",
       cls: "bg-slate-200 text-orange-900",
       re: /\b(?:ni[ñn][oa]s?|ni[ñn]es?|adolescentes?|menor(?:es)?\s+de\s+edad)\b/gi
     },
@@ -7440,6 +7460,7 @@ const anonDetectors = [
       id: "salud",
       label: "Dato de salud",
       tag: "[DATO_SALUD]",
+      explica: "Compara contra una lista de términos de salud: diagnósticos, tratamientos, discapacidad.",
       cls: "bg-slate-200 text-orange-900",
       re: null,
       build: () => new RegExp('\\b(?:' + anonSalud + ')', 'gi')
@@ -7448,6 +7469,7 @@ const anonDetectors = [
       id: "iniciales",
       label: "Iniciales",
       tag: "[PERSONA]",
+      explica: "Dos a cuatro iniciales con punto, como M.J.L., que identifican igual que un nombre.",
       cls: "bg-slate-200 text-sky-900",
       re: /\b(?:[A-ZÁÉÍÓÚÑ]\.){2,4}/g
     },
@@ -7455,6 +7477,7 @@ const anonDetectors = [
       id: "trato",
       label: "Persona con tratamiento",
       tag: "[PERSONA]",
+      explica: "Un tratamiento -Dr., Sra., Lic., Ing.- seguido del nombre que viene detrás.",
       cls: "bg-slate-200 text-sky-900",
       re: /\b(?:Dr|Dra|Sr|Sra|Srta|Lic|Ing|Cdor|Cra)\.?\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+(?:\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,2}/g
     },
@@ -7462,6 +7485,7 @@ const anonDetectors = [
       id: "pila",
       label: "Nombre de pila",
       tag: "[PERSONA]",
+      explica: "Compara contra una lista de 192 nombres de pila, y se lleva también los apellidos que vengan a continuación.",
       cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '(?:' + lista(anonNombres) + ')' + NA + '(?:\\s+(?:de|del|la|las|los)\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+|\\s+[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+){0,3}', 'g')
@@ -7470,6 +7494,7 @@ const anonDetectors = [
       id: "persona",
       label: "Nombre en mayúsculas",
       tag: "[PERSONA]",
+      explica: "Dos o más palabras seguidas en mayúscula sostenida, que es como se escriben las partes en un escrito.",
       cls: "bg-slate-200 text-sky-900",
       re: null,
       build: () => new RegExp(NB + '[A-ZÁÉÍÓÚÑ]{2,}(?:\\s+(?:DE|DEL|LA|LAS|LOS|Y)\\s+|\\s+)[A-ZÁÉÍÓÚÑ]{2,}(?:\\s+[A-ZÁÉÍÓÚÑ]{2,})*' + NA, 'g')
@@ -7567,7 +7592,7 @@ const anonSamples = [
       label: "Demanda civil",
       nivel: "El detector rinde bien",
       hint: "Escrito formal con las convenciones clásicas: nombres en mayúscula sostenida, «calle», DNI con puntos, «Expte. N°». Es el caso favorable.",
-      text: "INICIA DEMANDA POR DAÑOS Y PERJUICIOS\n\nSeñor Juez:\n\nMARÍA EUGENIA TORRES, DNI 28.456.912, con domicilio real en calle Mitre 342, ciudad de General Roca, constituyendo domicilio procesal electrónico en casillero N° 4521, por derecho propio y con el patrocinio letrado de la Dra. Carolina Vega, Tomo XII, Folio 198 del Colegio de Abogados de la IIa. Circunscripción, a V.S. respetuosamente digo:\n\nI.- OBJETO. Que vengo a promover formal demanda por daños y perjuicios contra la MUNICIPALIDAD DE GENERAL ROCA y contra el Sr. Jorge Mendez, DNI 22.891.334, con domicilio en calle Tucumán 567, por la suma de PESOS QUINCE MILLONES ($15.000.000), por los daños derivados del accidente ocurrido el 15/03/2025 en la intersección de Sarmiento y España.\n\nII.- HECHOS. El 15/03/2025, aproximadamente a las 08:30 horas, la actora circulaba a pie cuando el vehículo Renault Kangoo, dominio AB 234 CD, conducido por el codemandado, realizó un giro sin respetar la prioridad peatonal. Como consecuencia sufrió fractura de tibia y peroné, permaneciendo internada doce días. Se acompaña historia clínica del Hospital Francisco López Lima y pericia del Expte. N° 2025-00892-MR. Contacto de la actora: metorres@correo.com, teléfono 298 154-332211."
+      text: "INICIA DEMANDA POR DAÑOS Y PERJUICIOS\n\nSeñor Juez:\n\nMARÍA EUGENIA TORRES, DNI 28.456.912, con domicilio real en calle Mitre 342, ciudad de General Roca, constituyendo domicilio procesal electrónico en casillero N° 4521, por derecho propio y con el patrocinio letrado de la Dra. Carolina Vega, Tomo XII, Folio 198 del Colegio de Abogados de la IIa. Circunscripción, a V.S. respetuosamente digo:\n\nI.- OBJETO. Que vengo a promover formal demanda por daños y perjuicios contra la MUNICIPALIDAD DE GENERAL ROCA y contra el Sr. Jorge Méndez, DNI 22.891.334, con domicilio en calle Tucumán 567, por la suma de PESOS QUINCE MILLONES ($15.000.000), por los daños derivados del accidente ocurrido el 15/03/2025 en la intersección de Sarmiento y España.\n\nII.- HECHOS. El 15/03/2025, aproximadamente a las 08:30 horas, la actora circulaba a pie cuando el vehículo Renault Kangoo, dominio AB 234 CD, conducido por el codemandado, realizó un giro sin respetar la prioridad peatonal. Como consecuencia sufrió fractura de tibia y peroné, permaneciendo internada doce días. Se acompaña historia clínica del Hospital Francisco López Lima y pericia del Expte. N° 2025-00892-MR. Contacto de la actora: metorres@correo.com, teléfono 298 154-332211."
     },
     {
       id: "oficio",
@@ -13337,7 +13362,7 @@ const App = () => {
           herramientas es siempre de quien firma.
         </p>
         <p className="text-xs text-slate-400 mt-2">
-          Sello de construcción 25243928619c. La versión en texto se publica junto con esta y lleva
+          Sello de construcción 190b3c1494e8. La versión en texto se publica junto con esta y lleva
           el mismo sello: si no coinciden, una de las dos está atrasada.
         </p>
       </footer>
