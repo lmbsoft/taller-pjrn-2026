@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio de IA para operadores judiciales · R3</title>
+    <title>Guía interactiva para el uso de IA en el ámbito judicial · R3</title>
     <meta name="description"
         content="Laboratorio autogestionado de inteligencia artificial generativa para el Poder Judicial de Río Negro: fundamentos, anonimización, prompting, verificación en fuentes oficiales, cuadernos sobre fuentes propias y auditoría de resoluciones.">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -477,7 +477,7 @@ const theoryModules = [
         "El marco normativo provincial distingue dos situaciones. Para el personal judicial interno rige la Acordada 15/24, con autorización previa y potestad disciplinaria interna. Para abogados y peritos rige la extensión de la Acordada 22/25, con sanciones procesales directas que el juez puede aplicar y remisión al Colegio Profesional. Los deberes nucleares son los mismos; cambia quién sanciona y cómo.",
         "Hay una distinción práctica que ordena dónde poner el control, y evita el error de exigir revisión en todos lados o en ninguno. Redactar un proyecto, proponer una corrección o armar un listado son acciones que se deshacen: se revisan, se discuten y se rehacen sin consecuencias. Enviar una cédula, publicar una sentencia, borrar un archivo o registrar un movimiento no se deshacen. La pregunta útil no es si la acción es peligrosa -redactar y notificar son la misma acción hasta el último segundo- sino si se puede deshacer, y dónde: guardar encima de un archivo se recupera en una carpeta con historial de versiones y no se recupera en un pendrive. El control va justo antes de lo irreversible, que es exactamente donde está la firma.",
         "Hay una clase de tarea donde ese orden se invierte. Redactar una minuta o resumir un expediente es producir texto: pedís, verificás, firmás. Resolver es otra cosa, porque lo que producís es una decisión, y ahí tu criterio va primero: escribís la resolución, o al menos la parte que decide, y recién entonces se la das a la herramienta para que la audite. El motivo es el mismo de recién, porque lo que no se deshace no siempre es una acción: haber leído lo que dijo la máquina tampoco se deshace, y desde ese momento no podés separar lo que pensaste de lo que leíste. Es la puerta de entrada del sesgo de automatización. Las fichas de la Librería están construidas así: todas reciben un proyecto ya escrito y ninguna produce la decisión.",
-        "El resumen operativo cabe en una línea que conviene tener presente cada vez que se copia un párrafo generado: la herramienta te asiste, vos validás, y lo que firmás es tuyo. Todo lo demás de este laboratorio son técnicas para que esa validación sea más rápida y más confiable, no para reemplazarla."
+        "El resumen operativo cabe en una línea que conviene tener presente cada vez que se copia un párrafo generado: la herramienta te asiste, vos validás, y lo que firmás es tuyo. Todo lo demás de esta guía son técnicas para que esa validación sea más rápida y más confiable, no para reemplazarla."
       ],
       checklist: [
         "Aplicar los cuatro pasos completos: generar, verificar, validar de forma cruzada, firmar.",
@@ -6911,7 +6911,7 @@ const promptItems = [
       title: "La conversación que se contaminó",
       objective: "Evitar que un expediente se filtre en el siguiente.",
       prompt: "Empezá una conversación nueva por cada expediente o asunto. Si necesitás continuidad, pegá un resumen breve del anterior en lugar de arrastrar todo el historial.",
-      why: "El contexto de una conversación larga sigue pesando aunque cambies de tema: aparecen nombres, montos y criterios del asunto anterior mezclados en el nuevo. Una conversación por expediente es la regla más barata de todo el laboratorio."
+      why: "El contexto de una conversación larga sigue pesando aunque cambies de tema: aparecen nombres, montos y criterios del asunto anterior mezclados en el nuevo. Una conversación por expediente es la regla más barata de todas."
     },
     {
       id: "r7",
@@ -13316,7 +13316,7 @@ const App = () => {
             </button>
             <div className="min-w-0">
               <p className="hidden sm:block text-slate-500 font-semibold" style={{ fontSize: '0.62rem', letterSpacing: '0.14em' }}>PODER JUDICIAL DE RÍO NEGRO</p>
-              <h1 className="text-sm sm:text-lg font-bold text-slate-900 leading-tight" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>Laboratorio de IA para operadores judiciales</h1>
+              <h1 className="text-sm sm:text-lg font-bold text-slate-900 leading-tight" style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}>Guía interactiva para el uso de IA en el ámbito judicial</h1>
             </div>
           </div>
           <nav className="flex gap-1" aria-label="Secciones principales">
@@ -13367,7 +13367,7 @@ const App = () => {
           herramientas es siempre de quien firma.
         </p>
         <p className="text-xs text-slate-400 mt-2">
-          Sello de construcción 776d437c6dad. La versión en texto se publica junto con esta y lleva
+          Sello de construcción 3b3e6378b8f2. La versión en texto se publica junto con esta y lleva
           el mismo sello: si no coinciden, una de las dos está atrasada.
         </p>
       </footer>
