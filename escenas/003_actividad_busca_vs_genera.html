@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Busca o genera?</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:16px}
+.selector{display:flex;flex-direction:column;gap:8px;margin-bottom:18px}
+.preg{min-height:48px;padding:12px 14px;border:1.5px solid var(--linea);border-radius:10px;background:var(--tarjeta);font-size:15px;text-align:left;cursor:pointer;color:var(--tinta)}
+.preg.activa{border-color:var(--tinta);background:#eef2f7;font-weight:600}
+.panel{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:16px;margin-bottom:14px}
+.panel h2{font-family:Georgia,serif;font-size:17px;margin-bottom:2px}
+.panel .sub{font-size:12.5px;color:#6b7280;margin-bottom:12px}
+.resultado{border-left:3px solid var(--laton);padding:8px 10px;margin-bottom:8px;background:#faf9f5;border-radius:0 8px 8px 0}
+.resultado .titulo{font-weight:600;font-size:14px;color:#1d4ed8;text-decoration:underline}
+.resultado .url{font-size:11.5px;color:var(--verde);word-break:break-all}
+.resultado .frag{font-size:13px;color:#4a5568}
+.gen-area{min-height:70px;font-size:15px;background:#faf9f5;border:1px dashed var(--linea);border-radius:8px;padding:12px;margin-bottom:10px}
+.gen-area .w{background:#f3e7c9;border-radius:3px;padding:0 2px}
+.gen-area .w.ult{background:#e8c87a}
+.alts{margin-bottom:10px}
+.alts .tit{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6b7280;margin-bottom:6px}
+.alt{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.alt .pal{font-family:ui-monospace,"Courier New",monospace;font-size:13px;min-width:110px;padding:2px 8px;border-radius:5px;background:#eef1f5}
+.alt.elegida .pal{background:var(--tinta);color:#fff;font-weight:700}
+.alt .track{flex:1;height:8px;background:#e7e4da;border-radius:4px;overflow:hidden}
+.alt .fill{height:100%;background:#b9a35e;border-radius:4px}
+.alt.elegida .fill{background:var(--laton)}
+.alt .pct{font-size:11px;color:#6b7280;min-width:34px;text-align:right;font-variant-numeric:tabular-nums}
+.btn{min-height:48px;padding:12px 20px;border:none;border-radius:10px;background:var(--tinta);color:#fff;font-size:15px;font-weight:600;cursor:pointer;width:100%}
+.btn:disabled{opacity:.45}
+.sello{display:inline-block;border:3px solid var(--sello);color:var(--sello);padding:5px 12px;border-radius:6px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:13px;transform:rotate(-3deg);animation:est .35s ease-out;margin-top:10px}
+.sello.verde{border-color:var(--verde);color:var(--verde);margin-top:0}
+@keyframes est{0%{transform:rotate(-3deg) scale(1.7);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;margin-top:16px;font-size:14.5px}
+.moraleja strong{color:#e8c87a}
+.oculto{display:none}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (prefers-reduced-motion:reduce){.sello{animation:none}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 1 · Bloque 2 · Búsqueda vs. Generación</div>
+  <h1>¿Busca o genera?</h1>
+  <p class="instr">Mismo pedido, dos operaciones distintas. El buscador <strong>recupera</strong> páginas que ya existen. El modelo <strong>predice la próxima palabra</strong> — y en cada paso tenía varias opciones sobre la mesa.</p>
+
+  <div class="selector" id="selector"></div>
+
+  <div id="zona" class="oculto">
+    <div class="panel">
+      <h2>🔎 El buscador <span style="font-size:11px;color:var(--verde);font-weight:700">RECUPERA</span></h2>
+      <div class="sub">Te dice <strong>dónde</strong> está la información. Leés y verificás vos.</div>
+      <div id="resultados"></div>
+      <span class="sello verde">Recuperado · con fuente</span>
+    </div>
+    <div class="panel">
+      <h2>✍️ El modelo <span style="font-size:11px;color:var(--sello);font-weight:700">GENERA</span></h2>
+      <div class="sub">Mirá abajo: en cada paso había <strong>opciones con probabilidades</strong>, y eligió una.</div>
+      <div class="gen-area" id="genArea"><span style="color:#9aa1ab;font-style:italic">Tocá "Generar" para ver la predicción palabra por palabra.</span></div>
+      <div class="alts" id="alts"></div>
+      <button class="btn" id="btnGen">Generar respuesta</button>
+      <div id="selloGen"></div>
+    </div>
+  </div>
+
+  <div class="moraleja oculto" id="moraleja">
+    <strong>Lo que hay que llevarse:</strong> el modelo no leyó nada para responder: fue eligiendo la palabra más probable, paso a paso. La coherencia es un subproducto de la estadística, <strong>no una garantía de verdad</strong>. Por eso puede sonar igual de seguro cuando acierta que cuando inventa. Google es una biblioteca que te muestra libros; el modelo es un escritor que redacta algo nuevo.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const DATA = [
+ {q:"¿Qué es la garantía legal en defensa del consumidor?",
+  g:[
+   {t:"Ley 24.240 — texto actualizado, capítulo de garantías",u:"servicios.infoleg.gob.ar › ley-24240",f:"Fuente oficial de la norma vigente."},
+   {t:"Garantía legal: guía práctica — SAIJ",u:"saij.gob.ar › garantia-legal",f:"Documento explicativo con remisión normativa."},
+   {t:"Jurisprudencia sobre garantía — Fallos PJRN",u:"fallos.jusrionegro.gov.ar",f:"Buscador oficial de sentencias de Río Negro."}],
+  toks:[
+   {w:"La",a:[["La",54],["Una",26],["Esta",20]]},
+   {w:"garantía",a:[["garantía",62],["protección",24],["tutela",14]]},
+   {w:"legal",a:[["legal",58],["obligatoria",27],["mínima",15]]},
+   {w:"protege",a:[["protege",44],["ampara",31],["cubre",25]]},
+   {w:"al",a:[["al",70],["a todo",18],["siempre al",12]]},
+   {w:"consumidor",a:[["consumidor",81],["comprador",13],["usuario",6]]},
+   {w:"ante",a:[["ante",47],["frente a",33],["contra",20]]},
+   {w:"defectos",a:[["defectos",52],["vicios",36],["fallas",12]]},
+   {w:"de la cosa.",a:[["de la cosa.",60],["del producto.",28],["adquirida.",12]]}]},
+ {q:"¿Qué plazo tengo para apelar una sentencia civil?",
+  g:[
+   {t:"CPCC de Río Negro — recursos y plazos",u:"web.jusrionegro.gov.ar › normativa",f:"Texto normativo oficial con plazos procesales."},
+   {t:"Cuadro de plazos recursivos — SAIJ",u:"saij.gob.ar › plazos-recursos",f:"Síntesis comparativa por jurisdicción."},
+   {t:"Doctrina: cómputo de plazos procesales",u:"biblioteca.jusrionegro.gov.ar",f:"Artículos indexados por tema."}],
+  toks:[
+   {w:"El",a:[["El",66],["Todo",20],["Ese",14]]},
+   {w:"plazo",a:[["plazo",74],["término",18],["período",8]]},
+   {w:"para",a:[["para",69],["de",21],["a fin de",10]]},
+   {w:"apelar",a:[["apelar",62],["recurrir",30],["impugnar",8]]},
+   {w:"depende",a:[["depende",41],["surge",33],["varía",26]]},
+   {w:"del",a:[["del",72],["de cada",19],["según el",9]]},
+   {w:"código",a:[["código",58],["régimen",27],["fuero",15]]},
+   {w:"procesal",a:[["procesal",77],["aplicable",15],["local",8]]},
+   {w:"aplicable.",a:[["aplicable.",55],["de cada provincia.",30],["vigente.",15]]}]},
+ {q:"¿Qué es una medida cautelar?",
+  g:[
+   {t:"Medidas cautelares — CPCC, articulado vigente",u:"web.jusrionegro.gov.ar › cautelares",f:"Capítulo completo con requisitos y caución."},
+   {t:"Verosimilitud y peligro en la demora — doctrina",u:"saij.gob.ar › cautelares",f:"Análisis de los presupuestos clásicos."},
+   {t:"Jurisprudencia provincial sobre cautelares",u:"fallos.jusrionegro.gov.ar",f:"Sentencias recientes con sumarios."}],
+  toks:[
+   {w:"Una",a:[["Una",63],["La",24],["Toda",13]]},
+   {w:"medida",a:[["medida",78],["decisión",14],["resolución",8]]},
+   {w:"cautelar",a:[["cautelar",82],["precautoria",12],["provisoria",6]]},
+   {w:"busca",a:[["busca",45],["intenta",30],["procura",25]]},
+   {w:"asegurar",a:[["asegurar",57],["garantizar",28],["proteger",15]]},
+   {w:"el",a:[["el",71],["un",17],["aquel",12]]},
+   {w:"resultado",a:[["resultado",61],["objeto",23],["éxito",16]]},
+   {w:"del",a:[["del",74],["de un",16],["de cada",10]]},
+   {w:"proceso.",a:[["proceso.",59],["juicio.",28],["litigio.",13]]}]}
+];
+
+let qSel=null, generando=false;
+const $=id=>document.getElementById(id);
+
+const sel=$('selector');
+DATA.forEach((d,i)=>{
+  const b=document.createElement('button');
+  b.className='preg'; b.textContent=d.q;
+  b.addEventListener('click',()=>{
+    if(generando)return;
+    document.querySelectorAll('.preg').forEach(x=>x.classList.remove('activa'));
+    b.classList.add('activa'); qSel=i;
+    $('zona').classList.remove('oculto');
+    $('moraleja').classList.add('oculto');
+    $('selloGen').innerHTML=''; $('alts').innerHTML='';
+    $('genArea').innerHTML='<span style="color:#9aa1ab;font-style:italic">Tocá "Generar" para ver la predicción palabra por palabra.</span>';
+    $('btnGen').disabled=false;
+    const cont=$('resultados'); cont.innerHTML='';
+    d.g.forEach(r=>{
+      const div=document.createElement('div');
+      div.className='resultado';
+      div.innerHTML='<div class="titulo">'+r.t+'</div><div class="url">'+r.u+'</div><div class="frag">'+r.f+'</div>';
+      cont.appendChild(div);
+    });
+  });
+  sel.appendChild(b);
+});
+
+$('btnGen').addEventListener('click',()=>{
+  if(qSel===null||generando)return;
+  generando=true; $('btnGen').disabled=true;
+  $('genArea').innerHTML=''; $('selloGen').innerHTML='';
+  const toks=DATA[qSel].toks;
+  let i=0;
+  const reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const paso=()=>{
+    const prev=$('genArea').querySelector('.w.ult');
+    if(prev)prev.classList.remove('ult');
+    if(i>=toks.length){
+      $('alts').innerHTML='';
+      $('selloGen').innerHTML='<span class="sello">Texto nuevo · no recuperado</span>';
+      $('moraleja').classList.remove('oculto');
+      generando=false; $('btnGen').disabled=false;
+      return;
+    }
+    const t=toks[i];
+    const s=document.createElement('span');
+    s.className='w ult'; s.textContent=(i?' ':'')+t.w;
+    $('genArea').appendChild(s);
+    $('alts').innerHTML='<div class="tit">Opciones que el modelo consideró en este paso</div>'+
+      t.a.map(([pal,p])=>'<div class="alt'+(pal===t.w?' elegida':'')+'">'+
+        '<span class="pal">'+pal+'</span><div class="track"><div class="fill" style="width:'+p+'%"></div></div>'+
+        '<span class="pct">'+p+'%</span></div>').join('');
+    i++;
+    setTimeout(paso, reduce?40:850);
+  };
+  paso();
+});
+</script>
+</body>
+</html>

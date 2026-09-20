@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Constructor de prompts — TCREI</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,29px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:12px}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.preset{min-height:42px;padding:8px 12px;border:1.5px solid var(--linea);border-radius:20px;background:var(--tarjeta);font-size:12.5px;font-weight:600;cursor:pointer;color:var(--tinta)}
+.preset.activo{border-color:var(--tinta);background:#eef2f7}
+.vago{min-height:42px;padding:8px 12px;border:1.5px solid var(--sello);border-radius:20px;background:#f8efee;font-size:12.5px;font-weight:700;cursor:pointer;color:var(--sello)}
+.vago.on{background:var(--sello);color:#fff}
+.paso{background:var(--tarjeta);border:1.5px solid var(--linea);border-left:5px solid var(--laton);border-radius:10px;padding:12px;margin-bottom:8px}
+.paso h3{font-size:14px;display:flex;align-items:center;gap:8px;margin-bottom:2px}
+.paso .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--laton);color:#fff;font-size:12px;font-weight:800;font-family:Georgia,serif}
+.paso .tip{font-size:11.5px;color:#6b7280;margin-bottom:6px}
+.paso textarea{width:100%;min-height:56px;border:1.5px solid var(--linea);border-radius:8px;padding:8px 10px;font-size:13.5px;font-family:inherit;resize:vertical;background:#faf9f5;color:var(--tinta)}
+.paso textarea:focus{outline:none;border-color:var(--laton);background:#fff}
+.salida{background:#22293a;color:#e7e9ee;border-radius:12px;padding:16px;font-family:ui-monospace,"Courier New",monospace;font-size:13px;line-height:1.6;white-space:pre-wrap;word-break:break-word;min-height:120px;margin:12px 0 8px}
+.salida .k{color:#f0c674;font-weight:700}
+.salida .ph{color:#7e8aa3;font-style:italic}
+.salida .mal{color:#e58f8f}
+.btn{min-height:48px;padding:12px 18px;border:none;border-radius:10px;background:var(--tinta);color:#fff;font-size:14.5px;font-weight:600;cursor:pointer;width:100%}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;margin-top:14px}
+.moraleja strong{color:#e8c87a}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+body.modo-vago .paso{opacity:.45;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 8 · Bloque 2 · Framework TCREI</div>
+  <h1>Armá tu propio prompt profesional</h1>
+  <p class="instr">Cargá un caso de ejemplo o escribí el tuyo real. Los 5 bloques se ensamblan abajo en un prompt completo, <strong>listo para copiar y probar</strong>. Tocá "Versión vaga" para comparar.</p>
+
+  <div class="toolbar">
+    <button class="preset" data-i="0">⚖️ Cláusula de rescisión</button>
+    <button class="preset" data-i="1">📑 Resumen de expediente</button>
+    <button class="preset" data-i="2">🔍 Comparar dos fallos</button>
+    <button class="preset" data-i="3">✉️ Nota a cliente</button>
+    <button class="vago" id="btnVago">Ver versión vaga</button>
+  </div>
+
+  <div class="paso"><h3><span class="num">T</span>TAREA</h3><div class="tip">Rol, acción y formato de salida. Lo primero que el modelo necesita.</div><textarea data-k="t" placeholder="Ej.: Actuá como abogado/a redactor/a. Redactá una cláusula..."></textarea></div>
+  <div class="paso"><h3><span class="num">C</span>CONTEXTO</h3><div class="tip">Jurisdicción, norma aplicable, partes, antecedentes: lo que no podría adivinar.</div><textarea data-k="c" placeholder="Ej.: Contrato de alquiler comercial en Bariloche, Ley 27.551..."></textarea></div>
+  <div class="paso"><h3><span class="num">R</span>REFERENCIAS</h3><div class="tip">Ejemplos del estilo o formato deseado. A qué se tiene que parecer.</div><textarea data-k="r" placeholder='Ej.: Estilo: "TERCERA: PRECIO Y FORMA DE PAGO. Las partes convienen..."'></textarea></div>
+  <div class="paso"><h3><span class="num">E</span>EVALUAR</h3><div class="tip">Criterios contra los que vas a leer la respuesta. ¿Qué debe cumplir sí o sí?</div><textarea data-k="e" placeholder="Ej.: Toda cita debe ser verificable. Sin suposiciones presentadas como hechos."></textarea></div>
+  <div class="paso"><h3><span class="num">I</span>ITERAR</h3><div class="tip">Tu plan B: qué vas a pedir si la salida no convence.</div><textarea data-k="i" placeholder="Ej.: Si el tono queda informal, pedir reescritura. Si falta cita, exigirla o quitarla."></textarea></div>
+
+  <div class="salida" id="salida"></div>
+  <button class="btn" id="btnCopiar">Copiar prompt para probarlo en tu asistente</button>
+
+  <div class="moraleja">
+    <strong>Lo que hay que llevarse:</strong> la diferencia entre una respuesta genérica y una útil casi nunca está en el modelo: está en el pedido. Y los pasos E e I son la mitad del método: el prompting es un <strong>ciclo</strong> (pedís → evaluás → refinás), no un disparo único. Esta plantilla es lo que te llevás para el lunes.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const PRESETS=[
+ {t:"Actuá como abogado/a redactor/a con experiencia en contratos comerciales. Redactá una cláusula de rescisión anticipada en formato jurídico formal, de máximo 300 palabras.",
+  c:"Contrato de alquiler comercial en Bariloche, plazo de 3 años, local gastronómico. Resulta aplicable la Ley 27.551. Las partes quieren prever rescisión con preaviso de 60 días.",
+  r:'Seguí este estilo: "TERCERA: PRECIO Y FORMA DE PAGO. Las partes convienen…". Numeración ordinal en mayúsculas, redacción impersonal.',
+  e:"Debe incluir: plazo de preaviso, penalidad proporcional, forma de notificación. No inventes normas: si citás un artículo, tiene que existir y ser pertinente.",
+  i:"Si la penalidad queda ambigua, pedir reformulación con fórmula de cálculo. Si cita una norma dudosa, exigir verificación o quitarla."},
+ {t:"Actuá como relator/a judicial. Hacé un resumen ejecutivo de las actuaciones principales del expediente que voy a pegar a continuación.",
+  c:"Expediente civil de daños con foliatura, escritos de ambas partes, dos pericias y resoluciones interlocutorias. Destinatario: magistrado/a que no leerá las 300 fojas.",
+  r:"Formato: máximo 8 viñetas cronológicas, cada una con cita de foja. Sección final: 'pendientes detectados'. Sin interpretaciones, solo descripción.",
+  e:"Cada hito debe citar foja. Si un dato no surge del texto, marcarlo como 'no surge'. Prohibido agregar conclusiones propias.",
+  i:"Si incorpora datos no verificables, pedir corrección señalando la viñeta. Si excede 8 viñetas, pedir condensación. Si confunde fechas, rehacer cronología."},
+ {t:"Actuá como asesor/a jurisprudencial. Compará los dos fallos que voy a pegar y armá una tabla de coincidencias y diferencias.",
+  c:"Ambos fallos tratan el cómputo de intereses en reintegro de precio por art. 17 LDC, pero llegan a soluciones distintas. Necesito detectar si el conflicto es real o aparente.",
+  r:"Tabla de 3 columnas: aspecto / fallo A / fallo B. Al final, una nota con tu análisis del conflicto y qué criterio parece más sólido, fundado en el texto.",
+  e:"Todo lo afirmado debe surgir del texto de los fallos. Distinguir holding de obiter dictum. Si un fallo no trata un aspecto, marcar 'no trata'.",
+  i:"Si mezcla los fallos, pedir que identifique cada cita con el fallo de origen. Si opina sin fundar en el texto, pedir el párrafo exacto que sostiene cada afirmación."},
+ {t:"Actuá como redactor/a del estudio. Escribí una nota para un cliente informándole el estado de su causa, en lenguaje claro.",
+  c:"La causa está en etapa de prueba; falta producir una pericia. No hay sentencia ni fecha estimada firme. El cliente no es abogado y está ansioso por novedades.",
+  r:"Tono cordial y profesional. Máximo 200 palabras. Sin tecnicismos ('etapa probatoria' → 'estamos reuniendo las pruebas'). Cerrar con el próximo paso concreto.",
+  e:"Debe: explicar el estado en lenguaje simple, NO prometer resultado ni plazo exacto, indicar el próximo paso. Verificar que ningún tecnicismo quedó sin traducir.",
+  i:"Si promete resultados, suavizar. Si usa jerga, pedir reescritura en lenguaje claro. Si excede 200 palabras, recortar sin perder el próximo paso."}
+];
+const VAGOS=["redactame una cláusula de rescisión","resumime un expediente","compará dos fallos","escribile una nota a mi cliente"];
+const K={t:"TAREA",c:"CONTEXTO",r:"REFERENCIAS",e:"CRITERIOS DE EVALUACIÓN",i:"PLAN DE ITERACIÓN"};
+const campos=['t','c','r','e','i'];
+const inp={};campos.forEach(f=>inp[f]=document.querySelector('textarea[data-k="'+f+'"]'));
+let presetSel=0;
+const $=id=>document.getElementById(id);
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+function render(){
+  const out=$('salida');
+  if(document.body.classList.contains('modo-vago')){
+    out.innerHTML='<span class="k">// Lo que el modelo recibe</span>\n\n<span class="mal">"'+VAGOS[presetSel]+'"</span>\n\n<span class="ph">→ Resultado probable: genérico, sin jurisdicción, sin formato, y con riesgo de citas inventadas para "completar" lo que no le dijiste.</span>';
+    return;
+  }
+  const v={};campos.forEach(f=>v[f]=inp[f].value.trim());
+  if(campos.every(f=>!v[f])){
+    out.innerHTML='<span class="k">// Prompt ensamblado</span>\n<span class="ph">Cargá un ejemplo arriba o escribí tu propio caso.</span>';
+    return;
+  }
+  out.innerHTML='<span class="k">// Prompt ensamblado</span>\n\n'+
+    campos.filter(f=>v[f]).map(f=>'<span class="k">['+K[f]+']</span>\n'+esc(v[f])).join('\n\n');
+}
+
+campos.forEach(f=>inp[f].addEventListener('input',()=>{
+  document.querySelectorAll('.preset').forEach(b=>b.classList.remove('activo'));
+  render();
+}));
+
+document.querySelectorAll('.preset').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('activo'));
+    b.classList.add('activo');
+    presetSel=+b.dataset.i;
+    const p=PRESETS[presetSel];
+    campos.forEach(f=>inp[f].value=p[f]);
+    render();
+  });
+});
+
+$('btnVago').addEventListener('click',()=>{
+  const on=document.body.classList.toggle('modo-vago');
+  $('btnVago').classList.toggle('on',on);
+  $('btnVago').textContent=on?'Volver al prompt estructurado':'Ver versión vaga';
+  render();
+});
+
+$('btnCopiar').addEventListener('click',()=>{
+  const v={};campos.forEach(f=>v[f]=inp[f].value.trim());
+  const txt=campos.filter(f=>v[f]).map(f=>'['+K[f]+']\n'+v[f]).join('\n\n');
+  const fin=()=>{$('btnCopiar').textContent='✓ Copiado — pegalo en tu asistente y evaluá la respuesta';
+    setTimeout(()=>$('btnCopiar').textContent='Copiar prompt para probarlo en tu asistente',2400);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(fin).catch(()=>fb(txt,fin));
+  } else fb(txt,fin);
+});
+function fb(t,fin){
+  const ta=document.createElement('textarea');ta.value=t;
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');fin();}catch(e){}
+  document.body.removeChild(ta);
+}
+render();
+</script>
+</body>
+</html>

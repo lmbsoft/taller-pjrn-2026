@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt maestro para un agente</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(21px,4.8vw,28px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:12px}
+.toolbar{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.preset{min-height:42px;padding:8px 12px;border:1.5px solid var(--linea);border-radius:20px;background:var(--tarjeta);font-size:12.5px;font-weight:600;cursor:pointer;color:var(--tinta)}
+.preset.activo{border-color:var(--tinta);background:#eef2f7}
+.bloque{background:var(--tarjeta);border:1.5px solid var(--linea);border-left:5px solid var(--laton);border-radius:10px;padding:12px;margin-bottom:8px}
+.bloque h3{font-size:13.5px;margin-bottom:2px}
+.bloque .tip{font-size:11.5px;color:#6b7280;margin-bottom:6px}
+.bloque textarea{width:100%;min-height:48px;border:1.5px solid var(--linea);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit;resize:vertical;background:#faf9f5;color:var(--tinta)}
+.bloque textarea:focus{outline:none;border-color:var(--laton);background:#fff}
+.triangulo{background:var(--tarjeta);border:2px dashed var(--laton);border-radius:10px;padding:12px;margin-bottom:8px}
+.triangulo h3{font-size:13.5px;color:#6b5420;margin-bottom:8px}
+.vertice{background:#fdf8ec;border-radius:8px;padding:8px;margin-bottom:8px}
+.vertice:last-child{margin-bottom:0}
+.vertice .vh{font-size:12px;font-weight:700;color:#6b5420;margin-bottom:4px}
+.vertice textarea{width:100%;min-height:44px;border:1px solid #ead9ad;border-radius:6px;padding:6px 8px;font-size:12.5px;font-family:inherit;resize:vertical;background:#fffdf6;color:var(--tinta)}
+.rubrica{background:var(--tarjeta);border:1.5px solid var(--linea);border-left:5px solid var(--verde);border-radius:10px;padding:12px;margin-bottom:8px}
+.rubrica h3{font-size:13.5px;color:var(--verde);margin-bottom:2px}
+.rubrica .tip{font-size:11.5px;color:#6b7280;margin-bottom:8px}
+.rub-fila{display:flex;gap:6px;margin-bottom:6px}
+.rub-fila input{flex:1;min-height:40px;border:1px solid var(--linea);border-radius:6px;padding:6px 9px;font-size:12.5px;font-family:inherit;color:var(--tinta)}
+.rub-fila button{min-width:40px;border:1.5px solid var(--sello);border-radius:6px;background:#f8efee;color:var(--sello);font-size:16px;font-weight:700;cursor:pointer}
+.agregar{min-height:40px;padding:6px 12px;border:1.5px dashed var(--verde);border-radius:8px;background:#f1f6f3;color:var(--verde);font-size:12.5px;font-weight:700;cursor:pointer}
+.frenos{background:#fdf8ec;border:1.5px solid var(--laton);border-radius:10px;padding:10px 12px;display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.frenos input{width:22px;height:22px;margin-top:2px;accent-color:var(--laton)}
+.frenos label{font-size:13px;color:#5a4a1c;font-weight:600;cursor:pointer}
+.salida{background:#22293a;color:#e7e9ee;border-radius:12px;padding:16px;font-family:ui-monospace,"Courier New",monospace;font-size:12.5px;line-height:1.6;white-space:pre-wrap;word-break:break-word;min-height:120px;margin-bottom:8px}
+.salida .k{color:#f0c674;font-weight:700}
+.salida .ph{color:#7e8aa3;font-style:italic}
+.btn{min-height:48px;padding:12px 18px;border:none;border-radius:10px;background:var(--tinta);color:#fff;font-size:14.5px;font-weight:600;cursor:pointer;width:100%}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;margin-top:14px}
+.moraleja strong{color:#e8c87a}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 11 · Bloque 2 · Delegar a un agente</div>
+  <h1>El prompt maestro para un agente</h1>
+  <p class="instr">A un agente no le alcanza un pedido suelto: necesita <strong>meta clara, contexto triangulado, frenos de seguridad y una rúbrica</strong> para autoevaluarse. Cargá un caso de ejemplo y modificalo, o armá el tuyo.</p>
+
+  <div class="toolbar">
+    <button class="preset" data-i="0">🗂 Ordenador de expediente digital</button>
+    <button class="preset" data-i="1">🔍 Verificador de citas</button>
+    <button class="preset" data-i="2">✉️ Redactor de cédulas</button>
+  </div>
+
+  <div class="bloque"><h3>🎯 META</h3><div class="tip">Qué tiene que lograr. Una sola oración, accionable.</div><textarea data-k="meta"></textarea></div>
+  <div class="bloque"><h3>📥 ENTRADAS</h3><div class="tip">Qué le vas a dar: archivos, accesos, identificadores.</div><textarea data-k="ent"></textarea></div>
+  <div class="bloque"><h3>📤 SALIDAS</h3><div class="tip">Formato exacto de lo que te tiene que devolver.</div><textarea data-k="sal"></textarea></div>
+
+  <div class="triangulo">
+    <h3>🔺 Triángulo del contexto</h3>
+    <div class="vertice"><div class="vh">📄 Documentos y fuentes habilitadas</div><textarea data-k="docs" placeholder="Qué puede consultar (y nada más que eso)…"></textarea></div>
+    <div class="vertice"><div class="vh">👤 Situación</div><textarea data-k="sit" placeholder="Juzgado/estudio, urgencia, destinatario, sensibilidad…"></textarea></div>
+    <div class="vertice"><div class="vh">✅ Criterios de éxito</div><textarea data-k="crit" placeholder="Qué define una buena entrega…"></textarea></div>
+  </div>
+
+  <div class="frenos">
+    <input type="checkbox" id="frenos" checked>
+    <label for="frenos">🛑 Incluir frenos de seguridad: no ejecutar acciones destructivas ni externas; proponer antes de actuar; detenerse y preguntar ante ambigüedad; mínima exposición de datos sensibles.</label>
+  </div>
+
+  <div class="rubrica">
+    <h3>📏 Rúbrica de autoevaluación</h3>
+    <div class="tip">Los criterios objetivos que el agente debe verificar antes de entregar. Sin rúbrica, el agente no sabe cuándo terminó. Editá, borrá o agregá.</div>
+    <div id="rubList"></div>
+    <button class="agregar" id="addRub">+ Agregar criterio</button>
+  </div>
+
+  <div class="salida" id="salida"></div>
+  <button class="btn" id="btnCopiar">Copiar prompt maestro</button>
+
+  <div class="moraleja">
+    <strong>Lo que hay que llevarse:</strong> los cinco pilares del agente (meta, planificación, herramientas, contexto, verificación) se traducen en este formato. Dos piezas hacen la diferencia: los <strong>frenos de seguridad</strong> (proponer antes de actuar, preguntar ante la duda, nada externo sin tu aprobación) y la <strong>rúbrica</strong>, que convierte "hacelo bien" en criterios chequeables. La rúbrica es lo que separa a un agente confiable de un chatbot con esteroides.
+  </div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const PRESETS=[
+ {meta:"Proponer una estructura de carpetas para el expediente digital y clasificar sus 43 archivos, sin mover ni borrar nada hasta mi aprobación.",
+  ent:"Acceso de solo lectura a la subcarpeta 'Expte_Perez' (únicamente esa). Criterios de nombrado del juzgado.",
+  sal:"Tabla con: archivo, categoría propuesta, carpeta destino, observaciones. Lista separada de duplicados aparentes y archivos ambiguos marcados 'REVISAR'.",
+  docs:"Solo los archivos de la subcarpeta indicada. No consultar fuentes externas.",
+  sit:"Juzgado civil. Los archivos tienen valor probatorio: nada se modifica sin respaldo previo. Sin urgencia: prioridad a la prudencia.",
+  crit:"Cobertura total (43/43 archivos contemplados), cero modificaciones ejecutadas, ambigüedades señaladas en vez de resueltas por adivinación.",
+  rub:["Los 43 archivos aparecen en la tabla","Ningún archivo fue movido, borrado ni renombrado","Duplicados listados con su ubicación","Casos ambiguos marcados 'REVISAR', no resueltos solo","La propuesta espera aprobación antes de ejecutarse"]},
+ {meta:"Verificar que todas las citas de jurisprudencia y normativa del borrador existan y sostengan lo que el escrito afirma.",
+  ent:"El borrador del escrito (texto completo) y acceso a fallos.jusrionegro.gov.ar, SAIJ e Infoleg.",
+  sal:"Informe: por cada cita → existe / no existe / existe pero dice otra cosa, con enlace a la fuente y transcripción del párrafo pertinente.",
+  docs:"Solo bases oficiales: fallos.jusrionegro, SAIJ, Infoleg. Prohibido 'completar' desde conocimiento propio.",
+  sit:"El escrito se presenta en 48 hs. Un error de cita puede derivar en sanción (Acordada 22/25). Precisión sobre velocidad.",
+  crit:"Toda afirmación del informe respaldada por fuente verificable con enlace. Ninguna cita declarada 'correcta' sin haber abierto el texto original.",
+  rub:["Cada cita tiene veredicto: existe / no existe / contenido distinto","Cada veredicto incluye enlace a fuente oficial","Las discrepancias transcriben el párrafo textual del fallo real","No se modificó el borrador original","Las citas no localizadas se informan, no se 'confirman'"]},
+ {meta:"Preparar borradores de cédulas de notificación para las 12 audiencias de la semana, sin enviar ni cargar nada en el sistema.",
+  ent:"Planilla con: carátula, expediente, domicilio constituido, fecha y hora de cada audiencia. Modelo de cédula del fuero.",
+  sal:"12 borradores en el formato del modelo, cada uno con sus datos completos, listos para mi revisión y carga manual.",
+  docs:"Solo la planilla provista y el modelo de cédula. No buscar domicilios ni datos en otras fuentes.",
+  sit:"Las cédulas son actos de comunicación externa: un error notifica mal a una parte. Por eso el agente prepara y el humano carga.",
+  crit:"Datos copiados exactamente de la planilla (cero invención), formato idéntico al modelo, faltantes señalados en vez de completados por inferencia.",
+  rub:["Cada borrador usa solo datos de la planilla","Formato idéntico al modelo del fuero","Si falta un dato, queda marcado [FALTA], nunca inventado","Ninguna cédula fue enviada ni cargada al sistema","Lista final de pendientes para revisión humana"]}];
+
+const campos=['meta','ent','sal','docs','sit','crit'];
+const ETI={meta:"## META",ent:"## ENTRADAS",sal:"## SALIDAS ESPERADAS"};
+const inp={};campos.forEach(f=>inp[f]=document.querySelector('textarea[data-k="'+f+'"]'));
+let rubricas=[];
+const $=id=>document.getElementById(id);
+const FRENOS="No ejecutes acciones destructivas ni externas (borrar, enviar, cargar, presentar). Antes de cualquier cambio, mostrame un plan y esperá mi aprobación. Si encontrás un caso ambiguo, detenete y preguntame. Usá la mínima información sensible posible.";
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+function renderRub(){
+  const l=$('rubList');l.innerHTML='';
+  rubricas.forEach((r,i)=>{
+    const d=document.createElement('div');
+    d.className='rub-fila';
+    d.innerHTML='<input value="'+r.replace(/"/g,'&quot;')+'"><button aria-label="Quitar criterio">×</button>';
+    l.appendChild(d);
+    d.querySelector('input').addEventListener('input',e=>{rubricas[i]=e.target.value;renderOut();});
+    d.querySelector('button').addEventListener('click',()=>{rubricas.splice(i,1);renderRub();renderOut();});
+  });
+}
+
+function renderOut(){
+  const v={};campos.forEach(f=>v[f]=inp[f].value.trim());
+  const out=$('salida');
+  if(campos.every(f=>!v[f])&&!rubricas.length){
+    out.innerHTML='<span class="k">// PROMPT MAESTRO PARA AGENTE</span>\n<span class="ph">Cargá un caso de ejemplo arriba o empezá a escribir el tuyo.</span>';
+    return;
+  }
+  const partes=[];
+  ['meta','ent','sal'].forEach(f=>{if(v[f])partes.push('<span class="k">'+ETI[f]+'</span>\n'+esc(v[f]));});
+  if(v.docs||v.sit||v.crit){
+    let tri='<span class="k">## CONTEXTO (triángulo)</span>';
+    if(v.docs)tri+='\n• Documentos habilitados: '+esc(v.docs);
+    if(v.sit)tri+='\n• Situación: '+esc(v.sit);
+    if(v.crit)tri+='\n• Criterios de éxito: '+esc(v.crit);
+    partes.push(tri);
+  }
+  if($('frenos').checked)partes.push('<span class="k">## FRENOS DE SEGURIDAD</span>\n'+FRENOS);
+  partes.push('<span class="k">## MODO DE TRABAJO</span>\nPensá con cuidado antes de actuar. Descomponé la tarea en pasos, ejecutá cada uno, y revisá tu salida contra la rúbrica antes de entregar. Si un criterio no se cumple, iterá. Entregá también un registro breve: pasos, fuentes, decisiones y dudas.');
+  if(rubricas.length)partes.push('<span class="k">## RÚBRICA DE AUTOEVALUACIÓN</span>\n'+rubricas.map((r,i)=>'[ ] '+(i+1)+'. '+esc(r)).join('\n'));
+  out.innerHTML='<span class="k">// PROMPT MAESTRO PARA AGENTE</span>\n\n'+partes.join('\n\n');
+}
+
+campos.forEach(f=>inp[f].addEventListener('input',()=>{
+  document.querySelectorAll('.preset').forEach(b=>b.classList.remove('activo'));
+  renderOut();
+}));
+$('frenos').addEventListener('change',renderOut);
+$('addRub').addEventListener('click',()=>{rubricas.push("nuevo criterio chequeable");renderRub();renderOut();});
+
+document.querySelectorAll('.preset').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.preset').forEach(x=>x.classList.remove('activo'));
+    b.classList.add('activo');
+    const p=PRESETS[+b.dataset.i];
+    campos.forEach(f=>inp[f].value=p[f.replace('ent','ent')]!==undefined?p[f]:'');
+    inp.meta.value=p.meta;inp.ent.value=p.ent;inp.sal.value=p.sal;
+    inp.docs.value=p.docs;inp.sit.value=p.sit;inp.crit.value=p.crit;
+    rubricas=[...p.rub];
+    renderRub();renderOut();
+  });
+});
+
+$('btnCopiar').addEventListener('click',()=>{
+  const v={};campos.forEach(f=>v[f]=inp[f].value.trim());
+  const partes=[];
+  if(v.meta)partes.push('## META\n'+v.meta);
+  if(v.ent)partes.push('## ENTRADAS\n'+v.ent);
+  if(v.sal)partes.push('## SALIDAS ESPERADAS\n'+v.sal);
+  if(v.docs||v.sit||v.crit){
+    let t='## CONTEXTO (triángulo)';
+    if(v.docs)t+='\n• Documentos habilitados: '+v.docs;
+    if(v.sit)t+='\n• Situación: '+v.sit;
+    if(v.crit)t+='\n• Criterios de éxito: '+v.crit;
+    partes.push(t);
+  }
+  if($('frenos').checked)partes.push('## FRENOS DE SEGURIDAD\n'+FRENOS);
+  partes.push('## MODO DE TRABAJO\nPensá con cuidado antes de actuar. Descomponé la tarea en pasos, ejecutá cada uno, y revisá tu salida contra la rúbrica antes de entregar. Si un criterio no se cumple, iterá. Entregá también un registro breve: pasos, fuentes, decisiones y dudas.');
+  if(rubricas.length)partes.push('## RÚBRICA DE AUTOEVALUACIÓN\n'+rubricas.map((r,i)=>'[ ] '+(i+1)+'. '+r).join('\n'));
+  const txt=partes.join('\n\n');
+  const fin=()=>{$('btnCopiar').textContent='✓ Copiado — usalo como base con tu agente';
+    setTimeout(()=>$('btnCopiar').textContent='Copiar prompt maestro',2400);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(fin).catch(()=>fbk(txt,fin));
+  } else fbk(txt,fin);
+});
+function fbk(t,fin){
+  const ta=document.createElement('textarea');ta.value=t;
+  document.body.appendChild(ta);ta.select();
+  try{document.execCommand('copy');fin();}catch(e){}
+  document.body.removeChild(ta);
+}
+renderRub();renderOut();
+</script>
+</body>
+</html>

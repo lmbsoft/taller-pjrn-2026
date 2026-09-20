@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taller de IA generativa 2026</title>
+<style>
+  :root {
+    color-scheme: dark;
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: #f8fafc;
+    background: #020617;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 100%; height: 100%; background: #020617; }
+  body { height: 100dvh; max-height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+  button { font: inherit; }
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 62px;
+    padding:
+      max(10px, env(safe-area-inset-top))
+      max(16px, env(safe-area-inset-right))
+      10px
+      max(16px, env(safe-area-inset-left));
+    border-bottom: 1px solid #1e293b;
+    background: #0f172a;
+    flex: 0 0 auto;
+  }
+  .heading { min-width: 0; }
+  .heading strong { display: block; font-size: 15px; }
+  .heading span {
+    display: block;
+    overflow: hidden;
+    color: #94a3b8;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .spacer { flex: 1; }
+  .counter { color: #cbd5e1; font-size: 13px; font-weight: 800; white-space: nowrap; }
+  .control {
+    display: inline-grid;
+    width: 44px;
+    height: 44px;
+    place-items: center;
+    border: 1px solid #334155;
+    border-radius: 9px;
+    color: #f8fafc;
+    background: #1e293b;
+    cursor: pointer;
+    font-weight: 900;
+  }
+  .control:hover:not(:disabled) { background: #334155; }
+  .control:disabled { opacity: .3; cursor: default; }
+  .stage {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: #000;
+    touch-action: pan-y;
+    padding: clamp(4px, 1vmin, 12px);
+  }
+  .stage img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(92%, 1400px);
+    max-height: calc(100% - 24px);
+    object-fit: contain;
+    box-shadow: 0 12px 38px rgba(0, 0, 0, .38);
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  .stage iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #f8fafc;
+  }
+  .loading {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: #94a3b8;
+    background: #020617;
+    font-size: 14px;
+  }
+  .loading.hidden { display: none; }
+  .bottombar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 58px;
+    padding:
+      8px
+      max(16px, env(safe-area-inset-right))
+      max(8px, env(safe-area-inset-bottom))
+      max(16px, env(safe-area-inset-left));
+    border-top: 1px solid #1e293b;
+    background: #0f172a;
+    flex: 0 0 auto;
+  }
+  .progress {
+    flex: 1;
+    height: 5px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: #334155;
+  }
+  .progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: #38bdf8;
+    transition: width 180ms ease;
+  }
+  .hint { color: #94a3b8; font-size: 12px; white-space: nowrap; }
+  @media (max-width: 680px) {
+    .topbar { gap: 8px; min-height: 58px; padding-left: 10px; padding-right: 10px; }
+    .heading strong { font-size: 13px; }
+    .heading span { max-width: 42vw; }
+    .counter { font-size: 12px; }
+    .bottombar { padding-left: 10px; padding-right: 10px; }
+    .hint { display: none; }
+    .stage img { max-width: 100%; max-height: 100%; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="heading">
+      <strong>Taller de IA generativa 2026</strong>
+      <span id="titulo-escena"></span>
+    </div>
+    <div class="spacer"></div>
+    <span class="counter" id="contador"></span>
+    <button class="control" id="anterior" type="button" aria-label="Material anterior">◀</button>
+    <button class="control" id="siguiente" type="button" aria-label="Material siguiente">▶</button>
+  </header>
+
+  <main class="stage" id="stage">
+    <img id="imagen" alt="">
+    <iframe id="actividad" title="Actividad interactiva" sandbox="allow-scripts"></iframe>
+    <div class="loading" id="cargando">Cargando material…</div>
+  </main>
+
+  <footer class="bottombar">
+    <div class="progress" aria-hidden="true"><span id="progreso"></span></div>
+    <span class="hint">Usá ← → para avanzar</span>
+  </footer>
+
+<script>
+const materiales = [
+  ["001_introduccion_ia_generativa.webp", "Introducción a la IA generativa", "imagen"],
+  ["002_busqueda_vs_generacion.webp", "Búsqueda frente a generación", "imagen"],
+  ["003_actividad_busca_vs_genera.html", "Actividad: ¿busca o genera?", "actividad"],
+  ["004_como_se_construye_un_modelo.webp", "Cómo se construye un modelo", "imagen"],
+  ["005_actividad_vos_sos_el_modelo.html", "Actividad: vos sos el modelo", "actividad"],
+  ["006_tokens_contexto_y_memoria.webp", "Tokens, contexto y memoria", "imagen"],
+  ["007_actividad_tokenizador_en_vivo.html", "Actividad: tokenizador en vivo", "actividad"],
+  ["008_actividad_mesa_de_trabajo.html", "Actividad: la mesa de trabajo", "actividad"],
+  ["009_alucinaciones_y_rag.webp", "Alucinaciones y RAG", "imagen"],
+  ["010_actividad_caza_de_alucinaciones.html", "Actividad: caza de alucinaciones", "actividad"],
+  ["011_actividad_alucinacion_vs_rag.html", "Actividad: alucinación frente a RAG", "actividad"],
+  ["012_copiloto_no_oraculo.webp", "Tu copiloto, no tu oráculo", "imagen"],
+  ["013_actividad_calibra_tu_criterio.html", "Actividad: calibrá tu criterio", "actividad"],
+  ["014_prompting_efectivo.webp", "Prompting efectivo", "imagen"],
+  ["015_actividad_constructor_tcrei.html", "Actividad: constructor de prompts TCREI", "actividad"],
+  ["016_claves_para_entender_llms.webp", "Claves para entender y usar LLM", "imagen"],
+  ["017_actividad_detector_de_slop.html", "Actividad: detector de slop", "actividad"],
+  ["018_del_chatbot_al_agente.webp", "Del chatbot al agente", "imagen"],
+  ["019_actividad_chatbot_vs_agente.html", "Actividad: chatbot frente a agente", "actividad"],
+  ["020_actividad_prompt_maestro_agente.html", "Actividad: prompt maestro para un agente", "actividad"],
+  ["021_seguridad_con_agentes.webp", "Seguridad al trabajar con agentes", "imagen"],
+  ["022_actividad_el_agente_pide_permiso.html", "Actividad: el agente pide permiso", "actividad"]
+];
+
+const imagen = document.getElementById("imagen");
+const actividad = document.getElementById("actividad");
+const cargando = document.getElementById("cargando");
+const titulo = document.getElementById("titulo-escena");
+const contador = document.getElementById("contador");
+const anterior = document.getElementById("anterior");
+const siguiente = document.getElementById("siguiente");
+const progreso = document.getElementById("progreso");
+const stage = document.getElementById("stage");
+
+function indiceInicial() {
+  const valor = Number(location.hash.replace("#", ""));
+  return Number.isInteger(valor) && valor >= 1 && valor <= materiales.length ? valor - 1 : 0;
+}
+
+let indice = indiceInicial();
+
+function mostrar(nuevoIndice, actualizarHash = true) {
+  indice = Math.max(0, Math.min(materiales.length - 1, nuevoIndice));
+  const [archivo, nombre, tipo] = materiales[indice];
+  const esImagen = tipo === "imagen";
+
+  titulo.textContent = nombre;
+  contador.textContent = `${indice + 1} / ${materiales.length}`;
+  anterior.disabled = indice === 0;
+  siguiente.disabled = indice === materiales.length - 1;
+  progreso.style.width = `${((indice + 1) / materiales.length) * 100}%`;
+  cargando.textContent = "Cargando material…";
+  cargando.classList.remove("hidden");
+
+  if (esImagen) {
+    actividad.style.display = "none";
+    actividad.removeAttribute("src");
+    imagen.style.display = "block";
+    imagen.alt = nombre;
+    imagen.onload = () => cargando.classList.add("hidden");
+    imagen.onerror = () => { cargando.textContent = "No se pudo cargar la imagen."; };
+    imagen.src = archivo;
+  } else {
+    imagen.style.display = "none";
+    imagen.removeAttribute("src");
+    actividad.style.display = "block";
+    actividad.title = nombre;
+    actividad.onload = () => cargando.classList.add("hidden");
+    actividad.src = archivo;
+  }
+
+  document.title = `${indice + 1}/${materiales.length} · ${nombre}`;
+  if (actualizarHash) history.replaceState(null, "", `#${indice + 1}`);
+}
+
+anterior.addEventListener("click", () => mostrar(indice - 1));
+siguiente.addEventListener("click", () => mostrar(indice + 1));
+
+document.addEventListener("keydown", event => {
+  if (event.key === "ArrowLeft" || event.key === "PageUp") mostrar(indice - 1);
+  if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
+    event.preventDefault();
+    mostrar(indice + 1);
+  }
+});
+
+window.addEventListener("hashchange", () => mostrar(indiceInicial(), false));
+
+let inicioX = 0;
+let inicioY = 0;
+stage.addEventListener("touchstart", event => {
+  if (actividad.style.display !== "none" || event.touches.length !== 1) return;
+  inicioX = event.touches[0].clientX;
+  inicioY = event.touches[0].clientY;
+}, { passive: true });
+stage.addEventListener("touchend", event => {
+  if (actividad.style.display !== "none" || !inicioX) return;
+  const dx = event.changedTouches[0].clientX - inicioX;
+  const dy = event.changedTouches[0].clientY - inicioY;
+  inicioX = 0;
+  inicioY = 0;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+    mostrar(indice + (dx < 0 ? 1 : -1));
+  }
+}, { passive: true });
+
+mostrar(indice);
+</script>
+</body>
+</html>

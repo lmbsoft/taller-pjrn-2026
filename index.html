@@ -2,272 +2,739 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Taller de IA generativa 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Taller de IA generativa · PJRN 2026</title>
+<meta name="description" content="Recorrido narrado sobre inteligencia artificial generativa para profesionales del derecho. Veintidós escenas con audio.">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎧</text></svg>">
 <style>
   :root {
+    --fondo: #020617;
+    --panel: #0f172a;
+    --panel-alto: #1e293b;
+    --borde: #233247;
+    --texto: #f8fafc;
+    --tenue: #94a3b8;
+    --suave: #cbd5e1;
+    --acento: #38bdf8;
+    --acento-fuerte: #0ea5e9;
+    --acento-tenue: #0c4a6e;
     color-scheme: dark;
-    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    color: #f8fafc;
-    background: #020617;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--texto);
+    background: var(--fondo);
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; width: 100%; height: 100%; background: #020617; }
-  body { height: 100dvh; max-height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
-  button { font: inherit; }
+  html, body { margin: 0; width: 100%; height: 100%; background: var(--fondo); }
+  body {
+    height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  button { font: inherit; color: inherit; }
+  [hidden] { display: none !important; }
+  :focus-visible { outline: 2px solid var(--acento); outline-offset: 2px; }
+
+  /* ── barra superior ─────────────────────────────────────── */
   .topbar {
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-height: 62px;
-    padding:
-      max(10px, env(safe-area-inset-top))
-      max(16px, env(safe-area-inset-right))
-      10px
-      max(16px, env(safe-area-inset-left));
-    border-bottom: 1px solid #1e293b;
-    background: #0f172a;
+    gap: 10px;
     flex: 0 0 auto;
+    min-height: 58px;
+    padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
+    border-bottom: 1px solid var(--borde);
+    background: var(--panel);
   }
-  .heading { min-width: 0; }
-  .heading strong { display: block; font-size: 15px; }
-  .heading span {
-    display: block;
-    overflow: hidden;
-    color: #94a3b8;
-    font-size: 12px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  .spacer { flex: 1; }
-  .counter { color: #cbd5e1; font-size: 13px; font-weight: 800; white-space: nowrap; }
-  .control {
-    display: inline-grid;
-    width: 44px;
-    height: 44px;
-    place-items: center;
-    border: 1px solid #334155;
-    border-radius: 9px;
-    color: #f8fafc;
-    background: #1e293b;
-    cursor: pointer;
-    font-weight: 900;
-  }
-  .control:hover:not(:disabled) { background: #334155; }
-  .control:disabled { opacity: .3; cursor: default; }
-  .stage {
-    position: relative;
-    flex: 1;
+  .marca {
+    display: flex;
+    flex-direction: column;
     min-width: 0;
+    flex: 1;
+  }
+  .marca strong { font-size: 15px; line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .marca span { font-size: 11.5px; color: var(--tenue); letter-spacing: .04em; text-transform: uppercase; }
+  .contador { font-size: 13px; font-weight: 800; color: var(--suave); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .icono {
+    display: inline-grid;
+    place-items: center;
+    width: 42px; height: 42px;
+    flex: 0 0 auto;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    background: var(--panel-alto);
+    cursor: pointer;
+  }
+  .icono:hover:not(:disabled) { background: #2b3b52; }
+  .icono:disabled { opacity: .3; cursor: default; }
+  .icono svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ── escenario ──────────────────────────────────────────── */
+  .escenario {
+    position: relative;
+    flex: 1 1 auto;
     min-height: 0;
+    min-width: 0;
     display: grid;
     place-items: center;
     overflow: hidden;
     background: #000;
-    touch-action: pan-y;
     padding: clamp(4px, 1vmin, 12px);
+    touch-action: pan-y;
   }
-  .stage img {
+  .escenario img {
     display: block;
-    width: auto;
-    height: auto;
-    max-width: min(92%, 1400px);
-    max-height: calc(100% - 24px);
+    width: auto; height: auto;
+    max-width: min(96%, 1500px);
+    max-height: 100%;
     object-fit: contain;
-    box-shadow: 0 12px 38px rgba(0, 0, 0, .38);
     user-select: none;
     -webkit-user-drag: none;
   }
-  .stage iframe {
-    display: block;
-    width: 100%;
-    height: 100%;
+  .escenario iframe {
+    width: 100%; height: 100%;
     border: 0;
-    background: #f8fafc;
+    background: #fff;
   }
-  .loading {
+  .cargando {
     position: absolute;
     inset: 0;
     display: grid;
     place-items: center;
-    color: #94a3b8;
-    background: #020617;
+    color: var(--tenue);
     font-size: 14px;
+    background: #000;
+    pointer-events: none;
   }
-  .loading.hidden { display: none; }
-  .bottombar {
+  .cargando.oculto { display: none; }
+
+  /* ── consola de audio ───────────────────────────────────── */
+  .consola {
+    flex: 0 0 auto;
+    padding: 10px max(12px, env(safe-area-inset-right)) 8px max(12px, env(safe-area-inset-left));
+    border-top: 1px solid var(--borde);
+    background: var(--panel);
+  }
+  .pistas {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 9px;
+  }
+  .pistas:empty { display: none; }
+  .pista {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    padding: 7px 10px;
+    border: 1px solid var(--borde);
+    border-radius: 9px;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.2;
+  }
+  .pista b { font-size: 13px; font-weight: 700; }
+  .pista small { font-size: 11px; color: var(--tenue); font-variant-numeric: tabular-nums; }
+  .pista:hover { background: var(--panel-alto); }
+  .pista[aria-selected="true"] {
+    border-color: var(--acento-fuerte);
+    background: var(--acento-tenue);
+  }
+  .pista[aria-selected="true"] small { color: #bae6fd; }
+
+  .transporte {
     display: flex;
     align-items: center;
     gap: 10px;
-    min-height: 58px;
-    padding:
-      8px
-      max(16px, env(safe-area-inset-right))
-      max(8px, env(safe-area-inset-bottom))
-      max(16px, env(safe-area-inset-left));
-    border-top: 1px solid #1e293b;
-    background: #0f172a;
+  }
+  .reproducir {
+    display: inline-grid;
+    place-items: center;
+    width: 52px; height: 52px;
     flex: 0 0 auto;
+    border: 0;
+    border-radius: 50%;
+    background: var(--acento-fuerte);
+    color: #04121c;
+    cursor: pointer;
+    transition: transform .08s ease;
   }
-  .progress {
+  .reproducir:hover { background: #38bdf8; }
+  .reproducir:active { transform: scale(.94); }
+  .reproducir svg { width: 24px; height: 24px; fill: currentColor; stroke: none; }
+  .salto {
+    display: inline-grid;
+    place-items: center;
+    width: 40px; height: 40px;
+    flex: 0 0 auto;
+    border: 1px solid var(--borde);
+    border-radius: 9px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 800;
+    color: var(--suave);
+  }
+  .salto:hover { background: var(--panel-alto); }
+
+  .barra { flex: 1 1 auto; min-width: 0; }
+  .surco {
+    position: relative;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    touch-action: none;
+  }
+  .surco::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--panel-alto);
+  }
+  .avance {
+    position: absolute;
+    left: 0;
+    height: 6px;
+    width: 0%;
+    border-radius: 3px;
+    background: var(--acento);
+  }
+  .perilla {
+    position: absolute;
+    left: 0;
+    width: 13px; height: 13px;
+    margin-left: -6.5px;
+    border-radius: 50%;
+    background: var(--texto);
+    box-shadow: 0 0 0 3px rgba(2, 6, 23, .7);
+    pointer-events: none;
+  }
+  .tiempos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11.5px;
+    color: var(--tenue);
+    font-variant-numeric: tabular-nums;
+    margin-top: 1px;
+  }
+  .velocidad {
+    flex: 0 0 auto;
+    min-width: 46px;
+    padding: 9px 6px;
+    border: 1px solid var(--borde);
+    border-radius: 9px;
+    background: transparent;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--suave);
+  }
+  .velocidad:hover { background: var(--panel-alto); }
+
+  .aviso {
+    margin: 7px 0 0;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: var(--tenue);
+  }
+  .aviso.oculto { display: none; }
+
+  /* ── barra inferior ─────────────────────────────────────── */
+  .bottombar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px max(12px, env(safe-area-inset-right)) max(8px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    border-top: 1px solid var(--borde);
+    background: var(--panel);
+  }
+  .progreso-taller {
     flex: 1;
-    height: 5px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--panel-alto);
     overflow: hidden;
-    border-radius: 999px;
-    background: #334155;
   }
-  .progress span {
+  .progreso-taller span {
     display: block;
-    width: 0;
     height: 100%;
-    border-radius: inherit;
-    background: #38bdf8;
-    transition: width 180ms ease;
+    width: 0%;
+    background: var(--acento);
+    transition: width .2s ease;
   }
-  .hint { color: #94a3b8; font-size: 12px; white-space: nowrap; }
-  @media (max-width: 680px) {
-    .topbar { gap: 8px; min-height: 58px; padding-left: 10px; padding-right: 10px; }
-    .heading strong { font-size: 13px; }
-    .heading span { max-width: 42vw; }
-    .counter { font-size: 12px; }
-    .bottombar { padding-left: 10px; padding-right: 10px; }
-    .hint { display: none; }
-    .stage img { max-width: 100%; max-height: 100%; box-shadow: none; }
+
+  /* ── índice lateral ─────────────────────────────────────── */
+  .indice {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    background: rgba(2, 6, 23, .72);
+  }
+  .indice[open] { display: block; }
+  .indice-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: min(380px, 88vw);
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--borde);
+    background: var(--panel);
+  }
+  .indice-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 14px 12px;
+    border-bottom: 1px solid var(--borde);
+  }
+  .indice-cabecera h2 { margin: 0; flex: 1; font-size: 15px; }
+  .indice-lista { flex: 1; overflow-y: auto; padding: 8px; }
+  .indice-item {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    line-height: 1.3;
+  }
+  .indice-item:hover { background: var(--panel-alto); }
+  .indice-item[aria-current="true"] { background: var(--acento-tenue); }
+  .indice-item i {
+    flex: 0 0 auto;
+    width: 26px;
+    font-style: normal;
+    font-size: 11px;
+    font-weight: 800;
+    color: var(--tenue);
+    font-variant-numeric: tabular-nums;
+  }
+  .indice-item span { flex: 1; font-size: 13.5px; }
+  .indice-item em {
+    flex: 0 0 auto;
+    font-style: normal;
+    font-size: 10.5px;
+    color: var(--tenue);
+    font-variant-numeric: tabular-nums;
+  }
+  .indice-pie {
+    padding: 12px 14px max(12px, env(safe-area-inset-bottom));
+    border-top: 1px solid var(--borde);
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--tenue);
+  }
+  .indice-pie kbd {
+    display: inline-block;
+    min-width: 17px;
+    padding: 1px 5px;
+    border: 1px solid var(--borde);
+    border-radius: 4px;
+    background: var(--panel-alto);
+    font: inherit;
+    font-size: 10.5px;
+    text-align: center;
+    color: var(--suave);
+  }
+
+  @media (max-width: 560px) {
+    .marca span { display: none; }
+    .reproducir { width: 46px; height: 46px; }
+    .salto { width: 36px; height: 36px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
   }
 </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="heading">
-      <strong>Taller de IA generativa 2026</strong>
-      <span id="titulo-escena"></span>
+
+<header class="topbar">
+  <button class="icono" id="anterior" type="button" aria-label="Escena anterior">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+  </button>
+  <div class="marca">
+    <strong id="titulo-escena">…</strong>
+    <span id="tipo-escena">Taller de IA generativa</span>
+  </div>
+  <span class="contador" id="contador">— / 22</span>
+  <button class="icono" id="abrir-indice" type="button" aria-label="Ver el índice de escenas" aria-haspopup="dialog">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+  </button>
+  <button class="icono" id="siguiente" type="button" aria-label="Escena siguiente">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+  </button>
+</header>
+
+<main class="escenario" id="escenario">
+  <img id="imagen" alt="" hidden>
+  <iframe id="actividad" title="Actividad interactiva" sandbox="allow-scripts" hidden></iframe>
+  <div class="cargando" id="cargando">Cargando escena…</div>
+</main>
+
+<section class="consola" aria-label="Audio de la escena">
+  <div class="pistas" id="pistas" role="tablist" aria-label="Bloques de audio"></div>
+
+  <div class="transporte">
+    <button class="reproducir" id="reproducir" type="button" aria-label="Reproducir">
+      <svg id="icono-reproducir" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <button class="salto" id="retroceder" type="button" aria-label="Retroceder quince segundos">−15</button>
+    <div class="barra">
+      <div class="surco" id="surco" role="slider" tabindex="0"
+           aria-label="Posición del audio" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="avance" id="avance"></div>
+        <div class="perilla" id="perilla"></div>
+      </div>
+      <div class="tiempos"><span id="t-actual">0:00</span><span id="t-total">0:00</span></div>
     </div>
-    <div class="spacer"></div>
-    <span class="counter" id="contador"></span>
-    <button class="control" id="anterior" type="button" aria-label="Material anterior">◀</button>
-    <button class="control" id="siguiente" type="button" aria-label="Material siguiente">▶</button>
-  </header>
+    <button class="salto" id="adelantar" type="button" aria-label="Adelantar quince segundos">+15</button>
+    <button class="velocidad" id="velocidad" type="button" aria-label="Velocidad de reproducción">1×</button>
+  </div>
 
-  <main class="stage" id="stage">
-    <img id="imagen" alt="">
-    <iframe id="actividad" title="Actividad interactiva" sandbox="allow-scripts"></iframe>
-    <div class="loading" id="cargando">Cargando material…</div>
-  </main>
+  <p class="aviso oculto" id="aviso"></p>
+</section>
 
-  <footer class="bottombar">
-    <div class="progress" aria-hidden="true"><span id="progreso"></span></div>
-    <span class="hint">Usá ← → para avanzar</span>
-  </footer>
+<footer class="bottombar">
+  <div class="progreso-taller" aria-hidden="true"><span id="progreso"></span></div>
+</footer>
+
+<div class="indice" id="indice" role="dialog" aria-modal="true" aria-label="Índice de escenas">
+  <div class="indice-panel">
+    <div class="indice-cabecera">
+      <h2>Escenas</h2>
+      <button class="icono" id="cerrar-indice" type="button" aria-label="Cerrar el índice">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <div class="indice-lista" id="indice-lista"></div>
+    <div class="indice-pie">
+      <kbd>←</kbd> <kbd>→</kbd> cambian de escena · <kbd>espacio</kbd> reproduce o pausa ·
+      <kbd>J</kbd> <kbd>L</kbd> saltan quince segundos · <kbd>Esc</kbd> cierra este panel.
+    </div>
+  </div>
+</div>
+
+<audio id="audio" preload="metadata"></audio>
 
 <script>
-const materiales = [
-  ["001_introduccion_ia_generativa.webp", "Introducción a la IA generativa", "imagen"],
-  ["002_busqueda_vs_generacion.webp", "Búsqueda frente a generación", "imagen"],
-  ["003_actividad_busca_vs_genera.html", "Actividad: ¿busca o genera?", "actividad"],
-  ["004_como_se_construye_un_modelo.webp", "Cómo se construye un modelo", "imagen"],
-  ["005_actividad_vos_sos_el_modelo.html", "Actividad: vos sos el modelo", "actividad"],
-  ["006_tokens_contexto_y_memoria.webp", "Tokens, contexto y memoria", "imagen"],
-  ["007_actividad_tokenizador_en_vivo.html", "Actividad: tokenizador en vivo", "actividad"],
-  ["008_actividad_mesa_de_trabajo.html", "Actividad: la mesa de trabajo", "actividad"],
-  ["009_alucinaciones_y_rag.webp", "Alucinaciones y RAG", "imagen"],
-  ["010_actividad_caza_de_alucinaciones.html", "Actividad: caza de alucinaciones", "actividad"],
-  ["011_actividad_alucinacion_vs_rag.html", "Actividad: alucinación frente a RAG", "actividad"],
-  ["012_copiloto_no_oraculo.webp", "Tu copiloto, no tu oráculo", "imagen"],
-  ["013_actividad_calibra_tu_criterio.html", "Actividad: calibrá tu criterio", "actividad"],
-  ["014_prompting_efectivo.webp", "Prompting efectivo", "imagen"],
-  ["015_actividad_constructor_tcrei.html", "Actividad: constructor de prompts TCREI", "actividad"],
-  ["016_claves_para_entender_llms.webp", "Claves para entender y usar LLM", "imagen"],
-  ["017_actividad_detector_de_slop.html", "Actividad: detector de slop", "actividad"],
-  ["018_del_chatbot_al_agente.webp", "Del chatbot al agente", "imagen"],
-  ["019_actividad_chatbot_vs_agente.html", "Actividad: chatbot frente a agente", "actividad"],
-  ["020_actividad_prompt_maestro_agente.html", "Actividad: prompt maestro para un agente", "actividad"],
-  ["021_seguridad_con_agentes.webp", "Seguridad al trabajar con agentes", "imagen"],
-  ["022_actividad_el_agente_pide_permiso.html", "Actividad: el agente pide permiso", "actividad"]
+"use strict";
+
+const ESCENAS = [
+  {id:"001", tipo:"imagen", titulo:"Introducción a la IA generativa", archivo:"001_introduccion_ia_generativa.png", pistas:[["unico","001.mp3",332.4]]},
+  {id:"002", tipo:"imagen", titulo:"Búsqueda frente a generación", archivo:"002_busqueda_vs_generacion.png", pistas:[["unico","002.mp3",378.4]]},
+  {id:"003", tipo:"actividad", titulo:"¿Busca o genera?", archivo:"003_actividad_busca_vs_genera.html", pistas:[["apertura","003-apertura.mp3",63.0], ["cierre","003-cierre.mp3",154.6]]},
+  {id:"004", tipo:"imagen", titulo:"Cómo se construye un modelo", archivo:"004_como_se_construye_un_modelo.png", pistas:[["unico","004.mp3",331.7]]},
+  {id:"005", tipo:"actividad", titulo:"Vos sos el modelo", archivo:"005_actividad_vos_sos_el_modelo.html", pistas:[["apertura","005-apertura.mp3",46.6], ["cierre","005-cierre.mp3",159.4]]},
+  {id:"006", tipo:"imagen", titulo:"Tokens, contexto y memoria", archivo:"006_tokens_contexto_y_memoria.png", pistas:[["unico","006.mp3",333.1]]},
+  {id:"007", tipo:"actividad", titulo:"Tokenizador en vivo", archivo:"007_actividad_tokenizador_en_vivo.html", pistas:[["apertura","007-apertura.mp3",44.5], ["cierre","007-cierre.mp3",116.5]]},
+  {id:"008", tipo:"actividad", titulo:"La mesa de trabajo", archivo:"008_actividad_mesa_de_trabajo.html", pistas:[["apertura","008-apertura.mp3",47.0], ["cierre","008-cierre.mp3",128.0]]},
+  {id:"009", tipo:"imagen", titulo:"Alucinaciones y RAG", archivo:"009_alucinaciones_y_rag.png", pistas:[["unico","009.mp3",298.3]]},
+  {id:"010", tipo:"actividad", titulo:"Caza de alucinaciones", archivo:"010_actividad_caza_de_alucinaciones.html", pistas:[["apertura","010-apertura.mp3",42.0], ["cierre","010-cierre.mp3",137.1]]},
+  {id:"011", tipo:"actividad", titulo:"Alucinación frente a RAG", archivo:"011_actividad_alucinacion_vs_rag.html", pistas:[["apertura","011-apertura.mp3",49.8], ["cierre","011-cierre.mp3",160.1]]},
+  {id:"012", tipo:"imagen", titulo:"Tu copiloto, no tu oráculo", archivo:"012_copiloto_no_oraculo.png", pistas:[["unico","012.mp3",274.1]]},
+  {id:"013", tipo:"actividad", titulo:"Calibrá tu criterio", archivo:"013_actividad_calibra_tu_criterio.html", pistas:[["apertura","013-apertura.mp3",39.7], ["cierre","013-cierre.mp3",153.3]]},
+  {id:"014", tipo:"imagen", titulo:"Prompting efectivo", archivo:"014_prompting_efectivo.png", pistas:[["unico","014.mp3",221.5]]},
+  {id:"015", tipo:"actividad", titulo:"Constructor de prompts TCREI", archivo:"015_actividad_constructor_tcrei.html", pistas:[["apertura","015-apertura.mp3",59.1], ["cierre","015-cierre.mp3",154.2]]},
+  {id:"016", tipo:"imagen", titulo:"Claves para entender y usar modelos de lenguaje", archivo:"016_claves_para_entender_llms.png", pistas:[["unico","016.mp3",260.2]]},
+  {id:"017", tipo:"actividad", titulo:"Detector de slop", archivo:"017_actividad_detector_de_slop.html", pistas:[["apertura","017-apertura.mp3",49.9], ["cierre","017-cierre.mp3",155.2]]},
+  {id:"018", tipo:"imagen", titulo:"Del chatbot al agente", archivo:"018_del_chatbot_al_agente.png", pistas:[["unico","018.mp3",254.2]]},
+  {id:"019", tipo:"actividad", titulo:"Chatbot frente a agente", archivo:"019_actividad_chatbot_vs_agente.html", pistas:[["apertura","019-apertura.mp3",54.3], ["cierre","019-cierre.mp3",150.8]]},
+  {id:"020", tipo:"actividad", titulo:"Prompt maestro para un agente", archivo:"020_actividad_prompt_maestro_agente.html", pistas:[["apertura","020-apertura.mp3",77.8], ["cierre","020-cierre.mp3",150.5]]},
+  {id:"021", tipo:"imagen", titulo:"Seguridad al trabajar con agentes", archivo:"021_seguridad_con_agentes.png", pistas:[["unico","021.mp3",255.1]]},
+  {id:"022", tipo:"actividad", titulo:"El agente pide permiso", archivo:"022_actividad_el_agente_pide_permiso.html", pistas:[["apertura","022-apertura.mp3",60.0], ["cierre","022-cierre.mp3",174.5]]}
 ];
 
-const imagen = document.getElementById("imagen");
-const actividad = document.getElementById("actividad");
-const cargando = document.getElementById("cargando");
-const titulo = document.getElementById("titulo-escena");
-const contador = document.getElementById("contador");
-const anterior = document.getElementById("anterior");
-const siguiente = document.getElementById("siguiente");
-const progreso = document.getElementById("progreso");
-const stage = document.getElementById("stage");
+const ETIQUETA = {
+  unico:    { nombre: "Escuchar la escena", aviso: "" },
+  apertura: { nombre: "Apertura",           aviso: "Escuchá la apertura, hacé la actividad con calma y recién después reproducí el cierre." },
+  cierre:   { nombre: "Cierre",             aviso: "El cierre retoma lo que acabás de hacer y fija la idea." }
+};
 
-function indiceInicial() {
-  const valor = Number(location.hash.replace("#", ""));
-  return Number.isInteger(valor) && valor >= 1 && valor <= materiales.length ? valor - 1 : 0;
+const VELOCIDADES = [1, 1.25, 1.5, 0.75];
+
+const $ = (id) => document.getElementById(id);
+const audio = $("audio");
+const imagen = $("imagen");
+const actividad = $("actividad");
+const cargando = $("cargando");
+const pistasCaja = $("pistas");
+const aviso = $("aviso");
+const surco = $("surco");
+const avance = $("avance");
+const perilla = $("perilla");
+const iconoReproducir = $("icono-reproducir");
+const indice = $("indice");
+
+let escenaActual = 0;
+let pistaActual = 0;
+let velocidad = 0;
+let arrastrando = false;
+
+const reloj = (s) => {
+  if (!isFinite(s) || s < 0) s = 0;
+  const m = Math.floor(s / 60);
+  return m + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+};
+
+/* ── índice de escenas ─────────────────────────────────────── */
+function construirIndice() {
+  const lista = $("indice-lista");
+  ESCENAS.forEach((e, i) => {
+    const seg = e.pistas.reduce((t, p) => t + p[2], 0);
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "indice-item";
+    b.innerHTML = `<i>${e.id}</i><span></span><em>${reloj(seg)}</em>`;
+    b.querySelector("span").textContent = e.titulo;
+    b.addEventListener("click", () => { cerrarIndice(); mostrar(i); });
+    lista.appendChild(b);
+  });
+}
+function marcarIndice() {
+  [...$("indice-lista").children].forEach((b, i) =>
+    b.setAttribute("aria-current", i === escenaActual ? "true" : "false"));
+}
+function abrirIndice() {
+  indice.setAttribute("open", "");
+  marcarIndice();
+  const activo = $("indice-lista").children[escenaActual];
+  if (activo) activo.scrollIntoView({ block: "center" });
+  $("cerrar-indice").focus();
+}
+function cerrarIndice() {
+  indice.removeAttribute("open");
+  $("abrir-indice").focus();
 }
 
-let indice = indiceInicial();
+/* ── pistas de la escena ───────────────────────────────────── */
+function construirPistas() {
+  const e = ESCENAS[escenaActual];
+  pistasCaja.innerHTML = "";
+  if (e.pistas.length < 2) { actualizarAviso(); return; }
+  e.pistas.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "pista";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", String(i === pistaActual));
+    b.innerHTML = `<b></b><small>${reloj(p[2])}</small>`;
+    b.querySelector("b").textContent = ETIQUETA[p[0]].nombre;
+    b.addEventListener("click", () => elegirPista(i, true));
+    pistasCaja.appendChild(b);
+  });
+  actualizarAviso();
+}
+function marcarPistas() {
+  [...pistasCaja.children].forEach((b, i) =>
+    b.setAttribute("aria-selected", String(i === pistaActual)));
+}
+function actualizarAviso() {
+  const p = ESCENAS[escenaActual].pistas[pistaActual];
+  const texto = p ? ETIQUETA[p[0]].aviso : "";
+  aviso.textContent = texto;
+  aviso.classList.toggle("oculto", !texto);
+}
 
-function mostrar(nuevoIndice, actualizarHash = true) {
-  indice = Math.max(0, Math.min(materiales.length - 1, nuevoIndice));
-  const [archivo, nombre, tipo] = materiales[indice];
-  const esImagen = tipo === "imagen";
+function elegirPista(i, reproducir) {
+  const e = ESCENAS[escenaActual];
+  pistaActual = Math.max(0, Math.min(e.pistas.length - 1, i));
+  const p = e.pistas[pistaActual];
+  audio.pause();
+  audio.src = "audio/" + p[1];
+  audio.playbackRate = VELOCIDADES[velocidad];
+  $("t-total").textContent = reloj(p[2]);
+  $("t-actual").textContent = "0:00";
+  pintarAvance(0);
+  marcarPistas();
+  actualizarAviso();
+  pintarBoton();
+  if (reproducir) audio.play().catch(() => {});
+}
 
-  titulo.textContent = nombre;
-  contador.textContent = `${indice + 1} / ${materiales.length}`;
-  anterior.disabled = indice === 0;
-  siguiente.disabled = indice === materiales.length - 1;
-  progreso.style.width = `${((indice + 1) / materiales.length) * 100}%`;
-  cargando.textContent = "Cargando material…";
-  cargando.classList.remove("hidden");
+/* ── transporte ────────────────────────────────────────────── */
+function pintarBoton() {
+  const sonando = !audio.paused && !audio.ended && audio.readyState > 0;
+  iconoReproducir.innerHTML = sonando
+    ? '<path d="M7 5h4v14H7zM13 5h4v14h-4z"/>'
+    : '<path d="M8 5v14l11-7z"/>';
+  $("reproducir").setAttribute("aria-label", sonando ? "Pausar" : "Reproducir");
+}
+function pintarAvance(fraccion) {
+  const pct = Math.max(0, Math.min(1, fraccion)) * 100;
+  avance.style.width = pct + "%";
+  perilla.style.left = pct + "%";
+  surco.setAttribute("aria-valuenow", Math.round(pct));
+}
+function alternar() {
+  if (audio.paused) audio.play().catch(() => {}); else audio.pause();
+}
+function saltar(seg) {
+  if (!isFinite(audio.duration)) return;
+  audio.currentTime = Math.max(0, Math.min(audio.duration, audio.currentTime + seg));
+}
+function buscarEn(evento) {
+  const r = surco.getBoundingClientRect();
+  const x = (evento.touches ? evento.touches[0].clientX : evento.clientX) - r.left;
+  const f = Math.max(0, Math.min(1, x / r.width));
+  pintarAvance(f);
+  if (isFinite(audio.duration)) {
+    audio.currentTime = f * audio.duration;
+    $("t-actual").textContent = reloj(audio.currentTime);
+  }
+}
 
+/* ── cambio de escena ──────────────────────────────────────── */
+function mostrar(i, actualizarHash = true) {
+  escenaActual = Math.max(0, Math.min(ESCENAS.length - 1, i));
+  const e = ESCENAS[escenaActual];
+  const esImagen = e.tipo === "imagen";
+
+  audio.pause();
+  audio.removeAttribute("src");
+  audio.load();
+  pistaActual = 0;
+
+  $("titulo-escena").textContent = e.titulo;
+  $("tipo-escena").textContent = esImagen ? "Escena narrada" : "Actividad interactiva";
+  $("contador").textContent = `${escenaActual + 1} / ${ESCENAS.length}`;
+  $("anterior").disabled = escenaActual === 0;
+  $("siguiente").disabled = escenaActual === ESCENAS.length - 1;
+  $("progreso").style.width = ((escenaActual + 1) / ESCENAS.length) * 100 + "%";
+  document.title = `${escenaActual + 1}/${ESCENAS.length} · ${e.titulo}`;
+
+  cargando.textContent = "Cargando escena…";
+  cargando.classList.remove("oculto");
+
+  const ruta = "escenas/" + e.archivo;
   if (esImagen) {
-    actividad.style.display = "none";
+    actividad.hidden = true;
     actividad.removeAttribute("src");
-    imagen.style.display = "block";
-    imagen.alt = nombre;
-    imagen.onload = () => cargando.classList.add("hidden");
+    imagen.hidden = false;
+    imagen.alt = e.titulo;
+    imagen.onload = () => cargando.classList.add("oculto");
     imagen.onerror = () => { cargando.textContent = "No se pudo cargar la imagen."; };
-    imagen.src = archivo;
+    imagen.src = ruta;
   } else {
-    imagen.style.display = "none";
+    imagen.hidden = true;
     imagen.removeAttribute("src");
-    actividad.style.display = "block";
-    actividad.title = nombre;
-    actividad.onload = () => cargando.classList.add("hidden");
-    actividad.src = archivo;
+    actividad.hidden = false;
+    actividad.title = e.titulo;
+    actividad.onload = () => cargando.classList.add("oculto");
+    actividad.src = ruta;
   }
 
-  document.title = `${indice + 1}/${materiales.length} · ${nombre}`;
-  if (actualizarHash) history.replaceState(null, "", `#${indice + 1}`);
+  construirPistas();
+  elegirPista(0, false);
+  marcarIndice();
+  if (actualizarHash) history.replaceState(null, "", "#" + (escenaActual + 1));
 }
 
-anterior.addEventListener("click", () => mostrar(indice - 1));
-siguiente.addEventListener("click", () => mostrar(indice + 1));
+/* ── eventos ───────────────────────────────────────────────── */
+audio.addEventListener("play", pintarBoton);
+audio.addEventListener("pause", pintarBoton);
+audio.addEventListener("ended", () => {
+  pintarBoton();
+  const e = ESCENAS[escenaActual];
+  if (pistaActual === 0 && e.pistas.length > 1) elegirPista(1, false);
+});
+audio.addEventListener("timeupdate", () => {
+  if (arrastrando || !isFinite(audio.duration)) return;
+  pintarAvance(audio.currentTime / audio.duration);
+  $("t-actual").textContent = reloj(audio.currentTime);
+});
+audio.addEventListener("loadedmetadata", () => {
+  if (isFinite(audio.duration)) $("t-total").textContent = reloj(audio.duration);
+  audio.playbackRate = VELOCIDADES[velocidad];
+});
+audio.addEventListener("error", () => {
+  if (audio.getAttribute("src")) $("t-total").textContent = "audio no disponible";
+});
 
-document.addEventListener("keydown", event => {
-  if (event.key === "ArrowLeft" || event.key === "PageUp") mostrar(indice - 1);
-  if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") {
-    event.preventDefault();
-    mostrar(indice + 1);
+$("reproducir").addEventListener("click", alternar);
+$("retroceder").addEventListener("click", () => saltar(-15));
+$("adelantar").addEventListener("click", () => saltar(15));
+$("velocidad").addEventListener("click", () => {
+  velocidad = (velocidad + 1) % VELOCIDADES.length;
+  audio.playbackRate = VELOCIDADES[velocidad];
+  $("velocidad").textContent = String(VELOCIDADES[velocidad]).replace(".", ",") + "×";
+});
+
+surco.addEventListener("pointerdown", (ev) => {
+  arrastrando = true;
+  surco.setPointerCapture(ev.pointerId);
+  buscarEn(ev);
+});
+surco.addEventListener("pointermove", (ev) => { if (arrastrando) buscarEn(ev); });
+surco.addEventListener("pointerup", () => { arrastrando = false; });
+surco.addEventListener("pointercancel", () => { arrastrando = false; });
+surco.addEventListener("keydown", (ev) => {
+  if (ev.key === "ArrowLeft" || ev.key === "ArrowRight") {
+    ev.preventDefault();
+    ev.stopPropagation();
+    saltar(ev.key === "ArrowLeft" ? -5 : 5);
   }
 });
 
-window.addEventListener("hashchange", () => mostrar(indiceInicial(), false));
+$("anterior").addEventListener("click", () => mostrar(escenaActual - 1));
+$("siguiente").addEventListener("click", () => mostrar(escenaActual + 1));
+$("abrir-indice").addEventListener("click", abrirIndice);
+$("cerrar-indice").addEventListener("click", cerrarIndice);
+indice.addEventListener("click", (ev) => { if (ev.target === indice) cerrarIndice(); });
 
-let inicioX = 0;
-let inicioY = 0;
-stage.addEventListener("touchstart", event => {
-  if (actividad.style.display !== "none" || event.touches.length !== 1) return;
-  inicioX = event.touches[0].clientX;
-  inicioY = event.touches[0].clientY;
-}, { passive: true });
-stage.addEventListener("touchend", event => {
-  if (actividad.style.display !== "none" || !inicioX) return;
-  const dx = event.changedTouches[0].clientX - inicioX;
-  const dy = event.changedTouches[0].clientY - inicioY;
-  inicioX = 0;
-  inicioY = 0;
-  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) {
-    mostrar(indice + (dx < 0 ? 1 : -1));
+document.addEventListener("keydown", (ev) => {
+  if (ev.target.matches("input, textarea, select")) return;
+  if (indice.hasAttribute("open")) {
+    if (ev.key === "Escape") cerrarIndice();
+    return;
   }
+  switch (ev.key) {
+    case "ArrowLeft": case "PageUp":   mostrar(escenaActual - 1); break;
+    case "ArrowRight": case "PageDown": mostrar(escenaActual + 1); break;
+    case " ": ev.preventDefault(); alternar(); break;
+    case "j": case "J": saltar(-15); break;
+    case "l": case "L": saltar(15); break;
+    case "i": case "I": abrirIndice(); break;
+  }
+});
+
+window.addEventListener("hashchange", () => mostrar(desdeHash(), false));
+
+/* deslizar para cambiar de escena, solo sobre imágenes */
+let x0 = 0, y0 = 0;
+$("escenario").addEventListener("touchstart", (ev) => {
+  if (!actividad.hidden || ev.touches.length !== 1) return;
+  x0 = ev.touches[0].clientX;
+  y0 = ev.touches[0].clientY;
+}, { passive: true });
+$("escenario").addEventListener("touchend", (ev) => {
+  if (!actividad.hidden || !x0) return;
+  const dx = ev.changedTouches[0].clientX - x0;
+  const dy = ev.changedTouches[0].clientY - y0;
+  x0 = 0; y0 = 0;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.4) mostrar(escenaActual + (dx < 0 ? 1 : -1));
 }, { passive: true });
 
-mostrar(indice);
+function desdeHash() {
+  const n = Number(location.hash.replace("#", ""));
+  return Number.isInteger(n) && n >= 1 && n <= ESCENAS.length ? n - 1 : 0;
+}
+
+construirIndice();
+mostrar(desdeHash(), false);
 </script>
 </body>
 </html>

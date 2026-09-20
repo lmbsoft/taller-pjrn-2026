@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vos sos el modelo</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.stems{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.stems button{min-height:44px;padding:8px 14px;border:1.5px solid var(--linea);border-radius:22px;background:var(--tarjeta);font-size:13.5px;font-weight:600;cursor:pointer;color:var(--tinta)}
+.stems button.activo{border-color:var(--tinta);background:#eef2f7}
+.frase{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:16px;font-family:Georgia,serif;font-size:clamp(17px,3.4vw,21px);line-height:1.6;min-height:90px;margin-bottom:12px}
+.frase .eleg{background:#f3e7c9;border-radius:4px;padding:0 3px}
+.cursor{display:inline-block;width:2px;height:1em;background:var(--laton);vertical-align:middle;margin-left:3px;animation:par 1s steps(2) infinite}
+@keyframes par{50%{opacity:0}}
+.prog{font-size:12.5px;color:#6b7280;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.ops{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.op{min-height:64px;border:1.5px solid var(--linea);border-radius:10px;background:var(--tarjeta);cursor:pointer;text-align:left;padding:10px 12px;color:var(--tinta)}
+.op:active{border-color:var(--laton)}
+.op .pal{font-weight:700;font-size:15px;display:block;margin-bottom:6px}
+.op .track{height:7px;background:#e7e4da;border-radius:4px;overflow:hidden;margin-bottom:3px}
+.op .fill{height:100%;background:var(--laton);border-radius:4px}
+.op .pct{font-size:11px;color:#6b7280;font-variant-numeric:tabular-nums}
+.final{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:16px}
+.sello{display:inline-block;border:3px solid var(--laton);color:var(--laton);padding:5px 12px;border-radius:6px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;font-size:13px;transform:rotate(-3deg);animation:est .35s ease-out;margin-bottom:10px}
+@keyframes est{0%{transform:rotate(-3deg) scale(1.7);opacity:0}100%{transform:rotate(-3deg) scale(1);opacity:1}}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;margin-top:10px}
+.moraleja strong{color:#e8c87a}
+.btn-sec{min-height:44px;padding:10px 16px;border:1.5px solid var(--tinta);border-radius:10px;background:transparent;color:var(--tinta);font-size:14px;font-weight:600;cursor:pointer;margin-top:12px;width:100%}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+@media (max-width:420px){.ops{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.sello{animation:none}.cursor{animation:none}}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 2 · Bloque 2 · Cómo se genera el texto</div>
+  <h1>Vos sos el modelo</h1>
+  <p class="instr">Elegí un comienzo de texto judicial. En cada paso vas a ver las opciones que un modelo "consideraría", con sus probabilidades. <strong>Elegí vos la próxima palabra.</strong> Al final, miramos qué escribiste.</p>
+
+  <div class="stems" id="stems"></div>
+  <div class="prog" id="prog"></div>
+  <div class="frase" id="frase"></div>
+  <div class="ops" id="ops"></div>
+  <div id="final"></div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const STEMS=[
+ {label:"Proveído judicial",seed:"Atento el estado de autos,",steps:[
+   [["córrase",46],["dése",28],["pase",16],["téngase",10]],
+   [["traslado",58],["vista",24],["intervención",12],["cuenta",6]],
+   [["a la",52],["al",30],["a ambas",12],["a su",6]],
+   [["contraria",44],["demandada",32],["actora",16],["defensa",8]],
+   [["por el",51],["en el",27],["dentro del",15],["bajo el",7]],
+   [["plazo de ley.",55],["término de cinco días.",28],["plazo procesal.",11],["plazo de rigor.",6]]]},
+ {label:"Inicio de demanda",seed:"Vengo a promover demanda de",steps:[
+   [["daños",43],["cumplimiento",27],["desalojo",18],["amparo",12]],
+   [["y perjuicios",62],["materiales",20],["punitivos",10],["directos",8]],
+   [["contra",70],["respecto de",16],["en perjuicio de",9],["hacia",5]],
+   [["la firma",41],["el señor",30],["la aseguradora",19],["el Estado",10]],
+   [["demandada,",48],["citada,",26],["accionada,",18],["referida,",8]],
+   [["conforme",44],["en virtud de",29],["según",17],["a tenor de",10]],
+   [["los hechos que expongo.",52],["el relato que sigue.",26],["lo que se dirá.",14],["la prueba ofrecida.",8]]]},
+ {label:"Recomendación de la IA",seed:"Recomiendo hacer lugar al reclamo porque",steps:[
+   [["la prueba",45],["los hechos",28],["el derecho",17],["la pericia",10]],
+   [["acredita",51],["demuestra",27],["sugiere",14],["confirma",8]],
+   [["el incumplimiento",47],["el daño",30],["la responsabilidad",15],["la mora",8]],
+   [["de la demandada",58],["del proveedor",22],["de la contraria",13],["del Estado",7]],
+   [["y",61],["aunque",18],["pero",13],["por lo cual",8]],
+   [["corresponde indemnizar.",49],["procede la condena.",27],["el reclamo es fundado.",16],["así se resolverá.",8]]]}
+];
+let cur=0,step=0,eleg=[];
+const $=id=>document.getElementById(id);
+
+const bar=$('stems');
+STEMS.forEach((s,i)=>{
+  const b=document.createElement('button');
+  b.textContent=s.label;
+  if(i===0)b.classList.add('activo');
+  b.addEventListener('click',()=>{
+    cur=i;document.querySelectorAll('.stems button').forEach((x,j)=>x.classList.toggle('activo',j===i));
+    reset();
+  });
+  bar.appendChild(b);
+});
+
+function reset(){step=0;eleg=[];$('final').innerHTML='';render();}
+
+function render(){
+  const s=STEMS[cur];
+  $('frase').innerHTML=s.seed+' '+eleg.map(w=>'<span class="eleg">'+w+'</span>').join(' ')+'<span class="cursor"></span>';
+  if(step>=s.steps.length){
+    $('ops').innerHTML='';$('prog').textContent='';
+    const full=s.seed+' '+eleg.join(' ');
+    $('final').innerHTML='<div class="final"><span class="sello">Texto generado</span>'+
+      '<div style="font-family:Georgia,serif;font-size:16px;font-style:italic;margin-bottom:10px">«'+full+'»</div>'+
+      '<div class="moraleja"><strong>Acabás de generar texto exactamente como lo hace un LLM.</strong> No sabías qué ibas a "decir" hasta que lo fuiste eligiendo, palabra por palabra, entre opciones con probabilidades. El modelo hace lo mismo — solo que calcula esas probabilidades sobre miles de millones de parámetros y elige con una pizca de azar. No hay comprensión ni consulta a una base de datos: <strong>hay predicción</strong>. Por eso el texto puede salir perfectamente coherente… y factualmente falso.</div>'+
+      '<button class="btn-sec" id="otra">↻ Generar otra versión</button></div>';
+    $('otra').addEventListener('click',reset);
+    return;
+  }
+  $('prog').textContent='Paso '+(step+1)+' de '+s.steps.length+' — elegí la próxima palabra:';
+  const opc=s.steps[step];
+  $('ops').innerHTML=opc.map((c,i)=>'<button class="op" data-i="'+i+'">'+
+    '<span class="pal">'+c[0]+'</span><div class="track"><div class="fill" style="width:'+c[1]+'%"></div></div>'+
+    '<span class="pct">probabilidad '+c[1]+'%</span></button>').join('');
+  document.querySelectorAll('.op').forEach(b=>{
+    b.addEventListener('click',()=>{
+      eleg.push(opc[+b.dataset.i][0]);step++;render();
+    });
+  });
+}
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calibrá tu criterio</title>
+<style>
+:root{--papel:#f2f1ec;--tinta:#1f2a37;--sello:#9c2b2e;--laton:#8a6d2f;--verde:#2e6b4f;--ambar:#b07a23;--linea:#d9d6cc;--tarjeta:#fff}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.5;padding:16px 14px 40px}
+.marco{max-width:620px;margin:0 auto}
+.eyebrow{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--laton);font-weight:600}
+h1{font-family:Georgia,serif;font-size:clamp(22px,5vw,30px);margin:4px 0 6px}
+.instr{font-size:14px;color:#4a5568;margin-bottom:14px}
+.barra-wrap{height:8px;background:#e7e4da;border-radius:4px;overflow:hidden;margin-bottom:14px}
+.barra{height:100%;width:0;background:var(--verde);transition:width .3s}
+.tarjeta{background:var(--tarjeta);border:1.5px solid var(--linea);border-radius:12px;padding:18px}
+.caso{font-family:Georgia,serif;font-size:17.5px;margin-bottom:14px;line-height:1.45}
+.ops{display:grid;gap:8px}
+.op{min-height:54px;padding:10px 14px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;text-align:left;border:2px solid var(--linea);background:#faf9f5;color:var(--tinta)}
+.op:disabled{cursor:default;opacity:.55}
+.op.elegida{border-color:var(--tinta);background:#eef2f7;opacity:1}
+.op.ok{border-color:var(--verde);background:#eef5f0;color:var(--verde);opacity:1}
+.op.parcial{border-color:var(--ambar);background:#fbf3e3;color:#7a5c14;opacity:1}
+.op.mal{border-color:var(--sello);background:#f8efee;color:var(--sello);opacity:1}
+.fb{margin-top:14px;border-radius:10px;padding:12px 14px;font-size:14px;display:none}
+.fb.ok{background:#eef5f0;border-left:5px solid var(--verde)}
+.fb.parcial{background:#fbf3e3;border-left:5px solid var(--ambar)}
+.fb.mal{background:#f8efee;border-left:5px solid var(--sello)}
+.btn-sig{display:block;width:100%;min-height:48px;border:none;border-radius:10px;background:var(--tinta);color:#fff;font-size:15px;font-weight:600;cursor:pointer;margin-top:12px}
+.final{text-align:center}
+.final .nota{font-family:Georgia,serif;font-size:42px;margin:8px 0;color:var(--laton)}
+.moraleja{background:#1f2a37;color:#f2f1ec;border-radius:12px;padding:16px;font-size:14.5px;text-align:left;margin-top:12px}
+.moraleja strong{color:#e8c87a}
+footer{margin-top:26px;font-size:11px;color:#9aa1ab;text-align:center}
+</style>
+</head>
+<body>
+<div class="marco">
+  <div class="eyebrow">Actividad 7 · Bloque 2 · Copiloto, no oráculo</div>
+  <h1>Calibrá tu criterio</h1>
+  <p class="instr">Seis situaciones reales de tu trabajo. Para cada una elegí: <strong>🤖 lo delego</strong>, <strong>📝 lo uso de borrador (y reviso)</strong>, o <strong>🚫 no lo uso para esto</strong>. No es un examen: es para autocalibrarte.</p>
+
+  <div class="barra-wrap"><div class="barra" id="barra"></div></div>
+  <div id="zona"></div>
+
+  <footer>Taller IAGen · Poder Judicial de Río Negro · 2026</footer>
+</div>
+
+<script>
+const CASOS=[
+ {q:"Te llega un expediente de 300 fojas y necesitás un panorama inicial en una hora.",
+  correcta:"borrador",parciales:[],
+  fb:{borrador:["ok","Caso de uso ideal: resumir volumen es donde el modelo brilla. Pedile criterios claros (hitos con foja, sin interpretaciones) y revisá que no haya inventado ni omitido nada crítico."],
+      delego:["mal","Riesgoso: si delegás sin revisar, podés apoyarte en un resumen con conclusiones que el modelo agregó solo. La revisión humana no es opcional."],
+      "no uso":["parcial","Te perdés la mejor aplicación de la herramienta. Con revisión posterior, el riesgo es bajo y el ahorro de tiempo enorme."]}},
+ {q:"Tenés que afirmar en un escrito cuál es el valor vigente del Jus para calcular una multa.",
+  correcta:"no uso",parciales:["borrador"],
+  fb:{"no uso":["ok","Correcto: es un dato que cambia con frecuencia y el modelo no conoce la versión vigente. Va directo a la fuente oficial del STJRN."],
+      borrador:["parcial","Podés usarlo para estructurar el cálculo, pero el número lo sacás vos de la resolución vigente, nunca de la respuesta del modelo."],
+      delego:["mal","Si el modelo te da un valor desactualizado y firmás, el error es tuyo. Datos que se actualizan periódicamente = fuente oficial siempre."]}},
+ {q:"Recibiste un caso con datos de salud de un menor y querés ayuda para redactar una presentación.",
+  correcta:"no uso",parciales:[],
+  fb:{"no uso":["ok","Correcto. Datos sensibles de menores no se cargan a plataformas externas: pilar 5 del Protocolo (Acordada 15/24) y Ley 25.326. Anonimizá completamente o redactá sin la herramienta."],
+      borrador:["mal","Aunque pidas 'solo la estructura', si pegás los datos del caso en un servicio externo ya los expusiste. La sensibilidad del dato manda sobre la comodidad."],
+      delego:["mal","Grave: puede configurar violación del deber de confidencialidad y del Protocolo de Buenas Prácticas. Esto es exactamente lo que la Acordada prohíbe."]}},
+ {q:"Tu cliente te pide que le expliques 'en criollo' qué significa la cláusula de rescisión de su contrato.",
+  correcta:"borrador",parciales:["delego"],
+  fb:{borrador:["ok","Excelente uso: traducir lenguaje técnico a lenguaje claro es fortaleza del modelo. Verificá que la simplificación no haya alterado el alcance jurídico antes de enviarla."],
+      delego:["parcial","Aceptable por el bajo riesgo, pero una simplificación puede cambiar el sentido legal sin que se note. Una leída tuya antes de mandar no se negocia."],
+      "no uso":["parcial","Es de las tareas más seguras y útiles. Con tu revisión final, el riesgo es mínimo."]}},
+ {q:"Necesitás citar textualmente un artículo del CCyCN en un dictamen.",
+  correcta:"no uso",parciales:["borrador"],
+  fb:{"no uso":["ok","Correcto: para citas textuales, fuente oficial siempre (Infoleg, SAIJ). El modelo parafrasea bien, pero puede cambiar una palabra o un inciso — y en un dictamen eso importa."],
+      borrador:["parcial","Como pista para ubicar el artículo, sirve. Pero el texto que transcribís lo copiás de la fuente oficial, no de la respuesta."],
+      delego:["mal","Las citas textuales son donde más alucina: agrega incisos, altera números, mezcla redacciones viejas y nuevas. Riesgo profesional alto."]}},
+ {q:"Escribiste vos un párrafo para un escrito y querés mejorar su redacción.",
+  correcta:"delego",parciales:["borrador"],
+  fb:{delego:["ok","Perfecto: pulir estilo de algo que ya pensaste vos es lo más seguro que existe. Pedile tres versiones, elegí y ajustá. El contenido jurídico ya lo controlaste vos."],
+      borrador:["ok","También válido — cualquier uso revisado funciona acá. Riesgo bajísimo."],
+      "no uso":["parcial","Te privás del uso más cotidiano: un corrector de estilo disponible 24/7 para texto que ya es tuyo."]}}
+];
+const LBL={delego:"🤖 Lo delego al modelo",borrador:"📝 Lo uso de borrador y reviso","no uso":"🚫 No lo uso para esto"};
+let cur=0,pts=0;
+const $=id=>document.getElementById(id);
+
+function render(){
+  $('barra').style.width=(cur/CASOS.length*100)+'%';
+  if(cur>=CASOS.length)return final();
+  const c=CASOS[cur];
+  $('zona').innerHTML='<div class="tarjeta"><div class="caso">'+(cur+1)+'. '+c.q+'</div>'+
+    '<div class="ops">'+Object.keys(LBL).map(k=>'<button class="op" data-k="'+k+'">'+LBL[k]+'</button>').join('')+'</div>'+
+    '<div class="fb" id="fb"></div>'+
+    '<button class="btn-sig" id="sig" style="display:none">'+(cur===CASOS.length-1?'Ver resultado':'Siguiente situación')+'</button></div>';
+  document.querySelectorAll('.op').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const k=b.dataset.k;
+      document.querySelectorAll('.op').forEach(x=>{
+        x.disabled=true;
+        const xk=x.dataset.k;
+        if(xk===c.correcta)x.classList.add('ok');
+        else if(c.parciales.includes(xk))x.classList.add('parcial');
+        if(xk===k&&xk!==c.correcta&&!c.parciales.includes(xk))x.classList.add('mal');
+        if(xk===k)x.classList.add('elegida');
+      });
+      const[tipo,txt]=c.fb[k];
+      if(tipo==='ok')pts++;else if(tipo==='parcial')pts+=0.5;
+      const fb=$('fb');
+      fb.className='fb '+tipo;fb.style.display='block';
+      fb.innerHTML='<strong>'+(tipo==='ok'?'✓ Buen criterio. ':tipo==='parcial'?'± Aceptable, con matices. ':'✗ Ojo acá. ')+'</strong>'+txt;
+      $('sig').style.display='block';
+      $('sig').addEventListener('click',()=>{cur++;render();});
+    });
+  });
+}
+
+function final(){
+  $('barra').style.width='100%';
+  const p=pts/CASOS.length;
+  const msg=p>=0.8?"Tenés muy buen olfato para distinguir dónde el modelo ayuda y dónde es riesgo profesional."
+    :p>=0.5?"Vas bien, pero conviene afinar: los datos que cambian con el tiempo y los datos sensibles son las dos zonas rojas."
+    :"Releé los feedbacks: el criterio profesional no se delega, y los datos sensibles no salen a servicios externos.";
+  $('zona').innerHTML='<div class="tarjeta final">'+
+    '<div style="font-size:13px;color:#6b7280">Tu calibración</div>'+
+    '<div class="nota">'+(pts%1===0?pts:pts.toFixed(1))+' / '+CASOS.length+'</div>'+
+    '<div style="font-size:14.5px;color:#374151;margin-bottom:8px">'+msg+'</div>'+
+    '<div class="moraleja"><strong>La brújula de tres preguntas:</strong> ¿es tarea de lenguaje (resumir, traducir, redactar)? → borrador con revisión. ¿Es un dato que cambia o una cita textual? → fuente oficial. ¿Hay datos sensibles o decisión profesional? → no entra al modelo. Y todo lo que sale con tu firma, pasó antes por tus ojos.</div>'+
+    '<button class="btn-sig" id="re">↻ Probar otra vez</button></div>';
+  $('re').addEventListener('click',()=>{cur=0;pts=0;render();});
+}
+render();
+</script>
+</body>
+</html>
